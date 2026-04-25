@@ -23,20 +23,12 @@
   body {
     @apply font-sans text-slate-900 bg-white antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
-    /* Alineación natural a la izquierda — estándar SaaS moderno */
-    text-align: left;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium tracking-tight;
-    /* Hereda color del contexto (oscuro/claro) */
+    /* Color heredado del contexto (negro sobre claro / blanco sobre oscuro) */
     color: inherit;
-    text-align: left;
-  }
-
-  /* Párrafos con alineación natural a la izquierda */
-  p {
-    text-align: left;
   }
 
   ::selection {
@@ -76,4 +68,3 @@
            prose-a:text-teal-700 prose-a:no-underline hover:prose-a:underline;
   }
 }
-
