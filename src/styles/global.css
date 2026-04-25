@@ -35,7 +35,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-medium tracking-tight text-slate-900;
+    @apply font-medium tracking-tight;
+    /* No fijamos color para que herede según el contexto (oscuro/claro) */
+    color: inherit;
     /* Los títulos NO se justifican, ni se cortan con guiones */
     text-align: left;
     hyphens: none;
@@ -101,3 +103,4 @@
     text-align: left;
   }
 }
+
