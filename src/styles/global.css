@@ -25,10 +25,10 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
+  /* Por defecto los títulos llevan tipografía media y tracking ajustado.
+     NO tocamos color ni text-align: que cada bloque decida con clases Tailwind. */
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium tracking-tight;
-    /* Color heredado del contexto (negro sobre claro / blanco sobre oscuro) */
-    color: inherit;
   }
 
   ::selection {
