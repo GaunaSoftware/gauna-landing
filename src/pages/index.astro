@@ -1,0 +1,138 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Logo from '@components/Logo.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Gauna — Estudio de software para el transporte"
+  description="Gauna es un estudio pequeño de software especializado en herramientas para profesionales del transporte. Conoce TransGest y los productos en camino."
+>
+  <!-- HERO: presentación breve de Gauna -->
+  <section class="relative pt-20 md:pt-32 pb-20 md:pb-28 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-50/40 via-transparent to-transparent pointer-events-none"></div>
+
+    <div class="container-g relative">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-full mb-8">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          <span class="text-sm font-medium text-slate-700">Estudio de software para el transporte</span>
+        </div>
+
+        <h1 class="text-display-md md:text-display-lg lg:text-display-xl font-medium text-slate-900 leading-[1.05]">
+          Construimos las herramientas que el sector del transporte <span class="text-teal-700">necesita</span>.
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-600 mt-8 max-w-2xl mx-auto leading-relaxed">
+          Gauna es un estudio pequeño de software especializado en herramientas para profesionales del transporte. Construido por y para gente del sector.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/transgest/" class="btn-primary">
+            Conoce TransGest
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a href="/sobre-nosotros/" class="btn-secondary">
+            Sobre nosotros
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTO DESTACADO: TransGest (resumen breve) -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="eyebrow">Nuestro producto principal</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+            TransGest
+          </h2>
+          <p class="text-lg text-slate-600 mt-4 max-w-xl mx-auto leading-relaxed">
+            Un sistema de gestión integral para empresas de transporte por carretera, con IA aplicada y conforme a la normativa española.
+          </p>
+        </div>
+
+        <a href="/transgest/" class="group block bg-white border border-slate-200 hover:border-teal-400 hover:shadow-md rounded-2xl p-8 md:p-10 transition-all">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <span class="text-xs font-medium tracking-wider uppercase text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">
+              En desarrollo activo
+            </span>
+            <span class="inline-flex items-center gap-1 text-sm font-medium text-teal-700 group-hover:gap-2 transition-all opacity-0 group-hover:opacity-100">
+              Ver producto
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-6">
+            <div>
+              <div class="text-sm font-medium text-slate-900 mb-1">Para quién</div>
+              <p class="text-sm text-slate-600 leading-relaxed">Autónomos, pymes y gestorías del transporte por carretera.</p>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-slate-900 mb-1">Qué incluye</div>
+              <p class="text-sm text-slate-600 leading-relaxed">Rutas con IA, nóminas, CMR digital, Verifactu y DCD 2026.</p>
+            </div>
+            <div>
+              <div class="text-sm font-medium text-slate-900 mb-1">Estado</div>
+              <p class="text-sm text-slate-600 leading-relaxed">Beta abierta con 20 plazas y dos años de licencia gratuita.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÁS PRODUCTOS EN CAMINO -->
+  <section class="py-16 md:py-20">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="eyebrow">Y lo que viene</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Más herramientas<br>en camino.
+        </h2>
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          Estamos desarrollando más herramientas para todos los ámbitos del sector. Cada una pensada para resolver una necesidad real.
+        </p>
+
+        <div class="mt-10">
+          <a href="/sobre-nosotros/" class="inline-flex items-center gap-2 text-base font-medium text-teal-700 hover:text-teal-900 transition-colors">
+            Conoce más sobre Gauna
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-20 md:py-24 bg-teal-900 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-display-sm md:text-display-md font-medium leading-tight">
+          ¿Quieres formar parte<br>del proyecto?
+        </h2>
+        <p class="text-lg md:text-xl text-teal-50 mt-6 leading-relaxed">
+          El programa Beta Tester de TransGest tiene 20 plazas con dos años de licencia gratuita. Si tu experiencia puede aportar al producto, queremos conocerte.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/beta-tester/" class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+            Únete como beta tester
+          </a>
+          <a href="/contacto/" class="inline-flex items-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+            Habla con nosotros
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

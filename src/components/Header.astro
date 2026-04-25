@@ -1,0 +1,162 @@
+---
+import Logo from './Logo.astro';
+
+// Cuando TransGest esté operativo y los clientes tengan acceso,
+// cambia CLIENT_PORTAL_ENABLED a true. Después: git push → Vercel redespliega solo.
+const CLIENT_PORTAL_ENABLED = false;
+const CLIENT_PORTAL_URL = 'https://app.gauna.es';
+
+// Productos del menú desplegable
+const products = [
+  {
+    href: '/transgest/',
+    name: 'TransGest',
+    description: 'TMS integral para empresas de transporte',
+    status: 'En desarrollo',
+  },
+];
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/dcd-2026/', label: 'Guía DCD 2026' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/sobre-nosotros/', label: 'Sobre nosotros' },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+  <div class="container-g flex items-center justify-between h-16 md:h-20 gap-6 lg:gap-12">
+    <a href="/" class="flex items-center flex-shrink-0" aria-label="Inicio">
+      <Logo variant="compact" class="h-8 md:h-9 w-auto" />
+    </a>
+
+    <nav class="hidden md:flex items-center gap-5 lg:gap-7 flex-1 justify-center" aria-label="Principal">
+      <a href="/" class="text-sm font-medium text-slate-900 hover:text-teal-700 transition-colors">Inicio</a>
+
+      <div class="relative group">
+        <button
+          type="button"
+          class="flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
+          aria-expanded="false"
+          aria-haspopup="true"
+        >
+          Productos
+          <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-150 absolute left-1/2 -translate-x-1/2 top-full pt-3 w-72">
+          <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-2">
+            {products.map((p) => (
+              <a href={p.href} class="block p-3 rounded-lg hover:bg-slate-50 transition-colors">
+                <div class="flex items-start justify-between gap-2 mb-1">
+                  <span class="font-medium text-slate-900">{p.name}</span>
+                  <span class="text-[10px] font-medium tracking-wider uppercase text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+                    {p.status}
+                  </span>
+                </div>
+                <p class="text-sm text-slate-600 leading-snug">{p.description}</p>
+              </a>
+            ))}
+
+            <div class="mt-1 p-3 rounded-lg bg-slate-50/60">
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <span class="font-medium text-slate-500">Más herramientas</span>
+                <span class="text-[10px] font-medium tracking-wider uppercase text-slate-500 bg-slate-200 px-2 py-0.5 rounded-full">
+                  Próximamente
+                </span>
+              </div>
+              <p class="text-sm text-slate-500 leading-snug">Estamos desarrollando nuevas herramientas para todos los ámbitos del sector.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {navLinks.slice(1).map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-3 flex-shrink-0">
+      {CLIENT_PORTAL_ENABLED && (
+        <a
+          href={CLIENT_PORTAL_URL}
+          class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
+          Acceso clientes
+        </a>
+      )}
+      <a href="/beta-tester/" class="hidden sm:inline-flex btn-primary text-sm py-2 px-4">
+        Ser beta tester
+      </a>
+
+      <button
+        type="button"
+        class="md:hidden p-2 -mr-2 text-slate-700"
+        aria-label="Abrir menú"
+        id="mobile-menu-toggle"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white">
+    <nav class="container-g py-4 flex flex-col gap-1" aria-label="Móvil">
+      <a href="/" class="py-2.5 text-base font-medium text-slate-900">Inicio</a>
+
+      <details class="group">
+        <summary class="list-none py-2.5 text-base font-medium text-slate-700 flex items-center justify-between cursor-pointer">
+          Productos
+          <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
+        <div class="pl-4 pb-2 space-y-1">
+          {products.map((p) => (
+            <a href={p.href} class="block py-2 text-sm text-slate-600 hover:text-teal-700">
+              {p.name} <span class="text-xs text-amber-700">· {p.status}</span>
+            </a>
+          ))}
+          <span class="block py-2 text-sm text-slate-400">Más herramientas · Próximamente</span>
+        </div>
+      </details>
+
+      {navLinks.slice(1).map((link) => (
+        <a href={link.href} class="py-2.5 text-base font-medium text-slate-700">
+          {link.label}
+        </a>
+      ))}
+
+      {CLIENT_PORTAL_ENABLED && (
+        <a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener" class="py-2.5 text-base font-medium text-slate-700">
+          Acceso clientes
+        </a>
+      )}
+      <a href="/beta-tester/" class="btn-primary mt-3 w-full">
+        Ser beta tester
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

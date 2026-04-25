@@ -1,0 +1,25 @@
+{
+  "_comment": "Para cambiar el estado de un item, edita 'status' y haz git push. Vercel redespliega en 30-60s.",
+  "_legend": {
+    "done": "Funcionalidad terminada y funcionando",
+    "progress": "Actualmente en desarrollo activo",
+    "pending": "Planificada, aún no empezada"
+  },
+  "items": [
+    { "status": "done", "label": "Gestión de pedidos y rutas" },
+    { "status": "done", "label": "Módulo de colaboradores y clientes" },
+    { "status": "done", "label": "Dashboard con datos en tiempo real" },
+    { "status": "done", "label": "CMR digital con backend validado" },
+    { "status": "done", "label": "Nóminas con Estatuto y convenio integrados" },
+    { "status": "done", "label": "Hojas de ruta con tab de Nómina y Liquidación" },
+    { "status": "progress", "label": "Generador de Documento de Control Digital (DCD)" },
+    { "status": "progress", "label": "Facturación con Verifactu" },
+    { "status": "progress", "label": "Optimización de rutas con IA" },
+    { "status": "progress", "label": "Generación automática de órdenes de carga y pedidos con IA" },
+    { "status": "pending", "label": "Integración SII para grandes empresas" },
+    { "status": "pending", "label": "Análisis predictivo de rentabilidad con IA" },
+    { "status": "pending", "label": "Integración con tacógrafo digital G2V2" },
+    { "status": "pending", "label": "Portal de cliente" },
+    { "status": "pending", "label": "App móvil para conductores" }
+  ]
+}

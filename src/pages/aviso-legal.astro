@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Aviso legal | Gauna"
+  description="Aviso legal de Gauna conforme a la LSSICE."
+>
+  <section class="py-16 md:py-20">
+    <div class="container-g">
+      <div class="max-w-prose mx-auto prose-g">
+        <h1>Aviso legal</h1>
+        <p><em>Última actualización: abril de 2026</em></p>
+
+        <h2>1. Datos identificativos</h2>
+        <p>
+          En cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información
+          y Comercio Electrónico (LSSICE), se informa que este sitio web es propiedad de:
+        </p>
+        <ul>
+          <li><strong>Titular:</strong> Gauna</li>
+          <li><strong>Domicilio:</strong> Elche, Alicante, España</li>
+          <li><strong>Email:</strong> <a href="mailto:hola@gauna.es">hola@gauna.es</a></li>
+        </ul>
+
+        <h2>2. Objeto</h2>
+        <p>
+          El presente aviso legal regula el uso del sitio web gauna.es, propiedad de Gauna,
+          cuyo fin principal es ofrecer información sobre los productos y servicios que desarrollamos.
+        </p>
+
+        <h2>3. Propiedad intelectual</h2>
+        <p>
+          Todos los contenidos del sitio (textos, imágenes, logos, diseños) son propiedad de Gauna
+          o se utilizan con la debida autorización. Queda prohibida su reproducción sin autorización
+          expresa, salvo para uso personal privado.
+        </p>
+
+        <h2>4. Responsabilidad</h2>
+        <p>
+          Gauna se reserva el derecho a modificar los contenidos del sitio en cualquier momento.
+          No nos responsabilizamos del uso que terceros hagan de la información publicada.
+        </p>
+
+        <h2>5. Legislación aplicable</h2>
+        <p>
+          El presente aviso legal se rige por la legislación española. Cualquier controversia
+          se someterá a los Juzgados y Tribunales de Alicante.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

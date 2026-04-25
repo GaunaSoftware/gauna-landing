@@ -1,0 +1,131 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+export const prerender = true;
+
+const plans = [
+  {
+    name: 'Autónomo',
+    price: '29',
+    period: '/mes',
+    description: 'Para transportistas con 1-3 vehículos.',
+    features: [
+      'Gestión de pedidos y rutas',
+      'CMR y hojas de ruta digitales',
+      'Nóminas de conductores',
+      'Documento de Control Digital',
+      'Soporte por email',
+    ],
+    highlight: false,
+  },
+  {
+    name: 'Pyme',
+    price: '89',
+    period: '/mes',
+    description: 'Para empresas con flota de 4 a 20 vehículos.',
+    features: [
+      'Todo lo del plan Autónomo',
+      'Hasta 20 vehículos',
+      'Gestión de colaboradores',
+      'Dashboard avanzado',
+      'Soporte prioritario',
+      'Exportaciones fiscales',
+    ],
+    highlight: true,
+  },
+  {
+    name: 'Flota',
+    price: 'Desde 199',
+    period: '/mes',
+    description: 'Para empresas con 20+ vehículos o gestorías.',
+    features: [
+      'Todo lo del plan Pyme',
+      'Vehículos ilimitados',
+      'Multi-empresa (para gestorías)',
+      'API personalizada',
+      'Soporte telefónico 1:1',
+      'Onboarding guiado',
+    ],
+    highlight: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Precios TransGest — Planes desde 29€/mes"
+  description="Precios transparentes para TransGest. Planes adaptados a autónomos, pymes y grandes flotas. 50% de descuento para los primeros 50 suscriptores."
+>
+  <section class="py-20 md:py-24">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="eyebrow">Precios transparentes</span>
+        <h1 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+          Precios simples y justos.
+        </h1>
+        <p class="text-lg text-slate-600 mt-6 max-w-2xl mx-auto">
+          Los precios mostrados son orientativos para el lanzamiento oficial.
+          Los beta testers tienen <span class="font-medium text-teal-600">2 años de licencia gratuita</span>.
+        </p>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {plans.map((plan) => (
+          <div class:list={[
+            'rounded-xl p-8 border',
+            plan.highlight
+              ? 'bg-teal-600 text-white border-teal-600 shadow-xl md:-mt-4 md:mb-4'
+              : 'bg-white border-slate-200'
+          ]}>
+            {plan.highlight && (
+              <div class="inline-block px-3 py-1 bg-amber-400 text-amber-900 text-xs font-medium rounded-full mb-4">
+                Más popular
+              </div>
+            )}
+
+            <h3 class:list={['text-2xl font-medium mb-2', plan.highlight ? 'text-white' : 'text-slate-900']}>
+              {plan.name}
+            </h3>
+            <p class:list={['text-sm mb-6', plan.highlight ? 'text-teal-100' : 'text-slate-600']}>
+              {plan.description}
+            </p>
+
+            <div class="mb-6">
+              <span class:list={['text-4xl font-medium', plan.highlight ? 'text-white' : 'text-slate-900']}>
+                {plan.price}€
+              </span>
+              <span class:list={['ml-1', plan.highlight ? 'text-teal-200' : 'text-slate-500']}>
+                {plan.period}
+              </span>
+            </div>
+
+            <a
+              href="/transgest/demo/"
+              class:list={[
+                'block w-full text-center py-3 rounded-lg font-medium transition-colors',
+                plan.highlight
+                  ? 'bg-white text-teal-700 hover:bg-teal-50'
+                  : 'bg-slate-900 text-white hover:bg-slate-800'
+              ]}
+            >
+              Apuntarme a la lista
+            </a>
+
+            <ul class="mt-8 space-y-3">
+              {plan.features.map((f) => (
+                <li class="flex items-start gap-2">
+                  <svg class:list={['w-5 h-5 mt-0.5 flex-shrink-0', plan.highlight ? 'text-teal-200' : 'text-teal-600']} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class:list={['text-sm', plan.highlight ? 'text-white' : 'text-slate-700']}>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-16 text-center text-sm text-slate-500">
+        Todos los planes incluyen prueba gratuita de 14 días. Sin permanencia. Factura con IVA.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

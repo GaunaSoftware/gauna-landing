@@ -1,0 +1,181 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const valores = [
+  {
+    titulo: 'Conocimiento del sector',
+    descripcion: 'Construimos desde cero, con experiencia real en logística y transporte. Sabemos del terreno que pisamos.',
+  },
+  {
+    titulo: 'Modernidad',
+    descripcion: 'Incorporamos las últimas tecnologías, como la IA, para resolver problemas reales del sector.',
+  },
+  {
+    titulo: 'Cercanía',
+    descripcion: 'Equipo pequeño significa contacto directo: respondemos nosotros, sin capas de soporte intermedias.',
+  },
+  {
+    titulo: 'Honestidad',
+    descripcion: 'Roadmap público, sin humo ni fechas infladas. Si algo no está listo, lo decimos.',
+  },
+];
+---
+
+<BaseLayout
+  title="Sobre nosotros — Gauna"
+  description="Gauna es un estudio pequeño de software especializado en herramientas para profesionales del transporte. Conoce nuestra forma de trabajar."
+>
+  <!-- HERO INTRO -->
+  <section class="pt-16 md:pt-24 pb-12 md:pb-16">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <span class="eyebrow">Sobre nosotros</span>
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 mt-4 leading-[1.1]">
+          Construimos el software que el sector del transporte necesita.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
+          Gauna es un estudio pequeño de software especializado en herramientas para profesionales del transporte. Creemos que la mejor tecnología se construye desde la experiencia real del sector, no desde un despacho.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ NACE GAUNA -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <span class="eyebrow">Por qué nace Gauna</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          La tecnología no estaba<br>resolviendo el día a día.
+        </h2>
+
+        <div class="mt-8 space-y-5 text-lg text-slate-700 leading-relaxed">
+          <p>
+            El equipo lleva años trabajando en el sector de la logística. Hemos visto de primera mano cómo las empresas del sector — autónomos, pymes, gestorías — gestionan operaciones complejas con herramientas que no fueron pensadas para ellos.
+          </p>
+          <p>
+            Hojas de cálculo que crecen sin control, software heredado de hace una década, integraciones rotas, soluciones genéricas que no entienden el convenio del transporte ni la normativa española.
+          </p>
+          <p>
+            Gauna nace para resolver eso. Un estudio pequeño que construye software especializado, con criterio técnico y con conocimiento real del día a día del transportista. Así nace TransGest, y el resto de herramientas que estamos desarrollando.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section class="py-20 md:py-24">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <span class="eyebrow">Valores</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          Cuatro principios que guían<br>cada decisión de producto.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl">
+        {valores.map((valor) => (
+          <div class="bg-white border border-slate-200 rounded-xl p-6 hover:border-teal-300 transition-colors">
+            <h3 class="text-lg font-medium text-slate-900 mb-2">{valor.titulo}</h3>
+            <p class="text-slate-600 leading-relaxed">{valor.descripcion}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO TRABAJAMOS -->
+  <section class="py-20 md:py-24 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          Un equipo pequeño,<br>cercano y enfocado.
+        </h2>
+
+        <div class="mt-8 space-y-5 text-lg text-slate-700 leading-relaxed">
+          <p>
+            Somos un equipo pequeño con experiencia combinada en desarrollo de software y en el día a día del sector logístico. Cada decisión de producto la validamos contra problemas reales que conocemos — no contra teorías o casos de estudio ajenos.
+          </p>
+          <p>
+            No somos una gran consultora ni una multinacional con cientos de empleados. Somos el equipo que responde el teléfono cuando algo no va bien, el mismo que pensó el módulo, el mismo que lo programó.
+          </p>
+          <p>
+            Eso tiene un coste — vamos más despacio que una empresa con 500 ingenieros — y también una virtud: cada cliente nos importa, y eso se nota.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTROS PRODUCTOS -->
+  <section class="py-20 md:py-24">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <span class="eyebrow">Nuestros productos</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          Empezamos por TransGest.<br>El resto está en camino.
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl">
+
+        <a href="/transgest/" class="group bg-white border border-slate-200 rounded-xl p-8 hover:border-teal-300 hover:shadow-md transition-all">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <span class="text-xs font-medium tracking-wider uppercase text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">
+              En desarrollo
+            </span>
+          </div>
+          <h3 class="text-2xl font-medium text-slate-900 mb-3">TransGest</h3>
+          <p class="text-slate-600 leading-relaxed mb-5">
+            Sistema de gestión integral para empresas de transporte por carretera. Rutas optimizadas con IA, nóminas conforme al Estatuto, CMR digital, facturación Verifactu y cumplimiento DCD 2026.
+          </p>
+          <span class="inline-flex items-center gap-1 text-sm font-medium text-teal-700 group-hover:gap-2 transition-all">
+            Conocer TransGest
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </span>
+        </a>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-8 opacity-90">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <span class="text-xs font-medium tracking-wider uppercase text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">
+              Próximamente
+            </span>
+          </div>
+          <h3 class="text-2xl font-medium text-slate-700 mb-3">Más herramientas</h3>
+          <p class="text-slate-500 leading-relaxed">
+            Estamos desarrollando más herramientas para todos los ámbitos del sector del transporte. Cada una pensada para resolver una necesidad real que nos cuentan los profesionales con los que trabajamos.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-16 md:py-20 bg-teal-900 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-display-sm font-medium leading-tight">
+          ¿Quieres formar parte<br>del proyecto?
+        </h2>
+        <p class="text-lg text-teal-100 mt-6">
+          El programa Beta Tester de TransGest tiene 20 plazas con dos años de licencia gratuita. Si crees que tu experiencia puede aportar al producto, queremos conocerte.
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/beta-tester/" class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+            Únete como beta tester
+          </a>
+          <a href="/contacto/" class="inline-flex items-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+            Habla con nosotros
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

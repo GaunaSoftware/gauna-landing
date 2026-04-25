@@ -1,0 +1,48 @@
+---
+/**
+ * Widget de Cloudflare Turnstile.
+ * Se configura con la variable pública PUBLIC_TURNSTILE_SITE_KEY.
+ * Si no está configurada, no renderiza nada (modo desarrollo).
+ *
+ * Uso: <Turnstile formId="beta-form" />
+ * El token queda guardado en un input oculto del formulario con ese ID.
+ */
+
+export interface Props {
+  formId: string;
+  class?: string;
+}
+
+const { formId, class: className = '' } = Astro.props;
+const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const callbackName = `turnstileCallback_${formId.replace(/[^a-zA-Z0-9]/g, '_')}`;
+---
+
+{siteKey ? (
+  <>
+    <div
+      class:list={['cf-turnstile', className]}
+      data-sitekey={siteKey}
+      data-theme="light"
+      data-callback={callbackName}
+      data-form-id={formId}
+    ></div>
+
+    <script is:inline define:vars={{ formId, callbackName }}>
+      window[callbackName] = function(token) {
+        const form = document.getElementById(formId);
+        if (!form) return;
+        let input = form.querySelector('input[name="turnstileToken"]');
+        if (!input) {
+          input = document.createElement('input');
+          input.type = 'hidden';
+          input.name = 'turnstileToken';
+          form.appendChild(input);
+        }
+        input.value = token;
+      };
+    </script>
+
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  </>
+) : null}

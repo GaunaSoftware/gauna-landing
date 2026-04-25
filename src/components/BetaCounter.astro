@@ -1,0 +1,93 @@
+---
+import { getBetaStatus, betaConfig } from '@/config/beta';
+
+export interface Props {
+  variant?: 'compact' | 'large';
+  class?: string;
+}
+
+const { variant = 'compact', class: className = '' } = Astro.props;
+const status = await getBetaStatus();
+---
+
+{variant === 'compact' && (
+  <div
+    class:list={['beta-counter inline-flex items-center gap-2.5 px-4 py-2 bg-amber-100 border border-amber-200 rounded-full text-sm font-medium text-amber-900', className]}
+    data-beta-counter="compact"
+  >
+    <span class="relative flex w-2.5 h-2.5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+    </span>
+    {status.isBetaOpen ? (
+      <span>Solo quedan <strong data-spots-remaining>{status.spotsRemaining}</strong> de <span data-total-spots>{status.totalSpots}</span> plazas beta</span>
+    ) : (
+      <span><strong>Programa beta completo</strong></span>
+    )}
+  </div>
+)}
+
+{variant === 'large' && (
+  <div
+    class:list={['beta-counter bg-white border border-slate-200 rounded-xl p-6', className]}
+    data-beta-counter="large"
+  >
+    <div class="flex items-center justify-between mb-4">
+      <span class="eyebrow">Programa Beta Tester</span>
+      {status.isBetaOpen ? (
+        <span class="inline-flex items-center gap-1.5 text-sm font-medium text-amber-700">
+          <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+          Abierto
+        </span>
+      ) : (
+        <span class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500">
+          <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+          Cerrado
+        </span>
+      )}
+    </div>
+
+    <div class="flex items-baseline gap-2 mb-4">
+      <span class="text-5xl font-medium text-slate-900" data-spots-remaining>{status.spotsRemaining}</span>
+      <span class="text-lg text-slate-500">de <span data-total-spots>{status.totalSpots}</span> plazas</span>
+    </div>
+
+    <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden mb-3">
+      <div
+        class="bg-gradient-to-r from-amber-400 to-amber-500 h-full rounded-full transition-all duration-1000"
+        style={`width: ${status.spotsFilledPercent}%`}
+        data-spots-bar
+      ></div>
+    </div>
+
+    <p class="text-sm text-slate-600" data-spots-label>
+      {status.isBetaOpen
+        ? `Únete antes de que se agoten. ${betaConfig.freeYears} años de licencia gratuita.`
+        : `Las ${status.totalSpots} plazas iniciales están cubiertas. Puedes apuntarte a la lista de espera general.`}
+    </p>
+  </div>
+)}
+
+<script>
+  // Refrescar el contador cada 2 minutos mientras la página está abierta.
+  // Esto capta aceptaciones/rechazos que tú hagas en Airtable.
+  async function refreshBetaCounter() {
+    try {
+      const response = await fetch('/api/beta-status');
+      if (!response.ok) return;
+      const data = await response.json();
+
+      document.querySelectorAll('[data-beta-counter]').forEach((el) => {
+        const remaining = el.querySelector('[data-spots-remaining]');
+        const bar = el.querySelector('[data-spots-bar]');
+
+        if (remaining) remaining.textContent = String(data.spotsRemaining);
+        if (bar) (bar as HTMLElement).style.width = `${data.spotsFilledPercent}%`;
+      });
+    } catch (e) {
+      // Silenciar errores de red, no es crítico
+    }
+  }
+
+  setInterval(refreshBetaCounter, 120000);
+</script>

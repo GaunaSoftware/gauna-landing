@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Contacto | Gauna"
+  description="Ponte en contacto con el equipo de Gauna. Respondemos en 24-48 horas laborales."
+>
+  <section class="py-16 md:py-24">
+    <div class="container-g">
+      <div class="max-w-2xl mx-auto">
+        <span class="eyebrow">Contacto</span>
+        <h1 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          ¿Hablamos?
+        </h1>
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          Para preguntas sobre TransGest, colaboraciones, prensa o feedback del desarrollo,
+          escríbenos directamente:
+        </p>
+
+        <div class="mt-10 space-y-6">
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <h2 class="text-xl font-medium text-slate-900 mb-2">Email general</h2>
+            <a href="mailto:hola@gauna.es" class="text-teal-600 hover:underline">hola@gauna.es</a>
+            <p class="text-sm text-slate-500 mt-2">Para consultas generales y feedback.</p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <h2 class="text-xl font-medium text-slate-900 mb-2">Soporte TransGest</h2>
+            <a href="mailto:soporte@gauna.es" class="text-teal-600 hover:underline">soporte@gauna.es</a>
+            <p class="text-sm text-slate-500 mt-2">Para preguntas técnicas y soporte (beta testers).</p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <h2 class="text-xl font-medium text-slate-900 mb-2">Prensa y partners</h2>
+            <a href="mailto:prensa@gauna.es" class="text-teal-600 hover:underline">prensa@gauna.es</a>
+            <p class="text-sm text-slate-500 mt-2">Para medios, entrevistas o acuerdos comerciales.</p>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-200 text-sm text-slate-500">
+          <p>Gauna · Elche, Alicante, España</p>
+          <p class="mt-1">Respondemos en 24-48 horas laborales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

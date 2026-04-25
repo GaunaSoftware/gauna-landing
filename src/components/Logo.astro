@@ -1,0 +1,105 @@
+---
+export interface Props {
+  variant?: 'full' | 'compact' | 'mark';
+  theme?: 'primary' | 'dark' | 'light' | 'mono';
+  class?: string;
+}
+
+const {
+  variant = 'full',
+  theme = 'primary',
+  class: className = '',
+} = Astro.props;
+
+// Colores según el tema (paleta verde armonizada con TransGest)
+const themes = {
+  primary: { bg: '#0F2A22', text: '#FFFFFF', word: '#0F172A' },
+  dark: { bg: '#1A4035', text: '#FFFFFF', word: '#FFFFFF' },
+  light: { bg: '#FFFFFF', text: '#0F2A22', word: '#0F172A' },
+  mono: { bg: '#0F172A', text: '#FFFFFF', word: '#0F172A' },
+};
+
+const c = themes[theme];
+---
+
+{variant === 'mark' && (
+  <svg
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+    class={className}
+    role="img"
+    aria-label="Gauna"
+  >
+    <rect x="0" y="0" width="48" height="48" rx="8" fill={c.bg} />
+    <text
+      x="24"
+      y="34"
+      text-anchor="middle"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="28"
+      font-weight="500"
+      fill={c.text}
+    >G</text>
+  </svg>
+)}
+
+{variant === 'compact' && (
+  <svg
+    viewBox="0 0 140 40"
+    xmlns="http://www.w3.org/2000/svg"
+    class={className}
+    role="img"
+    aria-label="Gauna"
+  >
+    <rect x="4" y="4" width="32" height="32" rx="6" fill={c.bg} />
+    <text
+      x="20"
+      y="27"
+      text-anchor="middle"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="20"
+      font-weight="500"
+      fill={c.text}
+    >G</text>
+    <text
+      x="46"
+      y="28"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="22"
+      font-weight="500"
+      letter-spacing="-0.5"
+      fill={c.word}
+    >Gauna</text>
+  </svg>
+)}
+
+{variant === 'full' && (
+  <svg
+    viewBox="0 0 280 80"
+    xmlns="http://www.w3.org/2000/svg"
+    class={className}
+    role="img"
+    aria-label="Gauna"
+  >
+    <rect x="0" y="0" width="80" height="80" rx="12" fill={c.bg} />
+    <text
+      x="40"
+      y="57"
+      text-anchor="middle"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="48"
+      font-weight="500"
+      letter-spacing="-1.5"
+      fill={c.text}
+    >G</text>
+    <text
+      x="100"
+      y="50"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="36"
+      font-weight="500"
+      letter-spacing="-1.2"
+      fill={c.word}
+    >Gauna</text>
+  </svg>
+)}

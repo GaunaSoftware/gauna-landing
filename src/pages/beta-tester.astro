@@ -1,0 +1,430 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BetaCounter from '@components/BetaCounter.astro';
+import Turnstile from '@components/Turnstile.astro';
+import Honeypot from '@components/Honeypot.astro';
+import { getBetaStatus, betaConfig } from '@/config/beta';
+
+export const prerender = false;
+
+const betaStatus = await getBetaStatus();
+---
+
+<BaseLayout
+  title="Programa Beta Tester TransGest — 20 plazas, 2 años gratis"
+  description="Únete al programa beta de TransGest. Solo 20 plazas. 2 años de licencia gratuita a cambio de tu feedback real durante el desarrollo."
+>
+  <!-- HERO -->
+  <section class="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 text-white relative overflow-hidden">
+    <div class="container-g relative">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300 mb-3">
+          Programa exclusivo
+        </span>
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium mt-4 leading-[1.05] text-white">
+          Conviértete en<br>
+          <span class="text-amber-400">beta tester</span> de TransGest.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-200 mt-6 max-w-2xl mx-auto leading-relaxed">
+          Ayúdanos a construir el mejor TMS del transporte con tu experiencia real. A cambio, {betaConfig.freeYears} años de licencia gratuita una vez lancemos oficialmente.
+        </p>
+
+        <div class="mt-8 flex justify-center">
+          <BetaCounter variant="compact" class="bg-white/10 border-white/20 text-white backdrop-blur" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ CONSIGUES -->
+  <section class="py-20 md:py-24">
+    <div class="container-g">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="eyebrow">Qué consigues</span>
+          <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+            Un trato justo para<br>ambas partes.
+          </h2>
+          <p class="text-lg text-slate-600 mt-6">
+            Tú inviertes tiempo en darnos feedback durante el desarrollo. Nosotros te damos acceso real al producto y condiciones de socio fundador.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14">
+          <div class="bg-white border border-slate-200 rounded-xl p-8">
+            <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-medium text-slate-900 mb-3">{betaConfig.freeYears} años de licencia gratuita</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Cuando lancemos oficialmente, tienes acceso a todas las funcionalidades del plan Pyme sin pagar durante {betaConfig.freeYears} años completos. Sin letra pequeña.
+            </p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-8">
+            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-medium text-slate-900 mb-3">Acceso temprano a cada módulo</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Recibes acceso a las funcionalidades conforme se van construyendo. Pruebas antes que nadie los módulos de rutas, nóminas, CMR, DCD y facturación Verifactu.
+            </p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-8">
+            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-medium text-slate-900 mb-3">Conexión directa con el equipo de soporte</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Acceso prioritario al equipo para reportar incidencias, proponer mejoras y resolver dudas. Respuesta en horas, no en días. Sin tickets perdidos en un formulario.
+            </p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-8">
+            <div class="w-12 h-12 rounded-lg bg-teal-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-medium text-slate-900 mb-3">Funcionalidades personalizadas</h3>
+            <p class="text-slate-600 leading-relaxed">
+              Un programa que se adapta a ti, no al revés. Si necesitas algo concreto que te solucione el trabajo — un informe específico, una automatización, una integración — lo estudiamos y lo implementamos contigo. Eres parte del producto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ PEDIMOS A CAMBIO -->
+  <section class="py-20 md:py-24 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto">
+        <span class="eyebrow">Qué te pedimos a cambio</span>
+        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+          Que nos ayudes a construir<br>el mejor SaaS de transporte.
+        </h2>
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          No buscamos usuarios pasivos. Buscamos cómplices. Gente del sector que entienda los problemas reales del día a día y quiera poner su experiencia al servicio de un producto que, si sale bien, va a facilitar la vida a miles de transportistas en España.
+        </p>
+        <p class="text-lg text-slate-600 mt-4 leading-relaxed">
+          A cambio, tu empresa se beneficia antes que nadie de una herramienta diseñada con tus propias ideas. Esto es lo que necesitamos de ti:
+        </p>
+
+        <ol class="mt-10 space-y-5">
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-medium flex-shrink-0 mt-0.5">1</div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-900">Usar TransGest en tu empresa real</h3>
+              <p class="text-slate-600 mt-1">
+                Meter datos reales, gestionar rutas reales, probar la facturación. Sin uso real no hay feedback útil.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-medium flex-shrink-0 mt-0.5">2</div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-900">Darnos feedback cuando algo falle o se pueda mejorar</h3>
+              <p class="text-slate-600 mt-1">
+                Un mensaje rápido cuando detectes un bug o tengas una idea de mejora. Sin formalidad, sin plantillas.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-medium flex-shrink-0 mt-0.5">3</div>
+            <div>
+              <h3 class="text-lg font-medium text-slate-900">Participar en una llamada mensual (30 min)</h3>
+              <p class="text-slate-600 mt-1">
+                Una videollamada breve al mes para revisar lo que has probado, qué te ha servido y qué falta. Opcional pero muy valiosa.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section id="formulario" class="py-20 md:py-24">
+    <div class="container-g">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="eyebrow">Solicitar plaza</span>
+          <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+            Solicita tu plaza<br>de beta tester.
+          </h2>
+          <p class="text-slate-600 mt-6">
+            Revisamos cada solicitud y respondemos en 24-48 horas. Priorizamos perfiles que representan los distintos tamaños del sector.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <BetaCounter variant="large" />
+        </div>
+
+        {betaStatus.isBetaOpen ? (
+          <div class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+            <form id="beta-form" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="beta-name" class="block text-sm font-medium text-slate-700 mb-1.5">Nombre y apellidos *</label>
+                  <input type="text" id="beta-name" name="name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+                <div>
+                  <label for="beta-company" class="block text-sm font-medium text-slate-700 mb-1.5">Empresa *</label>
+                  <input type="text" id="beta-company" name="company" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="beta-email" class="block text-sm font-medium text-slate-700 mb-1.5">Email profesional *</label>
+                  <input type="email" id="beta-email" name="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+                <div>
+                  <label for="beta-phone" class="block text-sm font-medium text-slate-700 mb-1.5">Teléfono *</label>
+                  <input type="tel" id="beta-phone" name="phone" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+              </div>
+
+              <div>
+                <label for="beta-profile" class="block text-sm font-medium text-slate-700 mb-1.5">Tipo de perfil *</label>
+                <select id="beta-profile" name="profile" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+                  <option value="">Selecciona...</option>
+                  <option value="Autónomo">Autónomo del transporte</option>
+                  <option value="Pyme pequeña">Pyme con 2-5 vehículos</option>
+                  <option value="Pyme mediana">Pyme con 6-30 vehículos</option>
+                  <option value="Empresa grande">Empresa con 30+ vehículos</option>
+                  <option value="Gestoría">Gestoría / asesoría</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="beta-fleet" class="block text-sm font-medium text-slate-700 mb-1.5">Nº de vehículos</label>
+                  <input type="number" id="beta-fleet" name="fleet" min="0" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+                <div>
+                  <label for="beta-tools" class="block text-sm font-medium text-slate-700 mb-1.5">¿Qué usas ahora?</label>
+                  <input type="text" id="beta-tools" name="tools" placeholder="Excel, otro TMS, nada..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
+                </div>
+              </div>
+
+              <div>
+                <label for="beta-why" class="block text-sm font-medium text-slate-700 mb-1.5">
+                  ¿Por qué quieres ser beta tester? *
+                </label>
+                <textarea id="beta-why" name="why" rows="4" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Cuéntanos qué problema esperas resolver con TransGest y qué podrías aportar al desarrollo..."></textarea>
+              </div>
+
+              <Honeypot />
+              <Turnstile formId="beta-form" />
+
+              <div class="bg-teal-50 border border-teal-200 rounded-lg p-4">
+                <label class="flex items-start gap-3 cursor-pointer">
+                  <input type="checkbox" name="commitment" required class="mt-1 rounded text-teal-600 focus:ring-teal-500" />
+                  <span class="text-sm text-teal-900">
+                    <strong>Me comprometo a:</strong> usar TransGest en mi día a día, dar feedback cuando lo necesitéis, y participar en llamadas mensuales.
+                  </span>
+                </label>
+              </div>
+
+              <div class="flex items-start gap-2">
+                <input type="checkbox" id="beta-consent" name="consent" required class="mt-1 rounded text-teal-600" />
+                <label for="beta-consent" class="text-xs text-slate-500 leading-relaxed">
+                  Acepto que Gauna trate mis datos para evaluar mi candidatura y contactarme sobre el programa.
+                  <a href="/politica-privacidad/" class="underline hover:text-teal-600">Política de privacidad</a>.
+                </label>
+              </div>
+
+              <div id="beta-form-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p class="text-sm text-red-900" data-error-message>
+                  Ha ocurrido un error. Intenta de nuevo o escríbenos a <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.
+                </p>
+              </div>
+
+              <button type="submit" class="btn-primary w-full text-base py-4" id="beta-submit-btn">
+                <span data-btn-text>Solicitar plaza de beta tester</span>
+                <span data-btn-loading class="hidden">Enviando...</span>
+              </button>
+            </form>
+
+            <div id="beta-form-success" class="hidden mt-4 p-6 bg-teal-50 border border-teal-200 rounded-lg">
+              <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <p class="font-medium text-teal-900">Solicitud recibida</p>
+                  <p class="text-sm text-teal-800 mt-1">
+                    Revisaremos tu candidatura en 24-48 horas y te contactaremos por email y teléfono.
+                    Gracias por querer construir TransGest con nosotros.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div class="bg-slate-100 border border-slate-200 rounded-xl p-8 text-center">
+            <h3 class="text-xl font-medium text-slate-900 mb-3">Programa beta completo</h3>
+            <p class="text-slate-600 mb-6">
+              Las {betaConfig.totalSpots} plazas del programa beta están cubiertas. Te agradecemos mucho el interés.
+              Aún puedes apuntarte a la lista de espera general para acceder al producto cuando lancemos.
+            </p>
+            <a href="/transgest/demo/" class="btn-primary">
+              Lista de espera general
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ BETA -->
+  <section class="py-20 md:py-24 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+          Todo lo que probablemente te estás preguntando.
+        </h2>
+
+        <div class="mt-10 space-y-4">
+          <details class="group bg-white border border-slate-200 rounded-lg">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>¿Qué pasa cuando terminen los {betaConfig.freeYears} años gratuitos?</span>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+              Pasarás a un plan comercial normal con precio de socio fundador (descuento permanente sobre el precio público). Te avisaremos con 90 días de antelación para que decidas sin prisa.
+            </div>
+          </details>
+
+          <details class="group bg-white border border-slate-200 rounded-lg">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>¿Puedo cancelar si el producto no me sirve?</span>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+              Claro. No hay permanencia ni penalización. Si en algún momento TransGest no te aporta, te das de baja y seguimos siendo amigos.
+            </div>
+          </details>
+
+          <details class="group bg-white border border-slate-200 rounded-lg">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>¿Cómo elegís los 20 beta testers?</span>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+              Buscamos diversidad de perfiles: autónomos, pymes pequeñas y medianas, gestorías. No va por orden de llegada exclusivamente, sino por completar un mix representativo del sector.
+            </div>
+          </details>
+
+          <details class="group bg-white border border-slate-200 rounded-lg">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>¿Y si me aceptan pero luego no tengo tiempo para dar feedback?</span>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed space-y-3">
+              <p>
+                Tranquilidad: TransGest está pensado para funcionar <strong>dentro de tu día a día</strong>, no como una tarea extra que añadir a tu agenda. Es decir, lo vas a usar porque te va a sustituir a otras herramientas (Excel, software antiguo, papel…), no porque tengas que sacar hueco aparte.
+              </p>
+              <p>
+                Y estamos convencidos de que te va a encantar. Cuando empieces a ver cómo te ahorra tiempo de verdad, el feedback sale solo, sin que tengas que forzarlo.
+              </p>
+            </div>
+          </details>
+
+          <details class="group bg-white border border-slate-200 rounded-lg">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>¿Están protegidos mis datos reales durante la beta?</span>
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+              La seguridad de tus datos es uno de nuestros compromisos principales. Ciframos la información, usamos infraestructura europea conforme a RGPD, realizamos copias de seguridad periódicas y firmamos contigo un acuerdo formal de tratamiento de datos. Tu información comercial es tuya y punto.
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('beta-form') as HTMLFormElement | null;
+  const successBox = document.getElementById('beta-form-success');
+  const errorBox = document.getElementById('beta-form-error');
+  const errorMsg = document.querySelector('[data-error-message]');
+  const btn = document.getElementById('beta-submit-btn') as HTMLButtonElement | null;
+  const btnText = document.querySelector('[data-btn-text]');
+  const btnLoading = document.querySelector('[data-btn-loading]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form || !btn) return;
+
+    btn.disabled = true;
+    btnText?.classList.add('hidden');
+    btnLoading?.classList.remove('hidden');
+    errorBox?.classList.add('hidden');
+
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get('name'),
+      company: formData.get('company'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      profile: formData.get('profile'),
+      fleet: formData.get('fleet'),
+      tools: formData.get('tools'),
+      why: formData.get('why'),
+      website: formData.get('website'),
+      turnstileToken: formData.get('turnstileToken'),
+      startedAt: formData.get('startedAt'),
+    };
+
+    try {
+      const response = await fetch('/api/beta-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error del servidor');
+      }
+
+      form.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err: any) {
+      if (errorMsg) {
+        errorMsg.textContent = `No hemos podido enviar tu solicitud: ${err.message}. Puedes escribirnos directamente a hola@gauna.es.`;
+      }
+      errorBox?.classList.remove('hidden');
+      btn.disabled = false;
+      btnText?.classList.remove('hidden');
+      btnLoading?.classList.add('hidden');
+    }
+  });
+</script>

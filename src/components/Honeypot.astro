@@ -1,0 +1,43 @@
+---
+/**
+ * Campo honeypot invisible para capturar bots.
+ * Los bots suelen rellenar cualquier input que encuentren.
+ * Los humanos no lo ven (display:none + aria-hidden + tabindex=-1).
+ *
+ * También incluye un timestamp de inicio que luego valida el backend
+ * para detectar envíos demasiado rápidos (indicativo de bot).
+ */
+---
+
+<div class="hp-wrap" aria-hidden="true" tabindex="-1">
+  <label for="hp-website">No rellenar este campo si eres humano:</label>
+  <input
+    type="text"
+    id="hp-website"
+    name="website"
+    tabindex="-1"
+    autocomplete="off"
+  />
+</div>
+
+<input type="hidden" name="startedAt" value="" data-form-start />
+
+<style>
+  .hp-wrap {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  // Al cargar la página, anotamos el timestamp para validar la velocidad del envío.
+  document.querySelectorAll('[data-form-start]').forEach((el) => {
+    (el as HTMLInputElement).value = String(Date.now());
+  });
+</script>

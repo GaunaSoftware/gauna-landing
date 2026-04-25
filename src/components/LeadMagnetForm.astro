@@ -1,0 +1,186 @@
+---
+import Honeypot from './Honeypot.astro';
+import Turnstile from './Turnstile.astro';
+
+export interface Props {
+  variant?: 'inline' | 'card' | 'hero';
+  headline?: string;
+  subheadline?: string;
+  id?: string;
+}
+
+const {
+  variant = 'card',
+  headline = 'Descarga gratis la Guía DCD 2026',
+  subheadline = 'PDF de 40 páginas. Sin letra pequeña, sin spam.',
+  id = 'lead-form',
+} = Astro.props;
+---
+
+{variant === 'card' && (
+  <div class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+    <div class="mb-5">
+      <span class="eyebrow">Lead magnet gratuito</span>
+      <h3 class="text-2xl md:text-3xl font-medium text-slate-900 mt-2 leading-tight">
+        {headline}
+      </h3>
+      <p class="text-slate-600 mt-3">
+        {subheadline}
+      </p>
+    </div>
+
+    <form
+      id={id}
+      action="#"
+      method="POST"
+      class="space-y-3"
+      data-lead-form
+    >
+      <div>
+        <label for={`${id}-email`} class="sr-only">Email</label>
+        <input
+          type="email"
+          id={`${id}-email`}
+          name="email"
+          required
+          placeholder="tu@empresa.com"
+          class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
+                 placeholder:text-slate-400 transition-colors"
+        />
+      </div>
+
+      <div>
+        <label for={`${id}-role`} class="sr-only">Tipo de perfil</label>
+        <select
+          id={`${id}-role`}
+          name="role"
+          required
+          class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg
+                 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
+                 transition-colors text-slate-700"
+        >
+          <option value="">¿Cuál es tu perfil?</option>
+          <option value="autonomo">Autónomo del transporte</option>
+          <option value="pyme">Pyme con flota propia</option>
+          <option value="gestoria">Gestoría o asesoría</option>
+          <option value="cargador">Empresa cargadora</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
+
+      <Honeypot />
+      <Turnstile formId={id} />
+
+      <button type="submit" class="btn-primary w-full">
+        Descargar guía gratis
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </button>
+
+      <div class="flex items-start gap-2 pt-2">
+        <input
+          type="checkbox"
+          id={`${id}-consent`}
+          name="consent"
+          required
+          class="mt-1 rounded text-teal-600 focus:ring-teal-500"
+        />
+        <label for={`${id}-consent`} class="text-xs text-slate-500 leading-relaxed">
+          Acepto recibir la guía y, ocasionalmente, recursos útiles sobre normativa del transporte.
+          Puedo darme de baja en cualquier momento.
+          <a href="/politica-privacidad/" class="underline hover:text-teal-600">Política de privacidad</a>.
+        </label>
+      </div>
+    </form>
+
+    <div
+      id={`${id}-success`}
+      class="hidden mt-4 p-4 bg-teal-50 border border-teal-200 rounded-lg text-teal-900"
+    >
+      <p class="font-medium">¡Hecho! Revisa tu correo.</p>
+      <p class="text-sm mt-1">Te hemos enviado la guía a tu email. Si no la ves, revisa la carpeta de spam.</p>
+    </div>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <form
+    id={id}
+    action="#"
+    method="POST"
+    class="flex flex-col sm:flex-row gap-3"
+    data-lead-form
+  >
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="tu@empresa.com"
+      class="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-lg
+             focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+    />
+    <Honeypot />
+    <Turnstile formId={id} />
+    <button type="submit" class="btn-primary">
+      Descargar gratis
+    </button>
+  </form>
+)}
+
+{variant === 'hero' && (
+  <div>
+    <form
+      id={id}
+      action="#"
+      method="POST"
+      class="flex flex-col sm:flex-row gap-3 max-w-xl"
+      data-lead-form
+    >
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="tu@empresa.com"
+        class="flex-1 px-5 py-4 bg-white border border-slate-200 rounded-lg
+               focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent
+               text-base shadow-sm"
+      />
+      <Honeypot />
+      <Turnstile formId={id} />
+      <button type="submit" class="btn-primary text-base px-6 py-4">
+        Descargar guía gratis
+      </button>
+    </form>
+    <p class="text-xs text-slate-500 mt-3">
+      Sin spam. Baja en un clic. Al suscribirte aceptas nuestra
+      <a href="/politica-privacidad/" class="underline hover:text-teal-600">política de privacidad</a>.
+    </p>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll('form[data-lead-form]').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formEl = e.target as HTMLFormElement;
+      const formId = formEl.id;
+
+      // TODO: cuando conectemos con MailerLite/Brevo, aquí va el fetch al endpoint.
+      // Por ahora mostramos mensaje de éxito.
+      console.log('Form submitted:', {
+        email: (formEl.elements.namedItem('email') as HTMLInputElement)?.value,
+        role: (formEl.elements.namedItem('role') as HTMLSelectElement)?.value,
+      });
+
+      const success = document.getElementById(`${formId}-success`);
+      if (success) {
+        formEl.classList.add('hidden');
+        success.classList.remove('hidden');
+      } else {
+        alert('¡Suscrito! En breve recibirás la guía en tu email.');
+      }
+    });
+  });
+</script>

@@ -1,0 +1,38 @@
+---
+/**
+ * Logo de TransGest.
+ *
+ * USA EL PNG actualmente en /public/logo-transgest.png
+ *
+ * Para sustituir por el SVG cuando lo tengas:
+ * 1. Guarda el archivo en /public/logo-transgest.svg
+ * 2. Cambia abajo "logo-transgest.png" por "logo-transgest.svg"
+ * 3. Listo, escala perfecto.
+ */
+
+export interface Props {
+  variant?: 'full' | 'compact' | 'hero';
+  class?: string;
+  alt?: string;
+}
+
+const {
+  variant = 'full',
+  class: className = '',
+  alt = 'TransGest',
+} = Astro.props;
+
+const sizes = {
+  full: 'h-9 md:h-10',      // Para usos normales
+  compact: 'h-7 md:h-8',     // Para header/menús
+  hero: 'h-12 md:h-16',      // Para hero principal de página
+};
+---
+
+<img
+  src="/logo-transgest.png"
+  alt={alt}
+  class:list={[sizes[variant], 'w-auto', className]}
+  loading="eager"
+  decoding="async"
+/>

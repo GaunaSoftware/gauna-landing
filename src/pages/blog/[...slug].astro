@@ -1,0 +1,66 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import LeadMagnetForm from '@components/LeadMagnetForm.astro';
+import { getCollection } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout
+  title={`${post.data.title} | Blog Gauna`}
+  description={post.data.description}
+>
+  <article class="py-16 md:py-20">
+    <div class="container-g">
+      <div class="max-w-prose mx-auto">
+        <a href="/blog/" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-teal-600 mb-8">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Volver al blog
+        </a>
+
+        <header class="mb-10">
+          <div class="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-6">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+            </time>
+            <span>·</span>
+            <span>{post.data.author}</span>
+          </div>
+
+          <h1 class="text-display-sm md:text-display-md font-medium text-slate-900 leading-tight">
+            {post.data.title}
+          </h1>
+          <p class="text-xl text-slate-600 mt-6 leading-relaxed">
+            {post.data.description}
+          </p>
+        </header>
+
+        <div class="prose-g prose-lg">
+          <Content />
+        </div>
+
+        <div class="mt-16 pt-10 border-t border-slate-200">
+          <LeadMagnetForm
+            variant="card"
+            headline="¿Te ha sido útil este artículo?"
+            subheadline="Suscríbete para recibir los siguientes directamente en tu email."
+            id={`blog-${post.slug}-form`}
+          />
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

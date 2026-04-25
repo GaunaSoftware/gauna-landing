@@ -1,0 +1,53 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Política de cookies | Gauna"
+  description="Información sobre el uso de cookies en gauna.es."
+>
+  <section class="py-16 md:py-20">
+    <div class="container-g">
+      <div class="max-w-prose mx-auto prose-g">
+        <h1>Política de cookies</h1>
+        <p><em>Última actualización: abril de 2026</em></p>
+
+        <h2>Qué son las cookies</h2>
+        <p>
+          Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo al visitar un sitio web.
+          Se utilizan para recordar preferencias y recopilar información sobre la navegación.
+        </p>
+
+        <h2>Qué cookies utilizamos</h2>
+        <p>
+          En gauna.es utilizamos únicamente cookies estrictamente necesarias para el funcionamiento del sitio
+          y analytics respetuoso con la privacidad (que no requiere consentimiento según la AEPD cuando cumple
+          ciertos criterios de agregación y anonimización).
+        </p>
+        <ul>
+          <li><strong>Cookies técnicas:</strong> garantizan el funcionamiento básico del sitio.</li>
+          <li><strong>Analytics agregado:</strong> medimos visitas de forma anónima para mejorar el contenido.</li>
+        </ul>
+
+        <h2>No utilizamos</h2>
+        <ul>
+          <li>Cookies publicitarias ni de remarketing.</li>
+          <li>Trackers de redes sociales.</li>
+          <li>Cookies de terceros con fines comerciales.</li>
+        </ul>
+
+        <h2>Cómo gestionar las cookies</h2>
+        <p>
+          Puedes configurar tu navegador para bloquear cookies en cualquier momento. Ten en cuenta que
+          bloquear cookies técnicas puede afectar al funcionamiento del sitio.
+        </p>
+
+        <p>
+          Si tienes dudas, escríbenos a <a href="mailto:hola@gauna.es">hola@gauna.es</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

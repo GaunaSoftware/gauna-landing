@@ -1,0 +1,306 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import LeadMagnetForm from '@components/LeadMagnetForm.astro';
+export const prerender = true;
+
+const toc = [
+  { id: 'que-es', title: 'Qué es el DCD' },
+  { id: 'a-quien-afecta', title: '¿A quién afecta?' },
+  { id: 'dcd-vs-cmr', title: 'DCD vs CMR vs albarán' },
+  { id: 'datos-obligatorios', title: 'Datos obligatorios' },
+  { id: 'inspeccion', title: 'Cómo se presenta en inspección' },
+  { id: 'responsabilidades', title: 'Responsabilidades' },
+  { id: 'multas', title: 'Multas por incumplimiento' },
+  { id: 'como-adaptarse', title: 'Cómo adaptar tu empresa' },
+  { id: 'faq', title: 'Preguntas frecuentes' },
+];
+
+const faqs = [
+  {
+    q: '¿Qué pasa si circulo con el documento en papel después del 5 de octubre?',
+    a: 'Será considerado como circular sin documento de control válido. Infracción grave según la LOTT, con sanción de entre 401 y 2.000 €. Ante reincidencia, puede calificarse de muy grave.',
+  },
+  {
+    q: '¿Mi eCMR actual me vale como DCD?',
+    a: 'Puede valer si incluye todos los datos obligatorios del DCD (cargador, transportista, origen, destino, mercancía, fechas). Si falta alguno, no cumple. Conviene revisar los 6 campos mínimos antes de octubre.',
+  },
+  {
+    q: '¿Necesito un software de pago para generar el DCD?',
+    a: 'No obligatoriamente. La ley exige que el documento exista en formato digital y pueda verificarse. Puedes generarlo con herramientas propias, plantillas o software libre siempre que cumpla los requisitos.',
+  },
+  {
+    q: '¿Cómo lo presento si me paran en un control?',
+    a: 'La norma acepta dos formas: código QR (más rápido y estándar) o código numérico. El inspector puede escanear el QR o teclear el código para verificar la información en su sistema.',
+  },
+  {
+    q: '¿Tengo que firmar digitalmente el DCD?',
+    a: 'No siempre. La firma electrónica no es obligatoria para el DCD, pero sí puede requerirse en momentos concretos como la confirmación de entrega. Depende del flujo documental que usa cada empresa.',
+  },
+  {
+    q: '¿Qué empresas están obligadas?',
+    a: 'Todo transporte público de mercancías por carretera en territorio español, sin importar el tamaño de la empresa. Aplica a autónomos, pymes y grandes flotas por igual.',
+  },
+  {
+    q: '¿Hay algún período transitorio?',
+    a: 'No. La Ley 9/2025 fija el 5 de octubre de 2026 como fecha de entrada en vigor sin transitoriedad. Desde ese día el papel deja de ser válido como documento de control.',
+  },
+  {
+    q: '¿Dónde guardo los DCD generados?',
+    a: 'El Ministerio ha simplificado la norma: no hace falta dar acceso a un repositorio público. Basta con que el documento exista en formato digital antes del transporte y pueda mostrarse en inspección.',
+  },
+];
+---
+
+<BaseLayout
+  title="Guía completa DCD 2026: Documento de Control Digital | Gauna"
+  description="Todo lo que necesitas saber sobre el Documento de Control Digital obligatorio desde el 5 de octubre de 2026. Qué es, a quién afecta, multas y cómo cumplir. Descarga guía gratuita."
+>
+  <section class="py-16 md:py-20 bg-gradient-to-b from-amber-50/60 to-white">
+    <div class="container-g">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-200/80 rounded-full text-sm font-medium text-amber-900 mb-6">
+          <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+          Fecha límite: 5 de octubre de 2026
+        </div>
+
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05]">
+          Documento de Control Digital 2026:<br>
+          <span class="text-teal-600">guía completa</span> para cumplir.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl leading-relaxed">
+          A partir del 5 de octubre de 2026, el documento de control en papel deja de ser válido.
+          Todo el transporte público de mercancías por carretera en España debe operar con documentación digital.
+          Solo el 17% del sector está preparado.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+          <a href="#lead-form" class="btn-accent">
+            Descargar guía gratuita (PDF)
+          </a>
+          <a href="#que-es" class="btn-secondary">
+            Saber más sobre el DCD
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 border-y border-slate-100 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl">
+        <h2 class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-4">Índice</h2>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+          {toc.map((item, i) => (
+            <li>
+              <a href={`#${item.id}`} class="flex items-center gap-3 py-2 text-slate-700 hover:text-teal-600 transition-colors">
+                <span class="text-sm text-slate-400 font-mono">{String(i + 1).padStart(2, '0')}</span>
+                <span>{item.title}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <article class="py-16 md:py-20">
+    <div class="container-g">
+      <div class="max-w-prose mx-auto prose-g prose-lg">
+        <section id="que-es" class="scroll-mt-24">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Qué es el Documento de Control Digital</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">
+            El <strong>Documento de Control (DC)</strong> es el documento administrativo que acredita que existe un contrato de transporte y que debe acompañar a cada operación por carretera. Existe desde la Orden FOM/2861/2012 y hasta ahora se aceptaba en papel. A partir del 5 de octubre de 2026 solo será válido en formato digital, por eso se le llama <strong>DCD — Documento de Control Digital</strong>.
+          </p>
+          <p class="text-lg text-slate-700 leading-relaxed mt-4">
+            La obligación viene recogida en la <strong>Ley 9/2025 de Movilidad Sostenible</strong>, publicada en el BOE el 4 de diciembre de 2025, y desarrollada por la Orden TRM/282/2026 de 25 de marzo. Es una adaptación de España al Reglamento europeo eFTI, que promueve la digitalización completa de la documentación del transporte en la UE.
+          </p>
+        </section>
+
+        <section id="a-quien-afecta" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">¿A quién afecta?</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">
+            A <strong>todo transporte público de mercancías por carretera</strong> realizado en territorio español. Sin excepciones por tamaño de empresa ni por tipo de mercancía. Están obligados:
+          </p>
+          <ul class="mt-4 space-y-2 text-lg text-slate-700">
+            <li>Autónomos del transporte, sea cual sea el tipo de vehículo.</li>
+            <li>Empresas con flota propia de cualquier tamaño.</li>
+            <li>Empresas cargadoras que contratan transporte.</li>
+            <li>Operadores logísticos y transitarios.</li>
+          </ul>
+          <p class="text-lg text-slate-700 leading-relaxed mt-4">
+            El transporte privado complementario, bajo ciertas condiciones, puede quedar fuera, pero para el público —el 99% del sector comercial— la obligación es total.
+          </p>
+        </section>
+
+        <section id="dcd-vs-cmr" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">DCD vs CMR vs eCMR vs albarán</h2>
+          <p class="text-lg text-slate-700 leading-relaxed mb-6">
+            Es el error más común del sector. Cada documento cumple una función distinta.
+          </p>
+
+          <div class="not-prose space-y-4">
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+              <h3 class="font-medium text-slate-900 mb-2">CMR</h3>
+              <p class="text-slate-700">Carta de porte internacional. Documento contractual <strong>privado</strong> regulado por el Convenio CMR (Ginebra, 1956). Acredita el contrato de transporte entre cargador, transportista y destinatario.</p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+              <h3 class="font-medium text-slate-900 mb-2">eCMR</h3>
+              <p class="text-slate-700">Versión digital del CMR. Misma función, formato electrónico. Uso voluntario salvo pacto entre partes.</p>
+            </div>
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+              <h3 class="font-medium text-slate-900 mb-2">Albarán</h3>
+              <p class="text-slate-700">Documento de <strong>entrega</strong> de la mercancía. Firma el destinatario al recibir. No es contractual.</p>
+            </div>
+            <div class="bg-teal-50 p-5 rounded-lg border border-teal-200">
+              <h3 class="font-medium text-teal-900 mb-2">DCD (Documento de Control Digital)</h3>
+              <p class="text-teal-900">Documento <strong>administrativo</strong> español. No va a las partes privadas, va al inspector. Acredita ante la Administración que el transporte tiene contrato válido. Obligatorio digital desde el 5 de octubre de 2026.</p>
+            </div>
+          </div>
+
+          <p class="text-lg text-slate-700 leading-relaxed mt-6">
+            <strong>Punto clave:</strong> si tu eCMR incluye todos los datos que exige el DCD, te vale como DCD. No hace falta duplicar documentación. Pero si falta un solo campo, no cumple.
+          </p>
+        </section>
+
+        <section id="datos-obligatorios" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Datos obligatorios del DCD</h2>
+          <p class="text-lg text-slate-700 leading-relaxed mb-6">
+            El DCD debe contener, como mínimo:
+          </p>
+          <ol class="space-y-3 text-lg text-slate-700">
+            <li><strong>1.</strong> Identificación del cargador contractual</li>
+            <li><strong>2.</strong> Identificación del transportista efectivo</li>
+            <li><strong>3.</strong> Origen del transporte</li>
+            <li><strong>4.</strong> Destino del transporte</li>
+            <li><strong>5.</strong> Descripción de la mercancía</li>
+            <li><strong>6.</strong> Fechas de carga y descarga</li>
+          </ol>
+          <p class="text-lg text-slate-700 leading-relaxed mt-6">
+            Además, durante el transporte se pueden añadir incidencias, cambios de conductor u observaciones sobre el estado de la carga.
+          </p>
+        </section>
+
+        <section id="inspeccion" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Cómo se presenta en inspección</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">
+            La norma acepta <strong>dos métodos</strong> de presentación ante las autoridades:
+          </p>
+          <ul class="mt-4 space-y-3 text-lg text-slate-700">
+            <li><strong>Código QR:</strong> será el estándar de facto. El inspector lo escanea con su dispositivo y accede al documento verificable.</li>
+            <li><strong>Código numérico:</strong> alternativa para situaciones sin conectividad o como respaldo. Se introduce manualmente en el sistema del inspector.</li>
+          </ul>
+          <p class="text-lg text-slate-700 leading-relaxed mt-4">
+            Importante: no hace falta proporcionar una URL ni acceso externo a un repositorio. Basta con que el documento exista digitalmente antes del transporte y pueda mostrarse en inspección.
+          </p>
+        </section>
+
+        <section id="responsabilidades" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Responsabilidades: cargador vs transportista</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">
+            La Orden TRM/282/2026 aclaró una zona gris que existía. Cada parte responde de lo suyo:
+          </p>
+          <div class="not-prose mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white border border-slate-200 p-5 rounded-lg">
+              <h3 class="font-medium text-slate-900 mb-3">Cargador contractual</h3>
+              <p class="text-slate-700">Responde de la exactitud de los datos de identificación de la carga: tipo de mercancía, cantidad, peso, origen.</p>
+            </div>
+            <div class="bg-white border border-slate-200 p-5 rounded-lg">
+              <h3 class="font-medium text-slate-900 mb-3">Transportista efectivo</h3>
+              <p class="text-slate-700">Responde de los datos vinculados a la ejecución: fechas reales, incidencias del trayecto, cambios de conductor.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="multas" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Multas por incumplimiento</h2>
+          <p class="text-lg text-slate-700 leading-relaxed">
+            Las sanciones se aplican según la LOTT (Ley de Ordenación de Transportes Terrestres):
+          </p>
+          <div class="not-prose mt-6 space-y-3">
+            <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+              <div class="font-medium text-yellow-900">Leve · 100 a 400 €</div>
+              <div class="text-sm text-yellow-800 mt-1">Errores menores en el documento, omisión de datos no esenciales.</div>
+            </div>
+            <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
+              <div class="font-medium text-orange-900">Grave · 401 a 2.000 €</div>
+              <div class="text-sm text-orange-800 mt-1">Circular sin documento de control, datos incorrectos esenciales, negativa a mostrarlo.</div>
+            </div>
+            <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+              <div class="font-medium text-red-900">Muy grave · 2.001 a 6.000 €</div>
+              <div class="text-sm text-red-800 mt-1">Falsificación, ausencia total tras requerimiento reiterado, datos fraudulentos.</div>
+            </div>
+          </div>
+          <p class="text-lg text-slate-700 leading-relaxed mt-6">
+            Tras el 5 de octubre de 2026, circular con documento en papel equivale, a efectos prácticos, a circular sin documento.
+          </p>
+        </section>
+
+        <section id="como-adaptarse" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Cómo adaptar tu empresa</h2>
+          <p class="text-lg text-slate-700 leading-relaxed mb-4">
+            Roadmap recomendado si partes de cero:
+          </p>
+          <ol class="space-y-4 text-lg text-slate-700">
+            <li><strong>Mayo-junio:</strong> auditoría interna. ¿Qué documentación generas hoy? ¿Dónde se guarda? ¿Cómo fluye entre cargador-transportista-inspector?</li>
+            <li><strong>Julio:</strong> elegir herramienta. Plantilla propia, eCMR con datos DCD, o plataforma especializada.</li>
+            <li><strong>Agosto:</strong> formar al equipo y probar en real con transportes de bajo riesgo.</li>
+            <li><strong>Septiembre:</strong> rodaje completo. Todos los transportes con DCD digital en paralelo al papel.</li>
+            <li><strong>5 de octubre:</strong> switch total. El papel ya no se usa.</li>
+          </ol>
+        </section>
+
+        <section id="lead-form" class="scroll-mt-24 mt-16 -mx-6 md:-mx-8">
+          <div class="bg-teal-50 p-8 md:p-12 rounded-2xl border border-teal-100">
+            <LeadMagnetForm
+              variant="card"
+              headline="Descarga la guía completa en PDF"
+              subheadline="40 páginas con todo explicado, casos prácticos, referencias legales y checklist de adaptación."
+            />
+          </div>
+        </section>
+
+        <section id="faq" class="scroll-mt-24 mt-16">
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-8">Preguntas frecuentes</h2>
+          <div class="space-y-4">
+            {faqs.map((faq) => (
+              <details class="group bg-white border border-slate-200 rounded-lg">
+                <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+                  <span>{faq.q}</span>
+                  <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+
+  <section class="py-20 bg-slate-900 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-display-sm font-medium leading-tight">
+          ¿Buscas una solución integral?
+        </h2>
+        <p class="text-lg text-slate-300 mt-6">
+          TransGest incluirá el generador del DCD conforme a la normativa,
+          integrado con todo lo que ya necesitas (rutas optimizadas con IA, nóminas, CMR, Verifactu).
+          Actualmente en fase beta.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/beta-tester/" class="btn-accent">
+            Ser beta tester (2 años gratis)
+          </a>
+          <a href="/transgest/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">
+            Conocer TransGest
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
