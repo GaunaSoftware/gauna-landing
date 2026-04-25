@@ -18,45 +18,25 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Activar separación silábica en español por defecto */
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-  }
-
-  html[lang="es"] {
-    /* Separación silábica específica para español */
-    hyphenate-limit-chars: 6 3 3;
   }
 
   body {
     @apply font-sans text-slate-900 bg-white antialiased;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    /* Alineación natural a la izquierda — estándar SaaS moderno */
+    text-align: left;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium tracking-tight;
-    /* No fijamos color para que herede según el contexto (oscuro/claro) */
+    /* Hereda color del contexto (oscuro/claro) */
     color: inherit;
-    /* Los títulos NO se justifican, ni se cortan con guiones */
     text-align: left;
-    hyphens: none;
-    -webkit-hyphens: none;
   }
 
-  /* Por defecto, los párrafos largos se justifican */
+  /* Párrafos con alineación natural a la izquierda */
   p {
-    text-align: justify;
-    text-justify: inter-word;
-  }
-
-  /* Excepciones: párrafos dentro de hero, CTA o elementos centrados van centrados/izquierda */
-  .text-center p,
-  p.text-center,
-  header p,
-  footer p,
-  nav p {
-    text-align: inherit;
+    text-align: left;
   }
 
   ::selection {
@@ -94,13 +74,6 @@
   .prose-g {
     @apply prose prose-slate max-w-prose prose-headings:font-medium prose-headings:tracking-tight
            prose-a:text-teal-700 prose-a:no-underline hover:prose-a:underline;
-  }
-}
-
-@layer utilities {
-  /* Forzar alineación a la izquierda en párrafos cortos o donde no quede bien justificado */
-  .no-justify {
-    text-align: left;
   }
 }
 
