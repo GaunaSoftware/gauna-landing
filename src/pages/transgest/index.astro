@@ -10,57 +10,28 @@ export const prerender = false;
 const roadmap = roadmapData.items;
 
 const problems = [
-  {
-    title: 'El 5 de octubre de 2026, el papel muere',
-    description: 'Todos los documentos de transporte deben ser digitales. Solo el 17% del sector está preparado.',
-  },
-  {
-    title: 'Excel no da más de sí',
-    description: 'Gestionar flotas y nóminas en hojas sueltas lleva a errores de miles de euros que nadie detecta a tiempo.',
-  },
-  {
-    title: 'Los TMS del mercado cuestan demasiado',
-    description: '80-200€/mes por vehículo, contratos largos, y funciones que no necesitas. Para el autónomo, insostenible.',
-  },
-  {
-    title: 'Software genérico que no entiende tu sector',
-    description: 'Productos traducidos que no contemplan ni el convenio del transporte, ni el Estatuto, ni Verifactu.',
-  },
+  { title: 'El 5 de octubre de 2026, el papel muere', description: 'Todos los documentos de transporte deben ser digitales. Solo el 17% del sector está preparado.' },
+  { title: 'Excel no da más de sí', description: 'Gestionar flotas y nóminas en hojas sueltas lleva a errores de miles de euros que nadie detecta a tiempo.' },
+  { title: 'Los TMS del mercado cuestan demasiado', description: '80-200€/mes por vehículo, contratos largos, y funciones que no necesitas. Para el autónomo, insostenible.' },
+  { title: 'Software genérico que no entiende tu sector', description: 'Productos traducidos que no contemplan ni el convenio del transporte, ni el Estatuto, ni Verifactu.' },
 ];
 
 const modules = [
-  {
-    title: 'Gestión de pedidos y rutas',
-    description: 'Planifica, asigna y factura sin perder información entre hojas sueltas.',
-  },
-  {
-    title: 'Optimización e IA aplicada',
-    description: 'Rutas óptimas por coste, tiempo y consumo. La IA también genera órdenes de carga y pedidos automáticamente.',
-  },
-  {
-    title: 'Hojas de ruta y CMR digitales',
-    description: 'Conforme a la normativa 2026 y al eCMR cuando aplique.',
-  },
-  {
-    title: 'Nóminas de conductores',
-    description: 'Dietas, pluses, festivos y Estatuto de los Trabajadores integrados.',
-  },
-  {
-    title: 'Documento de Control Digital',
-    description: 'Listo para inspecciones antes del 5 de octubre de 2026.',
-  },
-  {
-    title: 'Facturación con Verifactu y SII',
-    description: 'Cumple con la normativa fiscal española desde el primer día.',
-  },
-  {
-    title: 'Análisis predictivo con IA',
-    description: 'Detección automática de anomalías en nóminas, predicción de rentabilidad por cliente y ruta.',
-  },
-  {
-    title: 'Dashboard en tiempo real',
-    description: 'Ve tu empresa de un vistazo: rentabilidad, márgenes, flota, cumplimiento.',
-  },
+  { title: 'Gestión de pedidos y rutas', description: 'Planifica, asigna y factura sin perder información entre hojas sueltas.' },
+  { title: 'Optimización e IA aplicada', description: 'Rutas óptimas por coste, tiempo y consumo. La IA también genera órdenes de carga y pedidos automáticamente.' },
+  { title: 'Hojas de ruta y CMR digitales', description: 'Conforme a la normativa 2026 y al eCMR cuando aplique.' },
+  { title: 'Nóminas de conductores', description: 'Dietas, pluses, festivos y Estatuto de los Trabajadores integrados.' },
+  { title: 'Documento de Control Digital', description: 'Listo para inspecciones antes del 5 de octubre de 2026.' },
+  { title: 'Facturación con Verifactu y SII', description: 'Cumple con la normativa fiscal española desde el primer día.' },
+  { title: 'Análisis predictivo con IA', description: 'Detección automática de anomalías en nóminas, predicción de rentabilidad por cliente y ruta.' },
+  { title: 'Dashboard en tiempo real', description: 'Ve tu empresa de un vistazo: rentabilidad, márgenes, flota, cumplimiento.' },
+];
+
+const iaFeatures = [
+  { title: 'Optimización de rutas', description: 'Algoritmos que calculan la mejor secuencia de paradas por coste, tiempo o consumo. Reducción típica de kilómetros vacíos del 10-20%.' },
+  { title: 'Generación de órdenes y pedidos', description: 'La IA lee emails, WhatsApp, PDFs o llamadas transcritas y genera órdenes de carga y pedidos completos automáticamente. Ahorra horas de introducción manual cada día.' },
+  { title: 'Detección de anomalías', description: 'La IA revisa tus nóminas antes de cerrarlas y avisa si detecta valores fuera de patrón (dietas, horas extras, pluses). Evita errores que cuestan miles de euros.' },
+  { title: 'Análisis predictivo', description: 'Predice qué rutas y qué clientes son más rentables a futuro, y alerta cuando un cliente histórico empieza a dejar de serlo. Decisiones con datos, no por intuición.' },
 ];
 ---
 
@@ -68,95 +39,69 @@ const modules = [
   title="TransGest — TMS para empresas de transporte"
   description="TransGest es el sistema de gestión integral para empresas de transporte construido por Gauna. Rutas con IA, nóminas, CMR, Verifactu y cumplimiento DCD 2026."
 >
-  <!-- HERO con logo TransGest protagonista -->
-  <section class="relative pt-12 md:pt-20 pb-20 md:pb-28 overflow-hidden">
+  <!-- HERO con logo TransGest (centrado, patrón sobre-nosotros) -->
+  <section class="relative pt-12 md:pt-20 pb-20 md:pb-24 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-transparent to-transparent pointer-events-none"></div>
 
     <div class="container-g relative">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div class="max-w-3xl mx-auto text-center">
 
-        <div>
-          <div class="flex items-center gap-2 mb-6">
-            <span class="text-xs font-medium tracking-widest uppercase text-teal-700">Un producto de</span>
-            <a href="/sobre-nosotros/" class="inline-flex items-center gap-1.5 group">
-              <span class="w-4 h-4 bg-teal-900 rounded-sm flex items-center justify-center text-white font-medium text-[10px] group-hover:bg-teal-700 transition-colors">G</span>
-              <span class="text-sm font-medium text-teal-900 group-hover:text-teal-700 transition-colors">Gauna</span>
-            </a>
-          </div>
-
-          <div class="mb-8">
-            <LogoTransGest variant="hero" />
-          </div>
-
-          <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05]">
-            Gestiona tu empresa<br>
-            de transporte sin pelearte<br>
-            con <span class="text-teal-700">Excel ni papeles</span>.
-          </h1>
-          <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
-            El sistema todo-en-uno: rutas optimizadas con IA, nóminas, CMR, facturación Verifactu y cumplimiento DCD 2026, en una sola plataforma.
-          </p>
-
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="/beta-tester/" class="btn-primary">
-              Únete al programa beta
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a href="/transgest/demo/" class="btn-secondary">
-              Lista de espera
-            </a>
-          </div>
-
-          <div class="mt-8 flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-            <BetaCounter variant="compact" />
-            <p class="text-sm text-slate-500">
-              <span class="inline-flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                En desarrollo activo · Próximamente
-              </span>
-            </p>
-          </div>
+        <div class="flex items-center justify-center gap-2 mb-6">
+          <span class="text-xs font-medium tracking-widest uppercase text-teal-700">Un producto de</span>
+          <a href="/sobre-nosotros/" class="inline-flex items-center gap-1.5 group">
+            <span class="w-4 h-4 bg-teal-900 rounded-sm flex items-center justify-center text-white font-medium text-[10px] group-hover:bg-teal-700 transition-colors">G</span>
+            <span class="text-sm font-medium text-teal-900 group-hover:text-teal-700 transition-colors">Gauna</span>
+          </a>
         </div>
 
-        <!-- Ilustración abstracta -->
-        <div class="hidden lg:flex items-center justify-center">
-          <div class="relative w-full max-w-md aspect-[4/3] bg-gradient-to-br from-teal-50 to-slate-50 rounded-2xl border border-teal-100/50 flex items-center justify-center overflow-hidden">
-            <svg viewBox="0 0 400 300" class="w-full h-full p-8" xmlns="http://www.w3.org/2000/svg">
-              <line x1="80" y1="80" x2="200" y2="150" stroke="#2D6A4F" stroke-width="1.5" opacity="0.35" />
-              <line x1="200" y1="150" x2="320" y2="80" stroke="#2D6A4F" stroke-width="1.5" opacity="0.35" />
-              <line x1="200" y1="150" x2="320" y2="220" stroke="#2D6A4F" stroke-width="1.5" opacity="0.35" />
-              <line x1="80" y1="220" x2="200" y2="150" stroke="#2D6A4F" stroke-width="1.5" opacity="0.35" />
-              <line x1="200" y1="150" x2="200" y2="60" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 4" opacity="0.7" />
-              <line x1="200" y1="150" x2="200" y2="240" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 4" opacity="0.7" />
-              <circle cx="200" cy="150" r="28" fill="#0F2A22" />
-              <circle cx="200" cy="150" r="10" fill="white" />
-              <circle cx="80" cy="80" r="14" fill="white" stroke="#2D6A4F" stroke-width="2" />
-              <circle cx="320" cy="80" r="14" fill="white" stroke="#2D6A4F" stroke-width="2" />
-              <circle cx="80" cy="220" r="14" fill="white" stroke="#2D6A4F" stroke-width="2" />
-              <circle cx="320" cy="220" r="14" fill="white" stroke="#2D6A4F" stroke-width="2" />
-              <circle cx="200" cy="60" r="9" fill="#F59E0B" />
-              <circle cx="200" cy="240" r="9" fill="#F59E0B" />
+        <div class="mb-8 flex justify-center">
+          <LogoTransGest variant="hero" />
+        </div>
+
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 leading-[1.05]">
+          Gestiona tu empresa de transporte sin pelearte con <span class="text-teal-700">Excel ni papeles</span>.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed max-w-2xl mx-auto">
+          El sistema todo-en-uno: rutas optimizadas con IA, nóminas, CMR, facturación Verifactu y cumplimiento DCD 2026, en una sola plataforma.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/beta-tester/" class="btn-primary">
+            Únete al programa beta
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </div>
+          </a>
+          <a href="/transgest/demo/" class="btn-secondary">
+            Lista de espera
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <BetaCounter variant="compact" />
+          <p class="text-sm text-slate-500">
+            <span class="inline-flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              En desarrollo activo · Próximamente
+            </span>
+          </p>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- PROBLEMA -->
+  <!-- PROBLEMA (cabecera centrada + tarjetas) -->
   <section class="py-20 md:py-24 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">El sector se enfrenta a una transformación</span>
-        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
           ¿Te suena esto?
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
         {problems.map((p) => (
           <div class="bg-white p-6 rounded-xl border border-slate-200">
             <div class="text-amber-600 mb-3">
@@ -164,7 +109,7 @@ const modules = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">{p.title}</h3>
+            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{p.title}</h3>
             <p class="text-slate-600 leading-relaxed">{p.description}</p>
           </div>
         ))}
@@ -172,21 +117,20 @@ const modules = [
     </div>
   </section>
 
-  <!-- MÓDULOS -->
+  <!-- MÓDULOS (cabecera centrada + grid) -->
   <section class="py-20 md:py-28">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">La solución</span>
-        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
-          Todo lo que necesitas<br>
-          en un solo sistema.
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Todo lo que necesitas en un solo sistema.
         </h2>
         <p class="text-lg text-slate-600 mt-6 leading-relaxed">
           Cada módulo nace de un problema real del sector. Construido con feedback de profesionales del transporte y adaptado a la normativa 2026.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14 max-w-6xl mx-auto">
         {modules.map((mod) => (
           <div class="bg-white p-6 rounded-xl border border-slate-200 hover:border-teal-400 hover:shadow-sm transition-all">
             <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
@@ -194,7 +138,7 @@ const modules = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">{mod.title}</h3>
+            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{mod.title}</h3>
             <p class="text-slate-600 leading-relaxed">{mod.description}</p>
           </div>
         ))}
@@ -202,90 +146,49 @@ const modules = [
     </div>
   </section>
 
-  <!-- IA APLICADA -->
+  <!-- IA APLICADA (cabecera centrada + grid) -->
   <section class="py-20 md:py-24 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">IA que aporta valor real</span>
-        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
           Inteligencia artificial<br>donde importa.
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed max-w-2xl">
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
           No añadimos IA decorativa para el marketing. La aplicamos en áreas concretas donde genera ahorro medible:
         </p>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-          <div class="p-6 bg-white border border-slate-200 rounded-xl">
-            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">Optimización de rutas</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Algoritmos que calculan la mejor secuencia de paradas por coste, tiempo o consumo.
-              Reducción típica de kilómetros vacíos del 10-20%.
-            </p>
-          </div>
-
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
+        {iaFeatures.map((f) => (
           <div class="p-6 bg-white border border-slate-200 rounded-xl">
             <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
               <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
               </svg>
             </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">Generación de órdenes y pedidos</h3>
-            <p class="text-slate-600 leading-relaxed">
-              La IA lee emails, WhatsApp, PDFs o llamadas transcritas y genera órdenes de carga y pedidos
-              completos automáticamente. Ahorra horas de introducción manual cada día.
-            </p>
+            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{f.title}</h3>
+            <p class="text-slate-600 leading-relaxed">{f.description}</p>
           </div>
-
-          <div class="p-6 bg-white border border-slate-200 rounded-xl">
-            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">Detección de anomalías</h3>
-            <p class="text-slate-600 leading-relaxed">
-              La IA revisa tus nóminas antes de cerrarlas y avisa si detecta valores fuera de patrón
-              (dietas, horas extras, pluses). Evita errores que cuestan miles de euros.
-            </p>
-          </div>
-
-          <div class="p-6 bg-white border border-slate-200 rounded-xl">
-            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-medium text-slate-900 mb-2">Análisis predictivo</h3>
-            <p class="text-slate-600 leading-relaxed">
-              Predice qué rutas y qué clientes son más rentables a futuro, y alerta cuando un cliente histórico
-              empieza a dejar de serlo. Decisiones con datos, no por intuición.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ROADMAP -->
+  <!-- ROADMAP (cabecera centrada + lista) -->
   <section class="py-20 md:py-24">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Roadmap público</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-          Queremos ser transparentes.<br>Mira los avances de nuestro<br>equipo en tiempo real.
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Queremos ser transparentes. Mira los avances de nuestro equipo en tiempo real.
         </h2>
-        <p class="text-slate-600 mt-6">
-          Creemos que la confianza se gana mostrando el progreso real, no con capturas simuladas.
-          Esto es lo que ya funciona y lo que estamos construyendo.
+        <p class="text-slate-600 mt-6 leading-relaxed">
+          Creemos que la confianza se gana mostrando el progreso real, no con capturas simuladas. Esto es lo que ya funciona y lo que estamos construyendo.
         </p>
       </div>
 
-      <div class="mt-12 max-w-2xl">
+      <div class="mt-12 max-w-2xl mx-auto">
         <ul class="space-y-3">
           {roadmap.map((item) => (
             <li class="flex items-start gap-3 p-4 bg-white rounded-lg border border-slate-200">
@@ -325,13 +228,11 @@ const modules = [
     <div class="container-g">
       <div class="max-w-4xl mx-auto">
         <span class="eyebrow">Para autónomos y micro-pyme</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-          Si llevas tu empresa entre<br>una libreta y WhatsApp...
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Si llevas tu empresa entre una libreta y WhatsApp...
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed max-w-2xl">
-          TransGest te da el mínimo imprescindible para profesionalizar tu gestión sin morir en el intento.
-          Sin formación, sin integraciones complicadas, sin pagar por módulos que no necesitas.
-          Facturación Verifactu y DCD incluidos desde el primer día.
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          TransGest te da el mínimo imprescindible para profesionalizar tu gestión sin morir en el intento. Sin formación, sin integraciones complicadas, sin pagar por módulos que no necesitas. Facturación Verifactu y DCD incluidos desde el primer día.
         </p>
       </div>
     </div>
@@ -341,12 +242,11 @@ const modules = [
     <div class="container-g">
       <div class="max-w-4xl mx-auto">
         <span class="eyebrow">Para pymes con flota</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-          Control total sin pagar<br>licencias eternas.
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Control total sin pagar licencias eternas.
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed max-w-2xl">
-          Gestión multi-vehículo, múltiples conductores, rutas complejas con optimización por IA, facturación a cargadores
-          con Verifactu y cumplimiento normativo 2026. Todo sin instalaciones on-premise ni integraciones de 3 meses.
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          Gestión multi-vehículo, múltiples conductores, rutas complejas con optimización por IA, facturación a cargadores con Verifactu y cumplimiento normativo 2026. Todo sin instalaciones on-premise ni integraciones de 3 meses.
         </p>
       </div>
     </div>
@@ -356,34 +256,31 @@ const modules = [
     <div class="container-g">
       <div class="max-w-4xl mx-auto">
         <span class="eyebrow">Para gestorías y asesorías</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-          Centraliza a tus clientes<br>del sector en una plataforma.
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Centraliza a tus clientes del sector en una plataforma.
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed max-w-2xl">
-          Accede a la información de cada empresa cliente sin pedirles ficheros. Automatiza nóminas,
-          supervisa documentación, integra SII para tus clientes grandes, y ofrece un servicio diferenciado
-          frente a gestorías generalistas.
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          Accede a la información de cada empresa cliente sin pedirles ficheros. Automatiza nóminas, supervisa documentación, integra SII para tus clientes grandes, y ofrece un servicio diferenciado frente a gestorías generalistas.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- CTA FINAL -->
+  <!-- CTA FINAL (centrado) -->
   <section class="py-20 md:py-24 bg-teal-900 text-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-display-sm md:text-display-md font-medium leading-tight">
+        <h2 class="text-3xl md:text-5xl font-medium tracking-tight leading-tight">
           Reserva tu plaza hoy.
         </h2>
-        <p class="text-lg text-teal-50 mt-6">
-          Solo 20 plazas de beta tester con <strong class="text-white">{betaConfig.freeYears} años de licencia gratuita</strong>.
-          O apúntate a la lista de espera general.
+        <p class="text-lg text-slate-200 mt-6 leading-relaxed">
+          Solo 20 plazas de beta tester con <strong class="text-white">{betaConfig.freeYears} años de licencia gratuita</strong>. O apúntate a la lista de espera general.
         </p>
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/beta-tester/" class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+          <a href="/beta-tester/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
             Programa beta
           </a>
-          <a href="/transgest/demo/" class="inline-flex items-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+          <a href="/transgest/demo/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
             Lista de espera
           </a>
         </div>
