@@ -27,12 +27,12 @@ const valores = [
   title="Sobre nosotros — Gauna"
   description="Gauna es un estudio pequeño de software especializado en herramientas para profesionales del transporte. Conoce nuestra forma de trabajar."
 >
-  <!-- HERO INTRO -->
+  <!-- HERO INTRO (centrado) -->
   <section class="pt-16 md:pt-24 pb-12 md:pb-16">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Sobre nosotros</span>
-        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 mt-4 leading-[1.1]">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 mt-4 leading-[1.1]">
           Construimos el software que el sector del transporte necesita.
         </h1>
         <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
@@ -42,12 +42,12 @@ const valores = [
     </div>
   </section>
 
-  <!-- POR QUÉ NACE GAUNA -->
+  <!-- POR QUÉ NACE GAUNA (alineado a izquierda) -->
   <section class="py-16 md:py-20 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Por qué nace Gauna</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
           La tecnología no estaba<br>resolviendo el día a día.
         </h2>
 
@@ -66,20 +66,20 @@ const valores = [
     </div>
   </section>
 
-  <!-- VALORES -->
+  <!-- VALORES (cabecera centrada, tarjetas en grid) -->
   <section class="py-20 md:py-24">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Valores</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-          Cuatro principios que guían<br>cada decisión de producto.
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
+          Cuatro principios que guían cada decisión de producto.
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
         {valores.map((valor) => (
           <div class="bg-white border border-slate-200 rounded-xl p-6 hover:border-teal-300 transition-colors">
-            <h3 class="text-lg font-medium text-slate-900 mb-2">{valor.titulo}</h3>
+            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{valor.titulo}</h3>
             <p class="text-slate-600 leading-relaxed">{valor.descripcion}</p>
           </div>
         ))}
@@ -87,12 +87,12 @@ const valores = [
     </div>
   </section>
 
-  <!-- CÓMO TRABAJAMOS -->
-  <section class="py-20 md:py-24 bg-slate-50">
+  <!-- CÓMO TRABAJAMOS (alineado a izquierda) -->
+  <section class="py-16 md:py-20 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Cómo trabajamos</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
           Un equipo pequeño,<br>cercano y enfocado.
         </h2>
 
@@ -111,25 +111,24 @@ const valores = [
     </div>
   </section>
 
-  <!-- NUESTROS PRODUCTOS -->
+  <!-- NUESTROS PRODUCTOS (cabecera centrada, tarjetas en grid) -->
   <section class="py-20 md:py-24">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Nuestros productos</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
           Empezamos por TransGest.<br>El resto está en camino.
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl">
-
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
         <a href="/transgest/" class="group bg-white border border-slate-200 rounded-xl p-8 hover:border-teal-300 hover:shadow-md transition-all">
           <div class="flex items-start justify-between gap-3 mb-4">
             <span class="text-xs font-medium tracking-wider uppercase text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">
               En desarrollo
             </span>
           </div>
-          <h3 class="text-2xl font-medium text-slate-900 mb-3">TransGest</h3>
+          <h3 class="text-2xl font-medium tracking-tight text-slate-900 mb-3">TransGest</h3>
           <p class="text-slate-600 leading-relaxed mb-5">
             Sistema de gestión integral para empresas de transporte por carretera. Rutas optimizadas con IA, nóminas conforme al Estatuto, CMR digital, facturación Verifactu y cumplimiento DCD 2026.
           </p>
@@ -147,31 +146,30 @@ const valores = [
               Próximamente
             </span>
           </div>
-          <h3 class="text-2xl font-medium text-slate-700 mb-3">Más herramientas</h3>
+          <h3 class="text-2xl font-medium tracking-tight text-slate-700 mb-3">Más herramientas</h3>
           <p class="text-slate-500 leading-relaxed">
             Estamos desarrollando más herramientas para todos los ámbitos del sector del transporte. Cada una pensada para resolver una necesidad real que nos cuentan los profesionales con los que trabajamos.
           </p>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- CTA FINAL -->
+  <!-- CTA FINAL (centrado, fondo verde oscuro) -->
   <section class="py-16 md:py-20 bg-teal-900 text-white">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-display-sm font-medium leading-tight">
-          ¿Quieres formar parte<br>del proyecto?
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
+          ¿Quieres formar parte del proyecto?
         </h2>
-        <p class="text-lg text-teal-100 mt-6">
+        <p class="text-lg text-slate-200 mt-6 leading-relaxed">
           El programa Beta Tester de TransGest tiene 20 plazas con dos años de licencia gratuita. Si crees que tu experiencia puede aportar al producto, queremos conocerte.
         </p>
-        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/beta-tester/" class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/beta-tester/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
             Únete como beta tester
           </a>
-          <a href="/contacto/" class="inline-flex items-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+          <a href="/contacto/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
             Habla con nosotros
           </a>
         </div>
