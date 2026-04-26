@@ -57,7 +57,7 @@ const faqs = [
 >
   <section class="py-16 md:py-20 bg-gradient-to-b from-amber-50/60 to-white">
     <div class="container-g">
-      <div class="max-w-4xl">
+      <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-200/80 rounded-full text-sm font-medium text-amber-900 mb-6">
           <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
           Fecha límite: 5 de octubre de 2026
@@ -67,13 +67,13 @@ const faqs = [
           Documento de Control Digital 2026:<br>
           <span class="text-teal-600">guía completa</span> para cumplir.
         </h1>
-        <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl leading-relaxed">
+        <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
           A partir del 5 de octubre de 2026, el documento de control en papel deja de ser válido.
           Todo el transporte público de mercancías por carretera en España debe operar con documentación digital.
           Solo el 17% del sector está preparado.
         </p>
 
-        <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="#lead-form" class="btn-accent">
             Descargar guía gratuita (PDF)
           </a>
@@ -87,7 +87,7 @@ const faqs = [
 
   <section class="py-12 border-y border-slate-100 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl">
+      <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-4">Índice</h2>
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
           {toc.map((item, i) => (
@@ -105,7 +105,7 @@ const faqs = [
 
   <article class="py-16 md:py-20">
     <div class="container-g">
-      <div class="max-w-prose mx-auto prose-g prose-lg">
+      <div class="max-w-3xl mx-auto prose-g prose-lg">
         <section id="que-es" class="scroll-mt-24">
           <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">¿Qué es el Documento de Control Digital?</h2>
           <p class="text-lg text-slate-700 leading-relaxed">
@@ -260,7 +260,7 @@ const faqs = [
         </section>
 
         <section id="faq" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-8">Preguntas frecuentes</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-8 text-center">Preguntas frecuentes</h2>
           <div class="space-y-4">
             {faqs.map((faq) => (
               <details class="group bg-white border border-slate-200 rounded-lg">
