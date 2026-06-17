@@ -5,7 +5,7 @@ export const betaConfig = {
   totalSpots: 3,
 
   /** Duración de la licencia gratuita para beta testers, en años */
-  freeYears: 2,
+  freeYears: 1,
 
   /** Fallback si Airtable falla (se usa solo si la API no responde) */
   fallbackSpotsTaken: 17,
