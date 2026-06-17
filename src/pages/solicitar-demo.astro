@@ -1,0 +1,327 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const useCases = [
+  'Gestión de servicios y cargas',
+  'Documentación y DeCA',
+  'eCMR y carta de porte digital',
+  'Facturación',
+  'App conductor',
+  'Portal de cliente',
+  'Fichajes',
+  'Integraciones / API',
+  'Programa de contabilidad',
+];
+
+const currentSystems = [
+  'Excel / hojas de cálculo',
+  'WhatsApp y correo',
+  'Otro TMS',
+  'ERP propio',
+  'Papel y carpetas',
+  'Software contable separado',
+  'Otro sistema',
+];
+---
+
+<BaseLayout
+  title="Solicitar demo de TransGest | Gauna Software"
+  description="Solicita una demo de TransGest, el TMS moderno para empresas de transporte. Centraliza servicios, documentación, facturación, conductores, clientes, portal cliente e integraciones."
+>
+  <!-- HERO -->
+  <section class="relative pt-20 md:pt-28 pb-16 md:pb-20 overflow-hidden bg-slate-950 text-white">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-900/50 via-slate-950 to-slate-950 pointer-events-none"></div>
+
+    <div class="container-g relative">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/10 rounded-full mb-8">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="text-sm font-medium text-teal-50">
+            Demo personalizada para empresas de transporte
+          </span>
+        </div>
+
+        <h1 class="text-display-md md:text-display-lg lg:text-display-xl font-medium leading-[1.05]">
+          Solicita una demo de TransGest.
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-300 mt-8 max-w-3xl mx-auto leading-relaxed">
+          Cuéntanos cómo gestionas actualmente tus servicios, documentos, conductores, vehículos, clientes y facturación. Te mostraremos cómo TransGest puede ayudarte a centralizar la operativa y trabajar con más control.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12 items-start">
+        <!-- INFO LATERAL -->
+        <aside class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+          <span class="eyebrow">Qué revisaremos contigo</span>
+
+          <h2 class="text-2xl md:text-3xl font-medium text-slate-900 mt-3 leading-tight">
+            Una demo enfocada a tu operativa real.
+          </h2>
+
+          <p class="text-slate-600 mt-5 leading-relaxed">
+            No se trata de enseñarte una presentación genérica. La idea es entender cómo trabaja tu empresa y ver dónde TransGest puede aportar más valor.
+          </p>
+
+          <div class="mt-8 space-y-4">
+            <div class="flex gap-3">
+              <span class="mt-1 w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Cómo gestionas actualmente servicios, cargas y documentación.
+              </p>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="mt-1 w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Qué procesos quieres digitalizar primero.
+              </p>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="mt-1 w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Qué necesidades tienes en documentación, facturación, conductores, clientes o integraciones.
+              </p>
+            </div>
+
+            <div class="flex gap-3">
+              <span class="mt-1 w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+              <p class="text-sm text-slate-700 leading-relaxed">
+                Cómo podría encajar TransGest en tu empresa sin cambiar de golpe toda tu forma de trabajar.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-8 bg-teal-50 border border-teal-100 rounded-2xl p-5">
+            <p class="text-sm text-teal-900 leading-relaxed">
+              <strong>Respuesta directa:</strong> al enviar el formulario se abrirá tu correo con la solicitud preparada para enviarla a Gauna Software.
+            </p>
+          </div>
+        </aside>
+
+        <!-- FORM -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+          <form id="demo-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="name" class="block text-sm font-medium text-slate-900 mb-2">
+                  Nombre y apellidos *
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="Tu nombre"
+                />
+              </div>
+
+              <div>
+                <label for="company" class="block text-sm font-medium text-slate-900 mb-2">
+                  Empresa *
+                </label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="Nombre de la empresa"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="email" class="block text-sm font-medium text-slate-900 mb-2">
+                  Email *
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="correo@empresa.com"
+                />
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-medium text-slate-900 mb-2">
+                  Teléfono
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="+34 600 000 000"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div>
+                <label for="vehicles" class="block text-sm font-medium text-slate-900 mb-2">
+                  Nº aproximado de vehículos
+                </label>
+                <input
+                  id="vehicles"
+                  name="vehicles"
+                  type="text"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="Ej: 5, 20, 80..."
+                />
+              </div>
+
+              <div>
+                <label for="role" class="block text-sm font-medium text-slate-900 mb-2">
+                  Tu cargo o área
+                </label>
+                <input
+                  id="role"
+                  name="role"
+                  type="text"
+                  class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  placeholder="Tráfico, gerencia, administración..."
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="current-system" class="block text-sm font-medium text-slate-900 mb-2">
+                ¿Qué usáis ahora para gestionar la operativa?
+              </label>
+              <select
+                id="current-system"
+                name="current-system"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+              >
+                <option value="">Selecciona una opción</option>
+                {currentSystems.map((system) => (
+                  <option value={system}>{system}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-slate-900 mb-3">
+                ¿Qué partes te interesan más?
+              </label>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {useCases.map((useCase) => (
+                  <label class="flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-3 hover:border-teal-300 hover:bg-teal-50/40 transition-colors cursor-pointer">
+                    <input
+                      type="checkbox"
+                      name="interests"
+                      value={useCase}
+                      class="w-4 h-4 accent-teal-700"
+                    />
+                    <span class="text-sm text-slate-700">{useCase}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-900 mb-2">
+                Cuéntanos qué problema quieres resolver
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                placeholder="Ej: usamos Excel para las cargas, los documentos llegan por WhatsApp, facturamos manualmente..."
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-teal-700 text-white font-medium rounded-xl hover:bg-teal-800 transition-colors"
+            >
+              Preparar solicitud de demo
+            </button>
+
+            <p class="text-xs text-slate-500 leading-relaxed text-center">
+              Al enviar, se abrirá tu gestor de correo con la información preparada para enviarla a hola@gauna.es.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOQUE FINAL -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="eyebrow">TransGest</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Un TMS moderno para trabajar con menos papel, menos errores y más control.
+        </h2>
+        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+          TransGest centraliza servicios, documentación, clientes, conductores, vehículos, facturación, fichajes, portal de cliente e integraciones en una plataforma pensada desde dentro del sector transporte.
+        </p>
+
+        <div class="mt-10">
+          <a href="/transgest/" class="btn-secondary">
+            Ver página de TransGest
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const form = document.getElementById('demo-form');
+
+    if (!form) return;
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      const interests = formData.getAll('interests').join(', ');
+
+      const subject = 'Solicitud de demo de TransGest';
+
+      const body = [
+        'Hola Gauna Software,',
+        '',
+        'Quiero solicitar una demo de TransGest.',
+        '',
+        `Nombre: ${formData.get('name') || ''}`,
+        `Empresa: ${formData.get('company') || ''}`,
+        `Email: ${formData.get('email') || ''}`,
+        `Teléfono: ${formData.get('phone') || ''}`,
+        `Nº vehículos: ${formData.get('vehicles') || ''}`,
+        `Cargo / área: ${formData.get('role') || ''}`,
+        `Sistema actual: ${formData.get('current-system') || ''}`,
+        `Intereses: ${interests || ''}`,
+        '',
+        'Problema principal:',
+        `${formData.get('message') || ''}`,
+        '',
+        'Gracias.',
+      ].join('\n');
+
+      const mailtoUrl = `mailto:hola@gauna.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailtoUrl;
+    });
+  })();
+</script>
