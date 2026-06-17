@@ -290,7 +290,6 @@ export const prerender = false;
     </div>
   </section>
 </BaseLayout>
-
 <script>
   const form = document.getElementById('demo-form');
   const successBox = document.getElementById('demo-form-success');
@@ -320,11 +319,10 @@ export const prerender = false;
       profile: formData.get('profile'),
       fleet: formData.get('fleet'),
       tools: formData.get('tools'),
-      why: formData.get('why'),
+      why: `[SOLICITUD DEMO TRANSGEST]\n\n${formData.get('why') || ''}`,
       website: formData.get('website'),
       turnstileToken: formData.get('turnstileToken'),
       startedAt: formData.get('startedAt'),
-      source: 'solicitar-demo',
     };
 
     try {
@@ -357,3 +355,4 @@ export const prerender = false;
     }
   });
 </script>
+
