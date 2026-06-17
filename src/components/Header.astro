@@ -1,4 +1,4 @@
-60---
+---
 import Logo from './Logo.astro';
 
 // Cuando TransGest esté operativo y los clientes tengan acceso,
@@ -18,7 +18,7 @@ const products = [
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
-  { href: '/dcd-2026/', label: 'Guía DCD 2026' },
+  { href: '/dcd-2026/', label: 'Guía DeCA' },
   { href: '/blog/', label: 'Blog' },
   { href: '/sobre-nosotros/', label: 'Sobre nosotros' },
 ];
@@ -84,22 +84,23 @@ const navLinks = [
     </nav>
 
     <div class="flex items-center gap-3 flex-shrink-0">
+      <a
+        href="/beta-tester/"
+        class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
+      >
+        Programa piloto
+      </a>
+
       {CLIENT_PORTAL_ENABLED && (
         <a
           href={CLIENT_PORTAL_URL}
-          class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
+          class="hidden sm:inline-flex btn-primary text-sm py-2 px-4"
           target="_blank"
           rel="noopener"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-          </svg>
           Acceso clientes
         </a>
       )}
-      <a href="/beta-tester/" class="hidden sm:inline-flex btn-primary text-sm py-2 px-4">
-        Ser beta tester
-      </a>
 
       <button
         type="button"
@@ -141,22 +142,20 @@ const navLinks = [
         </a>
       ))}
 
+      <a href="/beta-tester/" class="py-2.5 text-base font-medium text-slate-700">
+        Programa piloto
+      </a>
+
       {CLIENT_PORTAL_ENABLED && (
-        <a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener" class="py-2.5 text-base font-medium text-slate-700">
+        <a
+          href={CLIENT_PORTAL_URL}
+          target="_blank"
+          rel="noopener"
+          class="btn-primary mt-3 w-full"
+        >
           Acceso clientes
         </a>
       )}
-      <a href="/beta-tester/" class="btn-primary mt-3 w-full">
-        Ser beta tester
-      </a>
     </nav>
   </div>
 </header>
-
-<script>
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-  });
-</script>
