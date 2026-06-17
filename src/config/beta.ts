@@ -8,7 +8,7 @@ export const betaConfig = {
   freeYears: 2,
 
   /** Fallback si Airtable falla (se usa solo si la API no responde) */
-  fallbackSpotsTaken: 0,
+  fallbackSpotsTaken: 17,
 };
 
 export interface BetaStatus {
