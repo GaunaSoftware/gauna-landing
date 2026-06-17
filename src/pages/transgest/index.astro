@@ -1,287 +1,400 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import BetaCounter from '@components/BetaCounter.astro';
 import LogoTransGest from '@components/LogoTransGest.astro';
-import { betaConfig } from '@/config/beta';
-import roadmapData from '@/data/roadmap.json';
 
-export const prerender = false;
+export const prerender = true;
 
-const roadmap = roadmapData.items;
+const productStatus = [
+  {
+    name: 'Gestión de servicios',
+    status: 'Terminado',
+    description: 'Control de servicios, cargas, estados operativos y seguimiento diario desde una sola plataforma.',
+  },
+  {
+    name: 'Clientes y vehículos',
+    status: 'Terminado',
+    description: 'Base centralizada para gestionar clientes, vehículos, conductores y datos principales de la empresa.',
+  },
+  {
+    name: 'Expediente digital por transporte',
+    status: 'En desarrollo avanzado',
+    description: 'Cada servicio como expediente completo: operativo, documental, trazable y administrativo.',
+  },
+  {
+    name: 'Documentación DeCA-ready',
+    status: 'En desarrollo avanzado',
+    description: 'Estructuración de datos y documentos para preparar cada transporte con mayor trazabilidad documental.',
+  },
+  {
+    name: 'eCMR',
+    status: 'En desarrollo avanzado',
+    description: 'Evolución hacia carta de porte digital y documentación asociada directamente al servicio.',
+  },
+  {
+    name: 'Facturación',
+    status: 'Terminado',
+    description: 'Gestión administrativa y facturación vinculada a servicios, clientes y documentación del transporte.',
+  },
+  {
+    name: 'App conductor',
+    status: 'Terminado',
+    description: 'Acceso para conductores, gestión operativa y comunicación más directa entre carretera y oficina.',
+  },
+  {
+    name: 'Integraciones / API',
+    status: 'En fase avanzada',
+    description: 'Arquitectura preparada para conectar TransGest con sistemas externos, clientes, proveedores y futuras plataformas.',
+  },
+  {
+    name: 'Fichajes',
+    status: 'En fase avanzada',
+    description: 'Control de presencia y registro horario conectado con la operativa diaria de la empresa.',
+  },
+  {
+    name: 'Programa de contabilidad',
+    status: 'En desarrollo',
+    description: 'Módulo contable conectado con facturación, administración y actividad real del transporte.',
+  },
+  {
+    name: 'Portal de cliente',
+    status: 'Terminado',
+    description: 'Acceso para clientes con información, documentación y seguimiento de servicios.',
+  },
+];
+
+const statusStyles: Record<string, string> = {
+  'Terminado': 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  'En desarrollo avanzado': 'bg-teal-100 text-teal-800 border-teal-200',
+  'En fase avanzada': 'bg-blue-100 text-blue-800 border-blue-200',
+  'En desarrollo': 'bg-amber-100 text-amber-800 border-amber-200',
+};
 
 const problems = [
-  { title: 'El 5 de octubre de 2026, el papel muere', description: 'Todos los documentos de transporte deben ser digitales. Solo el 17% del sector está preparado.' },
-  { title: 'Excel no da más de sí', description: 'Gestionar flotas y nóminas en hojas sueltas lleva a errores de miles de euros que nadie detecta a tiempo.' },
-  { title: 'Los TMS del mercado cuestan demasiado', description: '80-200€/mes por vehículo, contratos largos, y funciones que no necesitas. Para el autónomo, insostenible.' },
-  { title: 'Software genérico que no entiende tu sector', description: 'Productos traducidos que no contemplan ni el convenio del transporte, ni el Estatuto, ni Verifactu.' },
+  {
+    title: 'Demasiada información dispersa',
+    description: 'Cargas en Excel, documentos por WhatsApp, facturas en otro programa y datos que se pierden entre tráfico, administración y conductores.',
+  },
+  {
+    title: 'Los TMS tradicionales se han quedado rígidos',
+    description: 'Muchas soluciones son potentes, pero complejas, poco intuitivas y alejadas de cómo trabaja realmente una empresa de transporte en el día a día.',
+  },
+  {
+    title: 'La documentación pesa cada vez más',
+    description: 'DeCA, eCMR, trazabilidad, expedientes digitales, residuos, ADR e integraciones futuras obligan a trabajar con datos mejor organizados.',
+  },
+  {
+    title: 'Falta visión global por servicio',
+    description: 'Una empresa necesita saber rápido qué servicio está listo, qué documento falta, qué conductor está asignado y qué se puede facturar.',
+  },
 ];
 
 const modules = [
-  { title: 'Gestión de pedidos y rutas', description: 'Planifica, asigna y factura sin perder información entre hojas sueltas.' },
-  { title: 'Optimización e IA aplicada', description: 'Rutas óptimas por coste, tiempo y consumo. La IA también genera órdenes de carga y pedidos automáticamente.' },
-  { title: 'Hojas de ruta y CMR digitales', description: 'Conforme a la normativa 2026 y al eCMR cuando aplique.' },
-  { title: 'Nóminas de conductores', description: 'Dietas, pluses, festivos y Estatuto de los Trabajadores integrados.' },
-  { title: 'Documento de Control Digital', description: 'Listo para inspecciones antes del 5 de octubre de 2026.' },
-  { title: 'Facturación con Verifactu y SII', description: 'Cumple con la normativa fiscal española desde el primer día.' },
-  { title: 'Análisis predictivo con IA', description: 'Detección automática de anomalías en nóminas, predicción de rentabilidad por cliente y ruta.' },
-  { title: 'Dashboard en tiempo real', description: 'Ve tu empresa de un vistazo: rentabilidad, márgenes, flota, cumplimiento.' },
+  {
+    title: 'Gestión de servicios y cargas',
+    description: 'Organiza cada transporte con cliente, origen, destino, vehículo, conductor, estado operativo y documentación asociada.',
+  },
+  {
+    title: 'Expediente digital por transporte',
+    description: 'Convierte cada servicio en un expediente operativo, documental, administrativo y trazable.',
+  },
+  {
+    title: 'Clientes, vehículos y conductores',
+    description: 'Centraliza los datos principales de la empresa y evita duplicidades, errores y búsquedas innecesarias.',
+  },
+  {
+    title: 'Documentación y cumplimiento',
+    description: 'Prepara la documentación vinculada al servicio con una estructura pensada para DeCA, eCMR y futuras integraciones.',
+  },
+  {
+    title: 'Facturación y administración',
+    description: 'Conecta servicios realizados con facturación, estados administrativos y control interno.',
+  },
+  {
+    title: 'App conductor',
+    description: 'Facilita la comunicación entre oficina y carretera, el acceso a servicios y la gestión operativa del conductor.',
+  },
+  {
+    title: 'Portal de cliente',
+    description: 'Ofrece a tus clientes acceso a información y documentación sin depender de llamadas, correos o mensajes sueltos.',
+  },
+  {
+    title: 'Integraciones y API',
+    description: 'Arquitectura preparada para conectar con otros sistemas y evolucionar con las necesidades del sector.',
+  },
 ];
 
-const iaFeatures = [
-  { title: 'Optimización de rutas', description: 'Algoritmos que calculan la mejor secuencia de paradas por coste, tiempo o consumo. Reducción típica de kilómetros vacíos del 10-20%.' },
-  { title: 'Generación de órdenes y pedidos', description: 'La IA lee emails, WhatsApp, PDFs o llamadas transcritas y genera órdenes de carga y pedidos completos automáticamente. Ahorra horas de introducción manual cada día.' },
-  { title: 'Detección de anomalías', description: 'La IA revisa tus nóminas antes de cerrarlas y avisa si detecta valores fuera de patrón (dietas, horas extras, pluses). Evita errores que cuestan miles de euros.' },
-  { title: 'Análisis predictivo', description: 'Predice qué rutas y qué clientes son más rentables a futuro, y alerta cuando un cliente histórico empieza a dejar de serlo. Decisiones con datos, no por intuición.' },
+const legalFeatures = [
+  {
+    title: 'DeCA-ready',
+    description: 'Diseñado para estructurar datos y documentación del transporte con trazabilidad y preparación digital.',
+  },
+  {
+    title: 'eCMR',
+    description: 'Orientado a trabajar con carta de porte digital y documentación asociada al servicio.',
+  },
+  {
+    title: 'eFTI-ready',
+    description: 'Arquitectura pensada para datos estructurados e integraciones futuras con plataformas certificadas cuando corresponda.',
+  },
+  {
+    title: 'DIWASS-ready',
+    description: 'Preparado conceptualmente para gestionar documentación y datos relacionados con traslados de residuos.',
+  },
+];
+
+const benefits = [
+  'Menos papel y menos documentos perdidos.',
+  'Más control sobre cada servicio.',
+  'Documentación vinculada al transporte.',
+  'Mejor comunicación entre oficina y conductor.',
+  'Facturación más conectada con la operativa.',
+  'Clientes con acceso más profesional a su información.',
+  'Datos preparados para integraciones futuras.',
+  'Una imagen más moderna frente a clientes y colaboradores.',
 ];
 ---
 
 <BaseLayout
-  title="TransGest — TMS para empresas de transporte"
-  description="TransGest es el sistema de gestión integral para empresas de transporte construido por Gauna. Rutas con IA, nóminas, CMR, Verifactu y cumplimiento DCD 2026."
+  title="TransGest | TMS moderno para empresas de transporte"
+  description="TransGest es un TMS moderno para empresas de transporte que centraliza servicios, clientes, vehículos, conductores, documentación, facturación, portal de cliente e integraciones en una sola plataforma."
 >
-  <!-- HERO con logo TransGest (centrado, patrón sobre-nosotros) -->
-  <section class="relative pt-12 md:pt-20 pb-20 md:pb-24 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-transparent to-transparent pointer-events-none"></div>
+  <!-- HERO -->
+  <section class="relative pt-20 md:pt-28 pb-20 md:pb-28 overflow-hidden bg-slate-950 text-white">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-900/50 via-slate-950 to-slate-950 pointer-events-none"></div>
 
     <div class="container-g relative">
-      <div class="max-w-3xl mx-auto text-center">
-
-        <div class="flex items-center justify-center gap-2 mb-6">
-          <span class="text-xs font-medium tracking-widest uppercase text-teal-700">Un producto de</span>
-          <a href="/sobre-nosotros/" class="inline-flex items-center gap-1.5 group">
-            <span class="w-4 h-4 bg-teal-900 rounded-sm flex items-center justify-center text-white font-medium text-[10px] group-hover:bg-teal-700 transition-colors">G</span>
-            <span class="text-sm font-medium text-teal-900 group-hover:text-teal-700 transition-colors">Gauna</span>
-          </a>
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/10 rounded-full mb-8">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="text-sm font-medium text-teal-50">TMS moderno creado desde dentro del sector transporte</span>
         </div>
 
-        <div class="mb-8 flex justify-center">
-          <LogoTransGest variant="hero" />
+        <div class="flex justify-center mb-8">
+          <LogoTransGest class="h-12 md:h-14 w-auto" />
         </div>
 
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 leading-[1.05]">
-          Gestiona tu empresa de transporte sin pelearte con <span class="text-teal-700">Excel ni papeles</span>.
+        <h1 class="text-display-md md:text-display-lg lg:text-display-xl font-medium leading-[1.05]">
+          El TMS que viene a cambiar la forma de gestionar el transporte.
         </h1>
-        <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed max-w-2xl mx-auto">
-          El sistema todo-en-uno: rutas optimizadas con IA, nóminas, CMR, facturación Verifactu y cumplimiento DCD 2026, en una sola plataforma.
+
+        <p class="text-lg md:text-xl text-slate-300 mt-8 max-w-3xl mx-auto leading-relaxed">
+          TransGest centraliza servicios, cargas, clientes, conductores, vehículos, documentación, facturación, fichajes, portal de cliente e integraciones en una plataforma moderna, clara y pensada para la operativa real del sector.
         </p>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/beta-tester/" class="btn-primary">
-            Únete al programa beta
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+          <a href="/contacto/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+            Solicitar información
           </a>
-          <a href="/transgest/demo/" class="btn-secondary">
-            Lista de espera
+          <a href="https://app.gauna.es" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white font-medium rounded-lg hover:bg-white/15 border border-white/15 transition-colors">
+            Acceso clientes
           </a>
         </div>
-
-        <div class="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <BetaCounter variant="compact" />
-          <p class="text-sm text-slate-500">
-            <span class="inline-flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              En desarrollo activo · Próximamente
-            </span>
-          </p>
-        </div>
-
       </div>
     </div>
   </section>
 
-  <!-- PROBLEMA (cabecera centrada + tarjetas) -->
-  <section class="py-20 md:py-24 bg-slate-50">
+  <!-- PROBLEMAS -->
+  <section class="py-16 md:py-20 bg-white">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">El sector se enfrenta a una transformación</span>
-        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          ¿Te suena esto?
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">El problema</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          El transporte necesita software más claro, más conectado y más realista.
         </h2>
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          Muchas empresas siguen trabajando con información repartida entre hojas de cálculo, correos, WhatsApp, carpetas, programas sueltos y procesos manuales. TransGest nace para ordenar todo eso.
+        </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
-        {problems.map((p) => (
-          <div class="bg-white p-6 rounded-xl border border-slate-200">
-            <div class="text-amber-600 mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{p.title}</h3>
-            <p class="text-slate-600 leading-relaxed">{p.description}</p>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {problems.map((problem) => (
+          <article class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-slate-900">
+              {problem.title}
+            </h3>
+            <p class="text-slate-600 mt-3 leading-relaxed">
+              {problem.description}
+            </p>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- MÓDULOS (cabecera centrada + grid) -->
-  <section class="py-20 md:py-28">
+  <!-- SOLUCIÓN -->
+  <section class="py-16 md:py-20 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
+      <div class="max-w-4xl mx-auto text-center mb-12">
         <span class="eyebrow">La solución</span>
-        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Todo lo que necesitas en un solo sistema.
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Cada servicio como expediente digital completo.
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          Cada módulo nace de un problema real del sector. Construido con feedback de profesionales del transporte y adaptado a la normativa 2026.
+        <p class="text-lg text-slate-600 mt-5 max-w-3xl mx-auto leading-relaxed">
+          TransGest no nace solo para apuntar cargas. El objetivo es que cada transporte tenga su propio expediente: datos operativos, conductor, vehículo, documentos, estados, validaciones, facturación, cliente y trazabilidad.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14 max-w-6xl mx-auto">
+      <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-slate-50 rounded-2xl p-5">
+            <div class="text-sm font-semibold text-slate-900">1. Servicio</div>
+            <p class="text-sm text-slate-600 mt-2">Origen, destino, cliente, fechas, carga y estado operativo.</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5">
+            <div class="text-sm font-semibold text-slate-900">2. Recursos</div>
+            <p class="text-sm text-slate-600 mt-2">Conductor, vehículo, documentación y datos vinculados.</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5">
+            <div class="text-sm font-semibold text-slate-900">3. Documentos</div>
+            <p class="text-sm text-slate-600 mt-2">DeCA-ready, eCMR, PDFs, evidencias e historial.</p>
+          </div>
+          <div class="bg-slate-50 rounded-2xl p-5">
+            <div class="text-sm font-semibold text-slate-900">4. Administración</div>
+            <p class="text-sm text-slate-600 mt-2">Facturación, portal cliente, contabilidad e integraciones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Módulos principales</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Todo conectado en una sola plataforma.
+        </h2>
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          Una empresa de transporte no necesita más islas de información. Necesita una herramienta donde tráfico, administración, conductores y clientes trabajen sobre la misma base.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {modules.map((mod) => (
-          <div class="bg-white p-6 rounded-xl border border-slate-200 hover:border-teal-400 hover:shadow-sm transition-all">
-            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
+          <article class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:bg-white hover:border-teal-300 hover:shadow-sm transition-all">
+            <h3 class="text-base font-semibold text-slate-900">
+              {mod.title}
+            </h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {mod.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADO DEL PRODUCTO -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="eyebrow">Estado del producto</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Una plataforma avanzada para cubrir la operativa completa del transporte.
+        </h2>
+        <p class="text-lg text-slate-600 mt-5 max-w-3xl mx-auto leading-relaxed">
+          TransGest avanza con una visión clara: centralizar la gestión operativa, documental, administrativa y comercial de una empresa de transporte en un único entorno.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {productStatus.map((item) => (
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 hover:border-teal-300 hover:shadow-sm transition-all">
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <h3 class="text-base font-semibold text-slate-900 leading-snug">
+                {item.name}
+              </h3>
+              <span class={`shrink-0 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full border ${statusStyles[item.status] || 'bg-slate-100 text-slate-700 border-slate-200'}`}>
+                {item.status}
+              </span>
             </div>
-            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{mod.title}</h3>
-            <p class="text-slate-600 leading-relaxed">{mod.description}</p>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              {item.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CUMPLIMIENTO DOCUMENTAL -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Documentación y normativa</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Preparado para la digitalización documental del transporte.
+        </h2>
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          TransGest está diseñado para trabajar con datos estructurados, documentación vinculada al servicio y una arquitectura preparada para evolucionar con DeCA, eCMR, eFTI-ready y DIWASS-ready.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {legalFeatures.map((feature) => (
+          <article class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="text-base font-semibold text-slate-900">
+              {feature.title}
+            </h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {feature.description}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-8 bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <p class="text-sm text-amber-900 leading-relaxed">
+          <strong>Nota importante:</strong> TransGest no se presenta como plataforma eFTI certificada ni DIWASS certificada. El enfoque es trabajar con una arquitectura preparada para datos estructurados, trazabilidad documental e integraciones futuras con plataformas o sistemas oficiales cuando corresponda.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="py-16 md:py-20 bg-slate-950 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow text-teal-300">Beneficios</span>
+        <h2 class="text-display-sm font-medium mt-3 leading-tight">
+          Menos papel, menos errores y más control.
+        </h2>
+        <p class="text-lg text-slate-300 mt-5 leading-relaxed">
+          TransGest está pensado para empresas que quieren modernizar su gestión sin perder de vista la realidad del transporte.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        {benefits.map((benefit) => (
+          <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+            <span class="mt-1 w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+            <p class="text-slate-200 leading-relaxed">
+              {benefit}
+            </p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- IA APLICADA (cabecera centrada + grid) -->
-  <section class="py-20 md:py-24 bg-slate-50">
+  <!-- CTA FINAL -->
+  <section class="py-20 md:py-24 bg-teal-900 text-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">IA que aporta valor real</span>
-        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Inteligencia artificial<br>donde importa.
+        <h2 class="text-display-sm md:text-display-md font-medium leading-tight">
+          ¿Quieres ver cómo TransGest puede encajar en tu empresa?
         </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          No añadimos IA decorativa para el marketing. La aplicamos en áreas concretas donde genera ahorro medible:
+        <p class="text-lg md:text-xl text-teal-50 mt-6 leading-relaxed">
+          Hablemos de tu operativa actual: servicios, documentos, conductores, vehículos, facturación, clientes e integraciones. Te mostraremos cómo TransGest puede ayudarte a ordenar y modernizar tu gestión.
         </p>
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-3xl mx-auto">
-        {iaFeatures.map((f) => (
-          <div class="p-6 bg-white border border-slate-200 rounded-xl">
-            <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center mb-4">
-              <svg class="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-              </svg>
-            </div>
-            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">{f.title}</h3>
-            <p class="text-slate-600 leading-relaxed">{f.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ROADMAP (cabecera centrada + lista) -->
-  <section class="py-20 md:py-24">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Roadmap público</span>
-        <h2 class="text-3xl md:text-5xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Queremos ser transparentes. Mira los avances de nuestro equipo en tiempo real.
-        </h2>
-        <p class="text-slate-600 mt-6 leading-relaxed">
-          Creemos que la confianza se gana mostrando el progreso real, no con capturas simuladas. Esto es lo que ya funciona y lo que estamos construyendo.
-        </p>
-      </div>
-
-      <div class="mt-12 max-w-2xl mx-auto">
-        <ul class="space-y-3">
-          {roadmap.map((item) => (
-            <li class="flex items-start gap-3 p-4 bg-white rounded-lg border border-slate-200">
-              {item.status === 'done' && (
-                <div class="w-6 h-6 rounded-full bg-teal-700 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              )}
-              {item.status === 'progress' && (
-                <div class="w-6 h-6 rounded-full bg-amber-100 border-2 border-amber-500 flex items-center justify-center flex-shrink-0">
-                  <div class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></div>
-                </div>
-              )}
-              {item.status === 'pending' && (
-                <div class="w-6 h-6 rounded-full border-2 border-slate-300 flex-shrink-0"></div>
-              )}
-              <span class:list={[
-                'flex-1',
-                item.status === 'done' && 'text-slate-900 font-medium',
-                item.status === 'progress' && 'text-slate-900',
-                item.status === 'pending' && 'text-slate-500',
-              ]}>{item.label}</span>
-              {item.status === 'done' && <span class="text-xs text-teal-700 font-medium">Listo</span>}
-              {item.status === 'progress' && <span class="text-xs text-amber-600 font-medium">En desarrollo</span>}
-              {item.status === 'pending' && <span class="text-xs text-slate-400">Próximamente</span>}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- AUDIENCIAS -->
-  <section id="autonomos" class="py-20 md:py-24 bg-slate-50">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Para autónomos y micro-pyme</span>
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Si llevas tu empresa entre una libreta y WhatsApp...
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          TransGest te da el mínimo imprescindible para profesionalizar tu gestión sin morir en el intento. Sin formación, sin integraciones complicadas, sin pagar por módulos que no necesitas. Facturación Verifactu y DCD incluidos desde el primer día.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="pymes" class="py-20 md:py-24">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Para pymes con flota</span>
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Control total sin pagar licencias eternas.
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          Gestión multi-vehículo, múltiples conductores, rutas complejas con optimización por IA, facturación a cargadores con Verifactu y cumplimiento normativo 2026. Todo sin instalaciones on-premise ni integraciones de 3 meses.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section id="gestorias" class="py-20 md:py-24 bg-slate-50">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Para gestorías y asesorías</span>
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Centraliza a tus clientes del sector en una plataforma.
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          Accede a la información de cada empresa cliente sin pedirles ficheros. Automatiza nóminas, supervisa documentación, integra SII para tus clientes grandes, y ofrece un servicio diferenciado frente a gestorías generalistas.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA FINAL (centrado) -->
-  <section class="py-16 md:py-20 bg-teal-900 text-white">
-    <div class="container-g">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
-          Reserva tu plaza hoy.
-        </h2>
-        <p class="text-lg text-slate-200 mt-6 leading-relaxed">
-          Solo 20 plazas de beta tester con <strong class="text-white">{betaConfig.freeYears} años de licencia gratuita</strong>. O apúntate a la lista de espera general.
-        </p>
-        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/beta-tester/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
-            Programa beta
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/contacto/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+            Solicitar información
           </a>
-          <a href="/transgest/demo/" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
-            Lista de espera
+          <a href="https://app.gauna.es" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+            Acceso clientes
           </a>
         </div>
       </div>
