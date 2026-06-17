@@ -2,7 +2,7 @@ import { countAcceptedBetaTesters } from '@/lib/airtable';
 
 export const betaConfig = {
   /** Plazas totales del programa beta */
-  totalSpots: 3,
+  totalSpots: 20,
 
   /** Duración de la licencia gratuita para beta testers, en años */
   freeYears: 1,
