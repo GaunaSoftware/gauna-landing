@@ -17,38 +17,23 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // ──────────────────────────────────────────────
-    // CAPA 1: Honeypot
-    // ──────────────────────────────────────────────
     if (isHoneypotFilled(data)) {
-      console.warn(`[Security] Honeypot activado desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({ success: true, message: 'Solicitud recibida' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // ──────────────────────────────────────────────
-    // CAPA 2: Detección de envío demasiado rápido
-    // ──────────────────────────────────────────────
     if (isTooFast(data.startedAt)) {
-      console.warn(`[Security] Envío sospechosamente rápido desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({ success: true, message: 'Solicitud recibida' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // ──────────────────────────────────────────────
-    // CAPA 3: Rate limiting
-    // ──────────────────────────────────────────────
     const rateLimit = checkRateLimit(ip);
 
     if (!rateLimit.allowed) {
-      console.warn(`[Security] Rate limit excedido desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({
           error: 'Demasiados intentos. Por favor, espera unos minutos antes de volver a intentarlo.',
@@ -64,14 +49,9 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ──────────────────────────────────────────────
-    // CAPA 4: Cloudflare Turnstile
-    // ──────────────────────────────────────────────
     const turnstileOk = await verifyTurnstile(data.turnstileToken, ip);
 
     if (!turnstileOk) {
-      console.warn(`[Security] Turnstile falló desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({
           error: 'La verificación anti-spam no ha pasado. Recarga la página e inténtalo de nuevo.',
@@ -80,9 +60,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ──────────────────────────────────────────────
-    // Validación de campos obligatorios
-    // ──────────────────────────────────────────────
     const requiredFields = ['name', 'company', 'email', 'phone', 'profile', 'why'];
 
     const missing = requiredFields.filter((field) => {
@@ -99,9 +76,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ──────────────────────────────────────────────
-    // Validación de email
-    // ──────────────────────────────────────────────
     const email = String(data.email).trim().toLowerCase();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -121,10 +95,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // ──────────────────────────────────────────────
-    // Crear solicitud de demo en Airtable
-    // Usa las columnas actuales de la tabla BetaTesters
-    // ──────────────────────────────────────────────
     await createDemoRequest({
       Nombre: String(data.name).trim(),
       Empresa: String(data.company).trim(),
@@ -144,16 +114,14 @@ export const POST: APIRoute = async ({ request }) => {
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-  } catch (error: any) {
-    console.error('[API demo-signup] Error completo:', error);
-    console.error('[API demo-signup] Mensaje:', error?.message);
-    console.error('[API demo-signup] Stack:', error?.stack);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Error desconocido';
+
+    console.error('[API demo-signup] Error:', error);
 
     return new Response(
       JSON.stringify({
-        error:
-          error?.message ||
-          'Error al procesar la solicitud. Inténtalo de nuevo en unos minutos.',
+        error: message || 'Error al procesar la solicitud. Inténtalo de nuevo en unos minutos.',
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
