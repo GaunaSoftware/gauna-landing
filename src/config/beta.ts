@@ -21,19 +21,18 @@ export interface BetaStatus {
 }
 
 /**
- * Obtiene el estado actual del programa beta desde Airtable.
- * Se llama en cada request de las páginas dinámicas.
+ * Obtiene el estado actual del programa beta.
  */
 export async function getBetaStatus(): Promise<BetaStatus> {
-  const countFromAirtable = await countAcceptedBetaTesters();
-
-  export async function getBetaStatus(): Promise<BetaStatus> {
-  const countFromAirtable = await countAcceptedBetaTesters();
+  await countAcceptedBetaTesters();
 
   const spotsTaken = 17;
 
   const spotsRemaining = Math.max(0, betaConfig.totalSpots - spotsTaken);
-  const spotsFilledPercent = Math.min(100, (spotsTaken / betaConfig.totalSpots) * 100);
+  const spotsFilledPercent = Math.min(
+    100,
+    (spotsTaken / betaConfig.totalSpots) * 100
+  );
 
   return {
     totalSpots: betaConfig.totalSpots,
@@ -41,19 +40,7 @@ export async function getBetaStatus(): Promise<BetaStatus> {
     spotsRemaining,
     spotsFilledPercent,
     isBetaOpen: spotsRemaining > 0,
-    source: countFromAirtable !== null ? 'airtable' : 'fallback',
+    source: 'fallback',
   };
 }
 
-  const spotsRemaining = Math.max(0, betaConfig.totalSpots - spotsTaken);
-  const spotsFilledPercent = Math.min(100, (spotsTaken / betaConfig.totalSpots) * 100);
-
-  return {
-    totalSpots: betaConfig.totalSpots,
-    spotsTaken,
-    spotsRemaining,
-    spotsFilledPercent,
-    isBetaOpen: spotsRemaining > 0,
-    source: countFromAirtable !== null ? 'airtable' : 'fallback',
-  };
-}
