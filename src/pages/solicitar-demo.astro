@@ -292,11 +292,11 @@ export const prerender = false;
 </BaseLayout>
 
 <script>
-  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  const form = document.getElementById('demo-form');
   const successBox = document.getElementById('demo-form-success');
   const errorBox = document.getElementById('demo-form-error');
   const errorMsg = document.querySelector('[data-error-message]');
-  const btn = document.getElementById('demo-submit-btn') as HTMLButtonElement | null;
+  const btn = document.getElementById('demo-submit-btn');
   const btnText = document.querySelector('[data-btn-text]');
   const btnLoading = document.querySelector('[data-btn-loading]');
 
@@ -357,4 +357,3 @@ export const prerender = false;
     }
   });
 </script>
-```
