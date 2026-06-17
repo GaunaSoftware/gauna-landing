@@ -1,6 +1,6 @@
 import Airtable from 'airtable';
 
-// Variables de entorno configuradas en Vercel y en .env local
+// Variables de entorno (configuradas en Vercel y en .env local)
 const AIRTABLE_API_KEY = import.meta.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = import.meta.env.AIRTABLE_BASE_ID;
 const AIRTABLE_BETA_TABLE = import.meta.env.AIRTABLE_BETA_TABLE || 'BetaTesters';
@@ -9,9 +9,7 @@ let baseInstance: any = null;
 
 function getBase() {
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
-    throw new Error(
-      'Airtable no está configurado. Revisa AIRTABLE_API_KEY y AIRTABLE_BASE_ID en Vercel.'
-    );
+    throw new Error('Airtable no está configurado. Revisa las variables de entorno.');
   }
 
   if (!baseInstance) {
@@ -31,72 +29,24 @@ export interface BetaTesterRecord {
   Vehiculos?: number;
   HerramientasActuales?: string;
   Motivacion: string;
-  Origen?: string;
   Estado?: 'Pendiente' | 'Aceptado' | 'Rechazado';
   FechaSolicitud?: string;
 }
 
-export async function createBetaTester(
-  data: Omit<BetaTesterRecord, 'Estado' | 'FechaSolicitud'>
-) {
-  try {
-    const base = getBase();
+export async function createBetaTester(data: Omit<BetaTesterRecord, 'Estado' | 'FechaSolicitud'>) {
+  const base = getBase();
 
-    const records = await base(AIRTABLE_BETA_TABLE).create(
-      [
-        {
-          fields: {
-            ...data,
-            Estado: 'Pendiente',
-            FechaSolicitud: new Date().toISOString().split('T')[0],
-          },
-        },
-      ],
-      {
-        typecast: true,
-      }
-    );
+  const records = await base(AIRTABLE_BETA_TABLE).create([
+    {
+      fields: {
+        ...data,
+        Estado: 'Pendiente',
+        FechaSolicitud: new Date().toISOString().split('T')[0],
+      },
+    },
+  ]);
 
-    return records[0];
-  } catch (error: any) {
-    console.error('[Airtable] Error creando solicitud:', error);
-    console.error('[Airtable] Mensaje:', error?.message);
-    console.error('[Airtable] Status:', error?.statusCode);
-
-    throw new Error(error?.message || 'No se pudo crear el registro en Airtable.');
-  }
-}
-
-export async function createDemoRequest(
-  data: Omit<BetaTesterRecord, 'Estado' | 'FechaSolicitud'>
-) {
-  try {
-    const base = getBase();
-
-    const records = await base(AIRTABLE_BETA_TABLE).create(
-      [
-        {
-          fields: {
-            ...data,
-            Origen: data.Origen || 'solicitar-demo',
-            Estado: 'Pendiente',
-            FechaSolicitud: new Date().toISOString().split('T')[0],
-          },
-        },
-      ],
-      {
-        typecast: true,
-      }
-    );
-
-    return records[0];
-  } catch (error: any) {
-    console.error('[Airtable] Error creando solicitud de demo:', error);
-    console.error('[Airtable] Mensaje:', error?.message);
-    console.error('[Airtable] Status:', error?.statusCode);
-
-    throw new Error(error?.message || 'No se pudo crear la solicitud de demo en Airtable.');
-  }
+  return records[0];
 }
 
 export async function countAcceptedBetaTesters(): Promise<number | null> {
