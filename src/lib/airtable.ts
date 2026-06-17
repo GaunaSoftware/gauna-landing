@@ -1,4 +1,4 @@
-```ts
+
 import Airtable from 'airtable';
 
 // Variables de entorno configuradas en Vercel y en .env local
