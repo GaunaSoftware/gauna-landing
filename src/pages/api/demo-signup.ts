@@ -61,7 +61,6 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const requiredFields = ['name', 'company', 'email', 'phone', 'profile', 'why'];
-
     const missing = requiredFields.filter((field) => {
       return !data[field] || String(data[field]).trim() === '';
     });
@@ -104,7 +103,7 @@ export const POST: APIRoute = async ({ request }) => {
       Vehiculos: data.fleet ? Number(data.fleet) : undefined,
       HerramientasActuales: data.tools ? String(data.tools).trim() : undefined,
       Motivacion: String(data.why).trim(),
-      Origen: data.source ? String(data.source).trim() : 'solicitar-demo',
+      Origen: 'solicitar-demo',
     });
 
     return new Response(
@@ -121,7 +120,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     return new Response(
       JSON.stringify({
-        error: message || 'Error al procesar la solicitud. Inténtalo de nuevo en unos minutos.',
+        error: message,
       }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
