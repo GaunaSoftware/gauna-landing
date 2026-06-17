@@ -17,7 +17,6 @@ const products = [
 ];
 
 const navLinks = [
-  { href: '/', label: 'Inicio' },
   { href: '/dcd-2026/', label: 'Guía DeCA' },
   { href: '/blog/', label: 'Blog' },
   { href: '/sobre-nosotros/', label: 'Sobre nosotros' },
@@ -31,7 +30,9 @@ const navLinks = [
     </a>
 
     <nav class="hidden md:flex items-center gap-5 lg:gap-7 flex-1 justify-center" aria-label="Principal">
-      <a href="/" class="text-sm font-medium text-slate-900 hover:text-teal-700 transition-colors">Inicio</a>
+      <a href="/" class="text-sm font-medium text-slate-900 hover:text-teal-700 transition-colors">
+        Inicio
+      </a>
 
       <div class="relative group">
         <button
@@ -67,13 +68,15 @@ const navLinks = [
                   Próximamente
                 </span>
               </div>
-              <p class="text-sm text-slate-500 leading-snug">Estamos desarrollando nuevas herramientas para todos los ámbitos del sector.</p>
+              <p class="text-sm text-slate-500 leading-snug">
+                Estamos desarrollando nuevas herramientas para todos los ámbitos del sector.
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {navLinks.slice(1).map((link) => (
+      {navLinks.map((link) => (
         <a
           href={link.href}
           class="text-sm font-medium text-slate-700 hover:text-teal-700 transition-colors"
@@ -106,6 +109,7 @@ const navLinks = [
         type="button"
         class="md:hidden p-2 -mr-2 text-slate-700"
         aria-label="Abrir menú"
+        aria-expanded="false"
         id="mobile-menu-toggle"
       >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +121,9 @@ const navLinks = [
 
   <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 bg-white">
     <nav class="container-g py-4 flex flex-col gap-1" aria-label="Móvil">
-      <a href="/" class="py-2.5 text-base font-medium text-slate-900">Inicio</a>
+      <a href="/" class="py-2.5 text-base font-medium text-slate-900">
+        Inicio
+      </a>
 
       <details class="group">
         <summary class="list-none py-2.5 text-base font-medium text-slate-700 flex items-center justify-between cursor-pointer">
@@ -126,17 +132,20 @@ const navLinks = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </summary>
+
         <div class="pl-4 pb-2 space-y-1">
           {products.map((p) => (
             <a href={p.href} class="block py-2 text-sm text-slate-600 hover:text-teal-700">
               {p.name} <span class="text-xs text-amber-700">· {p.status}</span>
             </a>
           ))}
-          <span class="block py-2 text-sm text-slate-400">Más herramientas · Próximamente</span>
+          <span class="block py-2 text-sm text-slate-400">
+            Más herramientas · Próximamente
+          </span>
         </div>
       </details>
 
-      {navLinks.slice(1).map((link) => (
+      {navLinks.map((link) => (
         <a href={link.href} class="py-2.5 text-base font-medium text-slate-700">
           {link.label}
         </a>
@@ -159,30 +168,42 @@ const navLinks = [
     </nav>
   </div>
 </header>
-<script>
-  const toggleButton = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
 
-  if (toggleButton && mobileMenu) {
-    toggleButton.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+<script is:inline>
+  (() => {
+    const initMobileMenu = () => {
+      const toggleButton = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
 
-      const isOpen = !mobileMenu.classList.contains('hidden');
-      toggleButton.setAttribute('aria-expanded', String(isOpen));
-      toggleButton.setAttribute(
-        'aria-label',
-        isOpen ? 'Cerrar menú' : 'Abrir menú'
-      );
-    });
+      if (!toggleButton || !mobileMenu) return;
 
-    const mobileLinks = mobileMenu.querySelectorAll('a');
+      if (toggleButton.dataset.initialized === 'true') return;
+      toggleButton.dataset.initialized = 'true';
 
-    mobileLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        toggleButton.setAttribute('aria-expanded', 'false');
-        toggleButton.setAttribute('aria-label', 'Abrir menú');
+      toggleButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+
+        const isOpen = !mobileMenu.classList.contains('hidden');
+
+        toggleButton.setAttribute('aria-expanded', String(isOpen));
+        toggleButton.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
       });
-    });
-  }
+
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          toggleButton.setAttribute('aria-expanded', 'false');
+          toggleButton.setAttribute('aria-label', 'Abrir menú');
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileMenu);
+    } else {
+      initMobileMenu();
+    }
+  })();
 </script>
