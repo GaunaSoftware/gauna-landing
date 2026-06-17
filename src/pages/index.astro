@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Logo from '@components/Logo.astro';
 
 export const prerender = true;
 
@@ -62,7 +61,7 @@ const productStatus = [
   },
 ];
 
-const statusStyles = {
+const statusStyles: Record<string, string> = {
   'Terminado': 'bg-emerald-100 text-emerald-800 border-emerald-200',
   'En desarrollo avanzado': 'bg-teal-100 text-teal-800 border-teal-200',
   'En fase avanzada': 'bg-blue-100 text-blue-800 border-blue-200',
@@ -108,7 +107,7 @@ const statusStyles = {
     </div>
   </section>
 
-  <!-- PRODUCTO DESTACADO: TransGest (resumen breve) -->
+  <!-- PRODUCTO DESTACADO: TransGest -->
   <section class="py-16 md:py-20 bg-slate-50">
     <div class="container-g">
       <div class="max-w-4xl mx-auto">
@@ -159,6 +158,7 @@ const statusStyles = {
       </div>
     </div>
   </section>
+
   <!-- ESTADO DE DESARROLLO DE TRANSGEST -->
   <section class="py-16 md:py-20 bg-white">
     <div class="container-g">
@@ -179,7 +179,7 @@ const statusStyles = {
               <h3 class="text-base font-semibold text-slate-900 leading-snug">
                 {item.name}
               </h3>
-              <span class={`shrink-0 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full border ${statusStyles[item.status] || 'bg-slate-100 text-slate-700 border-slate-200'}>
+              <span class={`shrink-0 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full border ${statusStyles[item.status] || 'bg-slate-100 text-slate-700 border-slate-200'}`}>
                 {item.status}
               </span>
             </div>
@@ -220,7 +220,7 @@ const statusStyles = {
       <div class="max-w-3xl mx-auto text-center">
         <span class="eyebrow">Más que un solo producto</span>
         <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
-          Queremos construir un ecosistema<br>de herramientas para el transporte.
+          Queremos construir un ecosistema<br />de herramientas para el transporte.
         </h2>
         <p class="text-lg text-slate-600 mt-6 leading-relaxed">
           TransGest es nuestro primer producto, pero no el único objetivo. En Gauna Software queremos desarrollar soluciones útiles para distintas áreas del sector: gestión operativa, documentación digital, automatización, trazabilidad, integraciones y nuevas herramientas adaptadas a los cambios que vienen.
@@ -247,7 +247,7 @@ const statusStyles = {
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-display-sm md:text-display-md font-medium leading-tight">
-          ¿Quieres conocer<br>lo que estamos construyendo?
+          ¿Quieres conocer<br />lo que estamos construyendo?
         </h2>
         <p class="text-lg md:text-xl text-teal-50 mt-6 leading-relaxed">
           TransGest nace para modernizar la forma en la que las empresas de transporte gestionan sus servicios, documentos, clientes, vehículos, conductores y facturación. Una herramienta pensada desde el sector para ayudar a trabajar con menos papel, menos errores y más control.
