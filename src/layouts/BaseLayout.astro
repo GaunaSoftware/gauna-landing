@@ -1,3 +1,4 @@
+
 ---
 import '@/styles/global.css';
 import Header from '@components/Header.astro';
@@ -7,20 +8,85 @@ export interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
   canonical?: string;
   noindex?: boolean;
+  ogType?: 'website' | 'article';
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description,
   ogImage = '/og-default.jpg',
+  ogImageAlt = 'Gauna Software',
   canonical,
   noindex = false,
+  ogType = 'website',
+  schema,
 } = Astro.props;
 
-const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toString();
-const ogImageURL = new URL(ogImage, Astro.site).toString();
+const site = Astro.site ?? new URL('https://gauna.es');
+const siteOrigin = site.origin;
+
+const canonicalURL = canonical
+  ? new URL(canonical, site).toString()
+  : new URL(Astro.url.pathname, site).toString();
+
+const ogImageURL = new URL(ogImage, site).toString();
+
+const robotsContent = noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+
+const baseSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteOrigin}/#organization`,
+    name: 'Gauna Software',
+    alternateName: 'Gauna',
+    url: siteOrigin,
+    logo: `${siteOrigin}/logo.svg`,
+    description:
+      'Estudio de software especializado en herramientas digitales para empresas de transporte.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Elche',
+      addressRegion: 'Alicante',
+      addressCountry: 'ES',
+    },
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        email: 'hola@gauna.es',
+        contactType: 'customer support',
+        availableLanguage: ['es'],
+      },
+    ],
+    sameAs: [],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteOrigin}/#website`,
+    name: 'Gauna Software',
+    alternateName: 'Gauna',
+    url: siteOrigin,
+    inLanguage: 'es-ES',
+    publisher: {
+      '@id': `${siteOrigin}/#organization`,
+    },
+  },
+];
+
+const customSchema = schema
+  ? Array.isArray(schema)
+    ? schema
+    : [schema]
+  : [];
+
+const structuredData = [...baseSchema, ...customSchema];
 ---
 
 <!DOCTYPE html>
@@ -30,15 +96,18 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+    <!-- SEO básico -->
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
     <link rel="canonical" href={canonicalURL} />
 
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
-
+    <!-- Identidad -->
     <meta name="generator" content={Astro.generator} />
-    <meta name="author" content="Gauna" />
+    <meta name="author" content="Gauna Software" />
+    <meta name="application-name" content="Gauna Software" />
     <meta name="theme-color" content="#0D9488" />
+    <meta name="color-scheme" content="light" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -46,40 +115,38 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Gauna" />
+    <meta property="og:site_name" content="Gauna Software" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content="gauna.es" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Gauna",
-      "url": "https://gauna.es",
-      "logo": "https://gauna.es/logo.svg",
-      "description": "Software para el transporte, construido por y para profesionales del sector.",
-      "sameAs": []
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
     <!-- Preconnect para performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
   </head>
+
   <body class="min-h-screen flex flex-col">
     <Header />
+
     <main class="flex-1">
       <slot />
     </main>
+
     <Footer />
   </body>
 </html>
