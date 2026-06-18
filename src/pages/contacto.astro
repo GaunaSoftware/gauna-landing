@@ -1,52 +1,329 @@
+
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Turnstile from '@components/Turnstile.astro';
+import Honeypot from '@components/Honeypot.astro';
 
-export const prerender = true;
+export const prerender = false;
 ---
 
 <BaseLayout
-  title="Contacto | Gauna"
-  description="Ponte en contacto con el equipo de Gauna. Respondemos en 24-48 horas laborales."
+  title="Contacto | Gauna Software"
+  description="Contacta con Gauna Software para solicitar información sobre TransGest, resolver dudas o hablar con nuestro equipo."
 >
-  <section class="py-16 md:py-24">
+  <!-- HERO -->
+  <section class="py-16 md:py-24 bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-white">
     <div class="container-g">
-      <div class="max-w-2xl mx-auto">
-        <div class="text-center">
-          <span class="eyebrow">Contacto</span>
-          <h1 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
-            ¿Hablamos?
-          </h1>
-          <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-            Para preguntas sobre TransGest, colaboraciones, prensa o feedback del desarrollo,
-            escríbenos directamente:
-          </p>
-        </div>
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300 mb-3">
+          Contacto
+        </span>
 
-        <div class="mt-10 space-y-6">
-          <div class="bg-white border border-slate-200 rounded-xl p-6">
-            <h2 class="text-xl font-medium text-slate-900 mb-2">Email general</h2>
-            <a href="mailto:hola@gauna.es" class="text-teal-600 hover:underline">hola@gauna.es</a>
-            <p class="text-sm text-slate-500 mt-2">Para consultas generales y feedback.</p>
-          </div>
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium mt-4 leading-[1.05] text-white">
+          ¿Hablamos sobre<br />
+          <span class="text-amber-400">TransGest?</span>
+        </h1>
 
-          <div class="bg-white border border-slate-200 rounded-xl p-6">
-            <h2 class="text-xl font-medium text-slate-900 mb-2">Soporte TransGest</h2>
-            <a href="mailto:soporte@gauna.es" class="text-teal-600 hover:underline">soporte@gauna.es</a>
-            <p class="text-sm text-slate-500 mt-2">Para preguntas técnicas y soporte (beta testers).</p>
-          </div>
+        <p class="text-lg md:text-xl text-slate-200 mt-6 max-w-2xl mx-auto leading-relaxed">
+          Cuéntanos qué necesitas: información comercial, soporte, colaboración o una demo de TransGest.
+          Te responderemos lo antes posible.
+        </p>
 
-          <div class="bg-white border border-slate-200 rounded-xl p-6">
-            <h2 class="text-xl font-medium text-slate-900 mb-2">Prensa y partners</h2>
-            <a href="mailto:prensa@gauna.es" class="text-teal-600 hover:underline">prensa@gauna.es</a>
-            <p class="text-sm text-slate-500 mt-2">Para medios, entrevistas o acuerdos comerciales.</p>
-          </div>
-        </div>
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#formulario-contacto" class="btn-primary">
+            Enviar mensaje
+          </a>
 
-        <div class="mt-12 pt-8 border-t border-slate-200 text-sm text-slate-500">
-          <p>Gauna · Elche, Alicante, España</p>
-          <p class="mt-1">Respondemos en 24-48 horas laborales.</p>
+          <a href="/solicitar-demo/" class="btn-secondary bg-white/10 text-white border-white/20 hover:bg-white/15">
+            Solicitar demo
+          </a>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- CONTACTO + FORMULARIO -->
+  <section class="py-20 md:py-24 bg-slate-50">
+    <div class="container-g">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto">
+        
+        <!-- INFORMACIÓN -->
+        <div class="lg:col-span-5">
+          <span class="eyebrow">Gauna Software</span>
+
+          <h2 class="text-display-sm font-medium text-slate-900 mt-4 leading-tight">
+            Software creado desde la realidad del transporte.
+          </h2>
+
+          <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+            Estamos en Elche, Alicante, y trabajamos en soluciones digitales para empresas de transporte,
+            operadores, autónomos, pymes y equipos que quieren reducir papel, automatizar procesos y tener más control.
+          </p>
+
+          <div class="mt-10 space-y-4">
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+              <h3 class="text-lg font-medium text-slate-900 mb-2">
+                Email general
+              </h3>
+              <a href="mailto:hola@gauna.es" class="text-teal-700 font-medium hover:underline">
+                hola@gauna.es
+              </a>
+              <p class="text-sm text-slate-500 mt-2">
+                Para consultas generales, demos, propuestas y feedback.
+              </p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+              <h3 class="text-lg font-medium text-slate-900 mb-2">
+                Soporte TransGest
+              </h3>
+              <a href="mailto:soporte@gauna.es" class="text-teal-700 font-medium hover:underline">
+                soporte@gauna.es
+              </a>
+              <p class="text-sm text-slate-500 mt-2">
+                Para usuarios y empresas que ya trabajan con TransGest.
+              </p>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+              <h3 class="text-lg font-medium text-slate-900 mb-2">
+                Ubicación
+              </h3>
+              <p class="text-slate-700">
+                Elche, Alicante · España
+              </p>
+              <p class="text-sm text-slate-500 mt-2">
+                Respondemos normalmente en 24-48 horas laborales.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="lg:col-span-7" id="formulario-contacto">
+          <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
+            <div class="mb-8">
+              <span class="eyebrow">Formulario</span>
+
+              <h2 class="text-2xl md:text-3xl font-medium text-slate-900 mt-3">
+                Envíanos tu consulta
+              </h2>
+
+              <p class="text-slate-600 mt-3">
+                Rellena el formulario y te contactaremos por email o teléfono.
+              </p>
+            </div>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-name" class="block text-sm font-medium text-slate-700 mb-1.5">
+                    Nombre y apellidos *
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+
+                <div>
+                  <label for="contact-company" class="block text-sm font-medium text-slate-700 mb-1.5">
+                    Empresa *
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-company"
+                    name="company"
+                    required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label for="contact-email" class="block text-sm font-medium text-slate-700 mb-1.5">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+
+                <div>
+                  <label for="contact-phone" class="block text-sm font-medium text-slate-700 mb-1.5">
+                    Teléfono *
+                  </label>
+                  <input
+                    type="tel"
+                    id="contact-phone"
+                    name="phone"
+                    required
+                    class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-topic" class="block text-sm font-medium text-slate-700 mb-1.5">
+                  Motivo de contacto *
+                </label>
+                <select
+                  id="contact-topic"
+                  name="topic"
+                  required
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                >
+                  <option value="">Selecciona...</option>
+                  <option value="Solicitar información sobre TransGest">Solicitar información sobre TransGest</option>
+                  <option value="Solicitar demo">Solicitar demo</option>
+                  <option value="Soporte">Soporte</option>
+                  <option value="Colaboración o partner">Colaboración o partner</option>
+                  <option value="Prensa">Prensa</option>
+                  <option value="Otra consulta">Otra consulta</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="contact-message" class="block text-sm font-medium text-slate-700 mb-1.5">
+                  Mensaje *
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="5"
+                  required
+                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  placeholder="Cuéntanos qué necesitas, qué tipo de empresa tienes o qué problema quieres resolver."
+                ></textarea>
+              </div>
+
+              <Honeypot />
+              <Turnstile formId="contact-form" />
+
+              <div class="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  id="contact-consent"
+                  name="consent"
+                  required
+                  class="mt-1 rounded text-teal-600"
+                />
+                <label for="contact-consent" class="text-xs text-slate-500 leading-relaxed">
+                  Acepto que Gauna trate mis datos para responder a mi consulta.
+                  <a href="/politica-privacidad/" class="underline hover:text-teal-600">Política de privacidad</a>.
+                </label>
+              </div>
+
+              <div id="contact-form-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p class="text-sm text-red-900" data-error-message>
+                  Ha ocurrido un error. Intenta de nuevo o escríbenos a
+                  <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.
+                </p>
+              </div>
+
+              <button type="submit" class="btn-primary w-full text-base py-4" id="contact-submit-btn">
+                <span data-btn-text>Enviar mensaje</span>
+                <span data-btn-loading class="hidden">Enviando...</span>
+              </button>
+            </form>
+
+            <div id="contact-form-success" class="hidden mt-4 p-6 bg-teal-50 border border-teal-200 rounded-lg">
+              <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+
+                <div>
+                  <p class="font-medium text-teal-900">
+                    Mensaje recibido
+                  </p>
+                  <p class="text-sm text-teal-800 mt-1">
+                    Gracias por contactar con Gauna Software. Revisaremos tu mensaje y responderemos lo antes posible.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const successBox = document.getElementById('contact-form-success');
+  const errorBox = document.getElementById('contact-form-error');
+  const errorMsg = document.querySelector('[data-error-message]');
+  const btn = document.getElementById('contact-submit-btn');
+  const btnText = document.querySelector('[data-btn-text]');
+  const btnLoading = document.querySelector('[data-btn-loading]');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!form || !btn) return;
+
+    btn.disabled = true;
+    btnText?.classList.add('hidden');
+    btnLoading?.classList.remove('hidden');
+    errorBox?.classList.add('hidden');
+
+    const formData = new FormData(form);
+
+    const topic = formData.get('topic') || '';
+    const message = formData.get('message') || '';
+
+    const payload = {
+      name: formData.get('name'),
+      company: formData.get('company'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      profile: 'Contacto web',
+      fleet: '',
+      tools: String(topic),
+      why: `[CONTACTO WEB]\n\nMotivo: ${topic}\n\nMensaje:\n${message}`,
+      website: formData.get('website'),
+      turnstileToken: formData.get('turnstileToken'),
+      startedAt: formData.get('startedAt'),
+    };
+
+    try {
+      const response = await fetch('/api/beta-signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error del servidor');
+      }
+
+      form.classList.add('hidden');
+      successBox?.classList.remove('hidden');
+      successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Error desconocido';
+
+      if (errorMsg) {
+        errorMsg.textContent = `No hemos podido enviar tu mensaje: ${message}. Puedes escribirnos directamente a hola@gauna.es.`;
+      }
+
+      errorBox?.classList.remove('hidden');
+      btn.disabled = false;
+      btnText?.classList.remove('hidden');
+      btnLoading?.classList.add('hidden');
+    }
+  });
+</script>
