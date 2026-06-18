@@ -1,10 +1,12 @@
+
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import LeadMagnetForm from '@components/LeadMagnetForm.astro';
+
 export const prerender = true;
 
 const toc = [
-  { id: 'que-es', title: '¿Qué es el DCD?' },
+  { id: 'que-es', title: '¿Qué es el DCD / DeCA?' },
   { id: 'a-quien-afecta', title: '¿A quién afecta?' },
   { id: 'dcd-vs-cmr', title: 'DCD vs CMR vs albarán' },
   { id: 'datos-obligatorios', title: 'Datos obligatorios' },
@@ -17,66 +19,69 @@ const toc = [
 
 const faqs = [
   {
-    q: '¿Qué pasa si circulo con el documento en papel después del 5 de octubre?',
-    a: 'Será considerado como circular sin documento de control válido. Infracción grave según la LOTT, con sanción de entre 401 y 2.000 €. Ante reincidencia, puede calificarse de muy grave.',
+    q: '¿Qué pasa si circulo con el documento en papel después de la entrada en vigor?',
+    a: 'El documento de control deberá estar disponible en formato digital cuando la obligación sea aplicable. Circular sin documento de control válido puede suponer sanciones según la normativa de transporte. Conviene adaptar los procesos antes de la fecha límite para evitar incidencias en inspección.',
   },
   {
     q: '¿Mi eCMR actual me vale como DCD?',
-    a: 'Puede valer si incluye todos los datos obligatorios del DCD (cargador, transportista, origen, destino, mercancía, fechas). Si falta alguno, no cumple. Conviene revisar los 6 campos mínimos antes de octubre.',
+    a: 'Puede valer si incluye todos los datos obligatorios exigidos para el documento de control administrativo: identificación de las partes, origen, destino, mercancía y fechas, entre otros. Si falta información obligatoria, no sería suficiente por sí solo.',
   },
   {
     q: '¿Necesito un software de pago para generar el DCD?',
-    a: 'No obligatoriamente. La ley exige que el documento exista en formato digital y pueda verificarse. Puedes generarlo con herramientas propias, plantillas o software libre siempre que cumpla los requisitos.',
+    a: 'No necesariamente. Lo importante es que el documento exista en formato digital, contenga los datos exigidos y pueda presentarse correctamente cuando sea requerido. Un software especializado ayuda a centralizar, automatizar y reducir errores.',
   },
   {
     q: '¿Cómo lo presento si me paran en un control?',
-    a: 'La norma acepta dos formas: código QR (más rápido y estándar) o código numérico. El inspector puede escanear el QR o teclear el código para verificar la información en su sistema.',
+    a: 'La presentación deberá permitir consultar la información digital del documento de control. En la práctica, lo normal será trabajar con identificadores, códigos o sistemas que faciliten la verificación por parte de la autoridad competente.',
   },
   {
     q: '¿Tengo que firmar digitalmente el DCD?',
-    a: 'No siempre. La firma electrónica no es obligatoria para el DCD, pero sí puede requerirse en momentos concretos como la confirmación de entrega. Depende del flujo documental que usa cada empresa.',
+    a: 'Dependerá del flujo documental, de la operación y de los requisitos aplicables en cada caso. Aunque la firma puede ser útil para trazabilidad y aceptación, lo esencial es que el documento de control digital exista, sea verificable y contenga la información obligatoria.',
   },
   {
     q: '¿Qué empresas están obligadas?',
-    a: 'Todo transporte público de mercancías por carretera en territorio español, sin importar el tamaño de la empresa. Aplica a autónomos, pymes y grandes flotas por igual.',
+    a: 'La obligación afecta al transporte público de mercancías por carretera cuando sea exigible el documento de control administrativo. Incluye empresas de transporte, autónomos, operadores y cargadores implicados en operaciones sujetas a esta documentación.',
   },
   {
     q: '¿Hay algún período transitorio?',
-    a: 'No. La Ley 9/2025 fija el 5 de octubre de 2026 como fecha de entrada en vigor sin transitoriedad. Desde ese día el papel deja de ser válido como documento de control.',
+    a: 'La Ley 9/2025 establece la obligación de que el documento de control administrativo sea digital a los diez meses desde la entrada en vigor de la ley. Por eso es recomendable preparar procesos, equipos y herramientas antes de la fecha límite.',
   },
   {
     q: '¿Dónde guardo los DCD generados?',
-    a: 'El Ministerio ha simplificado la norma: no hace falta dar acceso a un repositorio público. Basta con que el documento exista en formato digital antes del transporte y pueda mostrarse en inspección.',
+    a: 'Lo recomendable es conservarlos en un sistema digital ordenado, vinculado a cada servicio, cliente, vehículo, conductor y expediente de transporte, de forma que puedan consultarse y presentarse cuando sea necesario.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Guía completa DCD 2026: Documento de Control Digital | Gauna"
-  description="Todo lo que necesitas saber sobre el Documento de Control Digital obligatorio desde el 5 de octubre de 2026. Qué es, a quién afecta, multas y cómo cumplir. Descarga guía gratuita."
+  title="Guía completa DCD 2026: Documento de Control Digital | Gauna Software"
+  description="Guía sobre el Documento de Control Digital obligatorio para transporte público de mercancías por carretera. Qué es, a quién afecta, datos obligatorios, sanciones y cómo preparar tu empresa."
 >
+  <!-- HERO -->
   <section class="py-16 md:py-20 bg-gradient-to-b from-amber-50/60 to-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-200/80 rounded-full text-sm font-medium text-amber-900 mb-6">
           <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
-          Fecha límite: 5 de octubre de 2026
+          Obligación digital desde 2026
         </div>
 
         <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05]">
-          Documento de Control Digital 2026:<br>
-          <span class="text-teal-600">guía completa</span> para cumplir.
+          Documento de Control Digital 2026:<br />
+          <span class="text-teal-600">guía completa</span> para preparar tu empresa.
         </h1>
+
         <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
-          A partir del 5 de octubre de 2026, el documento de control en papel deja de ser válido.
-          Todo el transporte público de mercancías por carretera en España debe operar con documentación digital.
-          Solo el 17% del sector está preparado.
+          El documento de control administrativo del transporte público de mercancías por carretera
+          avanza hacia un formato necesariamente digital. En esta guía te explicamos qué es,
+          a quién afecta, qué datos debe contener y cómo empezar a adaptar tu operativa.
         </p>
 
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="#lead-form" class="btn-accent">
-            Descargar guía gratuita (PDF)
+            Descargar guía gratuita
           </a>
+
           <a href="#que-es" class="btn-secondary">
             Saber más sobre el DCD
           </a>
@@ -85,15 +90,24 @@ const faqs = [
     </div>
   </section>
 
+  <!-- ÍNDICE -->
   <section class="py-12 border-y border-slate-100 bg-slate-50">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <h2 class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-4">Índice</h2>
+        <h2 class="text-sm font-medium text-slate-500 uppercase tracking-wider mb-4">
+          Índice
+        </h2>
+
         <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
           {toc.map((item, i) => (
             <li>
-              <a href={`#${item.id}`} class="flex items-center gap-3 py-2 text-slate-700 hover:text-teal-600 transition-colors">
-                <span class="text-sm text-slate-400 font-mono">{String(i + 1).padStart(2, '0')}</span>
+              <a
+                href={`#${item.id}`}
+                class="flex items-center gap-3 py-2 text-slate-700 hover:text-teal-600 transition-colors"
+              >
+                <span class="text-sm text-slate-400 font-mono">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 <span>{item.title}</span>
               </a>
             </li>
@@ -103,149 +117,280 @@ const faqs = [
     </div>
   </section>
 
+  <!-- ARTÍCULO -->
   <article class="py-16 md:py-20">
     <div class="container-g">
       <div class="max-w-3xl mx-auto prose-g prose-lg">
+
         <section id="que-es" class="scroll-mt-24">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">¿Qué es el Documento de Control Digital?</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            ¿Qué es el Documento de Control Digital?
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed">
-            El <strong>Documento de Control (DC)</strong> es el documento administrativo que acredita que existe un contrato de transporte y que debe acompañar a cada operación por carretera. Existe desde la Orden FOM/2861/2012 y hasta ahora se aceptaba en papel. A partir del 5 de octubre de 2026 solo será válido en formato digital, por eso se le llama <strong>DCD — Documento de Control Digital</strong>.
+            El <strong>Documento de Control</strong> es el documento administrativo que acredita
+            la existencia de una operación de transporte y que debe acompañar a determinados
+            transportes públicos de mercancías por carretera.
           </p>
+
           <p class="text-lg text-slate-700 leading-relaxed mt-4">
-            La obligación viene recogida en la <strong>Ley 9/2025 de Movilidad Sostenible</strong>, publicada en el BOE el 4 de diciembre de 2025, y desarrollada por la Orden TRM/282/2026 de 25 de marzo. Es una adaptación de España al Reglamento europeo eFTI, que promueve la digitalización completa de la documentación del transporte en la UE.
+            Tradicionalmente se ha gestionado en papel o mediante documentos poco conectados entre sí.
+            Con la nueva obligación digital, las empresas deben preparar sus procesos para generar,
+            conservar y presentar esta información en formato electrónico.
+          </p>
+
+          <p class="text-lg text-slate-700 leading-relaxed mt-4">
+            En el sector se habla de distintas formas: <strong>DCD</strong>, Documento de Control Digital
+            o <strong>DeCA</strong>. En todos los casos, la idea clave es la misma: que la información
+            administrativa del transporte esté disponible de forma digital, estructurada y verificable.
           </p>
         </section>
 
         <section id="a-quien-afecta" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">¿A quién afecta?</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            ¿A quién afecta?
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed">
-            A <strong>todo transporte público de mercancías por carretera</strong> realizado en territorio español. Sin excepciones por tamaño de empresa ni por tipo de mercancía. Están obligados:
+            La obligación afecta al <strong>transporte público de mercancías por carretera</strong>
+            cuando sea exigible el documento de control administrativo. En la práctica, deben prepararse:
           </p>
+
           <ul class="mt-4 space-y-2 text-lg text-slate-700">
-            <li>Autónomos del transporte, sea cual sea el tipo de vehículo.</li>
-            <li>Empresas con flota propia de cualquier tamaño.</li>
+            <li>Autónomos del transporte.</li>
+            <li>Empresas con flota propia.</li>
+            <li>Operadores logísticos y agencias.</li>
             <li>Empresas cargadoras que contratan transporte.</li>
-            <li>Operadores logísticos y transitarios.</li>
+            <li>Departamentos de tráfico, administración y documentación.</li>
           </ul>
+
           <p class="text-lg text-slate-700 leading-relaxed mt-4">
-            El transporte privado complementario, bajo ciertas condiciones, puede quedar fuera, pero para el público —el 99% del sector comercial— la obligación es total.
+            No es solo un cambio documental. También afecta a cómo se organizan los servicios,
+            cómo se guardan los datos y cómo se responde ante una inspección.
           </p>
         </section>
 
         <section id="dcd-vs-cmr" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">DCD vs CMR vs eCMR vs albarán</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            DCD vs CMR vs eCMR vs albarán
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed mb-6">
-            Es el error más común del sector. Cada documento cumple una función distinta.
+            Es uno de los puntos que más confusión genera. Cada documento cumple una función distinta.
           </p>
 
           <div class="not-prose space-y-4">
             <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-              <h3 class="font-medium text-slate-900 mb-2">CMR</h3>
-              <p class="text-slate-700">Carta de porte internacional. Documento contractual <strong>privado</strong> regulado por el Convenio CMR (Ginebra, 1956). Acredita el contrato de transporte entre cargador, transportista y destinatario.</p>
+              <h3 class="font-medium text-slate-900 mb-2">
+                CMR
+              </h3>
+              <p class="text-slate-700">
+                Carta de porte internacional. Es un documento contractual privado que regula
+                responsabilidades entre cargador, transportista y destinatario.
+              </p>
             </div>
+
             <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-              <h3 class="font-medium text-slate-900 mb-2">eCMR</h3>
-              <p class="text-slate-700">Versión digital del CMR. Misma función, formato electrónico. Uso voluntario salvo pacto entre partes.</p>
+              <h3 class="font-medium text-slate-900 mb-2">
+                eCMR
+              </h3>
+              <p class="text-slate-700">
+                Versión digital del CMR. Cumple la misma función contractual, pero en formato electrónico.
+                Puede ayudar a cubrir requisitos documentales si contiene los datos exigidos.
+              </p>
             </div>
+
             <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-              <h3 class="font-medium text-slate-900 mb-2">Albarán</h3>
-              <p class="text-slate-700">Documento de <strong>entrega</strong> de la mercancía. Firma el destinatario al recibir. No es contractual.</p>
+              <h3 class="font-medium text-slate-900 mb-2">
+                Albarán
+              </h3>
+              <p class="text-slate-700">
+                Documento de entrega de la mercancía. Sirve para acreditar recepción,
+                pero no sustituye automáticamente al documento de control administrativo.
+              </p>
             </div>
+
             <div class="bg-teal-50 p-5 rounded-lg border border-teal-200">
-              <h3 class="font-medium text-teal-900 mb-2">DCD (Documento de Control Digital)</h3>
-              <p class="text-teal-900">Documento <strong>administrativo</strong> español. No va a las partes privadas, va al inspector. Acredita ante la Administración que el transporte tiene contrato válido. Obligatorio digital desde el 5 de octubre de 2026.</p>
+              <h3 class="font-medium text-teal-900 mb-2">
+                DCD / DeCA
+              </h3>
+              <p class="text-teal-900">
+                Documento administrativo vinculado al transporte. Su finalidad es acreditar ante la Administración
+                que el transporte cuenta con la información exigida y puede ser presentado en formato digital.
+              </p>
             </div>
           </div>
 
           <p class="text-lg text-slate-700 leading-relaxed mt-6">
-            <strong>Punto clave:</strong> si tu eCMR incluye todos los datos que exige el DCD, te vale como DCD. No hace falta duplicar documentación. Pero si falta un solo campo, no cumple.
+            <strong>Punto clave:</strong> no conviene pensar en documentos sueltos,
+            sino en un expediente digital por transporte que reúna la información necesaria
+            para tráfico, cliente, administración e inspección.
           </p>
         </section>
 
         <section id="datos-obligatorios" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Datos obligatorios del DCD</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            Datos obligatorios del DCD
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed mb-6">
-            El DCD debe contener, como mínimo:
+            El documento de control debe contener la información básica de la operación.
+            Como mínimo, deberías revisar que tus procesos recogen:
           </p>
+
           <ol class="space-y-3 text-lg text-slate-700 list-decimal pl-6 marker:font-medium marker:text-teal-700">
-            <li>Identificación del cargador contractual</li>
-            <li>Identificación del transportista efectivo</li>
-            <li>Origen del transporte</li>
-            <li>Destino del transporte</li>
-            <li>Descripción de la mercancía</li>
-            <li>Fechas de carga y descarga</li>
+            <li>Identificación del cargador contractual.</li>
+            <li>Identificación del transportista efectivo.</li>
+            <li>Origen del transporte.</li>
+            <li>Destino del transporte.</li>
+            <li>Descripción de la mercancía.</li>
+            <li>Fechas de carga y descarga.</li>
           </ol>
+
           <p class="text-lg text-slate-700 leading-relaxed mt-6">
-            Además, durante el transporte se pueden añadir incidencias, cambios de conductor u observaciones sobre el estado de la carga.
+            Además, una buena gestión digital permite vincular incidencias, cambios,
+            observaciones, documentación asociada y trazabilidad del servicio.
           </p>
         </section>
 
         <section id="inspeccion" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Cómo se presenta en inspección</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            Cómo se presenta en inspección
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed">
-            La norma acepta <strong>dos métodos</strong> de presentación ante las autoridades:
+            El objetivo es que, ante una inspección, la empresa pueda mostrar la información del transporte
+            de forma digital, ordenada y verificable.
           </p>
+
           <ul class="mt-4 space-y-3 text-lg text-slate-700">
-            <li><strong>Código QR:</strong> será el estándar de facto. El inspector lo escanea con su dispositivo y accede al documento verificable.</li>
-            <li><strong>Código numérico:</strong> alternativa para situaciones sin conectividad o como respaldo. Se introduce manualmente en el sistema del inspector.</li>
+            <li>
+              <strong>Acceso rápido:</strong> el conductor o la empresa debe poder localizar el documento
+              sin depender de papeles dispersos.
+            </li>
+            <li>
+              <strong>Información completa:</strong> el documento debe incluir los datos necesarios
+              para identificar la operación.
+            </li>
+            <li>
+              <strong>Trazabilidad:</strong> conviene que cada documento quede vinculado al servicio,
+              cliente, vehículo y conductor correspondiente.
+            </li>
           </ul>
+
           <p class="text-lg text-slate-700 leading-relaxed mt-4">
-            Importante: no hace falta proporcionar una URL ni acceso externo a un repositorio. Basta con que el documento exista digitalmente antes del transporte y pueda mostrarse en inspección.
+            Prepararse no consiste solo en convertir un PDF en digital, sino en ordenar todo el flujo documental
+            de la empresa.
           </p>
         </section>
 
         <section id="responsabilidades" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Responsabilidades: cargador vs transportista</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            Responsabilidades: cargador vs transportista
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed">
-            La Orden TRM/282/2026 aclaró una zona gris que existía. Cada parte responde de lo suyo:
+            La responsabilidad documental puede afectar a distintas partes de la cadena.
+            Por eso es importante que los datos se generen y validen correctamente desde el inicio.
           </p>
+
           <div class="not-prose mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="bg-white border border-slate-200 p-5 rounded-lg">
-              <h3 class="font-medium text-slate-900 mb-3">Cargador contractual</h3>
-              <p class="text-slate-700">Responde de la exactitud de los datos de identificación de la carga: tipo de mercancía, cantidad, peso, origen.</p>
+              <h3 class="font-medium text-slate-900 mb-3">
+                Cargador contractual
+              </h3>
+              <p class="text-slate-700">
+                Debe facilitar información correcta sobre la carga, origen, destino y condiciones
+                de la operación cuando corresponda.
+              </p>
             </div>
+
             <div class="bg-white border border-slate-200 p-5 rounded-lg">
-              <h3 class="font-medium text-slate-900 mb-3">Transportista efectivo</h3>
-              <p class="text-slate-700">Responde de los datos vinculados a la ejecución: fechas reales, incidencias del trayecto, cambios de conductor.</p>
+              <h3 class="font-medium text-slate-900 mb-3">
+                Transportista efectivo
+              </h3>
+              <p class="text-slate-700">
+                Debe disponer de la información necesaria durante la ejecución del transporte
+                y poder presentarla ante una inspección.
+              </p>
             </div>
           </div>
         </section>
 
         <section id="multas" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Multas por incumplimiento</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            Multas por incumplimiento
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed">
-            Las sanciones se aplican según la LOTT (Ley de Ordenación de Transportes Terrestres):
+            No disponer de documentación válida, presentarla incompleta o no poder mostrarla correctamente
+            puede derivar en sanciones conforme a la normativa de transporte.
           </p>
+
           <div class="not-prose mt-6 space-y-3">
             <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-              <div class="font-medium text-yellow-900">Leve · 100 a 400 €</div>
-              <div class="text-sm text-yellow-800 mt-1">Errores menores en el documento, omisión de datos no esenciales.</div>
+              <div class="font-medium text-yellow-900">
+                Incidencias leves
+              </div>
+              <div class="text-sm text-yellow-800 mt-1">
+                Errores menores, datos incompletos no esenciales o fallos formales subsanables.
+              </div>
             </div>
+
             <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-              <div class="font-medium text-orange-900">Grave · 401 a 2.000 €</div>
-              <div class="text-sm text-orange-800 mt-1">Circular sin documento de control, datos incorrectos esenciales, negativa a mostrarlo.</div>
+              <div class="font-medium text-orange-900">
+                Incidencias graves
+              </div>
+              <div class="text-sm text-orange-800 mt-1">
+                Ausencia del documento de control, negativa a mostrarlo o información esencial incorrecta.
+              </div>
             </div>
+
             <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-              <div class="font-medium text-red-900">Muy grave · 2.001 a 6.000 €</div>
-              <div class="text-sm text-red-800 mt-1">Falsificación, ausencia total tras requerimiento reiterado, datos fraudulentos.</div>
+              <div class="font-medium text-red-900">
+                Incidencias muy graves
+              </div>
+              <div class="text-sm text-red-800 mt-1">
+                Falsificación, manipulación o incumplimientos especialmente relevantes.
+              </div>
             </div>
           </div>
+
           <p class="text-lg text-slate-700 leading-relaxed mt-6">
-            Tras el 5 de octubre de 2026, circular con documento en papel equivale, a efectos prácticos, a circular sin documento.
+            La mejor forma de reducir riesgos es preparar una operativa digital clara antes de que la obligación
+            sea plenamente exigible.
           </p>
         </section>
 
         <section id="como-adaptarse" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">Cómo adaptar tu empresa</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-6">
+            Cómo adaptar tu empresa
+          </h2>
+
           <p class="text-lg text-slate-700 leading-relaxed mb-4">
             Roadmap recomendado si partes de cero:
           </p>
+
           <ol class="space-y-4 text-lg text-slate-700">
-            <li><strong>Mayo-junio:</strong> auditoría interna. ¿Qué documentación generas hoy? ¿Dónde se guarda? ¿Cómo fluye entre cargador-transportista-inspector?</li>
-            <li><strong>Julio:</strong> elegir herramienta. Plantilla propia, eCMR con datos DCD, o plataforma especializada.</li>
-            <li><strong>Agosto:</strong> formar al equipo y probar en real con transportes de bajo riesgo.</li>
-            <li><strong>Septiembre:</strong> rodaje completo. Todos los transportes con DCD digital en paralelo al papel.</li>
-            <li><strong>5 de octubre:</strong> switch total. El papel ya no se usa.</li>
+            <li>
+              <strong>Auditoría documental:</strong> identifica qué documentos generas hoy,
+              dónde se guardan y quién los necesita.
+            </li>
+            <li>
+              <strong>Revisión de datos:</strong> comprueba que clientes, vehículos, conductores,
+              cargadores, destinos y mercancías están correctamente registrados.
+            </li>
+            <li>
+              <strong>Digitalización del expediente:</strong> vincula cada documento a un servicio concreto.
+            </li>
+            <li>
+              <strong>Formación del equipo:</strong> tráfico, administración y conductores deben saber
+              cómo generar, encontrar y presentar la documentación.
+            </li>
+            <li>
+              <strong>Pruebas reales:</strong> empieza a trabajar en digital antes de la fecha límite
+              para detectar errores sin presión.
+            </li>
           </ol>
         </section>
 
@@ -254,22 +399,31 @@ const faqs = [
             <LeadMagnetForm
               variant="card"
               headline="Descarga la guía completa en PDF"
-              subheadline="40 páginas con todo explicado, casos prácticos, referencias legales y checklist de adaptación."
+              subheadline="Guía práctica con claves de adaptación, checklist interna y explicación de los principales cambios documentales."
             />
           </div>
         </section>
 
         <section id="faq" class="scroll-mt-24 mt-16">
-          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-8 text-center">Preguntas frecuentes</h2>
+          <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mb-8 text-center">
+            Preguntas frecuentes
+          </h2>
+
           <div class="space-y-4">
             {faqs.map((faq) => (
               <details class="group bg-white border border-slate-200 rounded-lg">
                 <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
                   <span>{faq.q}</span>
-                  <svg class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </summary>
+
                 <div class="px-5 pb-5 text-slate-700 leading-relaxed">
                   {faq.a}
                 </div>
@@ -277,25 +431,34 @@ const faqs = [
             ))}
           </div>
         </section>
+
       </div>
     </div>
   </article>
 
+  <!-- CTA FINAL -->
   <section class="py-20 bg-slate-900 text-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300 mb-4">
+          TransGest
+        </span>
+
         <h2 class="text-display-sm font-medium leading-tight">
-          ¿Buscas una solución integral?
+          Prepara tu empresa para una gestión documental más digital.
         </h2>
+
         <p class="text-lg text-slate-300 mt-6">
-          TransGest incluirá el generador del DCD conforme a la normativa,
-          integrado con todo lo que ya necesitas (rutas optimizadas con IA, nóminas, CMR, Verifactu).
-          Actualmente en fase beta.
+          TransGest está diseñado para centralizar servicios, clientes, conductores, vehículos,
+          documentación, facturación y trazabilidad en un mismo entorno. Una forma más clara de preparar
+          tu operativa para el Documento de Control Digital y los nuevos requisitos del sector.
         </p>
+
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/beta-tester/" class="btn-accent">
-            Ser beta tester (2 años gratis)
+          <a href="/solicitar-demo/" class="btn-accent">
+            Solicitar demo de TransGest
           </a>
+
           <a href="/transgest/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">
             Conocer TransGest
           </a>
@@ -304,3 +467,4 @@ const faqs = [
     </div>
   </section>
 </BaseLayout>
+
