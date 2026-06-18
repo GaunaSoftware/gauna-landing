@@ -18,32 +18,23 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
 
-    // Honeypot: si el campo invisible viene relleno, es un bot.
     if (isHoneypotFilled(data)) {
-      console.warn(`[Security] Honeypot activado desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({ success: true, message: 'Solicitud recibida' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Detección de envío demasiado rápido.
     if (isTooFast(data.startedAt)) {
-      console.warn(`[Security] Envío sospechosamente rápido desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({ success: true, message: 'Solicitud recibida' }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Rate limiting por IP.
     const rateLimit = checkRateLimit(ip);
 
     if (!rateLimit.allowed) {
-      console.warn(`[Security] Rate limit excedido desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({
           error: 'Demasiados intentos. Por favor, espera unos minutos antes de volver a intentarlo.',
@@ -59,12 +50,9 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Cloudflare Turnstile.
     const turnstileOk = await verifyTurnstile(data.turnstileToken, ip);
 
     if (!turnstileOk) {
-      console.warn(`[Security] Turnstile falló desde IP ${ip}`);
-
       return new Response(
         JSON.stringify({
           error: 'La verificación anti-spam no ha pasado. Recarga la página e inténtalo de nuevo.',
@@ -73,7 +61,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validación de campos obligatorios.
     const requiredFields = ['name', 'company', 'email', 'phone', 'profile', 'why'];
 
     const missing = requiredFields.filter((field) => {
@@ -90,7 +77,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validación de email.
     const email = String(data.email).trim().toLowerCase();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -101,7 +87,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Bloqueo de dominios de email temporal.
     if (isBlockedEmailDomain(email)) {
       return new Response(
         JSON.stringify({
@@ -111,7 +96,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Crear registro en Airtable.
     await createBetaTester({
       Nombre: String(data.name).trim(),
       Empresa: String(data.company).trim(),
@@ -152,4 +136,3 @@ export const GET: APIRoute = async () => {
     { status: 405, headers: { 'Content-Type': 'application/json' } }
   );
 };
-
