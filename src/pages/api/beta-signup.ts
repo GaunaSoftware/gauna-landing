@@ -1,4 +1,4 @@
-```ts
+
 import type { APIRoute } from 'astro';
 import { createBetaTester } from '@/lib/airtable';
 import {
@@ -152,5 +152,4 @@ export const GET: APIRoute = async () => {
     { status: 405, headers: { 'Content-Type': 'application/json' } }
   );
 };
-```
 
