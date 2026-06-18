@@ -1,4 +1,9 @@
+txt id="u6m7jn"
 User-agent: *
 Allow: /
 
+# No rastrear endpoints internos
+Disallow: /api/
+
+# Sitemap principal
 Sitemap: https://gauna.es/sitemap-index.xml
