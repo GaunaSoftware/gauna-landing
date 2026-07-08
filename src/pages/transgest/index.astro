@@ -1,4 +1,371 @@
 
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+
+const pageTitle = 'TransGest | TMS completo para empresas de transporte';
+const pageDescription =
+  'TransGest es un TMS completo para empresas de transporte que centraliza tráfico, servicios, clientes, vehículos, conductores, documentación, facturación, portal cliente, app conductor, almacén, taller e integraciones en una sola plataforma.';
+
+const problems = [
+  {
+    title: 'Demasiada información repartida',
+    description:
+      'Servicios en Excel, documentos por WhatsApp, facturas en otro programa, avisos en correos y datos que se pierden entre tráfico, administración, conductores y clientes.',
+  },
+  {
+    title: 'Falta de control en tiempo real',
+    description:
+      'Cuando cada departamento trabaja con herramientas distintas, es difícil saber qué servicio está pendiente, qué documento falta, qué vehículo está asignado o qué puede facturarse.',
+  },
+  {
+    title: 'Documentación cada vez más exigente',
+    description:
+      'El transporte avanza hacia más trazabilidad, documentación digital, datos estructurados y procesos conectados entre empresa, conductor, cliente y administración.',
+  },
+  {
+    title: 'TMS antiguos poco adaptados al día a día',
+    description:
+      'Muchas soluciones son rígidas, complejas o alejadas de la operativa real de una empresa de transporte por carretera.',
+  },
+];
+
+const includedModules = [
+  {
+    title: 'Dashboard ejecutivo',
+    description:
+      'Vista general de la empresa con indicadores de servicios, vehículos, conductores, facturación, alertas y actividad reciente.',
+  },
+  {
+    title: 'Pedidos / Tráfico',
+    description:
+      'Gestión de pedidos, cargas, fechas, clientes, estados, importes, avisos y agrupación por semanas o clientes.',
+  },
+  {
+    title: 'Gestión de tráfico',
+    description:
+      'Cuadrante semanal, planificación diaria, asignación de vehículos, conductores y rutas para controlar la operativa de tráfico.',
+  },
+  {
+    title: 'Control Tower',
+    description:
+      'Vista de prioridades para detectar retrasos, incidencias, cargas críticas, descargas, señales GPS y eventos importantes.',
+  },
+  {
+    title: 'Clientes',
+    description:
+      'Base de datos de clientes con información fiscal, condiciones, IVA, forma de pago, revisión y acceso rápido a ficha.',
+  },
+  {
+    title: 'Vehículos y conductores',
+    description:
+      'Control de flota, tractoras, remolques, chóferes, disponibilidad, documentación, avisos y datos operativos.',
+  },
+  {
+    title: 'Rutas y tarifas',
+    description:
+      'Configuración de rutas por cliente, precios, kilómetros, márgenes, tarifas, tipos de vehículo e importación desde Excel o CSV.',
+  },
+  {
+    title: 'Calculador de portes',
+    description:
+      'Herramienta para estimar costes, gasoil, peajes, margen, precio de venta y rentabilidad de un transporte.',
+  },
+  {
+    title: 'Gestión de almacén',
+    description:
+      'Control de palets, devoluciones, movimientos, antigüedad, clientes con stock pendiente y alertas de almacén.',
+  },
+  {
+    title: 'Taller y neumáticos',
+    description:
+      'Gestión de intervenciones, reparaciones, stock de piezas, neumáticos, proveedores, mantenimiento y costes de taller.',
+  },
+  {
+    title: 'Gestión financiera',
+    description:
+      'Facturación de clientes, seguimiento de cobros, pendientes, rectificativas, estados fiscales y vista administrativa.',
+  },
+  {
+    title: 'Hojas de ruta',
+    description:
+      'Resumen por vehículo, conductor y periodo con viajes, kilómetros, costes, ingresos, gasoil, dietas y margen.',
+  },
+  {
+    title: 'Nóminas',
+    description:
+      'Preparación de nóminas vinculada a conductores, viajes, incentivos, noches, devengos estimados y liquidación.',
+  },
+  {
+    title: 'Control horario',
+    description:
+      'Registro de jornada, pausas, teletrabajo, jornada tipo, revisiones y control interno para personal de oficina.',
+  },
+  {
+    title: 'Gestión documental',
+    description:
+      'Documentos por vehículo, conductor o entidad, vencimientos, próximos avisos y estructura documental centralizada.',
+  },
+  {
+    title: 'Avisos y vencimientos',
+    description:
+      'Alertas internas, documentación, mantenimiento, criticidad, semáforos de vencimiento y control de incidencias.',
+  },
+  {
+    title: 'Portal cliente',
+    description:
+      'Acceso para clientes con información, documentación y seguimiento de servicios sin depender de llamadas o correos.',
+  },
+  {
+    title: 'Usuarios y roles',
+    description:
+      'Gestión de accesos, permisos, usuarios internos, portales de cliente, roles, actividad y seguridad operativa.',
+  },
+];
+
+const operationFlow = [
+  {
+    title: '1. Recibes o creas el pedido',
+    description:
+      'Das de alta el servicio con cliente, origen, destino, fechas, carga, tarifa y condiciones.',
+  },
+  {
+    title: '2. Planificas tráfico',
+    description:
+      'Asignas vehículo, conductor, ruta, estado operativo, avisos y prioridades desde el cuadrante o plan diario.',
+  },
+  {
+    title: '3. Ejecutas y controlas',
+    description:
+      'Sigues la actividad, incidencias, documentación, señales, tareas y eventos desde Control Tower.',
+  },
+  {
+    title: '4. Documentas y facturas',
+    description:
+      'Vinculas documentos, preparas facturas, revisas cobros, costes, márgenes y trazabilidad de cada servicio.',
+  },
+];
+
+const legalFeatures = [
+  {
+    title: 'DeCA / DCD',
+    description:
+      'Orientado a estructurar los datos necesarios para preparar la empresa ante el Documento de Control Digital y la gestión documental del transporte.',
+  },
+  {
+    title: 'eCMR',
+    description:
+      'Preparado para vincular carta de porte digital, evidencias y documentación directamente al expediente del servicio.',
+  },
+  {
+    title: 'eFTI',
+    description:
+      'Arquitectura orientada a datos estructurados e interoperabilidad futura. TransGest no se presenta actualmente como plataforma eFTI certificada.',
+  },
+  {
+    title: 'DIWASS',
+    description:
+      'Orientado a evolucionar hacia flujos documentales y datos relacionados con residuos, trazabilidad y sistemas sectoriales.',
+  },
+  {
+    title: 'Facturación y fiscalidad',
+    description:
+      'Estructura administrativa preparada para conectar servicios, facturas, estados, cobros y procesos fiscales de la empresa.',
+  },
+  {
+    title: 'Trazabilidad interna',
+    description:
+      'Registro de actividad, usuarios, cambios, eventos y acciones relevantes para mejorar control, seguridad y seguimiento.',
+  },
+];
+
+const targetUsers = [
+  'Empresas de transporte por carretera',
+  'Pymes de transporte con equipo de tráfico',
+  'Operadores logísticos',
+  'Empresas que trabajan con muchas cargas y clientes',
+  'Departamentos de administración y facturación',
+  'Empresas que quieren dejar atrás Excel, papel y WhatsApp',
+];
+
+const benefits = [
+  'Centraliza toda la operativa en una sola plataforma.',
+  'Reduce papel, duplicidades y documentos perdidos.',
+  'Mejora la comunicación entre tráfico, administración, conductor y cliente.',
+  'Permite ver servicios, cargas, vehículos, conductores y documentación desde un único entorno.',
+  'Conecta la operativa real con facturación, cobros, costes y márgenes.',
+  'Ayuda a profesionalizar la imagen frente a clientes y colaboradores.',
+  'Facilita el control interno con usuarios, roles, avisos y registro de actividad.',
+  'Prepara la empresa para una gestión documental más digital y trazable.',
+];
+
+const implementationSteps = [
+  {
+    title: 'Demo inicial',
+    description:
+      'Revisamos contigo cómo trabajas actualmente y te mostramos cómo encajaría TransGest en tu empresa.',
+  },
+  {
+    title: 'Configuración de empresa',
+    description:
+      'Se preparan datos fiscales, usuarios, roles, clientes, vehículos, conductores, rutas y parámetros principales.',
+  },
+  {
+    title: 'Carga inicial de datos',
+    description:
+      'Importamos o damos de alta la información necesaria para que puedas empezar a trabajar con una base ordenada.',
+  },
+  {
+    title: 'Formación del equipo',
+    description:
+      'Explicamos el flujo de trabajo a tráfico, administración, gerencia y usuarios que vayan a utilizar la plataforma.',
+  },
+  {
+    title: 'Puesta en marcha',
+    description:
+      'Comienzas a trabajar con TransGest y ajustamos el uso real según la operativa de tu empresa.',
+  },
+];
+
+const faqs = [
+  {
+    question: '¿Qué es TransGest?',
+    answer:
+      'TransGest es un TMS completo para empresas de transporte. Centraliza servicios, tráfico, clientes, vehículos, conductores, documentación, facturación, portal cliente, app conductor, almacén, taller, avisos, usuarios e integraciones.',
+  },
+  {
+    question: '¿TransGest ya está disponible?',
+    answer:
+      'Sí. TransGest es una plataforma operativa y disponible para empresas de transporte que quieren modernizar su gestión diaria.',
+  },
+  {
+    question: '¿Para qué tipo de empresas está pensado?',
+    answer:
+      'Está pensado para empresas de transporte por carretera, operadores logísticos, pymes de transporte, equipos de tráfico, administración y empresas que quieren dejar atrás Excel, papel y herramientas desconectadas.',
+  },
+  {
+    question: '¿TransGest sustituye al Excel y a otros programas antiguos?',
+    answer:
+      'El objetivo es centralizar la operativa y reducir la dependencia de hojas de cálculo, carpetas, WhatsApp y herramientas desconectadas. También puede convivir con otros sistemas mediante integraciones.',
+  },
+  {
+    question: '¿Incluye portal cliente y app conductor?',
+    answer:
+      'Sí. TransGest incluye portal cliente y app conductor para mejorar la comunicación entre oficina, carretera y clientes, reduciendo llamadas, correos y mensajes sueltos.',
+  },
+  {
+    question: '¿TransGest es una plataforma eFTI certificada?',
+    answer:
+      'No actualmente. TransGest está orientado a datos estructurados, trazabilidad documental e interoperabilidad futura, pero no se presenta como plataforma eFTI certificada.',
+  },
+  {
+    question: '¿Cómo puedo ver una demo?',
+    answer:
+      'Puedes solicitar una demo desde la página de solicitar demo. Revisaremos tu caso y te mostraremos cómo TransGest puede encajar en la operativa de tu empresa.',
+  },
+];
+
+const seoSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    '@id': 'https://gauna.es/transgest/#software',
+    name: 'TransGest',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: 'https://gauna.es/transgest/',
+    description: pageDescription,
+    inLanguage: 'es-ES',
+    creator: {
+      '@type': 'Organization',
+      '@id': 'https://gauna.es/#organization',
+      name: 'Gauna Software',
+      url: 'https://gauna.es',
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': 'https://gauna.es/#organization',
+    },
+    offers: {
+      '@type': 'Offer',
+      url: 'https://gauna.es/solicitar-demo/',
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+    },
+    featureList: includedModules.map((item) => item.title),
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Empresas de transporte por carretera',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': 'https://gauna.es/transgest/#product',
+    name: 'TransGest',
+    brand: {
+      '@type': 'Brand',
+      name: 'Gauna Software',
+    },
+    description: pageDescription,
+    url: 'https://gauna.es/transgest/',
+    category: 'Software de gestión de transporte',
+    offers: {
+      '@type': 'Offer',
+      url: 'https://gauna.es/solicitar-demo/',
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://gauna.es/transgest/#breadcrumb',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Inicio',
+        item: 'https://gauna.es/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Productos',
+        item: 'https://gauna.es/#productos',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'TransGest',
+        item: 'https://gauna.es/transgest/',
+      },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://gauna.es/transgest/#faq',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/transgest/"
+  ogImageAlt="TransGest, TMS completo para empresas de transporte"
+  schema={seoSchema}
+>
   <!-- HERO -->
   <section class="relative pt-20 md:pt-28 pb-20 md:pb-28 overflow-hidden bg-slate-950 text-white">
     <div class="absolute inset-0 bg-gradient-to-br from-teal-900/50 via-slate-950 to-slate-950 pointer-events-none"></div>
@@ -17,9 +384,9 @@
         </h1>
 
         <p class="text-lg md:text-xl text-slate-300 mt-8 max-w-3xl mx-auto leading-relaxed">
-          Centraliza servicios, tráfico, clientes, conductores, vehículos, documentación, facturación,
-          portal cliente, app conductor e integraciones en una sola plataforma moderna, clara y creada
-          desde la realidad del sector.
+          Una plataforma completa para centralizar servicios, tráfico, clientes, vehículos, conductores,
+          documentación, facturación, almacén, taller, portal cliente, app conductor e integraciones
+          en un solo entorno moderno, claro y creado desde la realidad del sector.
         </p>
 
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
@@ -38,8 +405,338 @@
           <span class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Documentación digital</span>
           <span class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Facturación</span>
           <span class="px-3 py-1 rounded-full bg-white/10 border border-white/10">Portal cliente</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 border border-white/10">App conductor</span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- QUÉ ES -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div class="lg:col-span-5">
+          <span class="eyebrow">Qué es TransGest</span>
+
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+            Un TMS completo para gestionar la empresa de transporte desde una sola plataforma.
+          </h2>
+        </div>
+
+        <div class="lg:col-span-7">
+          <div class="space-y-5 text-lg text-slate-600 leading-relaxed">
+            <p>
+              TransGest reúne en un mismo entorno las áreas clave de una empresa de transporte:
+              tráfico, pedidos, planificación, clientes, vehículos, conductores, documentación,
+              facturación, almacén, taller, avisos, control horario, usuarios y portal cliente.
+            </p>
+
+            <p>
+              La idea es sencilla: que cada servicio deje de estar repartido entre Excel, WhatsApp,
+              carpetas y programas sueltos, y pase a formar parte de un expediente digital conectado,
+              trazable y preparado para la operativa real del sector.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMAS -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">El problema</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          El transporte no necesita más herramientas sueltas. Necesita control real.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          TransGest nace para resolver los bloqueos habituales de una empresa de transporte:
+          información dispersa, falta de trazabilidad, tareas repetidas, documentación desordenada
+          y poca visibilidad sobre la operativa diaria.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {problems.map((problem) => (
+          <article class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-teal-300 hover:shadow-sm transition-all">
+            <h3 class="text-lg font-semibold text-slate-900">
+              {problem.title}
+            </h3>
+
+            <p class="text-slate-600 mt-3 leading-relaxed">
+              {problem.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FLUJO OPERATIVO -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="eyebrow">De punta a punta</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Desde el pedido hasta la factura, todo conectado.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 max-w-3xl mx-auto leading-relaxed">
+          TransGest convierte cada transporte en un expediente digital completo:
+          operativo, documental, administrativo y trazable.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {operationFlow.map((step) => (
+          <article class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="text-base font-semibold text-slate-900">
+              {step.title}
+            </h3>
+
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {step.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MÓDULOS INCLUIDOS -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Módulos incluidos</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Todo lo que necesita una empresa de transporte para trabajar con más control.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          TransGest integra módulos operativos, administrativos, documentales y de control interno
+          para que la empresa trabaje sobre una misma base de información.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {includedModules.map((mod) => (
+          <article class="bg-white border border-slate-200 rounded-2xl p-5 hover:border-teal-300 hover:shadow-sm transition-all">
+            <h3 class="text-base font-semibold text-slate-900">
+              {mod.title}
+            </h3>
+
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {mod.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCUMENTACIÓN Y NORMATIVA -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Documentación y normativa</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Orientado a la digitalización documental del transporte.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          TransGest trabaja con expedientes digitales, datos estructurados y trazabilidad documental.
+          Su arquitectura está orientada a evolucionar con marcos como DeCA, eCMR, eFTI y DIWASS,
+          sin presentarse actualmente como plataforma eFTI certificada.
+        </p>
+
+        <div class="mt-6">
+          <a href="/dcd-2026/" class="inline-flex items-center gap-2 text-sm font-medium text-teal-700 hover:text-teal-800">
+            Leer guía sobre Documento de Control Digital
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {legalFeatures.map((feature) => (
+          <article class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+            <h3 class="text-base font-semibold text-slate-900">
+              {feature.title}
+            </h3>
+
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {feature.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUIÉN -->
+  <section class="py-16 md:py-20 bg-slate-950 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow text-teal-300">Para quién</span>
+
+        <h2 class="text-display-sm font-medium mt-3 leading-tight">
+          Diseñado para empresas que viven el transporte cada día.
+        </h2>
+
+        <p class="text-lg text-slate-300 mt-5 leading-relaxed">
+          TransGest está pensado para equipos que necesitan una herramienta clara,
+          completa y adaptada a la operativa real del transporte por carretera.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        {targetUsers.map((user) => (
+          <div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-2xl p-4">
+            <span class="mt-1 w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
+            <p class="text-slate-200 leading-relaxed">
+              {user}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Beneficios</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Menos papel, menos errores y más control.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          TransGest está pensado para empresas que quieren modernizar su gestión
+          sin perder de vista la realidad diaria del transporte.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        {benefits.map((benefit) => (
+          <div class="flex items-start gap-3 bg-slate-50 border border-slate-200 rounded-2xl p-4">
+            <span class="mt-1 w-2 h-2 rounded-full bg-teal-600 shrink-0"></span>
+
+            <p class="text-slate-700 leading-relaxed">
+              {benefit}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPLANTACIÓN -->
+  <section class="py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Implantación</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Puesta en marcha acompañada y adaptada a tu empresa.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          La implantación se plantea de forma progresiva para que tu equipo pueda empezar
+          con una base ordenada y un flujo de trabajo claro.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        {implementationSteps.map((step) => (
+          <article class="bg-white border border-slate-200 rounded-2xl p-5">
+            <h3 class="text-base font-semibold text-slate-900">
+              {step.title}
+            </h3>
+
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              {step.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="eyebrow">Preguntas frecuentes</span>
+
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
+          Dudas habituales sobre TransGest.
+        </h2>
+
+        <p class="text-lg text-slate-600 mt-5 leading-relaxed">
+          Respuestas rápidas para entender cómo encaja TransGest como TMS completo
+          para empresas de transporte.
+        </p>
+      </div>
+
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faqs.map((faq) => (
+          <details class="group bg-slate-50 border border-slate-200 rounded-2xl">
+            <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+              <span>{faq.question}</span>
+
+              <svg
+                class="w-5 h-5 text-slate-400 flex-shrink-0 transition-transform group-open:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+
+            <div class="px-5 pb-5 text-slate-700 leading-relaxed">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="py-20 md:py-24 bg-teal-900 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-display-sm md:text-display-md font-medium leading-tight">
+          Solicita una demo de TransGest y descubre cómo centralizar tu operativa.
+        </h2>
+
+        <p class="text-lg md:text-xl text-teal-50 mt-6 leading-relaxed">
+          Hablemos de tus servicios, documentos, conductores, vehículos, facturación,
+          clientes e integraciones. Te mostraremos cómo TransGest puede ayudarte a trabajar
+          con menos papel, menos errores y más control.
+        </p>
+
+        <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/solicitar-demo/" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-slate-900 font-medium rounded-lg hover:bg-amber-400 transition-colors">
+            Solicitar demo
+          </a>
+
+          <a href="https://app.gauna.es" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-teal-800 text-white font-medium rounded-lg hover:bg-teal-700 border border-teal-700 transition-colors">
+            Acceso clientes
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
