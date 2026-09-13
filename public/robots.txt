@@ -1,4 +1,3 @@
-txt id="u6m7jn"
 User-agent: *
 Allow: /
 
