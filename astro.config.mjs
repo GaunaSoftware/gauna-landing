@@ -52,6 +52,11 @@ export default defineConfig({
           item.priority = 0.9;
         }
 
+        if (url === `${SITE}/software-deca/`) {
+          item.changefreq = 'weekly';
+          item.priority = 0.9;
+        }
+
         if (url === `${SITE}/solicitar-demo/`) {
           item.changefreq = 'monthly';
           item.priority = 0.85;
