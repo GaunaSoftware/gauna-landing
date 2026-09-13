@@ -115,7 +115,6 @@ const seoSchema = [
   ogImageAlt="Gauna Software, software para empresas de transporte"
   schema={seoSchema}
 >
-  <!-- HERO -->
   <section class="relative overflow-hidden pt-20 md:pt-32 pb-20 md:pb-28">
     <div class="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-white to-amber-50/40 pointer-events-none"></div>
     <div class="container-g relative">
@@ -124,59 +123,38 @@ const seoSchema = [
           <span class="w-2 h-2 rounded-full bg-teal-600"></span>
           <span class="text-sm font-medium text-slate-700">Tecnología especializada en transporte</span>
         </div>
-
         <h1 class="text-display-md md:text-display-lg lg:text-display-xl font-medium text-slate-900 leading-[1.04]">
           Software para empresas de transporte creado desde dentro del sector.
         </h1>
-
         <p class="text-lg md:text-xl text-slate-600 mt-8 max-w-3xl mx-auto leading-relaxed">
           Gauna Software desarrolla herramientas para que las empresas de transporte recuperen tiempo,
           centralicen su operativa y trabajen con más control. Nuestro producto principal es TransGest,
           un TMS que conecta tráfico, documentación, administración y clientes.
         </p>
-
         <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/transgest/" class="btn-primary">Conocer TransGest</a>
           <a href="/solicitar-demo/" class="btn-secondary">Solicitar una demo</a>
         </div>
-
         <div class="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-slate-500">
-          <span>Tráfico</span>
-          <span>Documentación</span>
-          <span>Facturación</span>
-          <span>Conductores</span>
-          <span>Clientes</span>
-          <span>Integraciones</span>
+          <span>Tráfico</span><span>Documentación</span><span>Facturación</span><span>Conductores</span><span>Clientes</span><span>Integraciones</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TRANSGEST -->
   <section class="py-16 md:py-20 bg-slate-50 border-y border-slate-100">
     <div class="container-g">
       <div class="max-w-5xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-[.85fr_1.15fr] gap-10 lg:gap-14 items-start">
           <div>
             <span class="eyebrow">TransGest</span>
-            <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">
-              Un TMS para conectar la empresa de punta a punta.
-            </h2>
-            <p class="text-lg text-slate-600 mt-5 leading-relaxed">
-              Centraliza la información que hoy suele estar repartida entre hojas de cálculo, mensajes, carpetas y programas aislados en una operativa conectada y trazable.
-            </p>
-            <div class="mt-7 flex flex-col sm:flex-row gap-3">
-              <a href="/transgest/" class="btn-primary">Ver TransGest</a>
-              <a href="/solicitar-demo/" class="btn-secondary">Solicitar demo</a>
-            </div>
+            <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">Un TMS para conectar la empresa de punta a punta.</h2>
+            <p class="text-lg text-slate-600 mt-5 leading-relaxed">Centraliza la información que hoy suele estar repartida entre hojas de cálculo, mensajes, carpetas y programas aislados en una operativa conectada y trazable.</p>
+            <div class="mt-7 flex flex-col sm:flex-row gap-3"><a href="/transgest/" class="btn-primary">Ver TransGest</a><a href="/solicitar-demo/" class="btn-secondary">Solicitar demo</a></div>
           </div>
-
           <div class="space-y-3">
             {productAreas.map((area) => (
-              <article class="bg-white border border-slate-200 rounded-2xl p-6">
-                <h3 class="text-lg font-medium text-slate-900">{area.title}</h3>
-                <p class="text-slate-600 mt-2 leading-relaxed">{area.description}</p>
-              </article>
+              <article class="bg-white border border-slate-200 rounded-2xl p-6"><h3 class="text-lg font-medium text-slate-900">{area.title}</h3><p class="text-slate-600 mt-2 leading-relaxed">{area.description}</p></article>
             ))}
           </div>
         </div>
@@ -184,140 +162,50 @@ const seoSchema = [
     </div>
   </section>
 
-  <!-- PROBLEMA -->
   <section class="py-16 md:py-20 bg-white">
     <div class="container-g">
       <div class="max-w-4xl mx-auto text-center">
         <span class="eyebrow">Menos fricción</span>
-        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">
-          Menos herramientas desconectadas. Más tiempo para gestionar y crecer.
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
-          Cuando tráfico trabaja en Excel, los documentos llegan por WhatsApp, administración usa otro programa
-          y el cliente llama para pedir información, el problema no es la falta de datos: es que los datos no están conectados.
-        </p>
+        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">Menos herramientas desconectadas. Más tiempo para gestionar y crecer.</h2>
+        <p class="text-lg text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">Cuando tráfico trabaja en Excel, los documentos llegan por WhatsApp, administración usa otro programa y el cliente llama para pedir información, el problema no es la falta de datos: es que los datos no están conectados.</p>
       </div>
-
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mt-12">
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <div class="text-sm font-medium text-slate-900">Una sola operativa</div>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">Servicios, clientes, vehículos, conductores y documentación vinculados entre sí.</p>
-        </div>
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <div class="text-sm font-medium text-slate-900">Menos trabajo duplicado</div>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">Reutiliza la información en lugar de volver a escribir los mismos datos en cada proceso.</p>
-        </div>
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-          <div class="text-sm font-medium text-slate-900">Más visibilidad</div>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">Consulta qué está pasando sin depender de llamadas, mensajes o archivos dispersos.</p>
-        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6"><div class="text-sm font-medium text-slate-900">Una sola operativa</div><p class="text-sm text-slate-600 mt-2 leading-relaxed">Servicios, clientes, vehículos, conductores y documentación vinculados entre sí.</p></div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6"><div class="text-sm font-medium text-slate-900">Menos trabajo duplicado</div><p class="text-sm text-slate-600 mt-2 leading-relaxed">Reutiliza la información en lugar de volver a escribir los mismos datos en cada proceso.</p></div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6"><div class="text-sm font-medium text-slate-900">Más visibilidad</div><p class="text-sm text-slate-600 mt-2 leading-relaxed">Consulta qué está pasando sin depender de llamadas, mensajes o archivos dispersos.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- POR QUÉ GAUNA -->
   <section class="py-16 md:py-20 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center mb-12">
-        <span class="eyebrow">Por qué Gauna</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
-          Tecnología pensada para cómo funciona realmente una empresa de transporte.
-        </h2>
-      </div>
-
+      <div class="max-w-3xl mx-auto text-center mb-12"><span class="eyebrow">Por qué Gauna</span><h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Tecnología pensada para cómo funciona realmente una empresa de transporte.</h2></div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
-        {reasons.map((reason) => (
-          <article class="bg-white border border-slate-200 rounded-2xl p-6">
-            <h3 class="text-lg font-medium text-slate-900">{reason.title}</h3>
-            <p class="text-slate-600 mt-3 leading-relaxed">{reason.description}</p>
-          </article>
-        ))}
+        {reasons.map((reason) => (<article class="bg-white border border-slate-200 rounded-2xl p-6"><h3 class="text-lg font-medium text-slate-900">{reason.title}</h3><p class="text-slate-600 mt-3 leading-relaxed">{reason.description}</p></article>))}
       </div>
     </div>
   </section>
 
-  <!-- DECA -->
   <section class="py-16 md:py-20 bg-white">
     <div class="container-g">
       <div class="max-w-5xl mx-auto bg-slate-950 text-white rounded-3xl p-8 md:p-12">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          <div class="md:col-span-8">
-            <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">DeCA 2026</span>
-            <h2 class="text-3xl md:text-4xl font-medium leading-tight mt-4">
-              El documento de control será necesariamente digital desde el 5 de octubre de 2026.
-            </h2>
-            <p class="text-slate-300 mt-5 leading-relaxed">
-              Hemos preparado una guía clara sobre el Documento electrónico de Control Administrativo: qué cambia,
-              qué datos exige y cómo deben funcionar el PDF, el QR y la URL de inspección.
-            </p>
-          </div>
-          <div class="md:col-span-4 md:text-right">
-            <a href="/deca-2026/" class="inline-flex items-center justify-center px-6 py-3 bg-white text-slate-950 font-medium rounded-lg hover:bg-slate-100 transition-colors">
-              Ver guía DeCA 2026
-            </a>
-          </div>
+          <div class="md:col-span-8"><span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">DeCA 2026</span><h2 class="text-3xl md:text-4xl font-medium leading-tight mt-4">El documento de control será necesariamente digital desde el 5 de octubre de 2026.</h2><p class="text-slate-300 mt-5 leading-relaxed">Hemos preparado una guía clara sobre el Documento electrónico de Control Administrativo: qué cambia, qué datos exige y cómo deben funcionar el PDF, el QR y la URL de inspección.</p></div>
+          <div class="md:col-span-4 md:text-right"><a href="/deca-2026/" class="inline-flex items-center justify-center px-6 py-3 bg-white text-slate-950 font-medium rounded-lg hover:bg-slate-100 transition-colors">Ver guía DeCA 2026</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VISIÓN -->
   <section class="py-16 md:py-20 bg-slate-50">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Gauna Software</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">
-          TransGest es el principio, no el final.
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          Nuestra visión es construir un ecosistema de herramientas para el transporte: software operativo,
-          automatización, documentación digital, análisis e integraciones que ayuden a las empresas a trabajar mejor sin añadir complejidad innecesaria.
-        </p>
-        <a href="/sobre-nosotros/" class="inline-flex mt-8 text-sm font-medium text-teal-700 hover:text-teal-800">Conocer Gauna Software →</a>
-      </div>
-    </div>
+    <div class="container-g"><div class="max-w-3xl mx-auto text-center"><span class="eyebrow">Gauna Software</span><h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">TransGest es el principio, no el final.</h2><p class="text-lg text-slate-600 mt-6 leading-relaxed">Nuestra visión es construir un ecosistema de herramientas para el transporte: software operativo, automatización, documentación digital, análisis e integraciones que ayuden a las empresas a trabajar mejor sin añadir complejidad innecesaria.</p><a href="/sobre-nosotros/" class="inline-flex mt-8 text-sm font-medium text-teal-700 hover:text-teal-800">Conocer Gauna Software →</a></div></div>
   </section>
 
-  <!-- FAQ -->
   <section id="faq" class="py-16 md:py-20 bg-white">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="eyebrow">Preguntas frecuentes</span>
-          <h2 class="text-display-sm font-medium text-slate-900 mt-3">Lo esencial sobre Gauna y TransGest.</h2>
-        </div>
-
-        <div class="space-y-4">
-          {faqs.map((faq) => (
-            <details class="group bg-slate-50 border border-slate-200 rounded-2xl">
-              <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
-                <span>{faq.question}</span>
-                <span class="text-slate-400 group-open:rotate-45 transition-transform" aria-hidden="true">+</span>
-              </summary>
-              <div class="px-5 pb-5 text-slate-600 leading-relaxed">{faq.answer}</div>
-            </details>
-          ))}
-        </div>
-      </div>
-    </div>
+    <div class="container-g"><div class="max-w-3xl mx-auto"><div class="text-center mb-10"><span class="eyebrow">Preguntas frecuentes</span><h2 class="text-display-sm font-medium text-slate-900 mt-3">Lo esencial sobre Gauna y TransGest.</h2></div><div class="space-y-4">{faqs.map((faq) => (<details class="group bg-slate-50 border border-slate-200 rounded-2xl"><summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4"><span>{faq.question}</span><span class="text-slate-400 group-open:rotate-45 transition-transform" aria-hidden="true">+</span></summary><div class="px-5 pb-5 text-slate-600 leading-relaxed">{faq.answer}</div></details>))}</div></div></div>
   </section>
 
-  <!-- CTA -->
   <section class="py-20 md:py-24 bg-slate-900 text-white">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">TransGest</span>
-        <h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">
-          Menos tiempo buscando información. Más tiempo para hacer crecer la empresa.
-        </h2>
-        <p class="text-lg text-slate-300 mt-6 leading-relaxed">
-          Cuéntanos cómo trabaja hoy tu empresa y te enseñamos cómo TransGest puede encajar en vuestra operativa.
-        </p>
-        <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/solicitar-demo/" class="btn-accent">Solicitar demo</a>
-          <a href="/transgest/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">Ver TransGest</a>
-        </div>
-      </div>
-    </div>
+    <div class="container-g"><div class="max-w-3xl mx-auto text-center"><span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">TransGest</span><h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">Menos tiempo buscando información. Más tiempo para hacer crecer la empresa.</h2><p class="text-lg text-slate-300 mt-6 leading-relaxed">Cuéntanos cómo trabaja hoy tu empresa y te enseñamos cómo TransGest puede encajar en tu operativa.</p><div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center"><a href="/solicitar-demo/" class="btn-accent">Solicitar demo</a><a href="/transgest/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">Ver TransGest</a></div></div></div>
   </section>
 </BaseLayout>
