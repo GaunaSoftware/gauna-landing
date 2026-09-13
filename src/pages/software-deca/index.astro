@@ -1,0 +1,298 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import DeCALeadForm from '@components/DeCALeadForm.astro';
+
+export const prerender = false;
+
+const pageTitle = 'Software DeCA para transporte | TransGest';
+const pageDescription =
+  'Software DeCA para empresas de transporte. Centraliza los datos del servicio y prepara la gestión del Documento electrónico de Control Administrativo con TransGest.';
+
+const requiredFlow = [
+  {
+    title: 'Datos estructurados',
+    text: 'Cliente o cargador, transportista, origen, destino, mercancía, fecha, vehículo y observaciones deben partir de información estructurada.',
+  },
+  {
+    title: 'Documento trazable',
+    text: 'La generación y cualquier cambio posterior deben quedar vinculados al servicio y mantener trazabilidad.',
+  },
+  {
+    title: 'Acceso en carretera',
+    text: 'El flujo definitivo debe permitir que el conductor disponga del documento o de su QR antes de iniciar el transporte.',
+  },
+];
+
+const technicalRequirements = [
+  {
+    title: 'PDF nativo',
+    text: 'La Resolución exige un PDF generado digitalmente, con un máximo de 5 MB y metadatos de creación y modificación.',
+  },
+  {
+    title: 'QR y URL HTTPS',
+    text: 'Cada documento debe disponer de un QR asociado a una URL única y segura que permita descargar directamente el PDF.',
+  },
+  {
+    title: 'Versionado',
+    text: 'Las modificaciones durante el servicio deben conservar el historial y la versión actualizada debe llegar al conductor.',
+  },
+  {
+    title: 'Conservación',
+    text: 'Los documentos deben conservarse durante al menos un año, aunque el enlace de carretera pueda desactivarse posteriormente.',
+  },
+];
+
+const faqs = [
+  {
+    q: '¿Qué es un software DeCA?',
+    a: 'Es una solución que permite gestionar los datos y el flujo documental necesarios para el Documento electrónico de Control Administrativo. La normativa de 2026 exige que el documento se genere de forma nativa digital y cumpla requisitos específicos de PDF, QR, acceso y trazabilidad.',
+  },
+  {
+    q: '¿TransGest sustituye el trabajo manual para preparar el DeCA?',
+    a: 'La arquitectura de TransGest permite reutilizar datos ya presentes en la operativa —servicio, cliente, vehículo, conductor, origen, destino y documentación— para evitar volver a introducir la misma información. La capa técnica específica de generación y presentación DeCA debe validarse conforme a la normativa vigente antes de considerarla plenamente operativa.',
+  },
+  {
+    q: '¿Necesito cambiar todo mi TMS para gestionar el DeCA?',
+    a: 'No necesariamente. Lo importante es que el sistema pueda trabajar con datos estructurados y conecte el documento con el servicio. TransGest plantea el DeCA como parte de la operativa y no como un PDF independiente.',
+  },
+  {
+    q: '¿Dónde puedo consultar todos los requisitos del DeCA 2026?',
+    a: 'Gauna mantiene una guía DeCA 2026 específica con la fecha de obligatoriedad, los datos exigidos, los requisitos técnicos y el funcionamiento previsto en una inspección.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://gauna.es/software-deca/#webpage',
+    url: 'https://gauna.es/software-deca/',
+    name: pageTitle,
+    description: pageDescription,
+    inLanguage: 'es-ES',
+    isPartOf: { '@id': 'https://gauna.es/#website' },
+    about: [
+      { '@type': 'Thing', name: 'DeCA' },
+      { '@type': 'Thing', name: 'Documento electrónico de Control Administrativo' },
+      { '@id': 'https://gauna.es/transgest/#software' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://gauna.es/software-deca/#breadcrumb',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
+      { '@type': 'ListItem', position: 2, name: 'TransGest', item: 'https://gauna.es/transgest/' },
+      { '@type': 'ListItem', position: 3, name: 'Software DeCA', item: 'https://gauna.es/software-deca/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://gauna.es/software-deca/#faq',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/software-deca/"
+  ogImageAlt="Software DeCA para empresas de transporte con TransGest"
+  schema={schema}
+>
+  <section class="relative overflow-hidden pt-16 md:pt-24 pb-16 md:pb-20 border-b border-slate-100">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-white to-amber-50/40 pointer-events-none"></div>
+    <div class="container-g relative">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm text-sm font-medium text-slate-700">
+          <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+          TransGest + DeCA
+        </div>
+
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05] mt-7">
+          Software DeCA para integrar el documento de control en la operativa del transporte.
+        </h1>
+
+        <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
+          Centraliza los datos del servicio y prepara la gestión del Documento electrónico de Control Administrativo
+          desde el mismo entorno donde trabajas con clientes, vehículos, conductores y documentación.
+        </p>
+
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#demo-deca" class="btn-primary">Quiero verlo en mi empresa</a>
+          <a href="/deca-2026/" class="btn-secondary">Consultar guía DeCA 2026</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="eyebrow">Menos trabajo manual</span>
+        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">
+          El DeCA no debería convertirse en otro documento que rellenar desde cero.
+        </h2>
+        <p class="text-lg text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
+          Buena parte de la información que necesita el documento ya existe en la operativa diaria. La idea es aprovecharla,
+          mantenerla conectada al servicio y evitar que tráfico o administración tengan que duplicar trabajo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto mt-12">
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h3 class="text-lg font-medium text-slate-900">Reutilizar datos</h3>
+          <p class="text-slate-600 mt-3 leading-relaxed">Cliente, origen, destino, mercancía, vehículo y fechas pueden partir del propio servicio de transporte.</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h3 class="text-lg font-medium text-slate-900">Unir documento y viaje</h3>
+          <p class="text-slate-600 mt-3 leading-relaxed">El DeCA tiene más sentido dentro del expediente del servicio que como un archivo suelto en una carpeta.</p>
+        </article>
+        <article class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h3 class="text-lg font-medium text-slate-900">Mantener trazabilidad</h3>
+          <p class="text-slate-600 mt-3 leading-relaxed">Los cambios, documentos y responsables deben quedar ligados a una operativa que pueda seguirse de principio a fin.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-slate-50 border-y border-slate-100">
+    <div class="container-g">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-10 lg:gap-14 items-start">
+          <div>
+            <span class="eyebrow">El flujo</span>
+            <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Del servicio al documento, sin romper la operativa.</h2>
+            <p class="text-slate-600 mt-5 leading-relaxed">
+              Una solución DeCA útil no empieza en el PDF. Empieza en datos fiables y conectados al transporte que se está realizando.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            {requiredFlow.map((item, index) => (
+              <article class="bg-white border border-slate-200 rounded-2xl p-6 flex gap-4">
+                <div class="w-8 h-8 rounded-full bg-teal-900 text-white flex-shrink-0 flex items-center justify-center text-sm font-medium">{index + 1}</div>
+                <div>
+                  <h3 class="font-medium text-slate-900">{item.title}</h3>
+                  <p class="text-sm text-slate-600 mt-2 leading-relaxed">{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-5xl mx-auto">
+        <div class="max-w-3xl mx-auto text-center">
+          <span class="eyebrow">Requisitos técnicos</span>
+          <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-3 leading-tight">
+            No basta con convertir un documento a PDF.
+          </h2>
+          <p class="text-lg text-slate-600 mt-6 leading-relaxed">
+            La Resolución de 5 de junio de 2026 define requisitos concretos que la capa específica de DeCA debe cubrir.
+            Estos son los cuatro bloques que estamos teniendo en cuenta en la integración.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-12">
+          {technicalRequirements.map((item) => (
+            <article class="border border-slate-200 rounded-2xl p-6 md:p-7">
+              <div class="w-9 h-9 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center mb-4" aria-hidden="true">✓</div>
+              <h3 class="text-lg font-medium text-slate-900">{item.title}</h3>
+              <p class="text-slate-600 mt-2 leading-relaxed">{item.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-6 text-center">
+          <a href="/deca-2026/" class="text-sm font-medium text-teal-700 hover:text-teal-800">Ver todos los requisitos del DeCA 2026 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-slate-950 text-white">
+    <div class="container-g">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div>
+          <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">TransGest</span>
+          <h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">La ventaja es que muchos datos ya viven en el TMS.</h2>
+          <p class="text-slate-300 mt-5 leading-relaxed">
+            TransGest centraliza la información operativa del transporte. Eso permite plantear el DeCA como una salida del propio servicio,
+            en lugar de como una tarea independiente que obliga a volver a recopilar la información.
+          </p>
+          <a href="/transgest/" class="inline-flex mt-7 text-sm font-medium text-teal-300 hover:text-teal-200">Conocer TransGest →</a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          {['Cliente / cargador', 'Transportista', 'Origen y destino', 'Mercancía', 'Fecha del servicio', 'Vehículo y matrícula', 'Documentación', 'Observaciones'].map((item) => (
+            <div class="rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-slate-200">{item}</div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo-deca" class="scroll-mt-24 py-16 md:py-20 bg-slate-50">
+    <div class="container-g">
+      <div class="max-w-2xl mx-auto">
+        <DeCALeadForm
+          id="software-deca-form"
+          eyebrow="DeCA + TransGest"
+          headline="¿Quieres ver cómo encajaría el DeCA en tu operativa?"
+          subheadline="Cuéntanos qué tipo de empresa tienes y te mostramos cómo estamos planteando la gestión de datos y documentación DeCA dentro de TransGest."
+          buttonLabel="Solicitar información"
+          source="LEAD SOFTWARE DECA"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-16 md:py-20 bg-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3">Dudas sobre software y DeCA.</h2>
+        </div>
+
+        <div class="space-y-4">
+          {faqs.map((faq) => (
+            <details class="group bg-slate-50 border border-slate-200 rounded-2xl">
+              <summary class="cursor-pointer p-5 font-medium text-slate-900 flex items-start justify-between gap-4">
+                <span>{faq.q}</span>
+                <span class="text-slate-400 group-open:rotate-45 transition-transform" aria-hidden="true">+</span>
+              </summary>
+              <div class="px-5 pb-5 text-slate-600 leading-relaxed">{faq.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-24 bg-slate-900 text-white">
+    <div class="container-g">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">5 de octubre de 2026</span>
+        <h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">Prepara los datos y el proceso antes de que el DeCA sea obligatorio.</h2>
+        <p class="text-lg text-slate-300 mt-6 leading-relaxed">Si ya trabajas con TransGest o estás valorando implantarlo, podemos revisar contigo cómo encaja el nuevo flujo documental en tu operativa.</p>
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#demo-deca" class="btn-accent">Hablar sobre DeCA</a>
+          <a href="/deca-2026/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">Leer la guía</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
