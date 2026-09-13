@@ -4,9 +4,9 @@ import DeCALeadForm from '@components/DeCALeadForm.astro';
 
 export const prerender = false;
 
-const pageTitle = 'DeCA 2026: guía actualizada para empresas de transporte | Gauna';
+const pageTitle = 'DeCA 2026: requisitos, fecha y guía para transporte | Gauna';
 const pageDescription =
-  'Guía clara y actualizada del DeCA 2026: fecha obligatoria, PDF nativo, QR, URL HTTPS, datos exigidos, inspección y cómo preparar tu empresa.';
+  'Guía actualizada del DeCA 2026 para transporte: fecha obligatoria, a quién afecta, PDF nativo, QR, URL HTTPS, datos exigidos, inspección y eFTI.';
 
 const faqs = [
   {
@@ -14,21 +14,36 @@ const faqs = [
     a: 'Desde el 5 de octubre de 2026, el documento de control administrativo exigible en el transporte público de mercancías por carretera deberá ser necesariamente digital.',
   },
   {
-    q: '¿Vale escanear un documento en papel y guardarlo como PDF?',
-    a: 'No. La Resolución de 5 de junio de 2026 exige generación nativa digital a partir de datos estructurados. No son válidos los PDF obtenidos escaneando papel o imágenes.',
+    q: '¿DCD y DeCA son lo mismo?',
+    a: 'DCD o Documento de Control Digital se ha utilizado de forma habitual para referirse a la digitalización del documento. La Resolución de 5 de junio de 2026 utiliza la denominación DeCA: documento electrónico de control administrativo.',
   },
   {
-    q: '¿El DeCA tiene que llevar QR?',
-    a: 'Sí. El PDF debe incluir un código QR con una URL única y específica del documento. Esa URL debe permitir la descarga directa del PDF durante el servicio.',
+    q: '¿Vale escanear el documento en papel y convertirlo a PDF?',
+    a: 'No. El PDF debe generarse de forma nativa digital a partir de datos estructurados. La Resolución excluye expresamente los ficheros obtenidos escaneando documentos en papel o imágenes.',
   },
   {
-    q: '¿Puede el conductor llevarlo en el móvil?',
-    a: 'Sí. El conductor puede disponer del DeCA electrónicamente en un dispositivo móvil o llevar una copia impresa con el QR.',
+    q: '¿Es obligatoria la firma electrónica?',
+    a: 'No para la validez del documento de control administrativo. Si el DeCA se utiliza además con finalidad contractual y debe incluir firmas, la Resolución exige como mínimo firma electrónica avanzada (AdES), siendo también válida la firma cualificada (QES).',
+  },
+  {
+    q: '¿Puede el conductor llevar el DeCA en el móvil?',
+    a: 'Sí. El conductor puede llevar una copia electrónica o una copia impresa con el QR. La Resolución también permite disponer del QR como fichero independiente.',
   },
   {
     q: '¿Cuánto tiempo debe conservarse?',
-    a: 'Los ficheros electrónicos deben conservarse durante al menos un año. La URL utilizada durante el servicio puede desactivarse siete días naturales después de finalizarlo.',
+    a: 'Los ficheros electrónicos deben conservarse durante al menos un año. La URL utilizada para la descarga durante el servicio puede desactivarse siete días naturales después de finalizarlo.',
   },
+];
+
+const requiredData = [
+  'Nombre o razón social, NIF y domicilio del cargador contractual.',
+  'Nombre o razón social y NIF del transportista efectivo.',
+  'Lugar de origen y destino del envío.',
+  'Naturaleza y peso de la mercancía.',
+  'Autorización especial de circulación, cuando resulte exigible.',
+  'Fecha de realización del transporte.',
+  'Matrícula del vehículo y, cuando corresponda, del remolque o semirremolque.',
+  'Observaciones, reservas u otras indicaciones cuando las soliciten los intervinientes.',
 ];
 
 const schema = [
@@ -36,7 +51,7 @@ const schema = [
     '@context': 'https://schema.org',
     '@type': 'Article',
     '@id': 'https://gauna.es/deca-2026/#article',
-    headline: 'DeCA 2026: guía actualizada para empresas de transporte',
+    headline: 'DeCA 2026: requisitos, fecha y guía para empresas de transporte',
     description: pageDescription,
     dateModified: '2026-09-13',
     inLanguage: 'es-ES',
@@ -83,7 +98,6 @@ const schema = [
   ogImageAlt="Guía DeCA 2026 para empresas de transporte"
   schema={schema}
 >
-  <!-- HERO -->
   <section class="relative overflow-hidden pt-16 md:pt-24 pb-16 md:pb-20 border-b border-slate-100">
     <div class="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-white to-amber-50/40 pointer-events-none"></div>
     <div class="container-g relative">
@@ -94,12 +108,13 @@ const schema = [
         </div>
 
         <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05] mt-7">
-          DeCA 2026, explicado
-          <span class="text-teal-700">sin complicaciones.</span>
+          DeCA 2026: qué cambia y
+          <span class="text-teal-700">cómo preparar tu empresa.</span>
         </h1>
 
         <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
-          Qué cambia, qué debe contener el documento electrónico de control administrativo y qué tiene que preparar una empresa de transporte para cumplirlo.
+          Una guía práctica del Documento electrónico de Control Administrativo: requisitos del PDF,
+          QR, acceso en carretera, datos obligatorios y puntos que debe cubrir el software.
         </p>
 
         <div class="mt-7 text-sm text-slate-500">
@@ -107,18 +122,17 @@ const schema = [
         </div>
 
         <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#que-cambia" class="btn-primary">Ver qué cambia</a>
-          <a href="#formulario-deca" class="btn-secondary">Quiero preparar mi empresa</a>
+          <a href="#resumen" class="btn-primary">Ver lo esencial</a>
+          <a href="/software-deca/" class="btn-secondary">Ver software DeCA</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- RESUMEN -->
-  <section id="que-cambia" class="scroll-mt-24 py-14 md:py-18 bg-slate-50">
+  <section id="resumen" class="scroll-mt-24 py-14 md:py-18 bg-slate-50">
     <div class="container-g">
       <div class="max-w-5xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-[.75fr_1.25fr] gap-6 items-stretch">
+        <div class="grid grid-cols-1 lg:grid-cols-[.72fr_1.28fr] gap-6 items-stretch">
           <div class="rounded-2xl bg-slate-950 text-white p-7 md:p-9 flex flex-col justify-between">
             <div>
               <span class="text-xs uppercase tracking-widest text-teal-300 font-medium">Fecha clave</span>
@@ -131,29 +145,46 @@ const schema = [
           </div>
 
           <div class="rounded-2xl bg-white border border-slate-200 p-7 md:p-9">
-            <span class="eyebrow">Lo esencial</span>
-            <h2 class="text-2xl md:text-3xl font-medium text-slate-900 mt-3">El DeCA no es simplemente un PDF.</h2>
+            <span class="eyebrow">DeCA en un minuto</span>
+            <h2 class="text-2xl md:text-3xl font-medium text-slate-900 mt-3">No basta con guardar el documento como PDF.</h2>
             <p class="text-slate-600 mt-4 leading-relaxed">
-              La Resolución de 5 de junio de 2026 exige que el documento se genere digitalmente desde datos estructurados y pueda verificarse fácilmente durante una inspección.
+              La Resolución de 5 de junio de 2026 exige que el DeCA nazca de datos estructurados, quede trazado y pueda descargarse directamente durante una inspección.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-7">
               <div class="border-t border-slate-200 pt-4">
                 <div class="font-medium text-slate-900">PDF nativo · máximo 5 MB</div>
-                <p class="text-sm text-slate-600 mt-1">No vale escanear un documento en papel.</p>
+                <p class="text-sm text-slate-600 mt-1">No son válidos los documentos escaneados.</p>
               </div>
               <div class="border-t border-slate-200 pt-4">
                 <div class="font-medium text-slate-900">QR + URL única</div>
-                <p class="text-sm text-slate-600 mt-1">El QR identifica y da acceso al documento concreto.</p>
+                <p class="text-sm text-slate-600 mt-1">Cada documento debe poder identificarse individualmente.</p>
               </div>
               <div class="border-t border-slate-200 pt-4">
-                <div class="font-medium text-slate-900">Descarga directa</div>
-                <p class="text-sm text-slate-600 mt-1">Sin login, autenticación ni botones intermedios.</p>
+                <div class="font-medium text-slate-900">HTTPS + descarga directa</div>
+                <p class="text-sm text-slate-600 mt-1">Sin login, botones ni pasos intermedios.</p>
               </div>
               <div class="border-t border-slate-200 pt-4">
                 <div class="font-medium text-slate-900">Conservación mínima: 1 año</div>
-                <p class="text-sm text-slate-600 mt-1">Con trazabilidad cuando se modifica el documento.</p>
+                <p class="text-sm text-slate-600 mt-1">Cargador y transportista deben poder conservar o descargar el fichero.</p>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-2xl border border-slate-200 bg-white p-6 md:p-7">
+          <div class="grid grid-cols-1 md:grid-cols-[.85fr_1.15fr] gap-5 md:gap-8 items-start">
+            <div>
+              <div class="font-medium text-slate-900">¿A quién afecta?</div>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Principalmente al cargador contractual y al transportista efectivo en los transportes públicos de mercancías por carretera en los que resulte exigible el documento de control.
+              </p>
+            </div>
+            <div>
+              <div class="font-medium text-slate-900">Ámbito</div>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                La Resolución se refiere a transportes interiores e incluye el cabotaje realizado en España. Los transportes internacionales utilizan los documentos previstos en los convenios aplicables.
+              </p>
             </div>
           </div>
         </div>
@@ -161,24 +192,23 @@ const schema = [
     </div>
   </section>
 
-  <!-- CÓMO FUNCIONA -->
   <section class="py-16 md:py-24 bg-white">
     <div class="container-g">
       <div class="max-w-4xl mx-auto">
         <div class="max-w-2xl">
-          <span class="eyebrow">En la práctica</span>
-          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Cómo debe funcionar el DeCA durante un servicio.</h2>
+          <span class="eyebrow">En carretera</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Cómo funciona el DeCA durante un servicio.</h2>
           <p class="text-lg text-slate-600 mt-5 leading-relaxed">
-            El objetivo de la nueva regulación es que la información sea digital, trazable y accesible en carretera sin depender de papeles ni de accesos internos de la empresa.
+            El documento debe estar generado antes del inicio efectivo del transporte y quedar disponible para el conductor y para una posible inspección.
           </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-10">
           {[
-            ['01', 'Se genera', 'El sistema crea el DeCA desde los datos del servicio antes de iniciar el transporte.'],
-            ['02', 'Se almacena', 'El PDF queda en un repositorio con una URL única y específica.'],
-            ['03', 'Se entrega', 'El conductor recibe el documento o su QR, en formato digital o impreso.'],
-            ['04', 'Se inspecciona', 'El agente escanea el QR y descarga directamente el PDF mediante HTTPS.'],
+            ['01', 'Se genera', 'El software transforma los datos conocidos del servicio en el PDF antes de iniciar el transporte.'],
+            ['02', 'Se almacena', 'El fichero queda en un repositorio y recibe una URL única y específica.'],
+            ['03', 'Llega al conductor', 'El conductor dispone del DeCA o de su QR en formato electrónico o impreso.'],
+            ['04', 'Se inspecciona', 'El agente invoca la URL y descarga directamente el PDF mediante HTTPS.'],
           ].map(([n, title, text]) => (
             <article class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
               <div class="text-xs font-mono text-teal-700">{n}</div>
@@ -189,75 +219,99 @@ const schema = [
         </div>
 
         <div class="mt-8 rounded-2xl border border-teal-100 bg-teal-50 p-6 md:p-7">
-          <p class="text-teal-950 font-medium">Inspección, resumida en una línea:</p>
+          <p class="text-teal-950 font-medium">Una inspección debería ser así de sencilla:</p>
           <p class="text-teal-900 mt-2 text-lg">QR → URL HTTPS → descarga directa del PDF.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DATOS OBLIGATORIOS -->
-  <section class="py-16 md:py-24 bg-slate-50">
+  <section class="py-16 md:py-24 bg-slate-50 border-y border-slate-100">
     <div class="container-g">
-      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[.85fr_1.15fr] gap-10 lg:gap-16 items-start">
         <div>
-          <span class="eyebrow">Contenido</span>
-          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Qué información debe contener.</h2>
+          <span class="eyebrow">Datos obligatorios</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Qué información debe contener el documento.</h2>
           <p class="text-lg text-slate-600 mt-5 leading-relaxed">
-            El documento de control debe identificar con claridad la operación, las partes, el vehículo y la mercancía. No hace falta convertir la página en un formulario jurídico: lo importante es que el software pueda generar estos datos correctamente.
+            El artículo 6 de la Orden FOM/2861/2012 establece ocho grupos de datos esenciales. El sistema que genere el DeCA debe contemplarlos en su base de datos.
           </p>
-
-          <div class="mt-7 text-sm text-slate-500 leading-relaxed">
-            La Orden FOM/2861/2012 regula el contenido esencial. La Resolución de 2026 añade las condiciones técnicas para gestionarlo electrónicamente.
-          </div>
+          <p class="text-sm text-slate-500 mt-5 leading-relaxed">
+            El cargador contractual y el transportista efectivo son los sujetos obligados a formalizar el documento, con responsabilidades distintas sobre la exactitud de determinados datos.
+          </p>
         </div>
 
         <div class="rounded-2xl bg-white border border-slate-200 p-6 md:p-8">
-          <ul class="space-y-4">
-            {[
-              'Cargador contractual y transportista efectivo.',
-              'Origen y destino del envío.',
-              'Naturaleza y peso de la mercancía.',
-              'Fecha de realización del transporte.',
-              'Matrícula del vehículo y del remolque o semirremolque cuando corresponda.',
-              'Autorización especial de circulación, cuando sea exigible.',
-              'Observaciones o reservas cuando las soliciten los intervinientes.',
-            ].map((item) => (
+          <ol class="space-y-4">
+            {requiredData.map((item, index) => (
               <li class="flex gap-3 text-slate-700">
-                <span class="mt-1 w-5 h-5 flex-shrink-0 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center text-xs">✓</span>
+                <span class="w-6 h-6 flex-shrink-0 rounded-full bg-teal-100 text-teal-800 flex items-center justify-center text-xs font-medium">{index + 1}</span>
                 <span>{item}</span>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TRANSGEST -->
   <section class="py-16 md:py-24 bg-white">
     <div class="container-g">
+      <div class="max-w-5xl mx-auto">
+        <div class="max-w-3xl mx-auto text-center">
+          <span class="eyebrow">Tres dudas importantes</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Firma, cambios durante el viaje y eFTI.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
+          <article class="rounded-2xl border border-slate-200 p-6">
+            <h3 class="text-lg font-medium text-slate-900">¿Hay que firmarlo?</h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              La firma no es obligatoria para la validez administrativa del DeCA. Si además se usa con finalidad contractual y se firma, se exige como mínimo firma electrónica avanzada.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-slate-200 p-6">
+            <h3 class="text-lg font-medium text-slate-900">¿Y si cambia un dato?</h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              Puede actualizarse el PDF conservando los datos anteriores o generarse un nuevo fichero con nueva URL y QR. En ambos casos debe mantenerse la trazabilidad y llegar la versión actualizada al conductor.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border border-slate-200 p-6">
+            <h3 class="text-lg font-medium text-slate-900">¿Qué pasa con eFTI?</h3>
+            <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+              La Resolución prevé que, cuando los datos se gestionen y presenten mediante el esquema eFTI y sus normas de desarrollo, no sea necesario utilizar este mecanismo de PDF, URL y QR.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 bg-slate-50">
+    <div class="container-g">
       <div class="max-w-5xl mx-auto rounded-3xl bg-slate-950 text-white p-8 md:p-12">
-        <div class="grid grid-cols-1 lg:grid-cols-[1.15fr_.85fr] gap-10 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_.9fr] gap-10 items-center">
           <div>
-            <span class="text-xs uppercase tracking-widest text-teal-300 font-medium">TransGest + DeCA</span>
-            <h2 class="text-3xl md:text-4xl font-medium mt-4 leading-tight">La idea no es crear otro PDF a mano.</h2>
+            <span class="text-xs uppercase tracking-widest text-teal-300 font-medium">Software DeCA</span>
+            <h2 class="text-3xl md:text-4xl font-medium mt-4 leading-tight">El objetivo no debería ser rellenar otro documento a mano.</h2>
             <p class="text-slate-300 mt-5 leading-relaxed">
-              Si el TMS ya conoce el cliente, el servicio, el origen, el destino, la mercancía, el vehículo y el conductor, el DeCA debería salir de ese mismo flujo de trabajo. Ese es el enfoque que estamos aplicando en TransGest.
+              Si el sistema ya conoce el servicio, cliente, transportista, origen, destino, mercancía y vehículo,
+              la gestión del DeCA debería apoyarse en esos mismos datos y quedar vinculada a la operación.
             </p>
             <div class="mt-7 flex flex-col sm:flex-row gap-3">
-              <a href="/transgest/" class="btn-accent">Conocer TransGest</a>
-              <a href="/solicitar-demo/" class="btn-secondary bg-slate-900 text-white border-slate-700 hover:bg-slate-800">Solicitar demo</a>
+              <a href="/software-deca/" class="btn-accent">Ver software DeCA</a>
+              <a href="/transgest/" class="btn-secondary bg-slate-900 text-white border-slate-700 hover:bg-slate-800">Conocer TransGest</a>
             </div>
           </div>
 
           <div class="space-y-3">
             {[
-              'Datos del transporte ya estructurados',
-              'Documento vinculado al servicio',
-              'Acceso para oficina y conductor',
-              'Trazabilidad documental',
-              'Arquitectura preparada para seguir evolucionando hacia eFTI',
+              'Datos estructurados del servicio',
+              'Documento vinculado al transporte',
+              'Acceso para conductor e inspección',
+              'Trazabilidad de las modificaciones',
+              'Base preparada para seguir evolucionando hacia eFTI',
             ].map((item) => (
               <div class="flex items-center gap-3 py-3 border-b border-slate-800 last:border-0 text-slate-200">
                 <span class="text-teal-300">✓</span>
@@ -270,28 +324,34 @@ const schema = [
     </div>
   </section>
 
-  <!-- FORM -->
-  <section id="formulario-deca" class="scroll-mt-24 py-16 md:py-24 bg-slate-50">
+  <section id="formulario-deca" class="scroll-mt-24 py-16 md:py-24 bg-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto">
-        <DeCALeadForm />
+        <DeCALeadForm
+          eyebrow="¿Quieres preparar tu empresa?"
+          headline="Revisa el DeCA antes de que llegue la fecha obligatoria."
+          subheadline="Déjanos tus datos y te contactaremos para entender tu operativa y explicarte cómo estamos planteando la gestión del DeCA dentro de TransGest."
+          buttonLabel="Quiero preparar el DeCA"
+          source="LEAD GUIA DECA 2026"
+        />
       </div>
     </div>
   </section>
 
-  <!-- FAQ + FUENTES -->
-  <section class="py-16 md:py-24 bg-white">
+  <section class="py-16 md:py-24 bg-slate-50 border-t border-slate-100">
     <div class="container-g">
       <div class="max-w-3xl mx-auto">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Las dudas que más se repiten.</h2>
+        <div class="text-center">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Las dudas que más se repiten.</h2>
+        </div>
 
         <div id="faq" class="mt-8 space-y-3">
           {faqs.map((faq) => (
             <details class="group rounded-xl border border-slate-200 bg-white">
               <summary class="cursor-pointer p-5 md:p-6 font-medium text-slate-900 flex items-start justify-between gap-4">
                 <span>{faq.q}</span>
-                <span class="text-slate-400 group-open:rotate-45 transition-transform">+</span>
+                <span class="text-slate-400 group-open:rotate-45 transition-transform" aria-hidden="true">+</span>
               </summary>
               <div class="px-5 md:px-6 pb-5 md:pb-6 text-slate-600 leading-relaxed">{faq.a}</div>
             </details>
@@ -301,7 +361,7 @@ const schema = [
         <div class="mt-12 pt-8 border-t border-slate-200">
           <div class="text-sm font-medium text-slate-900">Fuentes oficiales</div>
           <p class="text-sm text-slate-500 mt-2 leading-relaxed">
-            Esta guía se ha preparado a partir de la Resolución de 5 de junio de 2026 (BOE-A-2026-12784), la Ley 9/2025 de Movilidad Sostenible y la Orden FOM/2861/2012.
+            Guía elaborada a partir de la Resolución de 5 de junio de 2026 (BOE-A-2026-12784), la Ley 9/2025 de Movilidad Sostenible y el texto vigente de la Orden FOM/2861/2012.
           </p>
           <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2026-12784" target="_blank" rel="noopener noreferrer" class="text-teal-700 hover:underline">Resolución 05/06/2026</a>
