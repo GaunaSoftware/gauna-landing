@@ -47,6 +47,11 @@ export default defineConfig({
           item.priority = 0.95;
         }
 
+        if (url === `${SITE}/transgest/precios/`) {
+          item.changefreq = 'monthly';
+          item.priority = 0.85;
+        }
+
         if (url === `${SITE}/deca-2026/`) {
           item.changefreq = 'weekly';
           item.priority = 0.9;
@@ -80,10 +85,14 @@ export default defineConfig({
   ],
 
   redirects: {
-    '/beta-tester': '/solicitar-demo/',
-    '/beta-tester/': '/solicitar-demo/',
-    '/transgest/demo': '/solicitar-demo/',
-    '/transgest/demo/': '/solicitar-demo/',
+    '/beta-tester': {
+      status: 301,
+      destination: '/solicitar-demo/',
+    },
+    '/transgest/demo': {
+      status: 301,
+      destination: '/solicitar-demo/',
+    },
   },
 
   output: 'server',

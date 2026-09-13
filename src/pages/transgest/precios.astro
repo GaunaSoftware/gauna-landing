@@ -1,131 +1,188 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+
 export const prerender = true;
+
+const pageTitle = 'Precios de TransGest | Planes del TMS';
+const pageDescription =
+  'Compara TransGest Go, Control, Pro y Pro Intelligence. Planes desde 79 € al mes, sin precio por usuario ni por número de vehículos.';
 
 const plans = [
   {
-    name: 'Autónomo',
-    price: '29',
-    period: '/mes',
-    description: 'Para transportistas con 1-3 vehículos.',
-    features: [
-      'Gestión de pedidos y rutas',
-      'CMR y hojas de ruta digitales',
-      'Nóminas de conductores',
-      'Documento de Control Digital',
-      'Soporte por email',
-    ],
+    name: 'Go',
+    price: '79',
+    annualEquivalent: '67,15',
+    description: 'Para autónomos y pequeñas empresas que quieren empezar a digitalizar su operativa.',
+    outcome: 'Orden y sencillez para dejar atrás la gestión dispersa.',
+    features: ['Servicios y tráfico esencial', 'Clientes, vehículos y conductores', 'Documentación operativa', 'Acceso para conductores'],
     highlight: false,
   },
   {
-    name: 'Pyme',
-    price: '89',
-    period: '/mes',
-    description: 'Para empresas con flota de 4 a 20 vehículos.',
-    features: [
-      'Todo lo del plan Autónomo',
-      'Hasta 20 vehículos',
-      'Gestión de colaboradores',
-      'Dashboard avanzado',
-      'Soporte prioritario',
-      'Exportaciones fiscales',
-    ],
+    name: 'Control',
+    price: '159',
+    annualEquivalent: '135,15',
+    description: 'Para empresas que necesitan un TMS profesional sin asumir un coste desproporcionado.',
+    outcome: 'Control diario conectado entre tráfico y administración.',
+    features: ['Operativa de tráfico ampliada', 'Avisos y gestión documental', 'Portal de clientes', 'Flujos administrativos conectados'],
     highlight: true,
   },
   {
-    name: 'Flota',
-    price: 'Desde 199',
-    period: '/mes',
-    description: 'Para empresas con 20+ vehículos o gestorías.',
-    features: [
-      'Todo lo del plan Pyme',
-      'Vehículos ilimitados',
-      'Multi-empresa (para gestorías)',
-      'API personalizada',
-      'Soporte telefónico 1:1',
-      'Onboarding guiado',
-    ],
+    name: 'Pro',
+    price: '259',
+    annualEquivalent: '220,15',
+    description: 'Para empresas que quieren controlar con profundidad todo lo que sucede en el negocio.',
+    outcome: 'Visión completa de actividad, costes y rentabilidad.',
+    features: ['Gestión integral de la empresa', 'Facturación avanzada', 'KPIs y rentabilidad', 'Mayor profundidad de control'],
     highlight: false,
+  },
+  {
+    name: 'Pro Intelligence',
+    price: '359',
+    annualEquivalent: '305,15',
+    description: 'Para empresas que quieren ganar velocidad y eficiencia mediante inteligencia artificial.',
+    outcome: 'Menos tareas repetitivas sobre la base completa de TransGest.',
+    features: ['Todo el alcance de Pro', 'Automatización de procesos', 'Funciones asistidas por IA', 'Procesamiento inteligente de información'],
+    highlight: false,
+  },
+];
+
+const faqs = [
+  {
+    question: '¿Los planes limitan el número de usuarios o vehículos?',
+    answer: 'No. La elección del plan depende del nivel de gestión que necesita la empresa, no de cuántas personas o vehículos tenga.',
+  },
+  {
+    question: '¿Qué incluye el pago anual?',
+    answer: 'La contratación anual aplica un 15 % de descuento sobre el precio mensual del plan elegido.',
+  },
+  {
+    question: '¿Puede haber consumos adicionales?',
+    answer: 'Algunas funciones con coste variable, como documentos generados o procesados, OCR o inteligencia artificial, pueden incluir límites o consumos asociados según el plan.',
+  },
+  {
+    question: '¿TransGest Planner forma parte de estos planes?',
+    answer: 'No. TransGest Planner es una solución independiente orientada a almacenes y operaciones logísticas. Puede consultarse durante la demo.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://gauna.es/transgest/precios/#webpage',
+    name: pageTitle,
+    description: pageDescription,
+    url: 'https://gauna.es/transgest/precios/',
+    inLanguage: 'es-ES',
+    isPartOf: { '@id': 'https://gauna.es/#website' },
+    about: { '@id': 'https://gauna.es/transgest/#software' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://gauna.es/transgest/precios/#breadcrumb',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
+      { '@type': 'ListItem', position: 2, name: 'TransGest', item: 'https://gauna.es/transgest/' },
+      { '@type': 'ListItem', position: 3, name: 'Precios', item: 'https://gauna.es/transgest/precios/' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': 'https://gauna.es/transgest/precios/#faq',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
   },
 ];
 ---
 
 <BaseLayout
-  title="Precios TransGest — Planes desde 29€/mes"
-  description="Precios transparentes para TransGest. Planes adaptados a autónomos, pymes y grandes flotas. 50% de descuento para los primeros 50 suscriptores."
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/transgest/precios/"
+  ogImageAlt="Planes y precios de TransGest"
+  schema={schema}
 >
-  <section class="py-20 md:py-24">
+  <section class="py-20 md:py-28 bg-white">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Precios transparentes</span>
-        <h1 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
-          Precios simples y justos.
-        </h1>
-        <p class="text-lg text-slate-600 mt-6 max-w-2xl mx-auto">
-          Los precios mostrados son orientativos para el lanzamiento oficial.
-          Los beta testers tienen <span class="font-medium text-teal-600">2 años de licencia gratuita</span>.
-        </p>
+        <span class="eyebrow">Planes TransGest</span>
+        <h1 class="mt-4 text-display-md md:text-display-lg font-medium text-slate-900 leading-tight">Elige cuánto control necesita tu empresa.</h1>
+        <p class="mt-6 text-lg md:text-xl leading-relaxed text-slate-600">Los planes crecen por profundidad de gestión. No pagas más por añadir usuarios o vehículos.</p>
+        <div class="mt-7 inline-flex rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-sm font-medium text-teal-800">15 % de descuento con pago anual</div>
       </div>
 
-      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         {plans.map((plan) => (
-          <div class:list={[
-            'rounded-xl p-8 border',
-            plan.highlight
-              ? 'bg-teal-600 text-white border-teal-600 shadow-xl md:-mt-4 md:mb-4'
-              : 'bg-white border-slate-200'
-          ]}>
-            {plan.highlight && (
-              <div class="inline-block px-3 py-1 bg-amber-400 text-amber-900 text-xs font-medium rounded-full mb-4">
-                Más popular
-              </div>
-            )}
-
-            <h3 class:list={['text-2xl font-medium mb-2', plan.highlight ? 'text-white' : 'text-slate-900']}>
-              {plan.name}
-            </h3>
-            <p class:list={['text-sm mb-6', plan.highlight ? 'text-teal-100' : 'text-slate-600']}>
-              {plan.description}
-            </p>
-
-            <div class="mb-6">
-              <span class:list={['text-4xl font-medium', plan.highlight ? 'text-white' : 'text-slate-900']}>
-                {plan.price}€
-              </span>
-              <span class:list={['ml-1', plan.highlight ? 'text-teal-200' : 'text-slate-500']}>
-                {plan.period}
-              </span>
+          <article class:list={['relative flex flex-col rounded-2xl border p-6', plan.highlight ? 'border-teal-700 bg-teal-900 text-white shadow-lg' : 'border-slate-200 bg-white']}>
+            {plan.highlight ? <span class="self-start rounded-full bg-amber-400 px-2.5 py-1 text-xs font-semibold text-slate-900">Recomendado</span> : <span class="h-6"></span>}
+            <h2 class="mt-5 text-2xl font-semibold">TransGest {plan.name}</h2>
+            <div class="mt-4">
+              <span class="text-4xl font-semibold">{plan.price} €</span>
+              <span class:list={['text-sm', plan.highlight ? 'text-teal-200' : 'text-slate-500']}> / mes</span>
             </div>
-
-            <a
-              href="/transgest/demo/"
-              class:list={[
-                'block w-full text-center py-3 rounded-lg font-medium transition-colors',
-                plan.highlight
-                  ? 'bg-white text-teal-700 hover:bg-teal-50'
-                  : 'bg-slate-900 text-white hover:bg-slate-800'
-              ]}
-            >
-              Apuntarme a la lista
-            </a>
-
-            <ul class="mt-8 space-y-3">
-              {plan.features.map((f) => (
-                <li class="flex items-start gap-2">
-                  <svg class:list={['w-5 h-5 mt-0.5 flex-shrink-0', plan.highlight ? 'text-teal-200' : 'text-teal-600']} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span class:list={['text-sm', plan.highlight ? 'text-white' : 'text-slate-700']}>{f}</span>
+            <p class:list={['mt-2 text-xs', plan.highlight ? 'text-teal-200' : 'text-slate-500']}>Equivale a {plan.annualEquivalent} €/mes con pago anual</p>
+            <p class:list={['mt-6 text-sm leading-relaxed', plan.highlight ? 'text-teal-50' : 'text-slate-600']}>{plan.description}</p>
+            <p class:list={['mt-5 border-t pt-5 text-sm font-medium leading-relaxed', plan.highlight ? 'border-white/10 text-white' : 'border-slate-100 text-slate-900']}>{plan.outcome}</p>
+            <ul class="mt-6 space-y-3">
+              {plan.features.map((feature) => (
+                <li class="flex items-start gap-2 text-sm">
+                  <svg class:list={['mt-0.5 h-4 w-4 shrink-0', plan.highlight ? 'text-amber-300' : 'text-teal-700']} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                  <span class:list={[plan.highlight ? 'text-teal-50' : 'text-slate-700']}>{feature}</span>
                 </li>
               ))}
             </ul>
-          </div>
+            <a href="/solicitar-demo/" class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Solicitar demo</a>
+          </article>
         ))}
       </div>
 
-      <div class="mt-16 text-center text-sm text-slate-500">
-        Todos los planes incluyen prueba gratuita de 14 días. Sin permanencia. Factura con IVA.
+      <div class="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-600">
+        Los consumos variables asociados a documentos generados o procesados, OCR o inteligencia artificial pueden tener límites según el plan. Durante la demo te indicaremos qué nivel encaja con tu operativa.
       </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-slate-950 text-white">
+    <div class="container-g flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+      <div class="max-w-3xl">
+        <span class="text-sm font-semibold text-teal-300">TransGest Planner</span>
+        <h2 class="mt-3 text-display-sm font-medium leading-tight">¿Tu prioridad está en el almacén?</h2>
+        <p class="mt-4 text-lg leading-relaxed text-slate-300">Planner es una solución independiente para organizar entradas, salidas, recursos y operativa logística. No forma parte de la tabla de planes TMS.</p>
+      </div>
+      <a href="/solicitar-demo/" class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white px-6 py-3 font-medium text-slate-900 hover:bg-slate-100 transition-colors">Consultar Planner</a>
+    </div>
+  </section>
+
+  <section id="faq" class="py-16 md:py-24 bg-white">
+    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-4">
+        <span class="eyebrow">Condiciones</span>
+        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Precios sin letra pequeña.</h2>
+      </div>
+      <div class="lg:col-span-8 space-y-3">
+        {faqs.map((faq) => (
+          <details class="group rounded-xl border border-slate-200 bg-slate-50">
+            <summary class="flex cursor-pointer items-start justify-between gap-4 p-5 font-medium text-slate-900">
+              <span>{faq.question}</span>
+              <svg class="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+            </summary>
+            <div class="px-5 pb-5 leading-relaxed text-slate-600">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 md:py-24 bg-teal-900 text-white">
+    <div class="container-g max-w-3xl text-center">
+      <h2 class="text-display-sm md:text-display-md font-medium leading-tight">¿Qué plan encaja con tu operativa?</h2>
+      <p class="mt-5 text-lg text-teal-50">Te mostramos TransGest con casos cercanos a tu empresa y te recomendamos el nivel adecuado.</p>
+      <a href="/solicitar-demo/" class="mt-8 inline-flex items-center justify-center rounded-lg bg-amber-500 px-7 py-3.5 font-medium text-slate-950 hover:bg-amber-400 transition-colors">Solicitar una demo</a>
     </div>
   </section>
 </BaseLayout>
