@@ -1,247 +1,161 @@
-
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Turnstile from '@components/Turnstile.astro';
 import Honeypot from '@components/Honeypot.astro';
 
 export const prerender = false;
+
+const pageTitle = 'Solicitar demo de TransGest | TMS para empresas de transporte';
+const pageDescription =
+  'Solicita una demo personalizada de TransGest y descubre cómo centralizar tráfico, documentación, vehículos, conductores, clientes y facturación en un solo TMS.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': 'https://gauna.es/solicitar-demo/#webpage',
+    url: 'https://gauna.es/solicitar-demo/',
+    name: pageTitle,
+    description: pageDescription,
+    inLanguage: 'es-ES',
+    isPartOf: { '@id': 'https://gauna.es/#website' },
+    about: { '@id': 'https://gauna.es/transgest/#software' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://gauna.es/solicitar-demo/#breadcrumb',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
+      { '@type': 'ListItem', position: 2, name: 'TransGest', item: 'https://gauna.es/transgest/' },
+      { '@type': 'ListItem', position: 3, name: 'Solicitar demo', item: 'https://gauna.es/solicitar-demo/' },
+    ],
+  },
+];
 ---
 
 <BaseLayout
-  title="Solicitar demo de TransGest — TMS para empresas de transporte"
-  description="Solicita una demo de TransGest, el TMS moderno para empresas de transporte que centraliza servicios, documentación, facturación, conductores, clientes, portal cliente e integraciones."
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/solicitar-demo/"
+  ogImageAlt="Solicitar una demo de TransGest"
+  schema={schema}
 >
-  <!-- HERO -->
-  <section class="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 text-white relative overflow-hidden">
+  <section class="relative overflow-hidden bg-slate-950 text-white pt-16 md:pt-24 pb-16 md:pb-20">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-900/45 via-slate-950 to-slate-950 pointer-events-none"></div>
     <div class="container-g relative">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300 mb-3">
-          Demo personalizada
-        </span>
-
-        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium mt-4 leading-[1.05] text-white">
-          Solicita una demo<br />
-          <span class="text-amber-400">de TransGest</span>.
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">Demo personalizada</span>
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium mt-5 leading-[1.05]">
+          Mira TransGest aplicado a<br class="hidden md:block" />
+          <span class="text-amber-400">la operativa de tu empresa.</span>
         </h1>
-
-        <p class="text-lg md:text-xl text-slate-200 mt-6 max-w-2xl mx-auto leading-relaxed">
-          Cuéntanos cómo gestionas actualmente tus servicios, documentos, conductores, vehículos, clientes y facturación. Te mostraremos cómo TransGest puede ayudarte a centralizar tu operativa y trabajar con más control.
+        <p class="text-lg md:text-xl text-slate-300 mt-6 max-w-3xl mx-auto leading-relaxed">
+          Cuéntanos qué tipo de empresa tienes y te enseñamos cómo centralizar tráfico, documentación,
+          vehículos, conductores, clientes y facturación en una sola plataforma.
         </p>
+        <a href="#formulario" class="btn-accent inline-flex mt-9">Solicitar demo</a>
       </div>
     </div>
   </section>
 
-  <!-- QUÉ VERÁS EN LA DEMO -->
-  <section class="py-20 md:py-24">
+  <section id="formulario" class="scroll-mt-24 py-16 md:py-24 bg-slate-50">
     <div class="container-g">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto">
-          <span class="eyebrow">Qué veremos contigo</span>
-          <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
-            Una demo enfocada<br />a tu operativa real.
-          </h2>
-          <p class="text-lg text-slate-600 mt-6">
-            No queremos enseñarte una presentación genérica. Queremos entender cómo trabaja tu empresa y enseñarte dónde TransGest puede aportar valor.
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[.8fr_1.2fr] gap-10 lg:gap-16 items-start">
+        <div class="lg:sticky lg:top-28">
+          <span class="eyebrow">Sin presentación genérica</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Una demo centrada en cómo trabajas de verdad.</h2>
+          <p class="text-slate-600 mt-5 leading-relaxed">
+            Queremos entender tu operativa antes de enseñarte funciones. Así podemos centrarnos en los puntos donde TransGest puede aportar más valor.
           </p>
+
+          <div class="mt-8 space-y-5">
+            <div class="flex gap-3">
+              <span class="text-teal-700 mt-0.5">✓</span>
+              <div>
+                <div class="font-medium text-slate-900">Tráfico y servicios</div>
+                <p class="text-sm text-slate-600 mt-1">Pedidos, planificación, vehículos, conductores, estados y seguimiento.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-teal-700 mt-0.5">✓</span>
+              <div>
+                <div class="font-medium text-slate-900">Documentación y administración</div>
+                <p class="text-sm text-slate-600 mt-1">Documentos, trazabilidad, facturación, cobros y procesos administrativos conectados.</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-teal-700 mt-0.5">✓</span>
+              <div>
+                <div class="font-medium text-slate-900">Tu caso concreto</div>
+                <p class="text-sm text-slate-600 mt-1">Nos centramos en las áreas que hoy más tiempo o control te están costando.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-500 mt-8">Sin compromiso. Tus datos se utilizan únicamente para gestionar la solicitud y contactarte sobre TransGest.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14">
-          <div class="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 class="text-xl font-medium text-slate-900 mb-3">
-              Servicios y cargas
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Revisaremos cómo podrías centralizar tus servicios, clientes, conductores, vehículos, estados y documentación en una sola plataforma.
-            </p>
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+          <div class="mb-7">
+            <h2 class="text-2xl md:text-3xl font-medium text-slate-900">Solicita tu demo</h2>
+            <p class="text-slate-600 mt-2">Solo necesitamos unos datos para preparar la conversación.</p>
           </div>
 
-          <div class="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 class="text-xl font-medium text-slate-900 mb-3">
-              Documentación y trazabilidad
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Veremos cómo organizar la documentación vinculada a cada transporte, con una visión orientada a DeCA, eCMR, eFTI, DIWASS y trazabilidad documental.
-            </p>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 class="text-xl font-medium text-slate-900 mb-3">
-              Facturación y administración
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Analizaremos cómo conectar servicios realizados, facturas, clientes, documentación, estados administrativos y futuros módulos contables.
-            </p>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-xl p-8">
-            <h3 class="text-xl font-medium text-slate-900 mb-3">
-              App conductor y portal cliente
-            </h3>
-            <p class="text-slate-600 leading-relaxed">
-              Te mostraremos cómo mejorar la comunicación entre oficina, carretera y cliente con acceso digital a información y documentación.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FORMULARIO -->
-  <section id="formulario" class="py-20 md:py-24 bg-slate-50">
-    <div class="container-g">
-      <div class="max-w-2xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="eyebrow">Solicitar demo</span>
-          <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
-            Cuéntanos sobre<br />tu empresa.
-          </h2>
-          <p class="text-slate-600 mt-6">
-            Revisamos cada solicitud y contactaremos contigo para enseñarte TransGest en función de tu operativa.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
           <form id="demo-form" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label for="demo-name" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  Nombre y apellidos *
-                </label>
-                <input
-                  type="text"
-                  id="demo-name"
-                  name="name"
-                  required
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
+                <label for="demo-name" class="block text-sm font-medium text-slate-700 mb-1.5">Nombre y apellidos *</label>
+                <input type="text" id="demo-name" name="name" autocomplete="name" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
               </div>
-
               <div>
-                <label for="demo-company" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  Empresa *
-                </label>
-                <input
-                  type="text"
-                  id="demo-company"
-                  name="company"
-                  required
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
+                <label for="demo-company" class="block text-sm font-medium text-slate-700 mb-1.5">Empresa *</label>
+                <input type="text" id="demo-company" name="company" autocomplete="organization" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
               </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label for="demo-email" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  Email profesional *
-                </label>
-                <input
-                  type="email"
-                  id="demo-email"
-                  name="email"
-                  required
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
+                <label for="demo-email" class="block text-sm font-medium text-slate-700 mb-1.5">Email *</label>
+                <input type="email" id="demo-email" name="email" autocomplete="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
               </div>
-
               <div>
-                <label for="demo-phone" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  Teléfono *
-                </label>
-                <input
-                  type="tel"
-                  id="demo-phone"
-                  name="phone"
-                  required
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
+                <label for="demo-phone" class="block text-sm font-medium text-slate-700 mb-1.5">Teléfono *</label>
+                <input type="tel" id="demo-phone" name="phone" autocomplete="tel" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" />
               </div>
             </div>
 
             <div>
-              <label for="demo-profile" class="block text-sm font-medium text-slate-700 mb-1.5">
-                Tipo de empresa *
-              </label>
-              <select
-                id="demo-profile"
-                name="profile"
-                required
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
+              <label for="demo-profile" class="block text-sm font-medium text-slate-700 mb-1.5">Tipo de empresa *</label>
+              <select id="demo-profile" name="profile" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
                 <option value="">Selecciona...</option>
                 <option value="Autónomo">Autónomo del transporte</option>
-                <option value="Pyme pequeña">Pyme con 2-5 vehículos</option>
-                <option value="Pyme mediana">Pyme con 6-30 vehículos</option>
-                <option value="Empresa grande">Empresa con 30+ vehículos</option>
+                <option value="Empresa de transporte">Empresa de transporte</option>
                 <option value="Operador logístico">Operador logístico</option>
+                <option value="Almacén / logística">Almacén / logística</option>
                 <option value="Gestoría">Gestoría / asesoría</option>
+                <option value="Otro">Otro</option>
               </select>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label for="demo-fleet" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  Nº de vehículos
-                </label>
-                <input
-                  type="number"
-                  id="demo-fleet"
-                  name="fleet"
-                  min="0"
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-              </div>
-
-              <div>
-                <label for="demo-tools" class="block text-sm font-medium text-slate-700 mb-1.5">
-                  ¿Qué usáis ahora?
-                </label>
-                <input
-                  type="text"
-                  id="demo-tools"
-                  name="tools"
-                  placeholder="Excel, otro TMS, papel, ERP..."
-                  class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-              </div>
-            </div>
-
             <div>
-              <label for="demo-why" class="block text-sm font-medium text-slate-700 mb-1.5">
-                ¿Qué problema quieres resolver con TransGest? *
-              </label>
-              <textarea
-                id="demo-why"
-                name="why"
-                rows="4"
-                required
-                class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                placeholder="Ej: documentos por WhatsApp, cargas en Excel, facturación manual, clientes llamando para pedir documentación..."
-              ></textarea>
+              <label for="demo-why" class="block text-sm font-medium text-slate-700 mb-1.5">¿Qué te gustaría mejorar? <span class="font-normal text-slate-400">(opcional)</span></label>
+              <textarea id="demo-why" name="why" rows="3" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" placeholder="Ej: planificación de tráfico, documentación, facturación, control de flota..."></textarea>
             </div>
 
             <Honeypot />
             <Turnstile formId="demo-form" />
 
             <div class="flex items-start gap-2">
-              <input
-                type="checkbox"
-                id="demo-consent"
-                name="consent"
-                required
-                class="mt-1 rounded text-teal-600"
-              />
+              <input type="checkbox" id="demo-consent" name="consent" required class="mt-1 rounded text-teal-600" />
               <label for="demo-consent" class="text-xs text-slate-500 leading-relaxed">
-                Acepto que Gauna trate mis datos para evaluar mi solicitud y contactarme sobre TransGest.
+                Acepto que Gauna trate mis datos para gestionar mi solicitud y contactarme sobre TransGest.
                 <a href="/politica-privacidad/" class="underline hover:text-teal-600">Política de privacidad</a>.
               </label>
             </div>
 
             <div id="demo-form-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p class="text-sm text-red-900" data-error-message>
-                Ha ocurrido un error. Intenta de nuevo o escríbenos a
-                <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.
-              </p>
+              <p class="text-sm text-red-900" data-error-message>Ha ocurrido un error. Intenta de nuevo o escríbenos a hola@gauna.es.</p>
             </div>
 
             <button type="submit" class="btn-primary w-full text-base py-4" id="demo-submit-btn">
@@ -250,46 +164,27 @@ export const prerender = false;
             </button>
           </form>
 
-          <div id="demo-form-success" class="hidden mt-4 p-6 bg-teal-50 border border-teal-200 rounded-lg">
-            <div class="flex items-start gap-3">
-              <svg class="w-6 h-6 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <div>
-                <p class="font-medium text-teal-900">Solicitud recibida</p>
-                <p class="text-sm text-teal-800 mt-1">
-                  Gracias por solicitar una demo de TransGest. Revisaremos tu solicitud y contactaremos contigo por email o teléfono.
-                </p>
-              </div>
-            </div>
+          <div id="demo-form-success" class="hidden p-6 bg-teal-50 border border-teal-200 rounded-xl">
+            <p class="font-medium text-teal-900">Solicitud recibida</p>
+            <p class="text-sm text-teal-800 mt-1">Gracias. Revisaremos tu solicitud y contactaremos contigo por email o teléfono.</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- CTA SECUNDARIO -->
-  <section class="py-20 md:py-24 bg-white">
+  <section class="py-16 md:py-20 bg-white border-t border-slate-100">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">TransGest</span>
-        <h2 class="text-display-sm md:text-display-md font-medium text-slate-900 mt-4 leading-tight">
-          Un TMS moderno para trabajar con menos papel, menos errores y más control.
-        </h2>
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          TransGest centraliza servicios, documentación, clientes, conductores, vehículos, facturación, fichajes, portal de cliente e integraciones en una plataforma pensada desde dentro del sector transporte.
-        </p>
-
-        <div class="mt-10">
-          <a href="/transgest/" class="btn-secondary">
-            Ver página de TransGest
-          </a>
-        </div>
+        <span class="eyebrow">Antes de la demo</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">¿Quieres conocer primero qué incluye TransGest?</h2>
+        <p class="text-lg text-slate-600 mt-5">Consulta el producto, sus módulos y el enfoque con el que estamos construyendo la gestión del transporte.</p>
+        <a href="/transgest/" class="btn-secondary inline-flex mt-8">Ver TransGest</a>
       </div>
     </div>
   </section>
 </BaseLayout>
+
 <script>
   const form = document.getElementById('demo-form');
   const successBox = document.getElementById('demo-form-success');
@@ -301,7 +196,6 @@ export const prerender = false;
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     if (!form || !btn) return;
 
     btn.disabled = true;
@@ -310,6 +204,7 @@ export const prerender = false;
     errorBox?.classList.add('hidden');
 
     const formData = new FormData(form);
+    const userMessage = String(formData.get('why') || '').trim();
 
     const payload = {
       name: formData.get('name'),
@@ -317,9 +212,7 @@ export const prerender = false;
       email: formData.get('email'),
       phone: formData.get('phone'),
       profile: formData.get('profile'),
-      fleet: formData.get('fleet'),
-      tools: formData.get('tools'),
-      why: `[SOLICITUD DEMO TRANSGEST]\n\n${formData.get('why') || ''}`,
+      why: `[SOLICITUD DEMO TRANSGEST]\n\n${userMessage || 'Solicitud enviada desde la página de demo.'}`,
       website: formData.get('website'),
       turnstileToken: formData.get('turnstileToken'),
       startedAt: formData.get('startedAt'),
@@ -331,23 +224,15 @@ export const prerender = false;
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
       const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error del servidor');
-      }
+      if (!response.ok) throw new Error(data.error || 'Error del servidor');
 
       form.classList.add('hidden');
       successBox?.classList.remove('hidden');
       successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Error desconocido';
-
-      if (errorMsg) {
-        errorMsg.textContent = `No hemos podido enviar tu solicitud: ${message}. Puedes escribirnos directamente a hola@gauna.es.`;
-      }
-
+      if (errorMsg) errorMsg.textContent = `No hemos podido enviar tu solicitud: ${message}. Puedes escribirnos directamente a hola@gauna.es.`;
       errorBox?.classList.remove('hidden');
       btn.disabled = false;
       btnText?.classList.remove('hidden');
@@ -355,4 +240,3 @@ export const prerender = false;
     }
   });
 </script>
-
