@@ -1,272 +1,163 @@
-
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 export const prerender = true;
 
-const valores = [
+const pageTitle = 'Sobre Gauna Software | Tecnología creada desde el transporte';
+const pageDescription =
+  'Gauna Software desarrolla tecnología para empresas de transporte desde el conocimiento real del sector. Conoce nuestra visión, forma de trabajar y el origen de TransGest.';
+
+const principles = [
   {
-    titulo: 'Conocimiento del sector',
-    descripcion:
-      'Construimos herramientas para transporte desde problemas reales: tráfico, documentación, clientes, conductores, vehículos, facturación y control diario.',
+    title: 'Conocer antes de construir',
+    text: 'Partimos de cómo trabajan de verdad tráfico, administración, conductores y gerencia antes de decidir qué debe hacer el software.',
   },
   {
-    titulo: 'Modernidad',
-    descripcion:
-      'Queremos llevar al sector una experiencia de software más clara, rápida y actual, apoyándonos en automatización, datos e inteligencia operativa.',
+    title: 'Menos trabajo repetitivo',
+    text: 'Buscamos reducir pasos manuales, información duplicada, documentos dispersos y tareas que consumen tiempo sin aportar valor.',
   },
   {
-    titulo: 'Cercanía',
-    descripcion:
-      'Somos un equipo pequeño, directo y accesible. Hablamos con las empresas, escuchamos su operativa y convertimos sus necesidades en producto.',
-  },
-  {
-    titulo: 'Transparencia',
-    descripcion:
-      'Preferimos explicar claramente qué está disponible, qué está en desarrollo y hacia dónde evoluciona el producto antes que vender humo.',
+    title: 'Producto que evoluciona',
+    text: 'El transporte cambia rápido. Diseñamos una base capaz de incorporar nuevas necesidades, integraciones, automatización y normativa sin obligar a empezar de cero.',
   },
 ];
 
-const formasTrabajo = [
+const schema = [
   {
-    titulo: 'Escuchamos la operativa real',
-    descripcion:
-      'No diseñamos desde una teoría. Analizamos cómo trabaja una empresa de transporte en su día a día: llamadas, WhatsApp, Excel, documentos, facturas, vehículos y conductores.',
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    '@id': 'https://gauna.es/sobre-nosotros/#webpage',
+    url: 'https://gauna.es/sobre-nosotros/',
+    name: pageTitle,
+    description: pageDescription,
+    inLanguage: 'es-ES',
+    isPartOf: { '@id': 'https://gauna.es/#website' },
+    about: { '@id': 'https://gauna.es/#organization' },
   },
   {
-    titulo: 'Convertimos problemas en módulos',
-    descripcion:
-      'Cada parte de TransGest nace de una necesidad concreta: ordenar servicios, controlar documentación, mejorar la trazabilidad, reducir tareas manuales y dar más visibilidad a gerencia.',
-  },
-  {
-    titulo: 'Construimos con visión de futuro',
-    descripcion:
-      'El transporte avanza hacia más digitalización, interoperabilidad y datos estructurados. Por eso diseñamos herramientas preparadas para evolucionar con el sector.',
-  },
-];
-
-const productos = [
-  {
-    nombre: 'TransGest',
-    estado: 'Software en desarrollo activo',
-    descripcion:
-      'TMS moderno para empresas de transporte que centraliza servicios, cargas, clientes, conductores, vehículos, documentación, facturación, fichajes, portal cliente e integraciones.',
-    href: '/transgest/',
-    cta: 'Conocer TransGest',
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': 'https://gauna.es/sobre-nosotros/#breadcrumb',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
+      { '@type': 'ListItem', position: 2, name: 'Sobre nosotros', item: 'https://gauna.es/sobre-nosotros/' },
+    ],
   },
 ];
 ---
 
 <BaseLayout
-  title="Sobre nosotros — Gauna Software"
-  description="Gauna Software es un estudio especializado en crear herramientas digitales para empresas de transporte. Conoce nuestra visión, forma de trabajar y el origen de TransGest."
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/sobre-nosotros/"
+  ogImageAlt="Gauna Software, tecnología para empresas de transporte"
+  schema={schema}
 >
-  <!-- HERO INTRO -->
-  <section class="pt-16 md:pt-24 pb-12 md:pb-16">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Sobre nosotros</span>
-
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 mt-4 leading-[1.1]">
-          Creamos software para modernizar el transporte.
+  <section class="relative overflow-hidden pt-16 md:pt-24 pb-16 md:pb-20 border-b border-slate-100">
+    <div class="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-white to-white pointer-events-none"></div>
+    <div class="container-g relative">
+      <div class="max-w-4xl mx-auto text-center">
+        <span class="eyebrow">Sobre Gauna</span>
+        <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 mt-5 leading-[1.05]">
+          Tecnología para transporte creada
+          <span class="text-teal-700">desde dentro del sector.</span>
         </h1>
-
-        <p class="text-lg md:text-xl text-slate-600 mt-6 leading-relaxed">
-          Gauna Software es un estudio especializado en crear herramientas digitales para empresas de transporte.
-          Nuestro objetivo es ayudar al sector a reducir papel, automatizar tareas, centralizar información y trabajar con más control.
+        <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
+          Gauna Software nace de conocer de cerca la operativa del transporte y de una idea sencilla:
+          el software debería quitar trabajo, dar control y adaptarse a la empresa, no al revés.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- POR QUÉ NACE GAUNA -->
-  <section class="py-16 md:py-20 bg-slate-50">
+  <section class="py-16 md:py-24 bg-white">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Por qué nace Gauna</span>
+      <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[.85fr_1.15fr] gap-10 lg:gap-16 items-start">
+        <div>
+          <span class="eyebrow">Por qué nace Gauna</span>
+          <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">El problema no era la falta de software. Era cómo estaba pensado.</h2>
+        </div>
 
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          El transporte necesitaba<br />software más claro, conectado y actual.
-        </h2>
-
-        <div class="mt-8 space-y-5 text-lg text-slate-700 leading-relaxed">
+        <div class="space-y-5 text-lg text-slate-700 leading-relaxed">
           <p>
-            Muchas empresas de transporte siguen trabajando con información repartida entre Excel, WhatsApp,
-            correos, carpetas, software antiguo y documentos que no siempre están conectados entre sí.
+            En muchas empresas de transporte, una misma operación acaba repartida entre el TMS, Excel, WhatsApp,
+            correo, carpetas, llamadas y documentos independientes. El resultado es más trabajo administrativo y menos visibilidad.
           </p>
-
           <p>
-            Eso provoca pérdida de tiempo, duplicidad de tareas, falta de trazabilidad y una visión incompleta
-            de lo que ocurre en tráfico, administración, documentación, facturación y gerencia.
+            Gauna nace desde la experiencia real en tráfico y logística para replantear esa forma de trabajar.
+            Queremos que la información del servicio fluya entre tráfico, administración, conductor, cliente y gerencia sin volver a introducirla una y otra vez.
           </p>
-
           <p>
-            Gauna Software nace para construir herramientas especializadas que entiendan esa realidad.
-            TransGest es nuestro primer gran producto: un TMS moderno pensado para centralizar la operativa
-            diaria de una empresa de transporte y prepararla para una gestión más digital.
+            De esa visión nace <strong>TransGest</strong>: nuestro TMS para centralizar la operativa y construir sobre una base más conectada, trazable y preparada para seguir evolucionando.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- VALORES -->
-  <section class="py-20 md:py-24">
+  <section class="py-16 md:py-20 bg-slate-50 border-y border-slate-100">
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Valores</span>
-
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Cuatro principios que guían cada decisión de producto.
-        </h2>
+        <span class="eyebrow">Cómo pensamos el producto</span>
+        <h2 class="text-display-sm font-medium text-slate-900 mt-3 leading-tight">Tres principios, sin complicarlo más.</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
-        {valores.map((valor) => (
-          <div class="bg-white border border-slate-200 rounded-xl p-6 hover:border-teal-300 hover:shadow-sm transition-all">
-            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-2">
-              {valor.titulo}
-            </h3>
-
-            <p class="text-slate-600 leading-relaxed">
-              {valor.descripcion}
-            </p>
-          </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto mt-10">
+        {principles.map((item) => (
+          <article class="bg-white border border-slate-200 rounded-2xl p-6 md:p-7">
+            <h3 class="text-lg font-medium text-slate-900">{item.title}</h3>
+            <p class="text-slate-600 mt-3 leading-relaxed">{item.text}</p>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- CÓMO TRABAJAMOS -->
-  <section class="py-16 md:py-20 bg-slate-50">
+  <section class="py-16 md:py-24 bg-white">
     <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Cómo trabajamos</span>
-
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Producto, transporte<br />y tecnología trabajando juntos.
-        </h2>
-
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          No queremos crear una herramienta genérica más. Queremos construir software útil para empresas que viven el transporte cada día.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
-        {formasTrabajo.map((item) => (
-          <div class="bg-white border border-slate-200 rounded-xl p-6">
-            <h3 class="text-lg font-medium tracking-tight text-slate-900 mb-3">
-              {item.titulo}
-            </h3>
-
-            <p class="text-slate-600 leading-relaxed">
-              {item.descripcion}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- NUESTROS PRODUCTOS -->
-  <section class="py-20 md:py-24">
-    <div class="container-g">
-      <div class="max-w-3xl mx-auto text-center">
-        <span class="eyebrow">Nuestros productos</span>
-
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight text-slate-900 mt-4 leading-tight">
-          Empezamos por TransGest.<br />El ecosistema seguirá creciendo.
-        </h2>
-
-        <p class="text-lg text-slate-600 mt-6 leading-relaxed">
-          Nuestra visión es crear un conjunto de herramientas digitales especializadas para transporte,
-          conectadas entre sí y pensadas para resolver problemas reales del sector.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
-        {productos.map((producto) => (
-          <a
-            href={producto.href}
-            class="group bg-white border border-slate-200 rounded-xl p-8 hover:border-teal-300 hover:shadow-md transition-all"
-          >
-            <div class="flex items-start justify-between gap-3 mb-4">
-              <span class="text-xs font-medium tracking-wider uppercase text-teal-800 bg-teal-100 px-2.5 py-1 rounded-full">
-                {producto.estado}
-              </span>
+      <div class="max-w-5xl mx-auto rounded-3xl border border-slate-200 p-8 md:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_.9fr] gap-10 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-teal-800 bg-teal-50 px-3 py-1.5 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+              Disponible
             </div>
-
-            <h3 class="text-2xl font-medium tracking-tight text-slate-900 mb-3">
-              {producto.nombre}
-            </h3>
-
-            <p class="text-slate-600 leading-relaxed mb-5">
-              {producto.descripcion}
+            <h2 class="text-3xl md:text-4xl font-medium text-slate-900 mt-5 leading-tight">TransGest es el primer gran producto de Gauna.</h2>
+            <p class="text-slate-600 mt-5 leading-relaxed">
+              Un TMS para conectar tráfico, servicios, clientes, vehículos, conductores, documentación, facturación y análisis en un mismo entorno.
+              Lo desarrollamos con una visión de largo plazo: que pueda crecer con la empresa y con la evolución del transporte.
             </p>
-
-            <span class="inline-flex items-center gap-1 text-sm font-medium text-teal-700 group-hover:gap-2 transition-all">
-              {producto.cta}
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </a>
-        ))}
-
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-8">
-          <div class="flex items-start justify-between gap-3 mb-4">
-            <span class="text-xs font-medium tracking-wider uppercase text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">
-              Próximamente
-            </span>
+            <div class="mt-7 flex flex-col sm:flex-row gap-3">
+              <a href="/transgest/" class="btn-primary">Conocer TransGest</a>
+              <a href="/solicitar-demo/" class="btn-secondary">Solicitar demo</a>
+            </div>
           </div>
 
-          <h3 class="text-2xl font-medium tracking-tight text-slate-700 mb-3">
-            Más herramientas
-          </h3>
-
-          <p class="text-slate-500 leading-relaxed">
-            Estamos trabajando en nuevas soluciones para cubrir más áreas del sector:
-            documentación, análisis, automatización, integraciones y procesos específicos del transporte.
-          </p>
+          <div class="rounded-2xl bg-slate-950 text-white p-7">
+            <div class="text-xs uppercase tracking-widest text-teal-300 font-medium">Nuestra dirección</div>
+            <p class="text-2xl font-medium mt-4 leading-snug">Construir software que devuelva tiempo a las empresas de transporte.</p>
+            <p class="text-slate-400 mt-4 leading-relaxed">
+              Menos tareas repetitivas. Más información conectada. Más capacidad para controlar la operativa y tomar decisiones.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA FINAL -->
-  <section class="py-16 md:py-20 bg-teal-950 text-white">
+  <section class="py-16 md:py-20 bg-slate-950 text-white">
     <div class="container-g">
-      <div class="max-w-2xl mx-auto text-center">
-        <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300 mb-4">
-          TransGest
-        </span>
-
-        <h2 class="text-3xl md:text-4xl font-medium tracking-tight leading-tight">
-          ¿Quieres ver cómo TransGest puede encajar en tu empresa?
-        </h2>
-
-        <p class="text-lg text-slate-200 mt-6 leading-relaxed">
-          Solicita una demo y cuéntanos cómo gestionas actualmente tus servicios,
-          documentación, clientes, vehículos, conductores y facturación.
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="text-xs font-medium tracking-widest uppercase text-teal-300">Hablemos</span>
+        <h2 class="text-display-sm font-medium mt-4 leading-tight">Si trabajas en transporte, queremos entender cómo trabajas.</h2>
+        <p class="text-lg text-slate-300 mt-5 leading-relaxed">
+          Puedes solicitar una demo de TransGest o contarnos directamente qué problema operativo estás intentando resolver.
         </p>
-
         <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a
-            href="/solicitar-demo/"
-            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-500 text-slate-950 font-medium rounded-lg hover:bg-amber-400 transition-colors"
-          >
-            Solicitar demo
-          </a>
-
-          <a
-            href="/contacto/"
-            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-white font-medium rounded-lg hover:bg-white/15 border border-white/20 transition-colors"
-          >
-            Hablar con nosotros
-          </a>
+          <a href="/solicitar-demo/" class="btn-accent">Solicitar demo</a>
+          <a href="/contacto/" class="btn-secondary bg-slate-900 text-white border-slate-700 hover:bg-slate-800">Contactar</a>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
-
