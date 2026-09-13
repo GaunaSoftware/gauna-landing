@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
@@ -14,6 +13,7 @@ const normalizePage = (page) => {
 const excludedFromSitemap = new Set([
   `${SITE}/beta-tester/`,
   `${SITE}/transgest/demo/`,
+  `${SITE}/dcd-2026/`,
 ]);
 
 export default defineConfig({
@@ -47,7 +47,7 @@ export default defineConfig({
           item.priority = 0.95;
         }
 
-        if (url === `${SITE}/dcd-2026/`) {
+        if (url === `${SITE}/deca-2026/`) {
           item.changefreq = 'weekly';
           item.priority = 0.9;
         }
