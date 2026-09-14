@@ -86,7 +86,18 @@ const customSchema = schema
     : [schema]
   : [];
 
-const structuredData = [...baseSchema, ...customSchema];
+const enrichedCustomSchema = customSchema.map((entry) => {
+  if (entry['@type'] !== 'Article') return entry;
+
+  return {
+    ...entry,
+    url: entry.url ?? canonicalURL,
+    image: entry.image ?? ogImageURL,
+    datePublished: entry.datePublished ?? entry.dateModified,
+  };
+});
+
+const structuredData = [...baseSchema, ...enrichedCustomSchema];
 ---
 
 <!DOCTYPE html>
