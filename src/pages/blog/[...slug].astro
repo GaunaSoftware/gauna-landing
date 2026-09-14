@@ -31,12 +31,10 @@ const articleSchema = [
     mainEntityOfPage: canonicalUrl,
     datePublished: published,
     dateModified: modified,
+    image: 'https://gauna.es/logo.svg',
     inLanguage: 'es-ES',
     keywords: post.data.tags.join(', '),
-    author: {
-      '@type': 'Person',
-      name: post.data.author,
-    },
+    author: { '@id': 'https://gauna.es/#organization' },
     publisher: { '@id': 'https://gauna.es/#organization' },
     isPartOf: { '@id': 'https://gauna.es/#website' },
   },
@@ -54,7 +52,7 @@ const articleSchema = [
 ---
 
 <BaseLayout
-  title={`${post.data.title} | Blog Gauna`}
+  title={post.data.title}
   description={post.data.description}
   canonical={canonical}
   ogType="article"
