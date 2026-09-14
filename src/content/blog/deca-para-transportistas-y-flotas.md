@@ -2,7 +2,7 @@
 title: "DeCA para transportistas y flotas: qué preparar antes de octubre de 2026"
 description: "Checklist DeCA para transportistas, autónomos y flotas: datos, conductores, QR, archivo, cambios durante el viaje y preparación antes del 5 de octubre de 2026."
 pubDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "gestion"
 tags: ["DeCA", "transportistas", "flotas", "empresas de transporte"]
 ---
