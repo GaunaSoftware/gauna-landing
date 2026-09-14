@@ -2,7 +2,7 @@
 title: "Qué es el DeCA en transporte y cuándo será obligatorio en 2026"
 description: "Explicamos qué es el DeCA en transporte, cuándo será obligatorio, a quién afecta y qué exige la normativa para el documento electrónico de control."
 pubDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "transporte", "documento de control", "2026"]
 ---
