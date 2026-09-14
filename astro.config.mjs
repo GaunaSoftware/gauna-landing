@@ -93,6 +93,10 @@ export default defineConfig({
       status: 301,
       destination: '/solicitar-demo/',
     },
+    '/blog/primer-articulo': {
+      status: 301,
+      destination: '/deca-2026/',
+    },
   },
 
   output: 'server',
