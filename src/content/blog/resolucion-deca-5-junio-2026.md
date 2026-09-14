@@ -2,7 +2,7 @@
 title: "Resolución de 5 de junio de 2026: qué exige al DeCA"
 description: "Resumen práctico de la Resolución de 5 de junio de 2026 sobre el DeCA: sistemas, PDF, QR, URL, firmas, modificaciones, agrupación de servicios y eFTI."
 pubDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "Resolución 5 junio 2026", "BOE", "normativa transporte"]
 ---
