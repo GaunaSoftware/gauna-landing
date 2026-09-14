@@ -15,17 +15,56 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const canonical = `/blog/${post.slug}/`;
+const canonicalUrl = `https://gauna.es${canonical}`;
+const published = post.data.pubDate.toISOString();
+const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString();
+
+const articleSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${canonicalUrl}#article`,
+    headline: post.data.title,
+    description: post.data.description,
+    url: canonicalUrl,
+    mainEntityOfPage: canonicalUrl,
+    datePublished: published,
+    dateModified: modified,
+    inLanguage: 'es-ES',
+    keywords: post.data.tags.join(', '),
+    author: {
+      '@type': 'Person',
+      name: post.data.author,
+    },
+    publisher: { '@id': 'https://gauna.es/#organization' },
+    isPartOf: { '@id': 'https://gauna.es/#website' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    '@id': `${canonicalUrl}#breadcrumb`,
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://gauna.es/blog/' },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: canonicalUrl },
+    ],
+  },
+];
 ---
 
 <BaseLayout
   title={`${post.data.title} | Blog Gauna`}
   description={post.data.description}
+  canonical={canonical}
+  ogType="article"
+  schema={articleSchema}
 >
   <article class="py-16 md:py-20">
     <div class="container-g">
       <div class="max-w-prose mx-auto">
         <a href="/blog/" class="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-teal-600 mb-8">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           Volver al blog
@@ -33,11 +72,17 @@ const { Content } = await post.render();
 
         <header class="mb-10">
           <div class="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-6">
-            <time datetime={post.data.pubDate.toISOString()}>
+            <time datetime={published}>
               {post.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
             </time>
             <span>·</span>
             <span>{post.data.author}</span>
+            {post.data.updatedDate && (
+              <>
+                <span>·</span>
+                <span>Actualizado {post.data.updatedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+              </>
+            )}
           </div>
 
           <h1 class="text-display-sm md:text-display-md font-medium text-slate-900 leading-tight">
