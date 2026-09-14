@@ -7,7 +7,7 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    author: z.string().default('Manuel Gauna'),
+    author: z.string().default('Gauna'),
     tags: z.array(z.string()).default([]),
     category: z.enum(['normativa', 'gestion', 'nominas', 'tecnologia']).default('normativa'),
     draft: z.boolean().default(false),
