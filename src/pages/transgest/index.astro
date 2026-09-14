@@ -8,124 +8,36 @@ const pageDescription =
   'Centraliza tráfico, expedientes, documentación, vehículos, conductores, facturación y rentabilidad con TransGest, el TMS creado desde el sector.';
 
 const flow = [
-  {
-    number: '01',
-    title: 'Crea el servicio',
-    description: 'Cliente, ruta, mercancía, fechas, tarifa y condiciones quedan en una única ficha.',
-  },
-  {
-    number: '02',
-    title: 'Planifica tráfico',
-    description: 'Asigna vehículo y conductor, ordena prioridades y comparte la información necesaria.',
-  },
-  {
-    number: '03',
-    title: 'Controla la ejecución',
-    description: 'Sigue estados, incidencias, avisos y documentos sin reconstruir el viaje entre herramientas.',
-  },
-  {
-    number: '04',
-    title: 'Documenta y analiza',
-    description: 'Cierra el expediente, prepara la facturación y conoce costes, ingresos y rentabilidad.',
-  },
+  ['01', 'Crea el servicio', 'Cliente, ruta, mercancía, fechas, tarifa y condiciones quedan en una única ficha.'],
+  ['02', 'Planifica tráfico', 'Asigna vehículo y conductor, ordena prioridades y comparte la información necesaria.'],
+  ['03', 'Controla la ejecución', 'Sigue estados, incidencias, avisos y documentos sin reconstruir el viaje entre herramientas.'],
+  ['04', 'Documenta y analiza', 'Cierra el expediente, prepara la facturación y conoce costes, ingresos y rentabilidad.'],
 ];
 
 const capabilityGroups = [
-  {
-    eyebrow: 'Operativa',
-    title: 'Tráfico bajo control',
-    description: 'Pedidos, cargas, planificación, cuadrante, rutas, tarifas, estados e incidencias conectados.',
-    items: ['Gestión de servicios', 'Planificación de tráfico', 'Control Tower y avisos'],
-  },
-  {
-    eyebrow: 'Expediente',
-    title: 'Cada transporte, completo',
-    description: 'La información operativa y documental permanece vinculada al servicio al que pertenece.',
-    items: ['Documentación centralizada', 'Trazabilidad de actividad', 'Avisos y vencimientos'],
-  },
-  {
-    eyebrow: 'Recursos',
-    title: 'Empresa y flota conectadas',
-    description: 'Clientes, vehículos, remolques, conductores y colaboradores trabajan sobre una misma base.',
-    items: ['Clientes y colaboradores', 'Vehículos y conductores', 'Taller y mantenimiento'],
-  },
-  {
-    eyebrow: 'Administración',
-    title: 'De la carga a la rentabilidad',
-    description: 'La operación alimenta la facturación y el análisis para evitar volver a introducir los mismos datos.',
-    items: ['Facturación y cobros', 'Costes y hojas de ruta', 'KPIs y márgenes'],
-  },
-  {
-    eyebrow: 'Comunicación',
-    title: 'Menos llamadas y mensajes sueltos',
-    description: 'Oficina, carretera y cliente acceden a la información que necesitan dentro del mismo flujo.',
-    items: ['App para conductores', 'Portal de clientes', 'Usuarios, roles y permisos'],
-  },
-  {
-    eyebrow: 'Evolución',
-    title: 'Preparado para conectar',
-    description: 'Una arquitectura orientada a integraciones, datos estructurados y nuevos procesos digitales.',
-    items: ['Importaciones y API', 'DeCA y eCMR', 'Automatización e IA'],
-  },
+  ['Operativa', 'Tráfico bajo control', 'Pedidos, cargas, planificación, cuadrante, rutas, tarifas, estados e incidencias conectados.', ['Gestión de servicios', 'Planificación de tráfico', 'Control Tower y avisos']],
+  ['Expediente', 'Cada transporte, completo', 'La información operativa y documental permanece vinculada al servicio al que pertenece.', ['Documentación centralizada', 'Trazabilidad de actividad', 'Avisos y vencimientos']],
+  ['Recursos', 'Empresa y flota conectadas', 'Clientes, vehículos, remolques, conductores y colaboradores trabajan sobre una misma base.', ['Clientes y colaboradores', 'Vehículos y conductores', 'Taller y mantenimiento']],
+  ['Administración', 'De la carga a la rentabilidad', 'La operación alimenta la facturación y el análisis para evitar volver a introducir los mismos datos.', ['Facturación y cobros', 'Costes y hojas de ruta', 'KPIs y márgenes']],
+  ['Comunicación', 'Menos llamadas y mensajes sueltos', 'Oficina, carretera y cliente acceden a la información que necesitan dentro del mismo flujo.', ['App para conductores', 'Portal de clientes', 'Usuarios, roles y permisos']],
+  ['Evolución', 'Preparado para conectar', 'Una arquitectura orientada a integraciones, datos estructurados y nuevos procesos digitales.', ['Importaciones y API', 'DeCA y eCMR', 'Automatización e IA']],
 ];
 
 const plans = [
-  {
-    name: 'Go',
-    price: '79 €',
-    description: 'Para autónomos y pequeñas empresas que quieren empezar a digitalizar su operativa.',
-    benefit: 'Ordena servicios, recursos y documentación sin añadir complejidad.',
-    featured: false,
-  },
-  {
-    name: 'Control',
-    price: '159 €',
-    description: 'Para empresas que necesitan un TMS profesional, claro y asumible.',
-    benefit: 'Centraliza el trabajo diario y mejora el control entre tráfico y administración.',
-    featured: true,
-  },
-  {
-    name: 'Pro',
-    price: '259 €',
-    description: 'Para empresas que quieren una visión completa de lo que sucede en el negocio.',
-    benefit: 'Añade profundidad de gestión, KPIs y análisis de rentabilidad.',
-    featured: false,
-  },
-  {
-    name: 'Pro Intelligence',
-    price: '359 €',
-    description: 'Para ganar velocidad y eficiencia con automatización e inteligencia artificial.',
-    benefit: 'Reduce trabajo repetitivo y acelera procesos sobre la base completa de TransGest.',
-    featured: false,
-  },
+  { name: 'Go', description: 'Para autónomos y pequeñas empresas que quieren empezar a digitalizar su operativa.', benefit: 'Ordena servicios, recursos y documentación sin añadir complejidad.', featured: false },
+  { name: 'Control', description: 'Para empresas que necesitan un TMS profesional, claro y asumible.', benefit: 'Centraliza el trabajo diario y mejora el control entre tráfico y administración.', featured: true },
+  { name: 'Pro', description: 'Para empresas que quieren una visión completa de lo que sucede en el negocio.', benefit: 'Añade profundidad de gestión, KPIs y análisis de rentabilidad.', featured: false },
+  { name: 'Pro Intelligence', description: 'Para ganar velocidad y eficiencia con automatización e inteligencia artificial.', benefit: 'Reduce trabajo repetitivo y acelera procesos sobre la base completa de TransGest.', featured: false },
+  { name: 'Planner', description: 'Para almacenes logísticos y centros que necesitan coordinar cargas, entradas, salidas y recursos.', benefit: 'Gestiona cargas, muelles, capacidad, estados y trazabilidad de la operativa de almacén.', featured: false },
 ];
 
 const faqs = [
-  {
-    question: '¿Qué es TransGest?',
-    answer:
-      'TransGest es un TMS para empresas de transporte que conecta la gestión de servicios, tráfico, recursos, documentación, facturación, comunicación y análisis en una misma plataforma.',
-  },
-  {
-    question: '¿Para qué tipo de empresa está pensado?',
-    answer:
-      'Desde autónomos y pequeñas empresas que quieren digitalizar su operativa hasta compañías que necesitan controlar tráfico, administración y rentabilidad con mayor profundidad. Los planes avanzan según la madurez de gestión, no según el número de usuarios o vehículos.',
-  },
-  {
-    question: '¿Se cobra por usuario o por tamaño de flota?',
-    answer:
-      'No. Los planes no se definen por número de usuarios ni por número de vehículos. Algunas funciones de consumo variable, como documentos procesados, OCR o inteligencia artificial, pueden tener límites o consumos asociados según el plan.',
-  },
-  {
-    question: '¿Incluye app para conductores y portal de clientes?',
-    answer:
-      'TransGest conecta la operativa de oficina con conductores y clientes mediante accesos específicos, reduciendo llamadas, correos y documentos enviados por canales separados.',
-  },
-  {
-    question: '¿Cómo se realiza la implantación?',
-    answer:
-      'Primero revisamos cómo trabaja la empresa. Después configuramos la plataforma, preparamos los datos necesarios, formamos al equipo y acompañamos la puesta en marcha sobre casos reales.',
-  },
+  { question: '¿Qué es TransGest?', answer: 'TransGest es un TMS para empresas de transporte que conecta la gestión de servicios, tráfico, recursos, documentación, facturación, comunicación y análisis en una misma plataforma.' },
+  { question: '¿Para qué tipo de empresa está pensado?', answer: 'Desde autónomos y pequeñas empresas que quieren digitalizar su operativa hasta compañías que necesitan controlar tráfico, administración y rentabilidad con mayor profundidad. Las versiones avanzan según la madurez y el tipo de gestión, no según el número de usuarios o vehículos.' },
+  { question: '¿Se cobra por usuario o por tamaño de flota?', answer: 'No. Las versiones no se definen por número de usuarios ni por número de vehículos. Algunas funciones de consumo variable pueden tener límites o consumos asociados según la solución contratada.' },
+  { question: '¿Qué es TransGest Planner?', answer: 'TransGest Planner es la versión orientada a almacenes y operaciones logísticas. Permite organizar cargas, entradas, salidas, recursos, muelles, capacidad y trazabilidad de la actividad del almacén.' },
+  { question: '¿Incluye app para conductores y portal de clientes?', answer: 'TransGest conecta la operativa de oficina con conductores y clientes mediante accesos específicos, reduciendo llamadas, correos y documentos enviados por canales separados.' },
+  { question: '¿Cómo se realiza la implantación?', answer: 'Primero revisamos cómo trabaja la empresa. Después configuramos la plataforma, preparamos los datos necesarios, formamos al equipo y acompañamos la puesta en marcha sobre casos reales.' },
 ];
 
 const seoSchema = [
@@ -140,25 +52,9 @@ const seoSchema = [
     url: 'https://gauna.es/transgest/',
     description: pageDescription,
     inLanguage: 'es-ES',
-    creator: {
-      '@type': 'Organization',
-      '@id': 'https://gauna.es/#organization',
-      name: 'Gauna Software',
-      url: 'https://gauna.es/',
-    },
-    offers: plans.map((plan) => ({
-      '@type': 'Offer',
-      name: `TransGest ${plan.name}`,
-      price: plan.price.replace(' €', ''),
-      priceCurrency: 'EUR',
-      availability: 'https://schema.org/InStock',
-      url: 'https://gauna.es/transgest/precios/',
-    })),
-    featureList: capabilityGroups.flatMap((group) => group.items),
-    audience: {
-      '@type': 'BusinessAudience',
-      audienceType: 'Empresas de transporte por carretera y operadores logísticos',
-    },
+    creator: { '@type': 'Organization', '@id': 'https://gauna.es/#organization', name: 'Gauna Software', url: 'https://gauna.es/', logo: 'https://gauna.es/logo.svg' },
+    featureList: capabilityGroups.flatMap((group) => group[3]),
+    audience: { '@type': 'BusinessAudience', audienceType: 'Empresas de transporte por carretera, operadores logísticos y almacenes logísticos' },
   },
   {
     '@context': 'https://schema.org',
@@ -173,45 +69,20 @@ const seoSchema = [
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     '@id': 'https://gauna.es/transgest/#faq',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
-    })),
+    mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })),
   },
 ];
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={pageDescription}
-  canonical="/transgest/"
-  ogImageAlt="TransGest, TMS para empresas de transporte"
-  schema={seoSchema}
->
+<BaseLayout title={pageTitle} description={pageDescription} canonical="/transgest/" ogImageAlt="TransGest, TMS para empresas de transporte" schema={seoSchema}>
   <section class="relative overflow-hidden bg-slate-950 text-white">
     <div class="absolute inset-0 bg-gradient-to-br from-teal-950/80 via-slate-950 to-slate-950 pointer-events-none"></div>
     <div class="container-g relative py-20 md:py-28 lg:py-32">
       <div class="max-w-4xl">
-        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-teal-100">
-          <span class="h-2 w-2 rounded-full bg-amber-400"></span>
-          TMS creado desde dentro del sector
-        </div>
-
-        <h1 class="mt-7 text-display-md md:text-display-lg lg:text-display-xl font-medium leading-[1.04]">
-          El TMS para recuperar tiempo y control en tu empresa de transporte.
-        </h1>
-
-        <p class="mt-7 max-w-3xl text-lg md:text-xl leading-relaxed text-slate-300">
-          TransGest conecta tráfico, expedientes, documentación, vehículos, conductores,
-          facturación y rentabilidad para que toda la empresa trabaje sobre la misma información.
-        </p>
-
-        <div class="mt-9 flex flex-col sm:flex-row gap-3">
-          <a href="/solicitar-demo/" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-amber-500 text-slate-950 font-medium hover:bg-amber-400 transition-colors">Ver TransGest en acción</a>
-          <a href="#como-funciona" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/15 bg-white/5 text-white font-medium hover:bg-white/10 transition-colors">Cómo funciona</a>
-        </div>
-
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-sm text-teal-100"><span class="h-2 w-2 rounded-full bg-amber-400"></span>TMS creado desde dentro del sector</div>
+        <h1 class="mt-7 text-display-md md:text-display-lg lg:text-display-xl font-medium leading-[1.04]">El TMS para recuperar tiempo y control en tu empresa de transporte.</h1>
+        <p class="mt-7 max-w-3xl text-lg md:text-xl leading-relaxed text-slate-300">TransGest conecta tráfico, expedientes, documentación, vehículos, conductores, facturación y rentabilidad para que toda la empresa trabaje sobre la misma información.</p>
+        <div class="mt-9 flex flex-col sm:flex-row gap-3"><a href="/solicitar-demo/" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-amber-500 text-slate-950 font-medium hover:bg-amber-400 transition-colors">Ver TransGest en acción</a><a href="#como-funciona" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/15 bg-white/5 text-white font-medium hover:bg-white/10 transition-colors">Cómo funciona</a></div>
         <p class="mt-6 text-sm text-slate-400">Sin precio por usuario ni por número de vehículos.</p>
       </div>
     </div>
@@ -219,77 +90,27 @@ const seoSchema = [
 
   <section class="border-b border-slate-200 bg-white">
     <div class="container-g grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200">
-      <div class="py-7 md:pr-8">
-        <p class="text-sm font-semibold text-slate-900">Una única base de datos</p>
-        <p class="mt-1 text-sm leading-relaxed text-slate-600">La información deja de repartirse entre Excel, WhatsApp, carpetas y programas aislados.</p>
-      </div>
-      <div class="py-7 md:px-8">
-        <p class="text-sm font-semibold text-slate-900">Un expediente por transporte</p>
-        <p class="mt-1 text-sm leading-relaxed text-slate-600">Operativa, documentos, costes, facturación y actividad permanecen conectados.</p>
-      </div>
-      <div class="py-7 md:pl-8">
-        <p class="text-sm font-semibold text-slate-900">Una visión compartida</p>
-        <p class="mt-1 text-sm leading-relaxed text-slate-600">Tráfico, administración, gerencia, conductores y clientes trabajan con contexto.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-16 md:py-24 bg-white">
-    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-      <div class="lg:col-span-5 lg:sticky lg:top-28">
-        <span class="eyebrow">La idea central</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Cada servicio debe contar toda su historia.</h2>
-      </div>
-      <div class="lg:col-span-7 space-y-5 text-lg leading-relaxed text-slate-600">
-        <p>Cuando un transporte está repartido entre correos, llamadas, hojas de cálculo y documentos sueltos, la empresa pierde tiempo reconstruyendo qué ha ocurrido.</p>
-        <p>En TransGest, cada servicio se convierte en un expediente digital: desde el pedido y la planificación hasta la documentación, la factura y el margen. Los datos se introducen una vez y acompañan al transporte durante todo el proceso.</p>
-        <p class="font-medium text-slate-900">Menos trabajo repetido. Más información útil para decidir.</p>
-      </div>
+      <div class="py-7 md:pr-8"><p class="text-sm font-semibold text-slate-900">Una única base de datos</p><p class="mt-1 text-sm leading-relaxed text-slate-600">La información deja de repartirse entre Excel, WhatsApp, carpetas y programas aislados.</p></div>
+      <div class="py-7 md:px-8"><p class="text-sm font-semibold text-slate-900">Un expediente por transporte</p><p class="mt-1 text-sm leading-relaxed text-slate-600">Operativa, documentos, costes, facturación y actividad permanecen conectados.</p></div>
+      <div class="py-7 md:pl-8"><p class="text-sm font-semibold text-slate-900">Una visión compartida</p><p class="mt-1 text-sm leading-relaxed text-slate-600">Tráfico, administración, gerencia, conductores y clientes trabajan con contexto.</p></div>
     </div>
   </section>
 
   <section id="como-funciona" class="py-16 md:py-24 bg-slate-50 scroll-mt-24">
     <div class="container-g">
-      <div class="max-w-3xl">
-        <span class="eyebrow">De punta a punta</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Del pedido a la rentabilidad, sin romper el flujo.</h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-600">La misma información avanza con el servicio para que cada área continúe el trabajo de la anterior.</p>
-      </div>
-
+      <div class="max-w-3xl"><span class="eyebrow">De punta a punta</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Del pedido a la rentabilidad, sin romper el flujo.</h2><p class="mt-5 text-lg leading-relaxed text-slate-600">La misma información avanza con el servicio para que cada área continúe el trabajo de la anterior.</p></div>
       <ol class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200">
-        {flow.map((step) => (
-          <li class="bg-white p-6">
-            <span class="text-sm font-semibold text-teal-700">{step.number}</span>
-            <h3 class="mt-5 text-lg font-semibold text-slate-900">{step.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">{step.description}</p>
-          </li>
-        ))}
+        {flow.map(([number, title, description]) => (<li class="bg-white p-6"><span class="text-sm font-semibold text-teal-700">{number}</span><h3 class="mt-5 text-lg font-semibold text-slate-900">{title}</h3><p class="mt-3 text-sm leading-relaxed text-slate-600">{description}</p></li>))}
       </ol>
     </div>
   </section>
 
   <section class="py-16 md:py-24 bg-white">
     <div class="container-g">
-      <div class="max-w-3xl">
-        <span class="eyebrow">Una plataforma conectada</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Todo lo importante, organizado en seis áreas.</h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-600">Sin una lista interminable de funciones: estas son las piezas que conectan la empresa.</p>
-      </div>
-
+      <div class="max-w-3xl"><span class="eyebrow">Una plataforma conectada</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Todo lo importante, organizado en seis áreas.</h2><p class="mt-5 text-lg leading-relaxed text-slate-600">Sin una lista interminable de funciones: estas son las piezas que conectan la empresa.</p></div>
       <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {capabilityGroups.map((group) => (
-          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:border-teal-300 hover:shadow-sm transition-all">
-            <span class="text-xs font-semibold uppercase tracking-widest text-teal-700">{group.eyebrow}</span>
-            <h3 class="mt-3 text-xl font-semibold text-slate-900">{group.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">{group.description}</p>
-            <ul class="mt-5 space-y-2 border-t border-slate-100 pt-5">
-              {group.items.map((item) => (
-                <li class="flex items-start gap-2 text-sm text-slate-700">
-                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500"></span>{item}
-                </li>
-              ))}
-            </ul>
-          </article>
+        {capabilityGroups.map(([eyebrow, title, description, items]) => (
+          <article class="rounded-2xl border border-slate-200 bg-white p-6 hover:border-teal-300 hover:shadow-sm transition-all"><span class="text-xs font-semibold uppercase tracking-widest text-teal-700">{eyebrow}</span><h3 class="mt-3 text-xl font-semibold text-slate-900">{title}</h3><p class="mt-3 text-sm leading-relaxed text-slate-600">{description}</p><ul class="mt-5 space-y-2 border-t border-slate-100 pt-5">{items.map((item) => (<li class="flex items-start gap-2 text-sm text-slate-700"><span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500"></span>{item}</li>))}</ul></article>
         ))}
       </div>
     </div>
@@ -297,126 +118,37 @@ const seoSchema = [
 
   <section class="py-16 md:py-24 bg-slate-950 text-white">
     <div class="container-g grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-      <div>
-        <span class="eyebrow text-teal-300">Creado desde el sector</span>
-        <h2 class="mt-3 text-display-sm font-medium leading-tight">Un TMS que entiende lo que ocurre entre la oficina y la carretera.</h2>
-        <p class="mt-6 text-lg leading-relaxed text-slate-300">TransGest nace de experiencia real en tráfico y logística. Por eso está diseñado alrededor del servicio, las urgencias, los documentos que faltan y las decisiones que el equipo necesita tomar cada día.</p>
-      </div>
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8">
-        <p class="text-sm font-semibold text-teal-200">Lo que cambia</p>
-        <div class="mt-6 space-y-5">
-          <div><p class="text-sm text-slate-400">Antes</p><p class="mt-1 text-white">Buscar datos, pedir documentos y volver a introducir información.</p></div>
-          <div class="h-px bg-white/10"></div>
-          <div><p class="text-sm text-slate-400">Con TransGest</p><p class="mt-1 text-white">Abrir el servicio y encontrar la operativa, la documentación y el resultado.</p></div>
-        </div>
-      </div>
+      <div><span class="eyebrow text-teal-300">Creado desde el sector</span><h2 class="mt-3 text-display-sm font-medium leading-tight">Un TMS que entiende lo que ocurre entre la oficina y la carretera.</h2><p class="mt-6 text-lg leading-relaxed text-slate-300">TransGest nace de experiencia real en tráfico y logística. Por eso está diseñado alrededor del servicio, las urgencias, los documentos que faltan y las decisiones que el equipo necesita tomar cada día.</p></div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6 md:p-8"><p class="text-sm font-semibold text-teal-200">Lo que cambia</p><div class="mt-6 space-y-5"><div><p class="text-sm text-slate-400">Antes</p><p class="mt-1 text-white">Buscar datos, pedir documentos y volver a introducir información.</p></div><div class="h-px bg-white/10"></div><div><p class="text-sm text-slate-400">Con TransGest</p><p class="mt-1 text-white">Abrir el servicio y encontrar la operativa, la documentación y el resultado.</p></div></div></div>
     </div>
   </section>
 
   <section class="py-16 md:py-24 bg-white">
     <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-      <div class="lg:col-span-5">
-        <span class="eyebrow">Documentación digital</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Preparar el documento no debería significar escribirlo todo otra vez.</h2>
-      </div>
-      <div class="lg:col-span-7">
-        <p class="text-lg leading-relaxed text-slate-600">TransGest estructura la información del servicio para conectar la operativa con su documentación. Esta base permite avanzar hacia procesos como DeCA y eCMR, con trazabilidad y datos reutilizables.</p>
-        <p class="mt-4 text-sm leading-relaxed text-slate-500">La capa técnica DeCA continúa evolucionando para ajustarse a los requisitos de PDF, QR, acceso y versionado establecidos para 2026.</p>
-        <div class="mt-7 flex flex-col sm:flex-row gap-3">
-          <a href="/software-deca/" class="btn-primary">Software DeCA</a>
-          <a href="/deca-2026/" class="btn-secondary">Consultar la guía DeCA 2026</a>
-        </div>
-      </div>
+      <div class="lg:col-span-5"><span class="eyebrow">Documentación digital</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Preparar el documento no debería significar escribirlo todo otra vez.</h2></div>
+      <div class="lg:col-span-7"><p class="text-lg leading-relaxed text-slate-600">TransGest estructura la información del servicio para conectar la operativa con su documentación. Esta base permite avanzar hacia procesos como DeCA y eCMR, con trazabilidad y datos reutilizables.</p><div class="mt-7 flex flex-col sm:flex-row gap-3"><a href="/software-deca/" class="btn-primary">Software DeCA</a><a href="/deca-2026/" class="btn-secondary">Consultar la guía DeCA 2026</a></div></div>
     </div>
   </section>
 
   <section class="py-16 md:py-24 bg-slate-50">
     <div class="container-g">
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-        <div class="max-w-3xl">
-          <span class="eyebrow">Planes TransGest</span>
-          <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Empieza con lo que necesitas. Evoluciona cuando tu empresa lo pida.</h2>
-          <p class="mt-5 text-lg leading-relaxed text-slate-600">Cuatro niveles por profundidad de gestión, no por número de usuarios ni por tamaño de flota.</p>
-        </div>
-        <a href="/transgest/precios/" class="text-sm font-semibold text-teal-700 hover:text-teal-800">Comparar los planes →</a>
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6"><div class="max-w-3xl"><span class="eyebrow">Versiones TransGest</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Empieza con lo que necesitas. Evoluciona cuando tu empresa lo pida.</h2><p class="mt-5 text-lg leading-relaxed text-slate-600">Cinco versiones según la profundidad y el tipo de gestión, no por número de usuarios ni por tamaño de flota.</p></div><a href="/transgest/precios/" class="text-sm font-semibold text-teal-700 hover:text-teal-800">Comparar las versiones →</a></div>
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {plans.map((plan) => (<article class:list={['relative rounded-2xl border p-6', plan.featured ? 'border-teal-700 bg-teal-900 text-white' : 'border-slate-200 bg-white']}>{plan.featured && <span class="inline-flex rounded-full bg-amber-400 px-2.5 py-1 text-xs font-semibold text-slate-900">Recomendado</span>}<div class:list={[plan.featured ? 'mt-5' : 'mt-8']}><h3 class="text-xl font-semibold">TransGest {plan.name}</h3><p class:list={['mt-5 text-sm leading-relaxed', plan.featured ? 'text-teal-50' : 'text-slate-600']}>{plan.description}</p><p class:list={['mt-5 border-t pt-5 text-sm leading-relaxed', plan.featured ? 'border-white/10 text-white' : 'border-slate-100 text-slate-800']}>{plan.benefit}</p></div></article>))}
       </div>
-
-      <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {plans.map((plan) => (
-          <article class:list={['relative rounded-2xl border p-6', plan.featured ? 'border-teal-700 bg-teal-900 text-white' : 'border-slate-200 bg-white']}>
-            {plan.featured && <span class="inline-flex rounded-full bg-amber-400 px-2.5 py-1 text-xs font-semibold text-slate-900">Recomendado</span>}
-            <div class:list={[plan.featured ? 'mt-5' : 'mt-8']}>
-              <h3 class="text-xl font-semibold">TransGest {plan.name}</h3>
-              <p class:list={['mt-2 text-3xl font-semibold', plan.featured ? 'text-white' : 'text-slate-900']}>
-                {plan.price}<span class:list={['text-sm font-normal', plan.featured ? 'text-teal-200' : 'text-slate-500']}> / mes</span>
-              </p>
-              <p class:list={['mt-5 text-sm leading-relaxed', plan.featured ? 'text-teal-50' : 'text-slate-600']}>{plan.description}</p>
-              <p class:list={['mt-5 border-t pt-5 text-sm leading-relaxed', plan.featured ? 'border-white/10 text-white' : 'border-slate-100 text-slate-800']}>{plan.benefit}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-slate-600">
-        <p>15 % de descuento con pago anual.</p>
-        <p>Los consumos variables de documentos, OCR o IA pueden depender del plan.</p>
-      </div>
-
-      <div class="mt-10 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-        <div>
-          <p class="text-sm font-semibold text-teal-700">TransGest Planner</p>
-          <h3 class="mt-2 text-xl font-semibold text-slate-900">Planificación para almacenes y operaciones logísticas.</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-600">Una solución independiente de los planes TMS, pensada para organizar entradas, salidas y recursos de almacén.</p>
-        </div>
-        <a href="/solicitar-demo/" class="btn-secondary shrink-0">Consultar Planner</a>
-      </div>
+      <p class="mt-6 text-sm text-slate-600">Los consumos variables de documentos, OCR, IA, integraciones o desarrollos específicos pueden depender de la solución contratada.</p>
     </div>
   </section>
 
   <section class="py-16 md:py-24 bg-white">
-    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-      <div class="lg:col-span-5">
-        <span class="eyebrow">Puesta en marcha</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Acompañamiento para empezar con orden.</h2>
-        <p class="mt-5 text-lg leading-relaxed text-slate-600">Configuramos TransGest alrededor de tu operativa y formamos al equipo para trabajar sobre casos reales.</p>
-      </div>
-      <ol class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {['Conocemos tu operativa', 'Preparamos datos y configuración', 'Formamos al equipo', 'Acompañamos el arranque'].map((step, index) => (
-          <li class="rounded-xl border border-slate-200 bg-slate-50 p-5"><span class="text-xs font-semibold text-teal-700">0{index + 1}</span><p class="mt-2 font-semibold text-slate-900">{step}</p></li>
-        ))}
-      </ol>
-    </div>
+    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16"><div class="lg:col-span-5"><span class="eyebrow">Puesta en marcha</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Acompañamiento para empezar con orden.</h2><p class="mt-5 text-lg leading-relaxed text-slate-600">Configuramos TransGest alrededor de tu operativa y formamos al equipo para trabajar sobre casos reales.</p></div><ol class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">{['Conocemos tu operativa', 'Preparamos datos y configuración', 'Formamos al equipo', 'Acompañamos el arranque'].map((step, index) => (<li class="rounded-xl border border-slate-200 bg-slate-50 p-5"><span class="text-xs font-semibold text-teal-700">0{index + 1}</span><p class="mt-2 font-semibold text-slate-900">{step}</p></li>))}</ol></div>
   </section>
 
   <section id="faq" class="py-16 md:py-24 bg-slate-50">
-    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
-      <div class="lg:col-span-4">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Lo esencial antes de ver una demo.</h2>
-      </div>
-      <div class="lg:col-span-8 space-y-3">
-        {faqs.map((faq) => (
-          <details class="group rounded-xl border border-slate-200 bg-white">
-            <summary class="flex cursor-pointer items-start justify-between gap-4 p-5 font-medium text-slate-900">
-              <span>{faq.question}</span>
-              <svg class="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-            </summary>
-            <div class="px-5 pb-5 leading-relaxed text-slate-600">{faq.answer}</div>
-          </details>
-        ))}
-      </div>
-    </div>
+    <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16"><div class="lg:col-span-4"><span class="eyebrow">Preguntas frecuentes</span><h2 class="mt-3 text-display-sm font-medium text-slate-900 leading-tight">Lo esencial antes de ver una demo.</h2></div><div class="lg:col-span-8 space-y-3">{faqs.map((faq) => (<details class="group rounded-xl border border-slate-200 bg-white"><summary class="flex cursor-pointer items-start justify-between gap-4 p-5 font-medium text-slate-900"><span>{faq.question}</span><svg class="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><div class="px-5 pb-5 leading-relaxed text-slate-600">{faq.answer}</div></details>))}</div></div>
   </section>
 
   <section class="bg-teal-900 py-20 md:py-24 text-white">
-    <div class="container-g max-w-4xl text-center">
-      <span class="text-sm font-semibold text-teal-200">Más tiempo para crecer</span>
-      <h2 class="mt-4 text-display-sm md:text-display-md font-medium leading-tight">Descubre cómo encajaría TransGest en tu empresa.</h2>
-      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-teal-50">Revisamos contigo la operativa y te enseñamos el flujo que más impacto puede tener en tu día a día.</p>
-      <div class="mt-9 flex flex-col sm:flex-row justify-center gap-3">
-        <a href="/solicitar-demo/" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-amber-500 text-slate-950 font-medium hover:bg-amber-400 transition-colors">Solicitar una demo</a>
-        <a href="https://app.gauna.es" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/15 bg-white/5 text-white font-medium hover:bg-white/10 transition-colors">Acceso clientes</a>
-      </div>
-    </div>
+    <div class="container-g max-w-4xl text-center"><span class="text-sm font-semibold text-teal-200">Más tiempo para crecer</span><h2 class="mt-4 text-display-sm md:text-display-md font-medium leading-tight">Descubre cómo encajaría TransGest en tu empresa.</h2><p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-teal-50">Revisamos contigo la operativa y te enseñamos el flujo que más impacto puede tener en tu día a día.</p><div class="mt-9 flex flex-col sm:flex-row justify-center gap-3"><a href="/solicitar-demo/" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg bg-amber-500 text-slate-950 font-medium hover:bg-amber-400 transition-colors">Solicitar una demo</a><a href="https://app.gauna.es" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-7 py-3.5 rounded-lg border border-white/15 bg-white/5 text-white font-medium hover:bg-white/10 transition-colors">Acceso clientes</a></div></div>
   </section>
 </BaseLayout>
