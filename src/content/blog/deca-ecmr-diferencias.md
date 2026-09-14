@@ -2,7 +2,7 @@
 title: "DeCA y eCMR: diferencias y cuándo pueden convivir en el mismo documento"
 description: "DeCA y eCMR no son exactamente lo mismo. Explicamos qué función cumple cada uno y cuándo un formato de carta de porte puede servir también como DeCA."
 pubDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "eCMR", "carta de porte", "transporte"]
 ---
