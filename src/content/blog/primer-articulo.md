@@ -3,7 +3,7 @@ title: "Documento de Control Digital: artículo sustituido por la guía DeCA 202
 description: "Contenido antiguo retirado tras la publicación de la Resolución de 5 de junio de 2026."
 pubDate: 2026-05-01
 updatedDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "DCD", "transporte"]
 draft: true
