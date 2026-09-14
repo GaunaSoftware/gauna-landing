@@ -2,7 +2,7 @@
 title: "Requisitos técnicos del DeCA: PDF, QR, URL HTTPS y conservación"
 description: "Resumen práctico de los requisitos técnicos del DeCA 2026: PDF nativo, QR, URL única, HTTPS, descarga directa, trazabilidad y conservación."
 pubDate: 2026-09-14
-author: "Manuel Gauna"
+author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "PDF", "QR", "HTTPS", "transporte"]
 ---
