@@ -2,6 +2,10 @@
 import '@/styles/global.css';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+import DeCAResources from '@components/DeCAResources.astro';
+import ProductEvaluation from '@components/ProductEvaluation.astro';
+import { RESOURCE_HUB_PATHS, PRODUCT_EVALUATION_PATHS, normalizePath } from '../config/public-site.mjs';
+import { SOCIAL_CARDS, socialCardKey, socialImage } from '../config/social-cards.mjs';
 
 export interface Props {
   title: string;
@@ -17,8 +21,8 @@ export interface Props {
 const {
   title,
   description,
-  ogImage = '/logo-transgest.png',
-  ogImageAlt = 'Gauna Software',
+  ogImage,
+  ogImageAlt,
   canonical,
   noindex = false,
   ogType = 'website',
@@ -32,7 +36,10 @@ const canonicalURL = canonical
   ? new URL(canonical, site).toString()
   : new URL(Astro.url.pathname, site).toString();
 
-const ogImageURL = new URL(ogImage, site).toString();
+const pagePath = normalizePath(new URL(canonicalURL).pathname);
+const generatedSocialImage = !ogImage;
+const ogImageURL = new URL(ogImage ?? socialImage(pagePath), site).toString();
+const imageAlt = ogImageAlt ?? SOCIAL_CARDS[socialCardKey(pagePath)].alt;
 
 const robotsContent = noindex
   ? 'noindex, nofollow'
@@ -92,7 +99,8 @@ const enrichedCustomSchema = customSchema.map((entry) => {
   return {
     ...entry,
     url: entry.url ?? canonicalURL,
-    image: entry.image ?? ogImageURL,
+    // Replace only the old generic article logo; preserve explicit editorial images.
+    image: entry.image === `${siteOrigin}/logo.svg` ? ogImageURL : entry.image ?? ogImageURL,
     datePublished: entry.datePublished ?? entry.dateModified,
   };
 });
@@ -129,7 +137,12 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {generatedSocialImage && <>
+      <meta property="og:image:type" content="image/png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+    </>}
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="Gauna Software" />
 
@@ -140,7 +153,7 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
-    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <!-- Schema.org -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
@@ -154,12 +167,15 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
 
     <main class="flex-1">
       <slot />
+      {PRODUCT_EVALUATION_PATHS.includes(pagePath) && <ProductEvaluation />}
+      {RESOURCE_HUB_PATHS.includes(pagePath) && <DeCAResources />}
     </main>
 
     <a
       href="https://wa.me/34624067213?text=Hola%20Gauna%2C%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n."
       target="_blank"
       rel="noopener noreferrer"
+      data-placement="floating"
       aria-label="Contactar con Gauna Software por WhatsApp"
       title="Contactar por WhatsApp"
       class="fixed right-5 bottom-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-emerald-200"
@@ -172,3 +188,8 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
     <Footer />
   </body>
 </html>
+
+<script>
+  import { installIntentTracking } from '../lib/navigation-intent.mjs';
+  installIntentTracking(window, document);
+</script>

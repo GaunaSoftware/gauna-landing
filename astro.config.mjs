@@ -26,7 +26,8 @@ export default defineConfig({
 
     sitemap({
       filter: (page) => {
-        return !excludedFromSitemap.has(normalizePage(page));
+        // Social PNG assets are not HTML landing pages.
+        return !new URL(page).pathname.startsWith('/og/') && !excludedFromSitemap.has(normalizePage(page));
       },
 
       customPages: [
