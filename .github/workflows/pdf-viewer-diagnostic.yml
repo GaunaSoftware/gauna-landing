@@ -1,0 +1,30 @@
+name: PDF viewer diagnostic
+on:
+  pull_request:
+    paths:
+      - 'scripts/probe-guide-viewer.mjs'
+      - '.github/workflows/pdf-viewer-diagnostic.yml'
+permissions:
+  contents: read
+jobs:
+  viewer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: npm install --no-audit --no-fund
+      - run: npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Inspect public headers and compare native PDF rendering
+        run: xvfb-run -a node scripts/probe-guide-viewer.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdf-viewer-diagnostic
+          path: test-output/pdf-viewer/
+          retention-days: 7
