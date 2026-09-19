@@ -10,7 +10,7 @@ const fieldClass = 'w-full min-w-0 rounded-lg border border-slate-200 bg-slate-5
 <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8" data-deca-request-wrapper>
   <span class="eyebrow">{guide ? 'Recurso gratuito' : 'DeCA y TransGest'}</span>
   <h3 class="mt-2 text-2xl font-medium leading-tight text-slate-900 md:text-3xl">{guide ? 'Recibe la Guía DeCA 2026 en PDF.' : headline || 'Revisamos el DeCA en tu operativa.'}</h3>
-  <p class="mt-3 leading-relaxed text-slate-600">{guide ? `Edición ${DECA_GUIDE.version} · ${DECA_GUIDE.pages} páginas · Revisión ${DECA_GUIDE.reviewed}. Requisitos, responsabilidades y herramientas prácticas. Te enviaremos un enlace al PDF y también podrás descargarlo aquí.` : subheadline || 'Cuéntanos qué necesitas y te contactaremos sobre DeCA y TransGest.'}</p>
+  <p class="mt-3 leading-relaxed text-slate-600">{guide ? `Edición ${DECA_GUIDE.version} · ${DECA_GUIDE.pages} páginas · Revisión ${DECA_GUIDE.reviewed}. Requisitos, responsabilidades y herramientas prácticas. Recibirás el PDF adjunto y enlaces para abrirlo o descargarlo.` : subheadline || 'Cuéntanos qué necesitas y te contactaremos sobre DeCA y TransGest.'}</p>
   <form id={id} class="mt-6 space-y-4" method="post" action={guide ? '/api/guia-deca' : '/api/informacion-deca'} data-deca-request-form data-kind={kind}>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div><label for={`${id}-name`} class="mb-1.5 block text-sm font-medium text-slate-700">Nombre *</label><input id={`${id}-name`} name="name" autocomplete="given-name" maxlength="150" required class={fieldClass} /></div>
@@ -32,7 +32,14 @@ const fieldClass = 'w-full min-w-0 rounded-lg border border-slate-200 bg-slate-5
     <button type="submit" disabled={!siteKey} class="btn-primary w-full py-4 text-center disabled:opacity-50" data-deca-request-submit>{guide ? 'Recibir la guía gratuita en PDF' : 'Solicitar información'}</button>
   </form>
   <div class="mt-5 hidden rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-800" role="status" aria-live="polite" tabindex="-1" data-deca-request-status></div>
-  {guide && <p class="mt-5 text-sm text-slate-600">También está disponible la <a href={DECA_GUIDE.path} download={DECA_GUIDE.filename} class="font-medium text-teal-800 underline">descarga directa del PDF</a>.</p>}
+  {guide && <div class="mt-6 border-t border-slate-200 pt-5">
+    <p class="text-sm font-medium text-slate-700">También puedes consultarla sin solicitar el correo:</p>
+    <div class="mt-3 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">
+      <a href={`${DECA_GUIDE.path}?download=1`} download={DECA_GUIDE.filename} class="font-medium text-teal-800 underline underline-offset-4">Descargar PDF</a>
+      <a href={`${DECA_GUIDE.path}?view=1`} target="_blank" rel="noopener noreferrer" class="text-sm text-teal-800 underline underline-offset-4">Abrir PDF en otra pestaña</a>
+    </div>
+    <p class="mt-3 text-xs leading-relaxed text-slate-500">Si el visor se queda en blanco, utiliza «Descargar PDF» y abre el archivo guardado. La guía en formato web sigue disponible en esta página.</p>
+  </div>}
   <p class="mt-4 text-sm text-slate-600">Contacto directo: <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.</p>
   <noscript><p class="mt-3 text-sm">El envío por correo requiere JavaScript. Utiliza la descarga directa o escríbenos.</p></noscript>
 </div>
