@@ -2,9 +2,13 @@
 
 ## Alcance de este refuerzo
 
-Se aplican recursos DeCA enlazados desde las dos páginas centrales, comparación de versiones a partir del contenido existente, preparación de la demo, acceso directo al portal desde navegación compartida y previsualizaciones PNG por tema. Se conservan formularios/APIs, artículos recién reforzados, títulos, canonical, tarifas y advertencias sobre la validación de funciones DeCA.
+Se aplican recursos DeCA enlazados desde las dos páginas centrales, comparación de versiones a partir del contenido existente, preparación de la demo, acceso directo al portal desde cabecera, pie y página de producto, y previsualizaciones PNG por tema. Se conservan formularios/APIs, artículos recién reforzados, títulos, canonical, tarifas y advertencias sobre la validación de funciones DeCA.
 
 La tabla compara características publicadas, no acredita disponibilidades por código de la app ni establece funciones excluidas de otros planes. Planner mantiene su orientación a almacenes. Pro Intelligence sigue siendo el único recomendado.
+
+## Portal: intervención independiente ya integrada
+
+El PR #13 de GaunaSoftware/GaunaSoftware-transgest-app se ha integrado en el commit ac7265a631ca23f2d0541931d39c71ed7f0c4c0a. Añade X-Robots-Tag: noindex, follow únicamente para la ruta / del host transgest.app. Se verificó que la raíz sirve el acceso al workspace y que las webs públicas utilizan /web. No se alteran las rutas públicas, API, autenticación, HTML compartido, CSP ni robots.txt. El despliegue y la cabecera pública deben comprobarse tras la integración; la retirada de resultados de Google no es inmediata.
 
 ## Para resolver junto con el formulario (no activar a ciegas)
 
@@ -14,7 +18,6 @@ La tabla compara características publicadas, no acredita disponibilidades por c
 - Verificar en el producto qué funciones DeCA están disponibles, configuradas, integradas o pendientes antes de sustituir el texto prudente de /software-deca/.
 - Conectar una propiedad de analítica elegida por el titular y la gestión de consentimiento; revisar el texto de privacidad/cookies y verificar en el panel la recepción de los eventos. No hay un ID de GA4/GTM inventado en esta entrega.
 - Webinar: confirmar hora, duración, ponentes, plataforma y destino de inscripción antes de crear una landing o un marcado Event. No se publica un evento incompleto.
-- Revisar el noindex de las rutas de acceso de transgest.app en el proyecto de la aplicación, sin extenderlo a rutas públicas documentales, API ni sitios de clientes. No se modifica un dominio distinto desde la configuración de esta landing.
 
 ## Base de medición de intenciones
 
