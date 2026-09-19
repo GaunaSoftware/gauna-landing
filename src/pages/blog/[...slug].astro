@@ -20,6 +20,28 @@ const canonicalUrl = `https://gauna.es${canonical}`;
 const published = post.data.pubDate.toISOString();
 const modified = (post.data.updatedDate ?? post.data.pubDate).toISOString();
 
+// These two articles use real navigation CTAs while the guide delivery is pending.
+// Keep all other blog pages unchanged by this focused SEO update.
+const nextStep = post.slug === 'que-es-deca-transporte'
+  ? {
+      title: 'Del DeCA a tu operativa diaria',
+      description: 'Descubre el enfoque de TransGest para conectar los datos del servicio con su documentación. En una demo podemos revisar tu caso y el alcance que necesitas.',
+      productHref: '/software-deca/',
+      productLabel: 'Ver software DeCA',
+      resourceHref: '/deca-2026/',
+      resourceLabel: 'Seguir leyendo la guía DeCA 2026',
+    }
+  : post.slug === 'que-es-un-tms-transporte'
+    ? {
+        title: 'Comprueba cómo encaja TransGest en tu empresa',
+        description: 'Lleva a la demo un ejemplo de tu operativa y revisamos el recorrido entre tráfico, documentación y administración. Sin quedarnos en una lista de funciones.',
+        productHref: '/transgest/',
+        productLabel: 'Conocer el TMS TransGest',
+        resourceHref: '/transgest/precios/',
+        resourceLabel: 'Comparar las versiones de TransGest',
+      }
+    : null;
+
 const articleSchema = [
   {
     '@context': 'https://schema.org',
@@ -96,12 +118,27 @@ const articleSchema = [
         </div>
 
         <div class="mt-16 pt-10 border-t border-slate-200">
-          <LeadMagnetForm
-            variant="card"
-            headline="¿Te ha sido útil este artículo?"
-            subheadline="Suscríbete para recibir los siguientes directamente en tu email."
-            id={`blog-${post.slug}-form`}
-          />
+          {nextStep ? (
+            <aside aria-labelledby="article-next-step-title" class="rounded-2xl border border-teal-100 bg-teal-50 p-6 md:p-8">
+              <p class="text-xs font-medium uppercase tracking-widest text-teal-700">Llévalo a tu operativa</p>
+              <h2 id="article-next-step-title" class="mt-3 text-2xl font-medium leading-tight text-slate-900">{nextStep.title}</h2>
+              <p class="mt-4 leading-relaxed text-slate-700">{nextStep.description}</p>
+              <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a href={nextStep.productHref} class="btn-primary text-center">{nextStep.productLabel}</a>
+                <a href="/solicitar-demo/" class="btn-secondary text-center">Solicitar una demo</a>
+              </div>
+              <p class="mt-5 text-sm">
+                <a href={nextStep.resourceHref} class="font-medium text-teal-700 underline hover:text-teal-800">{nextStep.resourceLabel}</a>
+              </p>
+            </aside>
+          ) : (
+            <LeadMagnetForm
+              variant="card"
+              headline="¿Te ha sido útil este artículo?"
+              subheadline="Suscríbete para recibir los siguientes directamente en tu email."
+              id={`blog-${post.slug}-form`}
+            />
+          )}
         </div>
       </div>
     </div>

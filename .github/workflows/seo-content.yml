@@ -1,0 +1,37 @@
+name: SEO content regression checks
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/blog/**'
+      - 'src/pages/blog/**'
+      - 'src/pages/transgest/**'
+      - 'src/pages/deca-2026/**'
+      - 'src/pages/software-deca/**'
+      - 'src/pages/solicitar-demo.astro'
+      - 'tests/seo-content.test.mjs'
+      - '.github/workflows/seo-content.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/content/blog/**'
+      - 'src/pages/blog/**'
+      - 'tests/seo-content.test.mjs'
+      - '.github/workflows/seo-content.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  content-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - name: Check article identity, internal routes and scoped CTAs
+        run: node --test tests/seo-content.test.mjs

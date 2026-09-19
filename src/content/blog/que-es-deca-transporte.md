@@ -2,16 +2,17 @@
 title: "Qué es el DeCA en transporte y cuándo será obligatorio en 2026"
 description: "Explicamos qué es el DeCA en transporte, cuándo será obligatorio, a quién afecta y qué exige la normativa para el documento electrónico de control."
 pubDate: 2026-09-14
+updatedDate: 2026-09-19
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "transporte", "documento de control", "2026"]
 ---
 
-El **DeCA** es el documento electrónico de control administrativo utilizado para documentar determinados transportes por carretera cuando el documento de control resulte exigible.
+El **DeCA en transporte** es el **documento electrónico de control administrativo** utilizado para documentar determinados transportes por carretera cuando el documento de control resulte exigible.
 
 La fecha que todo el sector debe tener marcada es el **5 de octubre de 2026**. A partir de ese día, el documento de control administrativo exigible para el transporte público de mercancías por carretera deberá ser necesariamente digital.
 
-En esta guía resumimos qué significa esto en la práctica. Si buscas el detalle completo de la norma, puedes consultar nuestra [guía DeCA 2026](/deca-2026/).
+En esta guía resumimos qué significa esto en la práctica. Si buscas el detalle completo de la norma, puedes consultar nuestra [guía DeCA 2026](/deca-2026/). Si estás valorando una herramienta para gestionarlo, consulta también el enfoque de [software DeCA para transporte](/software-deca/).
 
 ## ¿Qué significa DeCA?
 
@@ -58,6 +59,8 @@ Además, el fichero debe cumplir varios requisitos técnicos:
 
 Puedes ver todos estos puntos explicados uno por uno en [los requisitos técnicos del DeCA](/blog/requisitos-tecnicos-deca-pdf-qr-url/).
 
+Para distinguir el documento de control de una carta de porte electrónica, consulta las [diferencias entre DeCA y eCMR](/blog/deca-ecmr-diferencias/).
+
 ## ¿Cómo se presenta el DeCA en carretera?
 
 El objetivo de la norma es que el documento pueda comprobarse de forma sencilla durante el servicio.
@@ -92,7 +95,9 @@ Antes de octubre recomendamos revisar:
 - Cómo se conservarán los documentos y sus versiones.
 - Cómo se actuaría ante una modificación durante el viaje.
 
-Si utilizas un TMS, el objetivo lógico es evitar volver a introducir datos que el sistema ya conoce. Por eso en TransGest estamos planteando la gestión del DeCA como parte de la propia operativa. Puedes consultar la página de [software DeCA para transporte](/software-deca/).
+Como prueba de organización, toma un servicio habitual y recorre el proceso completo: localiza sus datos, comprueba cómo llega la documentación al conductor y trata de recuperar el expediente después. Así podrás detectar si dependes de volver a escribir información o de buscarla entre correos y carpetas. Esta prueba complementa, pero no sustituye, la revisión de los requisitos normativos.
+
+Si utilizas un [TMS de transporte](/blog/que-es-un-tms-transporte/), el objetivo lógico es evitar volver a introducir datos que el sistema ya conoce. Por eso en TransGest estamos planteando la gestión del DeCA como parte de la propia operativa. Puedes consultar la página de [software DeCA para transporte](/software-deca/) para conocer ese enfoque y revisar con el equipo el alcance adecuado para tu empresa.
 
 ## Fuentes oficiales
 
