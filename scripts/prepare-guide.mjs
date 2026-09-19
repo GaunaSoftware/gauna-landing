@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { inflateSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
@@ -79,9 +79,10 @@ export function repairApprovedGuide(input) {
 export async function prepareGuide(root = new URL('../', import.meta.url)) {
   const input = await readFile(new URL(SOURCE_PATH, root));
   const output = repairApprovedGuide(input);
-  const folder = new URL('public/guias/', root);
+  const folder = new URL('assets/guides/prepared/', root);
+  await Promise.all([NEW_FILENAME, LEGACY_FILENAME].map(name => rm(new URL(`public/guias/${name}`, root), { force: true })));
   await mkdir(folder, { recursive: true });
-  // New links avoid stale downloads; old links also serve the corrected document.
+  // Private test/build assets. The public routes validate access before serving bytes.
   await Promise.all([NEW_FILENAME, LEGACY_FILENAME].map(name => writeFile(new URL(name, folder), output)));
   console.log(`Guide assets prepared: ${output.length} bytes, SHA-256 ${hash(output)}`);
   return output;

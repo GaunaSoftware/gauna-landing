@@ -6,7 +6,7 @@ import { prepareGuide } from './prepare-guide.mjs';
 
 await prepareGuide();
 for (const path of [DECA_GUIDE.path, DECA_GUIDE.legacyPath]) {
-  const bytes = await readFile(`public${path}`);
+  const bytes = await readFile(`assets/guides/prepared/${path.split('/').pop()}`);
   assert.equal(bytes.subarray(0, 5).toString(), '%PDF-');
   assert.equal(bytes.length, DECA_GUIDE.bytes, 'Corrected PDF size changed');
   assert.equal(createHash('sha256').update(bytes).digest('hex'), DECA_GUIDE.sha256, 'Unexpected corrected PDF');

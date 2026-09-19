@@ -1,6 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { DECA_GUIDE, DECA_PROFILES } from '../config/deca-guide.mjs';
 import { buildDeCAMails } from './deca-email.mjs';
+import { issueGuideAccess } from './guide-access.mjs';
 
 const MAX_BODY = 16384;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -49,6 +50,7 @@ export function validateSubmission(data, kind, now) {
   if (data.contactRequested !== undefined && typeof data.contactRequested !== 'boolean') return 'Solicitud no válida.';
   if (!UUID.test(data.requestId || '')) return 'Recarga la página antes de volver a enviar.';
   if (!Number.isFinite(data.startedAt) || now - data.startedAt < 3000 || data.startedAt > now) return 'Espera unos segundos y vuelve a intentarlo.';
+  if (!Number.isSafeInteger(data.startedAt) || now - data.startedAt > 86400000) return 'La sesión del formulario ha caducado. Recarga la página.';
   if (data.profile && !DECA_PROFILES.includes(data.profile)) return 'Selecciona un perfil de la lista.';
   if (kind === 'information' && (!data.company?.trim() || !data.phone?.trim())) return 'Indica la empresa y el teléfono de contacto.';
   if (!data.turnstileToken?.trim()) return 'Completa la verificación anti-spam.';
@@ -75,7 +77,7 @@ export function createDeCAHandler({ kind, config, rateLimit, blockedEmail = () =
     data.email = data.email.toLowerCase();
     if (blockedEmail(data.email)) return json({ error: 'Utiliza una dirección de correo permanente.' }, 400);
     // Fail closed, including previews. Never inherit the legacy development bypass.
-    if (!config.apiKey || !config.turnstileSecret) return json({ error: 'El envío por correo no está disponible. Puedes utilizar la descarga directa o escribir a hola@gauna.es.' }, 503);
+    if (!config.apiKey || !config.turnstileSecret) return json({ error: 'El envío por correo no está disponible. Vuelve a intentarlo más tarde o escribe a hola@gauna.es.' }, 503);
     try {
       const verification = await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: AbortSignal.timeout(8000),
@@ -87,7 +89,8 @@ export function createDeCAHandler({ kind, config, rateLimit, blockedEmail = () =
       }
     } catch { return json({ error: 'No se ha podido comprobar la verificación anti-spam. Vuelve a intentarlo.' }, 503); }
 
-    const mails = buildDeCAMails(data, kind, config);
+    const guideAccess = kind === 'guide' ? issueGuideAccess(data, config.apiKey, now()) : null;
+    const mails = buildDeCAMails(data, kind, { ...config, guideAccess });
     async function send(payload, role) {
       // Stable across retries; no personal data in key or logs. Changing the payload changes the key.
       const digest = createHmac('sha256', config.apiKey).update(JSON.stringify([kind, data.requestId, payload])).digest('hex');
@@ -109,7 +112,7 @@ export function createDeCAHandler({ kind, config, rateLimit, blockedEmail = () =
     const complete = internalNotification === 'accepted' && (kind !== 'guide' || visitorEmail === 'accepted');
     const anyAccepted = internalNotification === 'accepted' || visitorEmail === 'accepted';
     return json({ validated: true, success: complete, visitorEmail, internalNotification,
-      ...(kind === 'guide' ? { downloadUrl: DECA_GUIDE.path } : {}),
+      ...(kind === 'guide' && anyAccepted ? { downloadUrl: guideAccess.downloadUrl, openUrl: guideAccess.openUrl } : {}),
     }, complete ? 200 : anyAccepted ? 207 : 502);
   };
 }

@@ -1,8 +1,7 @@
 import { DECA_GUIDE } from '../config/deca-guide.mjs';
 
 const SITE = 'https://gauna.es';
-export const GUIDE_DOWNLOAD_URL = `${SITE}${DECA_GUIDE.path}?download=1`;
-export const GUIDE_OPEN_URL = `${SITE}${DECA_GUIDE.path}?view=1`;
+
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
 const font = 'font-family:Arial,Helvetica,sans-serif;';
 const paragraph = 'margin:0 0 18px;font-size:16px;line-height:26px;color:#485c56;';
@@ -33,7 +32,9 @@ ${body}
 </td></tr></table></body></html>`;
 }
 
-function visitorHtml(data, wantsContact) {
+function visitorHtml(data, wantsContact, access) {
+  const GUIDE_DOWNLOAD_URL = `${SITE}${access.downloadUrl}`;
+  const GUIDE_OPEN_URL = `${SITE}${access.openUrl}`;
   const body = `<tr><td class="pad" style="padding:34px 36px 10px">
 <p style="${font}margin:0 0 14px;font-size:11px;line-height:18px;letter-spacing:1.7px;color:#42715b;font-weight:700">GUÍA TÉCNICA Y OPERATIVA</p>
 <h1 class="headline" style="${font}margin:0 0 22px;font-size:34px;line-height:41px;font-weight:700;color:#16382d">Tu Guía DeCA 2026,<br>lista para consultar.</h1>
@@ -45,7 +46,7 @@ function visitorHtml(data, wantsContact) {
 </td></tr>
 <tr><td class="pad" style="padding:0 36px 30px">
 <h2 style="${font}margin:0 0 8px;font-size:16px;line-height:24px;color:#16382d">También la tienes adjunta</h2>
-<p style="${font}margin:0 0 20px;font-size:14px;line-height:23px;color:#53685b">Guarda el PDF adjunto para consultarlo sin conexión. Si el visor de tu correo no lo muestra, utiliza el botón de descarga y abre el archivo guardado.</p>
+<p style="${font}margin:0 0 20px;font-size:14px;line-height:23px;color:#53685b">El enlace es temporal. Guarda el PDF adjunto para consultarlo sin conexión. Si el visor de tu correo no lo muestra, utiliza el botón de descarga y abre el archivo guardado.</p>
 ${wantsContact ? `<table role="presentation" width="100%" style="margin-bottom:22px;border-left:3px solid #dba343"><tr><td style="${font}padding:4px 0 4px 16px;font-size:14px;line-height:23px;color:#485c56"><strong style="color:#16382d">Tu solicitud de contacto</strong><br>También has solicitado que contactemos contigo sobre DeCA y TransGest. Nuestro equipo revisará tu solicitud.</td></tr></table>` : ''}
 <p style="${font}margin:0 0 7px;font-size:12px;line-height:20px;color:#67796f">Si el botón no funciona, copia este enlace en tu navegador:</p>
 <p style="${font}margin:0;font-size:12px;line-height:20px;overflow-wrap:anywhere;word-break:break-all"><a href="${GUIDE_DOWNLOAD_URL}" style="${linkStyle}">${GUIDE_DOWNLOAD_URL}</a></p>
@@ -62,6 +63,10 @@ function internalHtml(details, kind, wantsContact) {
 }
 
 export function buildDeCAMails(data, kind, config) {
+  const access = config.guideAccess;
+  if (kind === 'guide' && (!access?.token || !access.downloadUrl?.startsWith(`${DECA_GUIDE.path}?access=`))) throw new Error('validated_guide_access_required');
+  const GUIDE_DOWNLOAD_URL = access ? `${SITE}${access.downloadUrl}` : '';
+  const GUIDE_OPEN_URL = access ? `${SITE}${access.openUrl}` : '';
   const wantsContact = kind === 'information' || data.contactRequested === true;
   const details = [
     ['Solicitud', kind === 'guide' ? 'Guía DeCA 2026 (no es una solicitud de demo)' : 'Información comercial DeCA / TransGest'],
@@ -72,12 +77,12 @@ export function buildDeCAMails(data, kind, config) {
     ['Mensaje', data.message || 'Sin comentario'], ['Referencia', data.requestId],
   ];
   return {
-    visitor: {
+    visitor: kind === 'guide' ? {
       from: config.from, to: [data.email], reply_to: config.to, subject: 'Tu Guía DeCA 2026 de Gauna',
-      html: visitorHtml(data, wantsContact),
+      html: visitorHtml(data, wantsContact, access),
       text: `Hola ${data.name}.\n\nAquí tienes la Guía DeCA 2026, edición ${DECA_GUIDE.version}, ${DECA_GUIDE.pages} páginas. Revisión: ${DECA_GUIDE.reviewed}.\n\nDescargar: ${GUIDE_DOWNLOAD_URL}\nAbrir PDF: ${GUIDE_OPEN_URL}\nGuía web: ${SITE}/deca-2026/\n\nTambién encontrarás el PDF adjunto. Guarda el archivo si el visor de tu correo no lo muestra.\n\nHas solicitado esta guía en gauna.es. Esta solicitud no te suscribe a una newsletter.\n${wantsContact ? 'También has solicitado que contactemos contigo sobre DeCA y TransGest.\n' : ''}\nGauna Software · hola@gauna.es`,
-      attachments: [logo(), { path: `${SITE}${DECA_GUIDE.path}`, filename: DECA_GUIDE.filename, content_type: 'application/pdf' }],
-    },
+      attachments: [logo(), { path: `${SITE}${access.path}`, filename: DECA_GUIDE.filename, content_type: 'application/pdf' }],
+    } : null,
     internal: {
       from: config.from, to: [config.to], reply_to: data.email,
       subject: kind === 'guide' ? 'Nueva solicitud de guía DeCA 2026' : 'Nueva solicitud de información DeCA / TransGest',

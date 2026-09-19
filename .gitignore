@@ -1,0 +1,9 @@
+node_modules/
+.astro/
+.vercel/
+dist/
+test-output/
+assets/guides/prepared/
+.env
+.env.*
+!.env.example

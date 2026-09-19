@@ -32,16 +32,9 @@ const fieldClass = 'w-full min-w-0 rounded-lg border border-slate-200 bg-slate-5
     <button type="submit" disabled={!siteKey} class="btn-primary w-full py-4 text-center disabled:opacity-50" data-deca-request-submit>{guide ? 'Recibir la guía gratuita en PDF' : 'Solicitar información'}</button>
   </form>
   <div class="mt-5 hidden rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-800" role="status" aria-live="polite" tabindex="-1" data-deca-request-status></div>
-  {guide && <div class="mt-6 border-t border-slate-200 pt-5">
-    <p class="text-sm font-medium text-slate-700">También puedes consultarla sin solicitar el correo:</p>
-    <div class="mt-3 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap">
-      <a href={`${DECA_GUIDE.path}?download=1`} download={DECA_GUIDE.filename} class="font-medium text-teal-800 underline underline-offset-4">Descargar PDF</a>
-      <a href={`${DECA_GUIDE.path}?view=1`} target="_blank" rel="noopener noreferrer" class="text-sm text-teal-800 underline underline-offset-4">Abrir PDF en otra pestaña</a>
-    </div>
-    <p class="mt-3 text-xs leading-relaxed text-slate-500">Si el visor se queda en blanco, utiliza «Descargar PDF» y abre el archivo guardado. La guía en formato web sigue disponible en esta página.</p>
-  </div>}
+  {guide && <p class="mt-5 text-sm text-slate-600">Introduce tu nombre y correo y envía el formulario para recibir la guía y habilitar su descarga.</p>}
   <p class="mt-4 text-sm text-slate-600">Contacto directo: <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.</p>
-  <noscript><p class="mt-3 text-sm">El envío por correo requiere JavaScript. Utiliza la descarga directa o escríbenos.</p></noscript>
+  <noscript><p class="mt-3 text-sm">El envío por correo requiere JavaScript. Activa JavaScript para solicitar la guía o escríbenos.</p></noscript>
 </div>
 {siteKey && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
 <script>

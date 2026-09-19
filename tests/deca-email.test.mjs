@@ -1,11 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { buildDeCAMails, GUIDE_DOWNLOAD_URL, GUIDE_OPEN_URL } from '../src/lib/deca-email.mjs';
+import { buildDeCAMails } from '../src/lib/deca-email.mjs';
+import { guideAccess, GUIDE_DOWNLOAD_URL, GUIDE_OPEN_URL } from './guide-access-fixture.mjs';
 import { DECA_GUIDE } from '../src/config/deca-guide.mjs';
 
 const data = { name: 'María de ejemplo', email: 'persona@example.com', company: 'Empresa ficticia', profile: 'Conductor', requestId: '61a5b88e-b767-4d64-abaf-635c7b0453b4', contactRequested: false };
-const config = { from: 'Gauna <formularios@gauna.es>', to: 'hola@gauna.es' };
+const config = { from: 'Gauna <formularios@gauna.es>', to: 'hola@gauna.es', guideAccess };
 
 test('branded transactional HTML keeps readable text, button and plaintext', () => {
   const { visitor, internal } = buildDeCAMails(data, 'guide', config);
@@ -36,7 +37,7 @@ test('CID logo and PDF attachment use only fixed published assets', () => {
   const { visitor, internal } = buildDeCAMails(data, 'guide', config);
   assert.equal(visitor.attachments.length, 2);
   assert.deepEqual(visitor.attachments[0], { path: 'https://gauna.es/logo-transgest.png', filename: 'transgest.png', content_type: 'image/png', content_id: 'transgest-brand' });
-  assert.deepEqual(visitor.attachments[1], { path: `https://gauna.es${DECA_GUIDE.path}`, filename: DECA_GUIDE.filename, content_type: 'application/pdf' });
+  assert.deepEqual(visitor.attachments[1], { path: `https://gauna.es${guideAccess.path}`, filename: DECA_GUIDE.filename, content_type: 'application/pdf' });
   assert.equal(internal.attachments.length, 1);
   assert.equal(internal.attachments[0].content_id, 'transgest-brand');
   const crafted = buildDeCAMails({ ...data, downloadUrl: 'https://evil.example/', logo: 'https://evil.example/logo', attachments: [] }, 'guide', config);
@@ -68,9 +69,9 @@ test('download override is scoped and retains original security headers', () => 
   const csp = global.headers.find(header => header.key === 'Content-Security-Policy').value;
   assert.equal(csp, "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://challenges.cloudflare.com https://api.airtable.com; frame-src https://challenges.cloudflare.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests");
   assert.ok(global.headers.some(header => header.key === 'X-Content-Type-Options' && header.value === 'nosniff'));
-  const rule = deployment.headers.find(item => item.source === DECA_GUIDE.path);
-  assert.deepEqual(rule.has, [{ type: 'query', key: 'download', value: '1' }]);
-  assert.deepEqual(rule.headers.find(header => header.key === 'Content-Disposition'), { key: 'Content-Disposition', value: `attachment; filename="${DECA_GUIDE.filename}"` });
-  assert.equal(GUIDE_DOWNLOAD_URL, `https://gauna.es${DECA_GUIDE.path}?download=1`);
-  assert.equal(GUIDE_OPEN_URL, `https://gauna.es${DECA_GUIDE.path}?view=1`);
+  const rule = deployment.headers.find(item => item.source === '/guias/(.*)');
+  assert.ok(rule.headers.some(header => header.key === 'Cache-Control' && header.value.includes('no-store')));
+  assert.ok(!deployment.headers.some(item => item.source.startsWith('/guias/') && item.headers.some(header => ['Content-Type', 'Content-Disposition'].includes(header.key))));
+  assert.equal(GUIDE_DOWNLOAD_URL, `https://gauna.es${guideAccess.downloadUrl}`);
+  assert.equal(GUIDE_OPEN_URL, `https://gauna.es${guideAccess.openUrl}`);
 });

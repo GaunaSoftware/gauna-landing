@@ -34,6 +34,34 @@ for (const key of Object.keys(SOCIAL_CARDS)) {
   await copyFile(file, `test-output/social/${key}.png`);
   console.log(`PNG OK ${key}: ${bytes.length} bytes, 1200x630`);
 }
+for (const path of ['guias/guia-deca-2026-gauna-v2.1.pdf', 'guias/guia-deca-2026-gauna-v2.1.1.pdf', 'assets/guides/deca-2026-v2.1-original.pdf']) {
+  let exists = true; try { await access(resolve(root, path)); } catch { exists = false; }
+  assert.equal(exists, false, `Ungated PDF must not exist in static output: ${path}`);
+}
 const sitemap = await html('sitemap-0.xml');
+assert.ok(!sitemap.includes('/guias/'), 'Protected PDF is not an indexable page');
 assert.ok(!sitemap.includes('/og/'), 'Social images must not appear as HTML sitemap pages');
 console.log('Built HTML, unique H1s, recommended plan, portal links, images and sitemap: OK');
+
+// Exercise the file loader from the packaged Vercel function working directory.
+// Uses only a test key and makes no network requests or real form submissions.
+const { readdir } = await import('node:fs/promises');
+const { createHash } = await import('node:crypto');
+const { serveGuide } = await import('../src/lib/guide-file.mjs');
+const { issueGuideAccess } = await import('../src/lib/guide-access.mjs');
+const { DECA_GUIDE } = await import('../src/config/deca-guide.mjs');
+const functionsRoot = resolve('.vercel/output/functions');
+const entries = await readdir(functionsRoot, { recursive: true });
+const sourceEntry = entries.find(path => path.endsWith('.func/assets/guides/deca-2026-v2.1-original.pdf'));
+assert.ok(sourceEntry, 'Private PDF source must be included in the serverless bundle');
+const functionRoot = resolve(functionsRoot, sourceEntry.slice(0, sourceEntry.indexOf('.func/') + 5));
+const originalCwd = process.cwd();
+try {
+  process.chdir(functionRoot);
+  const key = 'TEST-ONLY-PACKAGED-FUNCTION';
+  const grant = issueGuideAccess({ requestId: '61a5b88e-b767-4d64-abaf-635c7b0453b4', startedAt: Date.now() - 5000 }, key);
+  const response = await serveGuide(new Request(`https://gauna.es${grant.path}`), key);
+  assert.equal(response.status, 200, 'Authorized request must load the bundled PDF');
+  assert.equal(createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'), DECA_GUIDE.sha256);
+  console.log('SERVERLESS ASSET OK: authorized file loader returns the exact corrected PDF from the private function bundle.');
+} finally { process.chdir(originalCwd); }

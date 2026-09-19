@@ -1,14 +1,15 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
-import { buildDeCAMails, GUIDE_DOWNLOAD_URL, GUIDE_OPEN_URL } from '../src/lib/deca-email.mjs';
+import { buildDeCAMails } from '../src/lib/deca-email.mjs';
+import { guideAccess, GUIDE_DOWNLOAD_URL, GUIDE_OPEN_URL } from './guide-access-fixture.mjs';
 
 // Visual HTML preview only: no account, email, external request or personal data.
 const output = 'test-output/deca/email';
 await mkdir(output, { recursive: true });
 const png = await readFile('public/logo-transgest.png');
 const fixture = { name: 'María', email: 'persona@example.com', company: 'Empresa de ejemplo', profile: 'Empresa de transporte', message: 'Quiero revisar cómo encaja en nuestra operativa.', requestId: '61a5b88e-b767-4d64-abaf-635c7b0453b4', contactRequested: false };
-const config = { from: 'TransGest <formularios@gauna.es>', to: 'hola@gauna.es' };
+const config = { from: 'TransGest <formularios@gauna.es>', to: 'hola@gauna.es', guideAccess };
 const initial = buildDeCAMails(fixture, 'guide', config);
 const imagesInPreview = html => html.replaceAll('cid:transgest-brand', `data:image/png;base64,${png.toString('base64')}`);
 for (const [name, mail] of Object.entries(initial)) {

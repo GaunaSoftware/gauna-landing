@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { repairApprovedGuide, SOURCE_PATH, NEW_FILENAME, OUTPUT_SHA256 } from '../scripts/prepare-guide.mjs';
 import { DECA_GUIDE } from '../src/config/deca-guide.mjs';
+import { guideAccess } from './guide-access-fixture.mjs';
 import { buildDeCAMails } from '../src/lib/deca-email.mjs';
 
 const source = await readFile(new URL(`../${SOURCE_PATH}`, import.meta.url));
@@ -40,9 +41,9 @@ test('unexpected source bytes fail closed instead of silently rewriting another 
 });
 
 test('new emails, attachment and links target only the corrected technical revision', () => {
-  const { visitor } = buildDeCAMails({ name: 'Prueba', email: 'test@example.com', requestId: 'test', contactRequested: false }, 'guide', { from: 'test@example.com', to: 'hola@gauna.es' });
+  const { visitor } = buildDeCAMails({ name: 'Prueba', email: 'test@example.com', requestId: 'test', contactRequested: false }, 'guide', { from: 'test@example.com', to: 'hola@gauna.es', guideAccess });
   assert.ok(visitor.html.includes(DECA_GUIDE.path));
   assert.ok(visitor.text.includes(DECA_GUIDE.path));
-  assert.equal(visitor.attachments.find(item => item.content_type === 'application/pdf').path, `https://gauna.es${DECA_GUIDE.path}`);
+  assert.equal(visitor.attachments.find(item => item.content_type === 'application/pdf').path, `https://gauna.es${guideAccess.path}`);
   assert.doesNotMatch(JSON.stringify(visitor), /guia-deca-2026-gauna-v2\.1\.pdf/);
 });
