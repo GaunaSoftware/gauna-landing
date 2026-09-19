@@ -4,8 +4,11 @@
   "version": "0.2.0",
   "description": "Landing oficial de Gauna - Software para el transporte español",
   "scripts": {
+    "predev": "node scripts/prepare-guide.mjs",
     "dev": "astro dev",
+    "prestart": "node scripts/prepare-guide.mjs",
     "start": "astro dev",
+    "prebuild": "node scripts/prepare-guide.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
