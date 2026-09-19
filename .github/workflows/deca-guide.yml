@@ -45,6 +45,7 @@ jobs:
       - name: Check browser flow without calling email or CAPTCHA providers
         env:
           PUBLIC_TURNSTILE_SITE_KEY: '1x00000000000000000000AA'
+          RESEND_API_KEY: 'TEST-ONLY-NOT-A-REAL-KEY'
         run: |
           mkdir -p test-output/deca
           npm run dev -- --host 127.0.0.1 >test-output/deca/dev.log 2>&1 &

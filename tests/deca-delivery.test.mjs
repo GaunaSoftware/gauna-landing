@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createDeCAHandler, createLimiter, validateSubmission } from '../src/lib/deca-delivery.mjs';
 import { deliveryMessage } from '../src/lib/deca-form-client.mjs';
+import { validGuideAccess } from '../src/lib/guide-access.mjs';
 import { DECA_GUIDE } from '../src/config/deca-guide.mjs';
 
 const time = Date.now();
@@ -35,7 +36,8 @@ test('guide accepts a driver with no company, phone or optional comment', async 
   const response = await handler(request()); const body = await response.json();
   assert.equal(response.status, 200); assert.equal(body.success, true);
   assert.equal(body.visitorEmail, 'accepted'); assert.equal(body.internalNotification, 'accepted');
-  assert.equal(body.downloadUrl, DECA_GUIDE.path); assert.equal(calls.length, 3);
+  assert.equal(new URL(body.downloadUrl, 'https://gauna.es').pathname, DECA_GUIDE.path);
+  assert.ok(validGuideAccess(new URL(body.downloadUrl, 'https://gauna.es').searchParams.get('access'), 'TEST-ONLY-NOT-A-REAL-KEY', time)); assert.equal(calls.length, 3);
   assert.deepEqual(calls[1].body.to, ['prueba@example.com']);
   assert.deepEqual(calls[2].body.to, ['hola@gauna.es']);
   assert.match(calls[2].body.text, /No. Solo entrega de la guía/);
@@ -103,7 +105,9 @@ for (const [opts, visitor, internal, status] of [
 ]) test(`mail outcomes are explicit ${JSON.stringify(opts)}`, async () => {
   const { handler, logs } = setup(opts); const response = await handler(request()); const body = await response.json();
   assert.equal(response.status, status); assert.equal(body.visitorEmail, visitor); assert.equal(body.internalNotification, internal);
-  assert.equal(body.success, false); assert.equal(body.downloadUrl, DECA_GUIDE.path);
+  assert.equal(body.success, false);
+  if (status === 502) assert.equal(body.downloadUrl, undefined);
+  else assert.ok(validGuideAccess(new URL(body.downloadUrl, 'https://gauna.es').searchParams.get('access'), 'TEST-ONLY-NOT-A-REAL-KEY', time));
   assert.doesNotMatch(JSON.stringify(logs), /prueba@example|Persona de prueba|private error text|TEST-ONLY/);
   assert.doesNotMatch(deliveryMessage('guide', body), /ha llegado|entregado en tu buzón/);
 });

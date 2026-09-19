@@ -1,20 +1,19 @@
 name: Guide email access
 on:
   pull_request:
+  push:
     branches: [main]
 permissions:
   contents: read
 jobs:
-  review-source:
+  gate:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
-      - run: mkdir -p test-output && git archive HEAD -o test-output/guide-gate-source.zip
-      - uses: actions/upload-artifact@v4
+      - uses: actions/setup-node@v7
         with:
-          name: guide-gate-source
-          path: test-output/guide-gate-source.zip
-          retention-days: 1
+          node-version: '22.16.0'
+      - run: node scripts/verify-guide.mjs && node --test tests/guide-access.test.mjs

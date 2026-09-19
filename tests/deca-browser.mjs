@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { chromium } from 'playwright';
+import { guideAccess } from './guide-access-fixture.mjs';
 import { DECA_GUIDE } from '../src/config/deca-guide.mjs';
 
 // Runs ONLY against the local CI server. No real CAPTCHA or email is submitted.
@@ -44,10 +45,15 @@ try {
         if (outcome === 'reject') return route.fulfill({ status: 403, contentType: 'application/json', body: JSON.stringify({ error: 'Renueva la verificación anti-spam y vuelve a intentarlo.' }) });
         const guide = url.pathname === '/api/guia-deca';
         const partial = outcome === 'partial';
-        return route.fulfill({ status: partial ? 207 : 200, contentType: 'application/json', body: JSON.stringify({ validated: true, success: !partial, visitorEmail: guide ? 'accepted' : 'not_requested', internalNotification: partial ? 'failed' : 'accepted', ...(guide ? { downloadUrl: DECA_GUIDE.path } : {}) }) });
+        return route.fulfill({ status: partial ? 207 : 200, contentType: 'application/json', body: JSON.stringify({ validated: true, success: !partial, visitorEmail: guide ? 'accepted' : 'not_requested', internalNotification: partial ? 'failed' : 'accepted', ...(guide ? { downloadUrl: guideAccess.downloadUrl, openUrl: guideAccess.openUrl } : {}) }) });
       }
       return route.continue();
     });
+    for (const path of [DECA_GUIDE.path, DECA_GUIDE.legacyPath]) {
+      const blocked = await context.request.get(`${base}${path}?download=1`, { maxRedirects: 0 });
+      assert.equal(blocked.status(), 303, 'Anonymous download must return to the form');
+      assert.ok(blocked.headers().location.includes('#formulario-deca'));
+    }
     await page.goto(`${base}/deca-2026/`, { waitUntil: 'networkidle' });
     const form = page.locator('form[data-deca-request-form]');
     const wrapper = page.locator('[data-deca-request-wrapper]');
@@ -64,17 +70,12 @@ try {
     await form.locator('[name="consent"]').check();
     await wrapper.screenshot({ path: `test-output/deca/form-${width}.png` });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), true, 'Unexpected horizontal overflow');
-    const downloadEvent = page.waitForEvent('download');
-    await wrapper.locator('a[download]').click();
-    const download = await downloadEvent;
-    assert.equal(download.suggestedFilename(), DECA_GUIDE.filename);
-    const downloaded = `test-output/deca/${width}-${DECA_GUIDE.filename}`;
-    await download.saveAs(downloaded);
-    assert.equal(createHash('sha256').update(await readFile(downloaded)).digest('hex'), DECA_GUIDE.sha256);
+    assert.equal(await wrapper.locator('a[download]').count(), 0, 'No download before form submission');
     outcome = 'reject';
     await form.locator('button[type="submit"]').click();
     await status.waitFor({ state: 'visible' });
     assert.match(await status.textContent(), /Renueva la verificación/);
+    assert.equal(await wrapper.locator('a[download]').count(), 0, 'Validation failure must not unlock download');
     assert.equal(await form.isVisible(), true);
     assert.equal(await form.locator('[name="email"]').inputValue(), 'interfaz@example.com');
     outcome = 'partial';
@@ -89,6 +90,13 @@ try {
     assert.equal(submissions.at(-1).payload.requestId, previous.requestId, 'Retry keeps its idempotency reference');
     assert.notEqual(submissions.at(-1).payload.turnstileToken, previous.turnstileToken, 'Retry gets a renewed token');
     assert.match(await status.textContent(), /aceptado el envío/);
+    const downloadEvent = page.waitForEvent('download');
+    await wrapper.locator('a[download]').click();
+    const download = await downloadEvent;
+    assert.equal(download.suggestedFilename(), DECA_GUIDE.filename);
+    const downloaded = `test-output/deca/${width}-${DECA_GUIDE.filename}`;
+    await download.saveAs(downloaded);
+    assert.equal(createHash('sha256').update(await readFile(downloaded)).digest('hex'), DECA_GUIDE.sha256);
     await wrapper.screenshot({ path: `test-output/deca/success-${width}.png` });
     await page.goto(`${base}/software-deca/`, { waitUntil: 'networkidle' });
     const information = page.locator('form[data-deca-request-form]');

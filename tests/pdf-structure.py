@@ -8,7 +8,7 @@ import fitz
 from pypdf import PdfReader
 
 source = Path('assets/guides/deca-2026-v2.1-original.pdf')
-fixed = Path('public/guias/guia-deca-2026-gauna-v2.1.1.pdf')
+fixed = Path('assets/guides/prepared/guia-deca-2026-gauna-v2.1.1.pdf')
 proof = Path('test-output/pdf-structure')
 proof.mkdir(parents=True, exist_ok=True)
 

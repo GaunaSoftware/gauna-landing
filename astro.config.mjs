@@ -27,7 +27,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => {
         // Social PNG assets are not HTML landing pages.
-        return !new URL(page).pathname.startsWith('/og/') && !excludedFromSitemap.has(normalizePage(page));
+        return !new URL(page).pathname.startsWith('/guias/') && !new URL(page).pathname.startsWith('/og/') && !excludedFromSitemap.has(normalizePage(page));
       },
 
       customPages: [
@@ -104,5 +104,6 @@ export default defineConfig({
 
   adapter: vercel({
     webAnalytics: { enabled: false },
+    includeFiles: ['assets/guides/deca-2026-v2.1-original.pdf'],
   }),
 });

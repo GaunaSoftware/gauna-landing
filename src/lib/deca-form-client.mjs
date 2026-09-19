@@ -1,3 +1,5 @@
+import { DECA_GUIDE } from '../config/deca-guide.mjs';
+
 // UI outcomes are deliberately separate from provider acceptance and inbox delivery.
 export function deliveryMessage(kind, result) {
   if (kind === 'information') return result.internalNotification === 'accepted'
@@ -8,7 +10,7 @@ export function deliveryMessage(kind, result) {
   if (visitor && internal) return 'El servicio de correo ha aceptado el envío de la guía. Revisa tu bandeja y spam; también puedes descargarla directamente aquí.';
   if (visitor) return 'El servicio de correo ha aceptado el envío de tu guía, pero el aviso al equipo ha fallado. Puedes descargarla ya o reintentar sin duplicar el correo.';
   if (internal) return 'Hemos recibido la solicitud, pero no se ha podido confirmar el envío a tu correo. Descarga el PDF directamente o reintenta.';
-  return 'No hemos podido confirmar el envío por correo. La descarga directa sigue disponible. Puedes reintentar o escribir a hola@gauna.es.';
+  return 'No hemos podido confirmar el envío por correo. Vuelve a enviar el formulario para obtener la guía. Puedes reintentar o escribir a hola@gauna.es.';
 }
 
 export function bindDeCAForms(win, doc) {
@@ -53,6 +55,18 @@ export function bindDeCAForms(win, doc) {
         if (!result || result.validated !== true) throw new Error(typeof result?.error === 'string' ? result.error : 'No se ha podido confirmar el envío. Vuelve a intentarlo.');
         complete = response.ok && result.success === true;
         status.textContent = deliveryMessage(form.dataset.kind, result);
+        if (response.ok && form.dataset.kind === 'guide' && result.downloadUrl) {
+          const url = new URL(result.downloadUrl, win.location.origin);
+          if (url.origin === win.location.origin && url.pathname === DECA_GUIDE.path && /^1\.[0-9]{10}\.[0-9a-f-]{36}\.[A-Za-z0-9_-]{43}$/.test(url.searchParams.get('access') || '')) {
+            const links = doc.createElement('div'); links.className = 'mt-4 flex flex-wrap gap-4';
+            const download = doc.createElement('a'); download.href = url.href; download.download = DECA_GUIDE.filename;
+            download.textContent = 'Descargar PDF'; download.className = 'font-medium text-teal-800 underline';
+            const open = doc.createElement('a'); url.searchParams.delete('download'); url.searchParams.set('view', '1');
+            open.href = url.href; open.target = '_blank'; open.rel = 'noopener noreferrer';
+            open.textContent = 'Abrir PDF en otra pestaña'; open.className = 'text-teal-800 underline';
+            links.append(download, open); status.append(links);
+          }
+        }
         if (complete) form.classList.add('hidden');
       } catch (error) {
         status.textContent = error?.name === 'AbortError'

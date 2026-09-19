@@ -6,7 +6,7 @@ import AppKit
 // Native macOS PDFKit/CoreGraphics, not a user-agent or screen-size simulation.
 // This does not claim an on-device iPhone/Gmail test.
 let originalURL = URL(fileURLWithPath: "assets/guides/deca-2026-v2.1-original.pdf")
-let fixedURL = URL(fileURLWithPath: "public/guias/guia-deca-2026-gauna-v2.1.1.pdf")
+let fixedURL = URL(fileURLWithPath: "assets/guides/prepared/guia-deca-2026-gauna-v2.1.1.pdf")
 let original = PDFDocument(url: originalURL)
 let originalCG = CGPDFDocument(originalURL as CFURL)
 print("APPLE BEFORE: PDFKit pages=\(original?.pageCount ?? 0), CoreGraphics pages=\(originalCG?.numberOfPages ?? 0)")
