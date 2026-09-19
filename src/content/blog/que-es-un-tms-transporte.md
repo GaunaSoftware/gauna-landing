@@ -2,6 +2,7 @@
 title: "Qué es un TMS de transporte y para qué sirve"
 description: "Qué es un TMS de transporte, qué funciones debería incluir y cuándo compensa implantar un software de gestión en una empresa de transporte."
 pubDate: 2026-09-14
+updatedDate: 2026-09-19
 author: "Gauna"
 category: "gestion"
 tags: ["TMS", "software transporte", "gestión transporte", "empresas de transporte"]
@@ -66,6 +67,17 @@ Eso permite reducir la repetición de datos y relacionar directamente cada trans
 
 La utilidad real aparece cuando la empresa puede pasar de saber cuánto factura a saber **qué servicios, clientes o rutas son realmente rentables**.
 
+## Qué debe tener un TMS para una empresa de transporte
+
+Además de sus módulos, un **software de gestión de transporte** debería permitir comprobar cómo se conectan las tareas. Al comparar soluciones, recomendamos revisar cuatro aspectos que no siempre se ven en una lista de funcionalidades:
+
+- **Una ficha de servicio compartida.** Comprueba que tráfico y administración trabajan sobre el mismo expediente y que los documentos no quedan aislados de la operación.
+- **Seguimiento de cambios e incidencias.** Pide que te enseñen cómo se refleja un cambio de vehículo, una observación o un documento pendiente y quién puede consultarlo.
+- **Datos exportables e integraciones definidas.** Aclara qué información podrás recuperar, en qué formatos y qué conexiones con tus herramientas están disponibles o requieren trabajo adicional.
+- **Implantación y soporte concretos.** Acuerda cómo se cargan los datos iniciales, cómo se forma al equipo y a quién acudir cuando surja una incidencia.
+
+Una prueba útil consiste en llevar a la demo un servicio representativo de tu empresa: crear el pedido, asignar los recursos, incorporar su documentación y comprobar cómo pasa a administración. Evalúa el recorrido completo, no solo las pantallas por separado.
+
 ## TMS frente a Excel
 
 Excel puede funcionar muy bien para tareas concretas y sigue siendo una herramienta útil en cualquier empresa. El problema aparece cuando se convierte en el centro de toda la operativa.
@@ -118,7 +130,7 @@ Por eso es importante separar el tamaño de la empresa de la necesidad real de g
 
 ## TransGest como TMS de transporte
 
-[TransGest](/transgest/) es el TMS que estamos desarrollando en Gauna Software desde la experiencia directa en el sector del transporte.
+[TransGest, software de gestión para empresas de transporte](/transgest/), es el TMS que estamos desarrollando en Gauna Software desde la experiencia directa en el sector del transporte.
 
 El planteamiento es conectar en una sola plataforma:
 
@@ -134,4 +146,4 @@ El planteamiento es conectar en una sola plataforma:
 
 La idea central es sencilla: **los datos deberían introducirse una vez y acompañar al transporte durante todo su ciclo de vida**.
 
-Si estás valorando un software para tu empresa de transporte, puedes consultar [TransGest](/transgest/) o [solicitar una demo](/solicitar-demo/) para ver cómo encaja con tu operativa.
+Si estás valorando un software para tu empresa de transporte, puedes comparar las [versiones de TransGest](/transgest/precios/) o [solicitar una demo](/solicitar-demo/) para revisar cómo encaja con tu operativa y qué alcance está disponible.
