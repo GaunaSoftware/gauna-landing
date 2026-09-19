@@ -2,27 +2,37 @@
 
 ## Decisión comercial definitiva
 
-NO publicar precios, tarifas ni importes comerciales, ni en contenido visible ni en datos estructurados. No es una tarea pendiente. Se comparan versiones y funcionalidades; Pro Intelligence sigue como único recomendado. No reintroducir esta tarea desde planes antiguos.
+NO publicar precios, tarifas ni importes comerciales, ni en contenido visible ni en datos estructurados. No es una tarea pendiente. Se comparan versiones y funcionalidades; Pro Intelligence sigue como único recomendado.
 
-## Entrega de la guía: rama feat/guia-deca-pdf-20260919
+## Edición aprobada incorporada
 
-Implementación directa de /api/guia-deca, /api/informacion-deca, formulario con nombre/email obligatorios para la guía y empresa/perfil opcionales. Contacto comercial separado y opcional; ninguna suscripción automática. Avisos y correo transaccional mediante las variables Resend existentes. La petición comercial DeCA no envía la guía por defecto. No se modifican /api/contact ni los formularios demo/contacto.
+El titular ha subido el PDF profesional. Se conserva el blob 5a8303e440cd8936c842cf62846ffc5cf09bb55b sin regenerar contenido ni logos y se coloca en public/guias/guia-deca-2026-gauna-v2.1.pdf para coincidir con el enlace del formulario y del correo.
 
-La entrega no debe fusionarse hasta incorporar el PDF aprobado en public/guias/guia-deca-2026-gauna-v2.1.pdf. Su SHA-256, tamaño y 28 páginas se comprueban mediante scripts/verify-guide.mjs. No regenerar el documento, no utilizar la antigua guía DCD y no cambiar los logos. Un preview que compila no acredita la publicación de un archivo ausente.
+28 páginas, 974002 bytes, SHA-256 74b1e666580a019ab0ce76718226ea84f06b496f99fc738dc4297071368baf62. scripts/verify-guide.mjs bloquea una publicación si no coincide. El archivo antiguo DCD no forma parte de esta entrega.
 
-El backend valida origen, tipos, límite de cuerpo, solicitud/consentimiento y Turnstile en servidor (fallo seguro sin claves, hostname y action). Resend recibe una clave de idempotencia estable por correo/petición. Los resultados del correo al visitante y del aviso interno son independientes; no confundir aceptación del proveedor con recepción en el buzón. El rate limit en memoria es defensa básica por instancia, no un límite distribuido; para mayor volumen debe configurarse una solución persistente.
+## Flujo de solicitud
 
-Los formularios de newsletter simulados del componente antiguo se sustituyen por enlaces reales a la guía. Los cierres particulares de los dos artículos SEO se preservan. El PDF es público, la descarga directa no es un control de acceso ni una promesa de capturar todos los lectores.
+/api/guia-deca exige nombre/email y consentimiento de entrega; empresa y perfil son opcionales. Envía un correo transaccional con el enlace al PDF y un aviso independiente a hola@gauna.es. El contacto comercial tiene una casilla separada, opcional y desmarcada. No hay suscripción automática a publicidad ni newsletter. La descarga directa permanece disponible y no genera aviso de lead por sí sola.
 
-Antes de publicar: pruebas, compilación, validación del PDF y preview. Tras publicar: HTTP 200, Content-Type application/pdf, SHA-256 del archivo descargado, CAPTCHA real y correo de prueba claramente identificado. La recepción en hola@gauna.es y en el correo del solicitante debe confirmarse; los tests simulan proveedores.
+/api/informacion-deca sustituye beta/Airtable en la página de software DeCA. No envía automáticamente la guía. Se conservan /api/contact y los formularios de contacto y demo. Las antiguas suscripciones simuladas se sustituyen por un enlace al recurso.
 
-## Pendientes que requieren acceso o materiales del titular
+El backend valida origen, formato/tamaño, campos, consentimiento y Turnstile (hostname/action y fallo seguro sin claves). Las peticiones a Resend tienen idempotencia estable por solicitud y mensaje. Los resultados del correo al lector y del aviso interno se presentan por separado. El límite de intentos en memoria es básico y por instancia, no distribuido.
 
-- Capturas/grabaciones reales del programa con datos de demostración, y confirmación funcional DeCA antes de modificar cautelas comerciales.
-- Cuenta de analítica, gestión del consentimiento y verificación real en su panel. El puente actual de intenciones continúa inactivo, sin proveedor ni cookies.
+## Verificaciones de la entrega
+
+Antes de integrar: pruebas unitarias, compilación, hash/tamaño/páginas del PDF y navegador a 390 y 1280 píxeles. El navegador prueba descarga, consentimiento, campos opcionales, errores, resultados parciales y reintentos sin perder datos. CAPTCHA y respuesta de correo se simulan; no se introducen claves reales ni se envían mensajes de prueba a terceros.
+
+Después de integrar: scripts/verify-guide-live.mjs verifica por GET el PDF público (200, application/pdf, tamaño y SHA-256), el formulario renderizado y el rechazo de GET por las dos API. Esta comprobación no envía correo.
+
+El envío real con CAPTCHA válido y la recepción en el buzón del solicitante y en hola@gauna.es requieren la última prueba del titular. La aceptación por Resend no demuestra recepción en bandeja de entrada. Registrar en el PR los resultados reales del despliegue y de las pruebas; no dar por terminada esta comprobación de correo antes de confirmarla.
+
+## Pendientes con materiales o acceso del titular
+
+- Capturas/grabaciones reales con datos de demostración y validación funcional DeCA antes de modificar afirmaciones comerciales.
+- Cuenta de analítica y gestión del consentimiento. El puente de intenciones sigue inactivo, sin proveedor ni cookies.
 - Webinar: hora, duración, ponentes, plataforma y destino de inscripción.
-- Validación final de los textos y proveedores de privacidad al activar cualquier nueva finalidad de tratamiento; nunca suscribir solicitantes automáticamente a publicidad.
+- Revisar textos/proveedores de privacidad al activar nuevas finalidades; no suscribir solicitantes automáticamente.
 
 ## Cambios anteriores preservados
 
-Recursos DeCA, comparativa, navegación al portal, imágenes para compartir, títulos y canonical. El noindex de transgest.app se aplicó en el repositorio de la app únicamente a la raíz del host: no modificarlo desde esta landing.
+Enlazado DeCA, comparación de versiones, navegación al portal, imágenes sociales, títulos y canonical. Noindex del acceso transgest.app se gestiona solo en el repositorio de la aplicación.
