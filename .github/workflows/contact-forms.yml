@@ -1,0 +1,37 @@
+name: Contact form regression tests
+
+on:
+  pull_request:
+    paths:
+      - 'src/pages/api/contact.ts'
+      - 'src/pages/solicitar-demo.astro'
+      - 'src/pages/contacto.astro'
+      - 'src/pages/transgest/**'
+      - 'tests/contact-forms.test.mjs'
+      - '.github/workflows/contact-forms.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/pages/api/contact.ts'
+      - 'src/pages/solicitar-demo.astro'
+      - 'src/pages/contacto.astro'
+      - 'src/pages/transgest/**'
+      - 'tests/contact-forms.test.mjs'
+      - '.github/workflows/contact-forms.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contact-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - name: Test actual form payloads and API with mocked email delivery
+        run: node --test tests/contact-forms.test.mjs
