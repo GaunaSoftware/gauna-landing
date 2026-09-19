@@ -207,6 +207,7 @@ const schema = [
     const userMessage = String(formData.get('why') || '').trim();
 
     const payload = {
+      type: 'demo',
       name: formData.get('name'),
       company: formData.get('company'),
       email: formData.get('email'),
@@ -219,7 +220,7 @@ const schema = [
     };
 
     try {
-      const response = await fetch('/api/beta-signup', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
