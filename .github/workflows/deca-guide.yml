@@ -1,0 +1,79 @@
+name: DeCA guide release
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  delivery-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: node --test tests/deca-delivery.test.mjs
+  approved-pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: node scripts/verify-guide.mjs
+  browser-flow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [delivery-tests, approved-pdf]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: npm install --no-audit --no-fund
+      - run: npm install --no-save --package-lock=false --no-audit --no-fund playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Check browser flow without calling email or CAPTCHA providers
+        env:
+          PUBLIC_TURNSTILE_SITE_KEY: '1x00000000000000000000AA'
+        run: |
+          mkdir -p test-output/deca
+          npm run dev -- --host 127.0.0.1 >test-output/deca/dev.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          READY=0
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:4321/deca-2026/ >/dev/null; then READY=1; break; fi
+            sleep 2
+          done
+          test "$READY" = 1
+          node tests/deca-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deca-browser-proof
+          path: test-output/deca/
+          retention-days: 7
+  public-download:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    needs: [delivery-tests, approved-pdf, browser-flow]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - name: Verify production PDF bytes and live form (read-only)
+        run: node scripts/verify-guide-live.mjs

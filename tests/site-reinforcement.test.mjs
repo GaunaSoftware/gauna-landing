@@ -16,14 +16,12 @@ const blobSha = (file) => {
   return createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
 };
 
-// A release boundary, not a permanent lock: revise deliberately in the future
-// form/guide release after confirming reception and consent requirements.
+// The guide release intentionally replaces DeCALeadForm and LeadMagnetForm.
+// Their behavior is covered by deca-delivery.test.mjs; all other boundaries remain.
 const unchangedFiles = {
   'src/pages/api/contact.ts': 'c8f8ac6ff6b3bc6637b868405bc28c3bd18e91dd',
   'src/pages/solicitar-demo.astro': 'dfd983150bd682d7f1714a6346c21cd2fb355619',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
-  'src/components/DeCALeadForm.astro': '4bb582444debb83ff6d007e25e51e54d9dfdd8fd',
-  'src/components/LeadMagnetForm.astro': '0db7a93c817d416ab34371f5fdb7c49be7e6af25',
   'src/content/blog/que-es-deca-transporte.md': '8c082bb33c93ea47b6dc15097236e54465866d87',
   'src/content/blog/que-es-un-tms-transporte.md': 'fc24145f20c382356c18982374c66b2a7569226f',
   'public/robots.txt': '24d9060d39b0a79c18a063ebd69240bda8f0ade9',
