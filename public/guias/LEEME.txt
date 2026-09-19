@@ -1,0 +1,4 @@
+Publicación pendiente del archivo guia-deca-2026-gauna-v2.1.pdf.
+Debe ser la edición profesional aprobada de 28 páginas y 974002 bytes.
+SHA-256: 74b1e666580a019ab0ce76718226ea84f06b496f99fc738dc4297071368baf62
+No publicar la guía DCD antigua ni fusionar la entrega sin verificar este archivo.
