@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
 
 const year = new Date().getFullYear();
 
@@ -11,13 +12,14 @@ const footerCols = [
       { href: '/transgest/precios/', label: 'Planes' },
       { href: '/software-deca/', label: 'Software DeCA' },
       { href: '/solicitar-demo/', label: 'Solicitar demo' },
-      { href: 'https://app.gauna.es', label: 'Acceso clientes', external: true },
+      { href: CLIENT_PORTAL_URL, label: 'Acceso clientes', external: true },
     ],
   },
   {
     title: 'Recursos',
     links: [
       { href: '/deca-2026/', label: 'Guía DeCA' },
+      { href: '/blog/que-es-un-tms-transporte/', label: 'Qué es un TMS' },
       { href: '/blog/', label: 'Blog' },
     ],
   },

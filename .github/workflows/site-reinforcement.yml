@@ -1,0 +1,50 @@
+name: Public site reinforcement checks
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'tests/**'
+      - 'scripts/check-built-site.mjs'
+      - 'package.json'
+      - 'astro.config.mjs'
+      - '.github/workflows/site-reinforcement.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'tests/**'
+      - 'scripts/check-built-site.mjs'
+      - 'package.json'
+      - 'astro.config.mjs'
+      - '.github/workflows/site-reinforcement.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: npm install --no-audit --no-fund
+      - name: Regression tests (no real email or analytics)
+        run: node --test tests/*.test.mjs
+      - name: Build the public site and static social images
+        run: npm run build
+      - name: Inspect rendered HTML and social images
+        run: node scripts/check-built-site.mjs
+      - name: Save social image previews for visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: social-preview-images
+          path: test-output/social/
+          retention-days: 7
