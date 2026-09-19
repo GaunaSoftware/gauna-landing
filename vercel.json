@@ -20,7 +20,16 @@
       "source": "/guias/guia-deca-2026-gauna-v2.1.pdf",
       "has": [{ "type": "query", "key": "download", "value": "1" }],
       "headers": [
-        { "key": "Content-Disposition", "value": "attachment; filename=\"guia-deca-2026-gauna-v2.1.pdf\"" },
+        { "key": "Content-Disposition", "value": "attachment; filename=\"guia-deca-2026-gauna-v2.1.1.pdf\"" },
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "Content-Type", "value": "application/pdf" }
+      ]
+    },
+    {
+      "source": "/guias/guia-deca-2026-gauna-v2.1.1.pdf",
+      "has": [{ "type": "query", "key": "download", "value": "1" }],
+      "headers": [
+        { "key": "Content-Disposition", "value": "attachment; filename=\"guia-deca-2026-gauna-v2.1.1.pdf\"" },
         { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
         { "key": "Content-Type", "value": "application/pdf" }
       ]

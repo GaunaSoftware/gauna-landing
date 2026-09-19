@@ -1,0 +1,52 @@
+name: PDF structural compatibility
+on:
+  pull_request:
+    paths: ['assets/guides/**', 'scripts/prepare-guide.mjs', 'scripts/verify-guide*.mjs', 'tests/pdf-*', 'src/config/deca-guide.mjs', 'package.json', 'vercel.json', '.github/workflows/pdf-compatibility.yml']
+  push:
+    branches: [main]
+    paths: ['assets/guides/**', 'scripts/prepare-guide.mjs', 'scripts/verify-guide*.mjs', 'tests/pdf-*', 'src/config/deca-guide.mjs', 'package.json', 'vercel.json', '.github/workflows/pdf-compatibility.yml']
+permissions:
+  contents: read
+jobs:
+  strict-and-visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pypdf==5.9.0 PyMuPDF==1.26.7
+      - run: sudo apt-get update -qq && sudo apt-get install -y ghostscript
+      - run: node scripts/verify-guide.mjs && node --test tests/pdf-structure.test.mjs
+      - run: python tests/pdf-structure.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdf-strict-visual-proof
+          path: test-output/pdf-structure/
+          retention-days: 7
+  native-apple:
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22.16.0'
+      - run: node scripts/verify-guide.mjs
+      - name: Parse and render all pages with Apple PDFKit and CoreGraphics
+        run: swift tests/pdf-apple.swift
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdf-apple-native-proof
+          path: test-output/pdf-apple/
+          retention-days: 7
