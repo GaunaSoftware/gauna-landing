@@ -259,7 +259,7 @@ export const prerender = false;
                 </label>
               </div>
 
-              <div id="contact-form-error" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div id="contact-form-error" role="alert" class="hidden p-4 bg-red-50 border border-red-200 rounded-lg">
                 <p class="text-sm text-red-900" data-error-message>
                   Ha ocurrido un error. Intenta de nuevo o escríbenos a
                   <a href="mailto:hola@gauna.es" class="underline">hola@gauna.es</a>.
@@ -272,7 +272,7 @@ export const prerender = false;
               </button>
             </form>
 
-            <div id="contact-form-success" class="hidden mt-4 p-6 bg-teal-50 border border-teal-200 rounded-lg">
+            <div id="contact-form-success" role="status" class="hidden mt-4 p-6 bg-teal-50 border border-teal-200 rounded-lg">
               <div class="flex items-start gap-3">
                 <svg class="w-6 h-6 text-teal-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -297,18 +297,17 @@ export const prerender = false;
 </BaseLayout>
 
 <script>
-  const form = document.getElementById('contact-form');
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
   const successBox = document.getElementById('contact-form-success');
   const errorBox = document.getElementById('contact-form-error');
-  const errorMsg = document.querySelector('[data-error-message]');
-  const btn = document.getElementById('contact-submit-btn');
-  const btnText = document.querySelector('[data-btn-text]');
-  const btnLoading = document.querySelector('[data-btn-loading]');
+  const errorMsg = form?.querySelector('[data-error-message]');
+  const btn = form?.querySelector<HTMLButtonElement>('#contact-submit-btn');
+  const btnText = btn?.querySelector('[data-btn-text]');
+  const btnLoading = btn?.querySelector('[data-btn-loading]');
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    if (!form || !btn) return;
+    if (!form || !btn || btn.disabled || !form.reportValidity()) return;
 
     btn.disabled = true;
     btnText?.classList.add('hidden');
@@ -316,48 +315,46 @@ export const prerender = false;
     errorBox?.classList.add('hidden');
 
     const formData = new FormData(form);
-
-    const topic = formData.get('topic') || '';
-    const message = formData.get('message') || '';
-
     const payload = {
+      type: 'contact',
       name: formData.get('name'),
       company: formData.get('company'),
       email: formData.get('email'),
       phone: formData.get('phone'),
-      profile: 'Contacto web',
-      fleet: '',
-      tools: String(topic),
-      why: `[CONTACTO WEB]\n\nMotivo: ${topic}\n\nMensaje:\n${message}`,
+      topic: String(formData.get('topic') || ''),
+      message: String(formData.get('message') || ''),
       website: formData.get('website'),
       turnstileToken: formData.get('turnstileToken'),
       startedAt: formData.get('startedAt'),
     };
 
     try {
+      if (form.querySelector('.cf-turnstile') && !payload.turnstileToken) {
+        throw new Error('Completa la verificación anti-spam antes de enviar');
+      }
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error del servidor');
+      const data = await response.json().catch(() => null);
+      if (!response.ok || data?.success !== true) {
+        throw new Error(data?.error || 'No hemos podido confirmar el envío');
       }
 
       form.classList.add('hidden');
       successBox?.classList.remove('hidden');
       successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Error desconocido';
-
-      if (errorMsg) {
-        errorMsg.textContent = `No hemos podido enviar tu mensaje: ${message}. Puedes escribirnos directamente a hola@gauna.es.`;
-      }
-
+      const message = (err instanceof Error ? err.message : 'Error desconocido').replace(/\.+$/, '');
+      if (errorMsg) errorMsg.textContent = `No hemos podido enviar tu mensaje: ${message}. Puedes escribirnos directamente a hola@gauna.es.`;
       errorBox?.classList.remove('hidden');
+      const token = form.querySelector<HTMLInputElement>('input[name="turnstileToken"]');
+      if (token) token.value = '';
+      const widget = form.querySelector<HTMLElement>('.cf-turnstile');
+      const turnstile = (window as Window & { turnstile?: { reset: (container: HTMLElement) => void } }).turnstile;
+      try { if (widget) turnstile?.reset(widget); } catch { /* The script may still be loading. */ }
+    } finally {
       btn.disabled = false;
       btnText?.classList.remove('hidden');
       btnLoading?.classList.add('hidden');
