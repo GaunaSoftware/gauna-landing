@@ -30,7 +30,7 @@ La base legal principal está formada por:
 
 - La **Orden FOM/2861/2012**, que regula el documento de control en el transporte público de mercancías por carretera.
 - La **Ley 9/2025, de Movilidad Sostenible**, que establece la transición obligatoria al formato digital.
-- La **Resolución de 5 de junio de 2026**, que define cómo deben funcionar los sistemas y documentos electrónicos.
+- La **[Resolución de 5 de junio de 2026](/blog/resolucion-deca-5-junio-2026/)**, que define cómo deben funcionar los sistemas y documentos electrónicos.
 
 ## ¿A quién afecta?
 
