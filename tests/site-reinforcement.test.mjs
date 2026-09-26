@@ -22,13 +22,28 @@ const unchangedFiles = {
   'src/pages/api/contact.ts': 'c8f8ac6ff6b3bc6637b868405bc28c3bd18e91dd',
   'src/pages/solicitar-demo.astro': 'dfd983150bd682d7f1714a6346c21cd2fb355619',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
-  'src/content/blog/que-es-deca-transporte.md': '8c082bb33c93ea47b6dc15097236e54465866d87',
+  // Approved resolution link from commit 22b4ba0 (2026-09-20); retain the exact-content guard.
+  'src/content/blog/que-es-deca-transporte.md': 'be3b530867c968a01b79574cb7d2bdad678cc571',
   'src/content/blog/que-es-un-tms-transporte.md': 'fc24145f20c382356c18982374c66b2a7569226f',
   'public/robots.txt': '24d9060d39b0a79c18a063ebd69240bda8f0ade9',
 };
 for (const [file, sha] of Object.entries(unchangedFiles)) {
   test(`deferred or protected content remains unchanged: ${file}`, () => assert.equal(blobSha(file), sha));
 }
+
+test('DeCA articles keep one descriptive contextual link to the software landing', () => {
+  assert.ok(exists('src/pages/software-deca/index.astro'));
+  const anchors = {
+    'deca-para-transportistas-y-flotas': 'Software DeCA para transporte',
+    'requisitos-tecnicos-deca-pdf-qr-url': 'software DeCA de TransGest',
+  };
+  for (const [slug, anchor] of Object.entries(anchors)) {
+    const source = read(`src/content/blog/${slug}.md`);
+    const links = [...source.matchAll(/\[([^\]]+)\]\(\/software-deca\/\)/g)];
+    assert.equal(links.length, 1, `${slug}: keep the contextual link without duplicating it`);
+    assert.equal(links[0][1], anchor);
+  }
+});
 
 test('resource hub points to six existing articles including both discovery targets', () => {
   assert.equal(DECA_RESOURCES.length, 6);

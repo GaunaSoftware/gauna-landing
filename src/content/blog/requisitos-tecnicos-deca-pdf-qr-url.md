@@ -119,7 +119,7 @@ Una empresa puede cumplir visualmente muchos de estos puntos y seguir teniendo u
 
 La mejor arquitectura es aquella en la que el DeCA se genera a partir de la información que ya existe en el servicio: cliente, cargador, transportista, origen, destino, mercancía, fecha y vehículo.
 
-Eso es precisamente lo que buscamos con la integración de [DeCA dentro de TransGest](/software-deca/).
+Ese es el enfoque que planteamos con el [software DeCA de TransGest](/software-deca/): vincular la documentación a los datos del servicio y reducir el trabajo duplicado.
 
 ## Fuente oficial
 
