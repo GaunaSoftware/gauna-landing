@@ -24,7 +24,8 @@ const unchangedFiles = {
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
   // Approved resolution link from commit 22b4ba0 (2026-09-20); retain the exact-content guard.
   'src/content/blog/que-es-deca-transporte.md': 'be3b530867c968a01b79574cb7d2bdad678cc571',
-  'src/content/blog/que-es-un-tms-transporte.md': 'fc24145f20c382356c18982374c66b2a7569226f',
+  // Approved TMS buyer guidance and update date (2026-10-02); retain the exact-content guard.
+  'src/content/blog/que-es-un-tms-transporte.md': '88612c4b772242b9066506a624024e7375708157',
   'public/robots.txt': '24d9060d39b0a79c18a063ebd69240bda8f0ade9',
 };
 for (const [file, sha] of Object.entries(unchangedFiles)) {
@@ -68,7 +69,7 @@ test('comparison reuses the existing plan fields and recommends only Pro Intelli
   assert.equal(JSON.stringify(plans.filter((plan) => plan.highlight).map((plan) => plan.name)), '["Pro Intelligence"]');
   assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 5);
   assert.match(page, /<PlanComparison plans=\{plans\}/);
-  assert.match(page, /id=\{planAnchor\(plan\.name\)\}/);
+  assert.match(page, /id=\{planAnchor\(plan.name\)\}/);
   assert.doesNotMatch(page, /\d[\d.,]*\s*€|priceCurrency|"price"\s*:/);
   const component = read('src/components/PlanComparison.astro');
   assert.match(component, /plan\.features\.join/);
