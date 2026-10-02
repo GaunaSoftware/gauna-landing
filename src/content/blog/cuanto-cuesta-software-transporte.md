@@ -133,7 +133,7 @@ Sino:
 
 Ese enfoque permite evitar tanto pagar por funciones que no vas a utilizar como elegir una solución demasiado limitada que tengas que sustituir poco después.
 
-## Software profesional sin pagar un dineral
+## Software profesional con una inversión proporcionada
 
 [TransGest](/transgest/) nace con una idea sencilla: una empresa de transporte debería poder acceder a un **TMS profesional** sin que el coste del software se convierta en una barrera desproporcionada.
 
