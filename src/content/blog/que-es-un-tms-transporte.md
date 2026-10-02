@@ -2,7 +2,7 @@
 title: "Qué es un TMS de transporte y para qué sirve"
 description: "Qué es un TMS de transporte, qué funciones debería incluir y cuándo compensa implantar un software de gestión en una empresa de transporte."
 pubDate: 2026-09-14
-updatedDate: 2026-09-19
+updatedDate: 2026-10-02
 author: "Gauna"
 category: "gestion"
 tags: ["TMS", "software transporte", "gestión transporte", "empresas de transporte"]
@@ -127,6 +127,21 @@ Durante años, muchos programas de transporte se han asociado a proyectos grande
 Sin embargo, una empresa pequeña también puede beneficiarse de centralizar sus datos. La diferencia está en que necesita una solución proporcionada a su operativa y que no añada más complejidad de la que elimina.
 
 Por eso es importante separar el tamaño de la empresa de la necesidad real de gestión. Una flota pequeña con mucha rotación de servicios puede tener una operativa más exigente que una empresa con más vehículos y rutas muy repetitivas.
+
+## Software de transporte gratuito: qué revisar antes de elegir
+
+Una opción sin cuota puede encajar si cubre el trabajo que necesitas. Antes de elegir, comprueba si permite un uso continuado o si se trata de una prueba temporal, y qué ocurre cuando termina o se superan sus límites.
+
+La comparación debería hacerse con la misma operativa, tanto para una herramienta gratuita como para una de pago:
+
+- **Alcance y límites.** Revisa qué servicios, documentos, usuarios y funciones puedes gestionar y cuáles requieren otro plan.
+- **Acceso a tus datos.** Comprueba cómo exportar clientes, servicios y documentos, también al dejar de utilizar el programa.
+- **Puesta en marcha y soporte.** Aclara quién configura el sistema, forma al equipo, mantiene las copias de seguridad y atiende incidencias, y si esas tareas tienen un coste aparte.
+- **Continuidad.** Confirma las condiciones de actualización, cancelación y recuperación de la información antes de depender del sistema cada día.
+
+No decidas solo por la cuota: compara el alcance y el coste total durante el mismo periodo. Nuestra guía sobre [cuánto cuesta un software de transporte](/blog/cuanto-cuesta-software-transporte/) explica qué revisar en licencia, implantación, integraciones y consumos.
+
+**TransGest es una solución comercial:** las tarifas y el alcance se detallan en una propuesta. Una demostración del programa permite conocer su funcionamiento, pero no equivale a una licencia gratuita.
 
 ## TransGest como TMS de transporte
 
