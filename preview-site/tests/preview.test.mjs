@@ -13,14 +13,14 @@ test('preview builds and only serves static anonymized materials',()=>{execFileS
 test('production and main builds fail closed',()=>{for(const env of [{VERCEL_ENV:'production'},{VERCEL_GIT_COMMIT_REF:'main'}])assert.throws(()=>execFileSync(process.execPath,['build.mjs'],{cwd,env:{...process.env,...env},stdio:'pipe'}),/PREVIEW ONLY/);});
 test('no data collection, fake payment or video promise',()=>{const js=read('site.mjs');assert.doesNotMatch(js,/fetch\s*\(|sendBeacon|localStorage|sessionStorage|document\.cookie|XMLHttpRequest/);const html=read('dist/transgest/contratar/index.html');assert.match(html,/Finalizar simulación/);assert.doesNotMatch(html,/autocomplete="cc-|name="card|type="password"/);for(const m of Object.values(media))assert.equal(m.videoSrc,'');});
 
-test('all TransGest routes render one product-only header with the approved wordmark',()=>{
+test('all TransGest routes render one product-only header with the vector wordmark',()=>{
   for(const route of ['transgest/','transgest/precios/','transgest/contratar/','transgest/formacion/']){
     const html=read(`dist/${route}index.html`);
     const headers=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/g)];
     assert.equal(headers.length,1,route);
     assert.match(headers[0][0],/^<header class="product-nav">/);
     assert.match(headers[0][0],/<a class="product-name" href="\/transgest\/" aria-label="TransGest, inicio"><img class="transgest-wordmark"/);
-    assert.ok(headers[0][0].includes('src="/assets/transgest-wordmark-v2.png"'));
+    assert.ok(headers[0][0].includes('src="/assets/transgest-wordmark-v3.svg"'));
     assert.doesNotMatch(headers[0][0],/Gauna|gauna|main-header|g-mark/);
     assert.equal((html.match(/class="preview-banner"/g)||[]).length,1);
     for(const href of ['/transgest/#recorrido','/transgest/#capacidades','/transgest/precios/']){
@@ -53,34 +53,50 @@ test('product presentation removes the byline and preserves the corporate copyri
   assert.match(html,/<footer[\s\S]*© 2026 Gauna Software[\s\S]*<\/footer>/);
 });
 
-test('hero contains the actual approved image, no old text logo or decorative dot',()=>{
+test('hero contains the vector image, no old text logo or decorative dot',()=>{
   const html=read('dist/transgest/index.html');
   const h1=html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0];
   assert.ok(h1);
   assert.match(h1,/class="wordmark-heading"/);
-  assert.match(h1,/src="\/assets\/transgest-wordmark-v2.png"/);
+  assert.match(h1,/src="\/assets\/transgest-wordmark-v3\.svg"/);
   assert.match(h1,/alt="TransGest"/);
   assert.doesNotMatch(h1,/hero-period|>TransGest<|transgest-icon/);
-  assert.match(html,/data-brand-version="wordmark-v2"/);
+  assert.match(html,/data-brand-version="vector-v3"/);
 });
 
-test('T icon is a separate product favicon, while product footers use the wordmark',()=>{
+test('T icon is a separate vector favicon, while product footers use the wordmark',()=>{
   for(const route of ['transgest/','transgest/precios/','transgest/contratar/','transgest/formacion/']){
     const html=read(`dist/${route}index.html`);
-    assert.ok(html.includes('<link rel="icon" href="/assets/transgest-icon-v2.png" type="image/png" sizes="64x64">'));
+    assert.ok(html.includes('<link rel="icon" href="/assets/transgest-icon-v3.svg" type="image/svg+xml" sizes="any">'));
+    assert.ok(html.includes('href="/assets/transgest-icon-v3-white.svg"'));
     const footer=html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
     assert.ok(footer.includes('product-footer-brand'));
-    assert.ok(footer.includes('src="/assets/transgest-wordmark-v2.png"'));
+    assert.ok(footer.includes('src="/assets/transgest-wordmark-v3.svg"'));
     assert.doesNotMatch(footer,/g-mark/);
+    assert.doesNotMatch(html,/transgest-(?:wordmark|icon)-v2\.png/);
   }
   assert.ok(read('dist/index.html').includes('href="/assets/mark.svg"'));
 });
 
-test('approved branding assets are real PNGs with the expected dimensions',()=>{
-  for(const [name,w,h] of [['transgest-wordmark-v2.png',1838,271],['transgest-icon-v2.png',64,64]]){
-    const bytes=readFileSync(new URL('dist/assets/'+name,root));
-    assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
-    assert.equal(bytes.readUInt32BE(16),w);assert.equal(bytes.readUInt32BE(20),h);
+test('branding assets are true self-contained SVG paths, not wrapped raster images or fonts',()=>{
+  for(const [name,w,h] of [['transgest-wordmark-v3.svg',1842,275],['transgest-wordmark-v3-white.svg',1842,275],['transgest-icon-v3.svg',929,929],['transgest-icon-v3-white.svg',929,929]]){
+    const svg=read('dist/assets/'+name);
+    assert.match(svg,/<svg\b/);
+    assert.ok(svg.includes(`viewBox="0 0 ${w} ${h}"`));
+    assert.match(svg,/<path\b[^>]*d="M/);
+    assert.doesNotMatch(svg,/<(?:image|text|script|filter|foreignObject|linearGradient|radialGradient)\b|data:image|\bstroke\s*=|(?:href|xlink:href)\s*=/i);
+    assert.ok(svg.includes(name.includes('white')?'fill="#FFFFFF"':'fill="#0B3C30"'));
   }
   const css=read('dist/branding.css');assert.match(css,/height: auto/);
+  assert.doesNotMatch(css,/filter:\s*(?:brightness|invert|drop-shadow)/);
+});
+
+test('dark pricing and corporate panels use an explicit white vector, not a CSS color filter',()=>{
+  for(const route of ['transgest/','transgest/precios/']){
+    const html=read(`dist/${route}index.html`);
+    const featured=html.match(/<article class="plan featured"[^>]*>[\s\S]*?<\/article>/)?.[0];
+    assert.ok(featured?.includes('src="/assets/transgest-wordmark-v3-white.svg"'));
+  }
+  const corporate=read('dist/index.html');
+  assert.match(corporate,/<h3 class="product-card-wordmark"><img[^>]*transgest-wordmark-v3-white\.svg/);
 });

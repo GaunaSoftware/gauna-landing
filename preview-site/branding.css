@@ -1,4 +1,4 @@
-/* Approved artwork, not a font rendition. Raster alpha remains transparent. */
+/* Real outlined SVG artwork. No raster alpha, outlines, shadows or recoloring filters. */
 .transgest-wordmark {
   display: block;
   width: 100%;
@@ -6,8 +6,10 @@
   height: auto;
   object-fit: contain;
   border: 0;
+  outline: 0;
   border-radius: 0;
   box-shadow: none;
+  filter: none;
 }
 .product-name {display: inline-flex; align-items: center; flex: 0 0 auto;}
 .product-name .transgest-wordmark {width: 160px; height: auto;}
@@ -20,13 +22,11 @@
 }
 .product-footer-brand .transgest-wordmark {width: 205px;}
 .plan-brand .transgest-wordmark {width: 112px; margin: 0 0 12px;}
-.featured .plan-brand .transgest-wordmark,
-.ecosystem-card.dark .product-card-wordmark .transgest-wordmark {filter: brightness(0) invert(1);}
 .product-stamp .transgest-wordmark {width: 270px; margin: 0;}
 .ecosystem-card .product-card-wordmark {width: min(100%, 330px);}
 .ecosystem-card .product-card-wordmark .transgest-wordmark {
   width: 100%; max-width: 100%; height: auto; margin: 0;
-  border: 0; border-radius: 0; box-shadow: none;
+  border: 0; border-radius: 0; box-shadow: none; filter: none;
 }
 @media (max-width: 640px) {
   .product-name .transgest-wordmark {width: 135px;}
