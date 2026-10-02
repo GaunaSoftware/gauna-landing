@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (file) => readFileSync(join(root, file), 'utf8');
-const headline = 'Software de transporte profesional. Una inversión proporcionada.';
+const headline = 'La gestión profesional del transporte, con un modelo de precio diferente.';
 
 function* sourceFiles(directory) {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -27,9 +27,9 @@ test('TransGest has one professional headline and retains its commercial model',
   assert.ok(page.includes('href="/solicitar-demo/"'));
 });
 
-test('cost guide uses the same investment-led tone without changing its title', () => {
+test('cost guide uses the same pricing-model wording without changing its title', () => {
   const guide = read('src/content/blog/cuanto-cuesta-software-transporte.md');
-  assert.match(guide, /^## Software profesional con una inversión proporcionada$/m);
+  assert.match(guide, /^## La gestión profesional del transporte, con un modelo de precio diferente$/m);
   assert.ok(guide.includes('title: "Cuánto cuesta un software de transporte y qué comparar antes de contratarlo"'));
   assert.ok(guide.includes('[versiones de TransGest](/transgest/precios/)'));
 });
