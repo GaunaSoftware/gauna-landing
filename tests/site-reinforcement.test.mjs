@@ -69,7 +69,7 @@ test('comparison reuses the existing plan fields and recommends only Pro Intelli
   assert.equal(JSON.stringify(plans.filter((plan) => plan.highlight).map((plan) => plan.name)), '["Pro Intelligence"]');
   assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 5);
   assert.match(page, /<PlanComparison plans=\{plans\}/);
-  assert.match(page, /id=\{planAnchor\(plan.name\)\}/);
+  assert.match(page, /id=\{planAnchor\(plan\.name\)\}/);
   assert.doesNotMatch(page, /\d[\d.,]*\s*€|priceCurrency|"price"\s*:/);
   const component = read('src/components/PlanComparison.astro');
   assert.match(component, /plan\.features\.join/);
