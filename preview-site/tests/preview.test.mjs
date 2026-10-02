@@ -13,13 +13,14 @@ test('preview builds and only serves static anonymized materials',()=>{execFileS
 test('production and main builds fail closed',()=>{for(const env of [{VERCEL_ENV:'production'},{VERCEL_GIT_COMMIT_REF:'main'}])assert.throws(()=>execFileSync(process.execPath,['build.mjs'],{cwd,env:{...process.env,...env},stdio:'pipe'}),/PREVIEW ONLY/);});
 test('no data collection, fake payment or video promise',()=>{const js=read('site.mjs');assert.doesNotMatch(js,/fetch\s*\(|sendBeacon|localStorage|sessionStorage|document\.cookie|XMLHttpRequest/);const html=read('dist/transgest/contratar/index.html');assert.match(html,/Finalizar simulación/);assert.doesNotMatch(html,/autocomplete="cc-|name="card|type="password"/);for(const m of Object.values(media))assert.equal(m.videoSrc,'');});
 
-test('all TransGest routes render one product-only header, not the corporate header',()=>{
+test('all TransGest routes render one product-only header with the approved wordmark',()=>{
   for(const route of ['transgest/','transgest/precios/','transgest/contratar/','transgest/formacion/']){
     const html=read(`dist/${route}index.html`);
     const headers=[...html.matchAll(/<header\b[^>]*>[\s\S]*?<\/header>/g)];
     assert.equal(headers.length,1,route);
     assert.match(headers[0][0],/^<header class="product-nav">/);
-    assert.match(headers[0][0],/<a class="product-name" href="\/transgest\/" aria-label="TransGest, inicio">TransGest<\/a>/);
+    assert.match(headers[0][0],/<a class="product-name" href="\/transgest\/" aria-label="TransGest, inicio"><img class="transgest-wordmark"/);
+    assert.ok(headers[0][0].includes('src="/assets/transgest-wordmark-v2.png"'));
     assert.doesNotMatch(headers[0][0],/Gauna|gauna|main-header|g-mark/);
     assert.equal((html.match(/class="preview-banner"/g)||[]).length,1);
     for(const href of ['/transgest/#recorrido','/transgest/#capacidades','/transgest/precios/']){
@@ -43,11 +44,43 @@ test('corporate pages retain the Gauna header and their own navigation',()=>{
   }
 });
 
-test('product presentation removes the byline without altering the company footer',()=>{
+test('product presentation removes the byline and preserves the corporate copyright',()=>{
   const html=read('dist/transgest/index.html');
   const main=html.match(/<main id="contenido">([\s\S]*?)<\/main>/)?.[1];
   assert.ok(main);
   assert.doesNotMatch(main,/by Gauna/);
   assert.match(main,/class="product-byline">Software de transporte<\/p>/);
   assert.match(html,/<footer[\s\S]*© 2026 Gauna Software[\s\S]*<\/footer>/);
+});
+
+test('hero contains the actual approved image, no old text logo or decorative dot',()=>{
+  const html=read('dist/transgest/index.html');
+  const h1=html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/)?.[0];
+  assert.ok(h1);
+  assert.match(h1,/class="wordmark-heading"/);
+  assert.match(h1,/src="\/assets\/transgest-wordmark-v2.png"/);
+  assert.match(h1,/alt="TransGest"/);
+  assert.doesNotMatch(h1,/hero-period|>TransGest<|transgest-icon/);
+  assert.match(html,/data-brand-version="wordmark-v2"/);
+});
+
+test('T icon is a separate product favicon, while product footers use the wordmark',()=>{
+  for(const route of ['transgest/','transgest/precios/','transgest/contratar/','transgest/formacion/']){
+    const html=read(`dist/${route}index.html`);
+    assert.ok(html.includes('<link rel="icon" href="/assets/transgest-icon-v2.png" type="image/png" sizes="64x64">'));
+    const footer=html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+    assert.ok(footer.includes('product-footer-brand'));
+    assert.ok(footer.includes('src="/assets/transgest-wordmark-v2.png"'));
+    assert.doesNotMatch(footer,/g-mark/);
+  }
+  assert.ok(read('dist/index.html').includes('href="/assets/mark.svg"'));
+});
+
+test('approved branding assets are real PNGs with the expected dimensions',()=>{
+  for(const [name,w,h] of [['transgest-wordmark-v2.png',1838,271],['transgest-icon-v2.png',64,64]]){
+    const bytes=readFileSync(new URL('dist/assets/'+name,root));
+    assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+    assert.equal(bytes.readUInt32BE(16),w);assert.equal(bytes.readUInt32BE(20),h);
+  }
+  const css=read('dist/branding.css');assert.match(css,/height: auto/);
 });
