@@ -13,13 +13,15 @@ const articles = {
     title: 'Qué es el DeCA en transporte y cuándo será obligatorio en 2026',
     description: 'Explicamos qué es el DeCA en transporte, cuándo será obligatorio, a quién afecta y qué exige la normativa para el documento electrónico de control.',
     category: 'normativa',
+    updatedDate: '2026-09-19',
     requiredLinks: ['/deca-2026/', '/software-deca/', '/blog/deca-ecmr-diferencias/', '/blog/que-es-un-tms-transporte/'],
   },
   'que-es-un-tms-transporte': {
     title: 'Qué es un TMS de transporte y para qué sirve',
     description: 'Qué es un TMS de transporte, qué funciones debería incluir y cuándo compensa implantar un software de gestión en una empresa de transporte.',
     category: 'gestion',
-    requiredLinks: ['/deca-2026/', '/transgest/', '/transgest/precios/', '/solicitar-demo/'],
+    updatedDate: '2026-10-02',
+    requiredLinks: ['/deca-2026/', '/transgest/', '/transgest/precios/', '/solicitar-demo/', '/blog/cuanto-cuesta-software-transporte/'],
   },
 };
 const layout = read('src/pages/blog/[...slug].astro');
@@ -51,7 +53,7 @@ for (const [slug, expected] of Object.entries(articles)) {
     assert.equal(JSON.parse(fields.description), expected.description);
     assert.equal(JSON.parse(fields.category), expected.category);
     assert.equal(fields.pubDate, '2026-09-14');
-    assert.equal(fields.updatedDate, '2026-09-19');
+    assert.equal(fields.updatedDate, expected.updatedDate);
     assert.equal(fields.slug, undefined);
     assert.equal(fields.draft, undefined);
     assert.doesNotMatch(source, /^# /m, 'H1 is rendered by the layout, not duplicated in Markdown');
@@ -103,6 +105,30 @@ test('TMS adds one practical selection section without removing existing topics'
     assert.ok(source.includes(`## ${section}\n`));
   }
   assert.ok(source.includes('Una prueba útil consiste en llevar a la demo un servicio representativo'));
+});
+
+test('TMS explains free options without presenting TransGest as a free product', () => {
+  const source = read('src/content/blog/que-es-un-tms-transporte.md');
+  const heading = '## Software de transporte gratuito: qué revisar antes de elegir';
+  assert.equal(source.split(heading).length - 1, 1, 'One explanatory section, not repeated keyword blocks');
+  const section = source.split(heading)[1].split('\n## ')[0];
+  assert.ok(section.includes('Una opción sin cuota puede encajar'));
+  for (const term of ['prueba temporal', 'Alcance y límites', 'Acceso a tus datos', 'Puesta en marcha y soporte', 'Continuidad']) {
+    assert.ok(section.includes(term), `Missing buyer consideration: ${term}`);
+  }
+  assert.ok(section.includes('**TransGest es una solución comercial:**'));
+  assert.ok(section.includes('no equivale a una licencia gratuita'));
+  assert.doesNotMatch(section, /\d[\d.,]*\s*(?:€|EUR\b|euros\b)|ahorro garantizado|todo incluido|gratis para siempre/i);
+});
+
+test('TMS links once to the existing cost guide and preserves the demo path', () => {
+  const source = read('src/content/blog/que-es-un-tms-transporte.md');
+  const links = [...source.matchAll(/\[([^\]]+)\]\(\/blog\/cuanto-cuesta-software-transporte\/\)/g)];
+  assert.equal(links.length, 1);
+  assert.equal(links[0][1], 'cuánto cuesta un software de transporte');
+  assert.ok(routeExists('/blog/cuanto-cuesta-software-transporte/'));
+  assert.doesNotMatch(read('src/content/blog/cuanto-cuesta-software-transporte.md'), /^draft:\s*true\s*$/m);
+  assert.ok(source.includes('[solicitar una demo](/solicitar-demo/)'));
 });
 
 test('canonical, H1 and Article schema remain linked to the existing article metadata', () => {
