@@ -1,0 +1,20 @@
+name: TransGest preview checks
+on:
+  push:
+    branches: ['preview/transgest-store-20261002']
+  pull_request:
+    paths: ['preview-site/**', '.github/workflows/transgest-preview.yml']
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test preview-site/tests/preview.test.mjs
