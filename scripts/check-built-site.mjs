@@ -51,7 +51,7 @@ const { serveGuide } = await import('../src/lib/guide-file.mjs');
 const { issueGuideAccess } = await import('../src/lib/guide-access.mjs');
 const { DECA_GUIDE } = await import('../src/config/deca-guide.mjs');
 const functionsRoot = resolve('.vercel/output/functions');
-const entries = await readdir(functionsRoot, { recursive: true });
+const entries = (await readdir(functionsRoot, { recursive: true })).map(path => path.replaceAll('\\', '/'));
 const sourceEntry = entries.find(path => path.endsWith('.func/assets/guides/deca-2026-v2.1-original.pdf'));
 assert.ok(sourceEntry, 'Private PDF source must be included in the serverless bundle');
 const functionRoot = resolve(functionsRoot, sourceEntry.slice(0, sourceEntry.indexOf('.func/') + 5));
