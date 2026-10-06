@@ -1,8 +1,10 @@
 ---
 import Logo from './Logo.astro';
+import LogoTransGest from './LogoTransGest.astro';
 import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
 
 const year = new Date().getFullYear();
+const {product = false} = Astro.props;
 
 const footerCols = [
   {
@@ -45,7 +47,7 @@ const footerCols = [
   <div class="container-g py-16">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
       <div class="md:col-span-4">
-        <Logo variant="compact" theme="dark" class="h-9 w-auto mb-4" />
+        {product ? <a href="/transgest/" aria-label="TransGest, inicio"><LogoTransGest theme="dark" class="h-9 w-auto mb-4" /></a> : <Logo variant="compact" theme="dark" class="h-9 w-auto mb-4" />}
         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">Gauna Software desarrolla tecnología especializada para empresas de transporte.</p>
 
         <div class="mt-6 space-y-2 text-sm">

@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import '@/styles/storefront.css';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import DeCAResources from '@components/DeCAResources.astro';
@@ -14,6 +15,7 @@ export interface Props {
   ogImageAlt?: string;
   canonical?: string;
   noindex?: boolean;
+  storefront?: 'corporate' | 'product';
   ogType?: 'website' | 'article';
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -27,6 +29,7 @@ const {
   noindex = false,
   ogType = 'website',
   schema,
+  storefront,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://gauna.es');
@@ -129,7 +132,8 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
     <meta name="color-scheme" content="light" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={storefront === 'product' ? '/media/transgest/transgest-icon-v3.svg' : '/favicon.svg'} />
+    {storefront === 'product' && <link rel="icon" type="image/svg+xml" href="/media/transgest/transgest-icon-v3-white.svg" media="(prefers-color-scheme: dark)" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
@@ -162,10 +166,11 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
     <link rel="preconnect" href="https://fonts.googleapis.com" />
   </head>
 
-  <body class="min-h-screen flex flex-col">
-    <Header />
+  <body class:list={['min-h-screen flex flex-col', storefront && 'storefront-page']}>
+    <a class="sr-only focus:not-sr-only focus:p-4" href="#contenido">Saltar al contenido</a>
+    <Header product={storefront === 'product'} />
 
-    <main class="flex-1">
+    <main id="contenido" class="flex-1">
       <slot />
       {PRODUCT_EVALUATION_PATHS.includes(pagePath) && <ProductEvaluation />}
       {RESOURCE_HUB_PATHS.includes(pagePath) && <DeCAResources />}
@@ -185,7 +190,7 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
       </svg>
     </a>
 
-    <Footer />
+    <Footer product={storefront === 'product'} />
   </body>
 </html>
 
