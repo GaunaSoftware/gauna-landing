@@ -68,6 +68,10 @@
 .storefront .planner-preview img{width:100%;max-width:100%;margin:0;border:0;box-shadow:none}
 .storefront dialog{margin:auto}
 .storefront .viewer img{background:white}
+/* The three desktop screenshots include the Windows taskbar in their last
+   60px. Clip that strip in every presentation, including the enlarged viewer. */
+.storefront img[src$="/dashboard.webp"],.storefront img[src$="/planner-stock.webp"],.storefront img[src$="/planner-cargas.webp"]{clip-path:inset(0 0 6% 0);object-fit:cover;object-position:top}
+.storefront .viewer img{width:auto;max-width:100%;height:auto;margin:auto;display:block}
 .storefront .plan-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .storefront .plan-summary article{border:1px solid var(--line);border-radius:24px;padding:28px}
 .storefront .plan-summary article.featured{background:var(--forest);color:white}
