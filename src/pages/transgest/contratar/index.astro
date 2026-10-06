@@ -21,10 +21,10 @@ Astro.response.headers.set('Cache-Control','private, no-store');
     <h2>Tu plan. Tu periodicidad.</h2>
     <form id="checkout-selection">
      <fieldset><legend class="sr-only">Periodicidad de facturación</legend>
-      <label><input type="radio" name="billing" value="monthly" checked={billing==='monthly'} />Mensual · {money(plan.monthly)} /mes</label>
-      <label><input type="radio" name="billing" value="annual" checked={billing==='annual'} />Anual · {money(plan.annual)} /año · ahorro del 15 %</label>
+      <label><input type="radio" name="billing" value="monthly" checked={billing==='monthly'} />Mensual · {money(plan.monthly)} /mes + IVA</label>
+      <label><input type="radio" name="billing" value="annual" checked={billing==='annual'} />Anual · {money(plan.annual)} /año + IVA · ahorro del 15 %</label>
      </fieldset>
-     <dl><div><dt>Suscripción</dt><dd id="subscription-total">{money(plan[billing])}</dd></div><div><dt>Implantación estándar · pago único</dt><dd>{plan.integration?money(plan.integration):'Incluida'}</dd></div><div><dt>Primer pago, sin IVA</dt><dd id="initial-total">{money(plan[billing]+plan.integration)}</dd></div><div><dt>Renovación, sin IVA</dt><dd id="renewal-total">{money(plan[billing])} /{billing==='annual'?'año':'mes'}</dd></div></dl>
+     <dl><div><dt>Suscripción + IVA</dt><dd id="subscription-total">{money(plan[billing])}</dd></div><div><dt>Implantación estándar + IVA · pago único</dt><dd>{plan.integration?money(plan.integration):'Incluida'}</dd></div><div><dt>Primer pago + IVA</dt><dd id="initial-total">{money(plan[billing]+plan.integration)}</dd></div><div><dt>Renovación + IVA</dt><dd id="renewal-total">{money(plan[billing])} /{billing==='annual'?'año':'mes'}</dd></div></dl>
      <p class="checkout-note">La suscripción se renueva automáticamente cada mes o año según tu elección. La implantación se cobra una sola vez. El IVA aplicable y el total definitivo se muestran en el formulario de pago. Los servicios a medida y las ampliaciones se contratan aparte.</p>
      <label><input id="checkout-consent" type="checkbox" name="consent" required />He revisado el plan, la periodicidad y los importes. <a href="/aviso-legal/">Información legal</a> · <a href="/politica-privacidad/">Privacidad</a>.</label>
      <button type="submit" id="checkout-start" class="button primary" disabled={!ready}>Continuar al pago</button>

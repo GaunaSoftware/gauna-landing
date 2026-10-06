@@ -130,7 +130,7 @@ const schema = [
                 </li>
               ))}
             </ul>
-            {(() => { const tariff = commercePlans.find(item => item.name === plan.name); return <div class="tariff-details"><p class="tariff-monthly">{money(tariff.monthly)} <span>/mes</span></p><p>{money(tariff.annual)} /año · ahorro del 15 %</p><p>{tariff.integration ? 'Implantación: ' + money(tariff.integration) + ' · pago único' : 'Implantación estándar incluida'}</p><p class="tariff-tax">Precios sin IVA</p></div>; })()}
+            {(() => { const tariff = commercePlans.find(item => item.name === plan.name); return <div class="tariff-details"><p class="tariff-monthly">{money(tariff.monthly)} <span>/mes + IVA</span></p><p>{money(tariff.annual)} /año + IVA · ahorro del 15 %</p><p>{tariff.integration ? 'Implantación: ' + money(tariff.integration) + ' + IVA · pago único' : 'Implantación estándar incluida'}</p><p class="tariff-tax">Precios + IVA</p></div>; })()}
             <a href={'/transgest/contratar/?plan=' + commercePlans.find(item => item.name === plan.name).id} data-plan={plan.name} class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Contratar {plan.name}</a>
           </article>
         ))}
@@ -139,7 +139,7 @@ const schema = [
       <div id="coste-transgest" class="mt-8 scroll-mt-24 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-600">
         <h2 class="text-lg font-semibold text-slate-900">¿Cómo se calcula el precio de TransGest?</h2>
         <p class="mt-3">Las tarifas de suscripción están indicadas en cada versión, con facturación mensual o anual. No se calculan por número de usuarios ni de vehículos.</p>
-        <p class="mt-3">La contratación anual se factura por el año completo y aplica un 15 % de descuento exclusivamente a la suscripción. La implantación estándar cuesta 1.500 € en Go y Pro y está incluida en Pro Intelligence. Durante la demo revisamos tu operativa y concretamos la formación, el soporte y las integraciones. Pro Intelligence incluye 1.000 consultas de IA al mes; cada bloque adicional de 500 consultas cuesta 49 €/mes. Las ampliaciones de almacenamiento cuestan 39 € por 100 GB/mes. Los consumos variables y los desarrollos específicos se valoran según el proyecto. Precios sin IVA; el impuesto aplicable se muestra antes de pagar.</p>
+        <p class="mt-3">La contratación anual se factura por el año completo y aplica un 15 % de descuento exclusivamente a la suscripción. La implantación estándar cuesta 1.500 € + IVA en Go y Pro y está incluida en Pro Intelligence. Durante la demo revisamos tu operativa y concretamos la formación, el soporte y las integraciones. Pro Intelligence incluye 1.000 consultas de IA al mes; cada bloque adicional de 500 consultas cuesta 49 €/mes + IVA. Las ampliaciones de almacenamiento cuestan 39 € + IVA por 100 GB/mes. Los consumos variables y los desarrollos específicos se valoran según el proyecto. Precios + IVA; el impuesto aplicable se muestra antes de pagar.</p>
         <p class="mt-3">Para comparar presupuestos más allá de la cuota, consulta nuestra guía sobre <a href="/blog/cuanto-cuesta-software-transporte/" class="font-medium text-teal-700 underline underline-offset-4 hover:text-teal-800">cuánto cuesta un software de transporte</a>.</p>
       </div>
     </div>

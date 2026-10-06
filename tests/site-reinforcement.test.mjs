@@ -70,7 +70,7 @@ test('comparison reuses the existing plan fields and recommends only Pro Intelli
   assert.match(page, /<PlanComparison plans=\{plans\}/);
   assert.match(page, /id=\{planAnchor\(plan\.name\)\}/);
   assert.match(page, /commercePlans/);
-  assert.match(page, /Precios sin IVA/);
+  assert.match(page, /Precios \+ IVA/);
   assert.doesNotMatch(page, /name: 'Control'/);
   const component = read('src/components/PlanComparison.astro');
   assert.match(component, /plan\.features\.join/);
