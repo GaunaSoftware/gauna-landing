@@ -1,0 +1,19 @@
+.demo-page .demo-hero{background:#f3f5f2;color:#14231f}
+.demo-page .demo-hero h1{font-size:clamp(40px,5vw,68px);max-width:1000px;margin:24px auto;letter-spacing:-.055em}
+.demo-page .demo-hero h1 span{color:#123f34}
+.demo-page .demo-hero p{color:#64716c;margin:24px auto 0;font-size:18px;line-height:1.7}
+.demo-page .demo-hero .text-teal-300{color:#123f34}
+.demo-page #formulario{background:white}
+.demo-page #formulario h2{font-size:clamp(28px,3vw,42px);margin-top:16px}
+.demo-page #formulario p{margin-top:16px;line-height:1.7}
+.demo-page #formulario .text-sm{font-size:14px}
+.demo-page #formulario .text-xs{font-size:12px}
+.demo-page #formulario .bg-white{background:#f3f5f2;border-color:#dde4de;border-radius:24px;box-shadow:none}
+.demo-page input:not([type=checkbox]),.demo-page select,.demo-page textarea{background:white;color:#14231f}
+.demo-page .demo-product-image{width:100%;height:auto;margin-top:32px;border:1px solid #dde4de;border-radius:16px}
+.demo-page>section:last-child h2{font-size:clamp(32px,3.5vw,48px);margin-top:18px}
+.demo-page>section:last-child p{margin:24px auto 0}
+.demo-page a.btn-primary,.demo-page a.btn-accent,.demo-page button.btn-primary{background:#123f34;color:white;border-radius:999px}
+.demo-page #demo-form-error p{color:#7f1d1d}
+.demo-page #demo-form-success p{color:#134e4a}
+@media(max-width:720px){.demo-page .demo-hero h1{font-size:42px}.demo-page .demo-hero p{font-size:16px}.demo-page .demo-product-image{margin-bottom:12px}}

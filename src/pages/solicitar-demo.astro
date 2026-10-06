@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Turnstile from '@components/Turnstile.astro';
 import Honeypot from '@components/Honeypot.astro';
+import '@/styles/demo-page.css';
 
 export const prerender = false;
 
@@ -40,15 +41,16 @@ const schema = [
   canonical="/solicitar-demo/"
   ogImageAlt="Solicitar una demo de TransGest"
   schema={schema}
+  storefront="product"
 >
-  <section class="relative overflow-hidden bg-slate-950 text-white pt-16 md:pt-24 pb-16 md:pb-20">
-    <div class="absolute inset-0 bg-gradient-to-br from-teal-900/45 via-slate-950 to-slate-950 pointer-events-none"></div>
+ <div class="storefront demo-page">
+  <section class="demo-hero relative overflow-hidden pt-16 md:pt-24 pb-16 md:pb-20">
     <div class="container-g relative">
       <div class="max-w-4xl mx-auto text-center">
         <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">Demo personalizada</span>
         <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium mt-5 leading-[1.05]">
           Mira TransGest aplicado a<br class="hidden md:block" />
-          <span class="text-amber-400">la operativa de tu empresa.</span>
+          <span>la operativa de tu empresa.</span>
         </h1>
         <p class="text-lg md:text-xl text-slate-300 mt-6 max-w-3xl mx-auto leading-relaxed">
           Cuéntanos qué tipo de empresa tienes y te enseñamos cómo centralizar tráfico, documentación,
@@ -94,6 +96,7 @@ const schema = [
           </div>
 
           <p class="text-xs text-slate-500 mt-8">Sin compromiso. Tus datos se utilizan únicamente para gestionar la solicitud y contactarte sobre TransGest.</p>
+          <img class="demo-product-image" src="/media/transgest/dashboard.webp" width="1448" height="1086" alt="Dashboard de TransGest con datos de demostración" loading="lazy" decoding="async" />
         </div>
 
         <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
@@ -184,6 +187,7 @@ const schema = [
       </div>
     </div>
   </section>
+ </div>
 </BaseLayout>
 
 <script>

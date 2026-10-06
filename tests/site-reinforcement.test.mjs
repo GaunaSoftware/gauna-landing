@@ -20,7 +20,6 @@ const blobSha = (file) => {
 // Their behavior is covered by deca-delivery.test.mjs; all other boundaries remain.
 const unchangedFiles = {
   'src/pages/api/contact.ts': 'c8f8ac6ff6b3bc6637b868405bc28c3bd18e91dd',
-  'src/pages/solicitar-demo.astro': 'dfd983150bd682d7f1714a6346c21cd2fb355619',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
   // Approved resolution link from commit 22b4ba0 (2026-09-20); retain the exact-content guard.
   'src/content/blog/que-es-deca-transporte.md': 'be3b530867c968a01b79574cb7d2bdad678cc571',
@@ -67,10 +66,12 @@ test('comparison reuses the existing plan fields and recommends only Pro Intelli
   const expression = page.match(/const plans = (\[[\s\S]*?\n\]);/)?.[1];
   const plans = vm.runInNewContext(expression);
   assert.equal(JSON.stringify(plans.filter((plan) => plan.highlight).map((plan) => plan.name)), '["Pro Intelligence"]');
-  assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 5);
+  assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 4);
   assert.match(page, /<PlanComparison plans=\{plans\}/);
   assert.match(page, /id=\{planAnchor\(plan\.name\)\}/);
-  assert.doesNotMatch(page, /\d[\d.,]*\s*€|priceCurrency|"price"\s*:/);
+  assert.match(page, /commercePlans/);
+  assert.match(page, /Precios sin IVA/);
+  assert.doesNotMatch(page, /name: 'Control'/);
   const component = read('src/components/PlanComparison.astro');
   assert.match(component, /plan\.features\.join/);
   assert.match(component, /plan\.outcome/);
@@ -159,4 +160,13 @@ test('the measurement foundation does not install trackers or read forms/storage
   const source = read('src/lib/navigation-intent.mjs');
   assert.doesNotMatch(source, /fetch\s*\(|sendBeacon\s*\(|localStorage|sessionStorage|document\.cookie|new FormData|dataLayer|gtag\s*\(/);
   assert.doesNotMatch(read('src/layouts/BaseLayout.astro'), /googletagmanager\.com|google-analytics\.com/);
+});
+
+test('demo visual redesign preserves all SEO, form fields and submission logic',()=>{
+ const demo=read('src/pages/solicitar-demo.astro');
+ const sha=value=>createHash('sha256').update(value.replaceAll('\r\n','\n')).digest('hex');
+ assert.equal(sha(demo.match(/const pageTitle[\s\S]*?\n---/)[0]),'63331939402bf10729b72572e27c91b1ada64b60f0478d7badbd6492fa9a4209','seo');
+ assert.equal(sha(demo.match(/<form id="demo-form"[\s\S]*?<\/form>/)[0]),'8ed305c713e1a69c8965ef95f48fbab548a03216041181354bb5682cab829558','form');
+ assert.equal(sha(demo.match(/<script>[\s\S]*?<\/script>/)[0]),'d1dfa67195981aa9b0a013420aa7deaa1f4c1fdb08dcb8c48ec5f0a9336a464b','script');
+ assert.match(demo,/storefront="product"/);
 });

@@ -2,11 +2,12 @@ import assert from 'node:assert/strict';
 import {mkdir} from 'node:fs/promises';
 import {chromium} from 'playwright';
 import {productMedia} from '../src/config/product-media.mjs';
+import {commercePlans,money} from '../src/config/commerce.mjs';
 const base=process.env.STOREFRONT_TEST_URL||'http://127.0.0.1:4321';
 if(!/^http:\/\/127\.0\.0\.1:\d+$/.test(base))throw new Error('Browser fixtures run only on localhost.');
 await mkdir('test-output/storefront',{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||undefined});
-const routes=['/','/transgest/','/transgest/precios/','/planner/','/solicitar-demo/','/deca-2026/','/software-deca/','/blog/que-es-deca-transporte/'];
+const routes=['/','/transgest/','/transgest/precios/','/planner/','/solicitar-demo/','/deca-2026/','/software-deca/','/blog/que-es-deca-transporte/','/transgest/contratar/'];
 try{
  for(const width of [1440,390,360]){
   const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
@@ -14,19 +15,45 @@ try{
   const page=await context.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   for(const path of routes){
-   const response=await page.goto(base+path,{waitUntil:'networkidle'});
+   // Astro's development connection can stay active after the page is ready.
+   // Wait for the document and its rendered content instead of network silence.
+   const response=await page.goto(base+path,{waitUntil:'load'});
+   await page.locator('main h1').waitFor();
+   await page.evaluate(()=>document.fonts.ready);
    assert.equal(response.status(),200,path);
    assert.equal(await page.locator('main h1').count(),1,path);
    assert.equal(await page.locator('body>header').count(),1,path);
    assert.equal(await page.locator('link[rel=canonical]').getAttribute('href'),'https://gauna.es'+path,path);
-   assert.ok((await page.locator('meta[name=robots]').getAttribute('content')).startsWith('index, follow'),path);
+   assert.ok((await page.locator('meta[name=robots]').getAttribute('content')).startsWith(path==='/transgest/contratar/'?'noindex, nofollow':'index, follow'),path);
    assert.ok(await page.locator('a[href="https://transgest.app/"]').count(),path);
    const overflow=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:innerWidth,offenders:[...document.querySelectorAll('body *')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&(r.right>innerWidth+1||r.left< -1)&&getComputedStyle(el).position!=='fixed';}).slice(0,5).map(el=>el.className)}));
    assert.ok(overflow.page<=width+1,`${path} ${width}px: ${JSON.stringify(overflow)}`);
    if(path==='/transgest/precios/'){
     assert.equal(await page.locator('#comparativa table').count(),1);
-    assert.equal(await page.locator('[id^="plan-"]').count(),5);
-    assert.ok((await page.locator('#coste-transgest').textContent()).includes('Las tarifas se facilitan en una propuesta'));
+    assert.equal(await page.locator('[id^="plan-"]').count(),4);
+    assert.ok((await page.locator('#coste-transgest').textContent()).includes('La contratación anual se factura por el año completo'));
+    for(const plan of commercePlans){
+     const card=page.locator(`[id="plan-${plan.name.toLowerCase().replaceAll(' ','-')}"]`);
+     assert.ok((await card.textContent()).includes(money(plan.monthly)));
+     assert.ok((await card.textContent()).includes(money(plan.annual)));
+     assert.equal(await card.locator('a[data-plan]').getAttribute('href'),'/transgest/contratar/?plan='+plan.id);
+    }
+   }
+   if(path==='/solicitar-demo/'){
+    assert.equal(await page.locator('.demo-hero').count(),1);
+    assert.equal(await page.locator('#demo-form').count(),1);
+    assert.equal(await page.locator('.demo-product-image').count(),1);
+   }
+   if(path==='/transgest/contratar/'){
+    assert.equal(await page.locator('#initial-total').textContent(),money(16900+150000));
+    await page.locator('input[name=billing][value=annual]').check();
+    assert.equal(await page.locator('#initial-total').textContent(),money(172380+150000));
+    assert.equal(await page.locator('#renewal-total').textContent(),money(172380)+' /año');
+    assert.equal(await page.locator('#checkout-start').isDisabled(),true);
+    assert.equal(await page.locator('#checkout-unavailable').count(),1);
+    assert.equal(await page.locator('script[src*="js.stripe.com"]').count(),0,'No external payment script before configuration');
+    const denied=await context.request.get(base+'/api/stripe/status?session_id=cs_live_foreign');
+    assert.equal(denied.status(),403,'Unowned checkout does not disclose payment state');
    }
    if(path==='/transgest/'){
     for(const id of ['dashboard','pedidos','mesa-nueva','finanzas','informes']){
@@ -48,11 +75,11 @@ try{
     if(width===1440)await page.locator('#capacidades').screenshot({path:'test-output/storefront/capacidades-desktop.png'});
     await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
    }
-   if(width<720&&['/transgest/','/transgest/precios/','/planner/'].includes(path)){
+   if(width<720&&['/transgest/','/transgest/precios/','/planner/','/solicitar-demo/'].includes(path)){
     await page.locator('#product-menu-toggle').click();assert.equal(await page.locator('#product-menu-toggle').getAttribute('aria-expanded'),'true');
     await page.keyboard.press('Escape');assert.equal(await page.locator('#product-menu-toggle').getAttribute('aria-expanded'),'false');
    }
-   if(['/','/transgest/','/planner/','/transgest/precios/'].includes(path)){
+   if(['/','/transgest/','/planner/','/transgest/precios/','/solicitar-demo/','/transgest/contratar/'].includes(path)){
     await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
     await page.screenshot({path:`test-output/storefront/${path==='/'?'gauna':path.replaceAll('/','-')}-${width}.png`});
    }

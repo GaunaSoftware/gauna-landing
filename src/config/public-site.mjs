@@ -12,7 +12,7 @@ export const DECA_RESOURCES = [
 
 export const RESOURCE_HUB_PATHS = ['/deca-2026/', '/software-deca/'];
 export const PRODUCT_EVALUATION_PATHS = ['/transgest/', '/software-deca/'];
-export const PLAN_NAMES = ['Go', 'Control', 'Pro', 'Pro Intelligence', 'Planner'];
+export const PLAN_NAMES = ['Go', 'Pro', 'Pro Intelligence', 'Planner'];
 
 export function normalizePath(pathname) {
   const path = String(pathname || '/').split(/[?#]/, 1)[0];

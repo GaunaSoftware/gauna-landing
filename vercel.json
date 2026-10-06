@@ -58,6 +58,27 @@
           "value": "no-referrer"
         }
       ]
+    },
+    {
+      "headers": [
+        {
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://challenges.cloudflare.com https://api.airtable.com https://api.stripe.com https://checkout.stripe.com https://link.com https://*.link.com; frame-src https://challenges.cloudflare.com https://js.stripe.com https://*.js.stripe.com https://checkout.stripe.com https://hooks.stripe.com https://link.com https://*.link.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests",
+          "key": "Content-Security-Policy"
+        },
+        {
+          "value": "private, no-store, max-age=0",
+          "key": "Cache-Control"
+        },
+        {
+          "value": "no-referrer",
+          "key": "Referrer-Policy"
+        },
+        {
+          "value": "noindex, nofollow",
+          "key": "X-Robots-Tag"
+        }
+      ],
+      "source": "/transgest/contratar/(.*)"
     }
   ]
 }
