@@ -79,6 +79,13 @@
 .storefront .plan-summary h3{font-size:28px;margin:18px 0}
 .storefront .plan-summary p{font-size:14px;margin-bottom:20px}
 .storefront .plan-summary article .button{font-size:12px}
+.storefront .plan-summary article{display:flex;flex-direction:column}
+.storefront .plan-summary article .button{margin-top:auto}
+.storefront .summary-tariff{padding:0 0 18px;margin-bottom:22px;border-bottom:1px solid #dde4de}
+.storefront .summary-tariff p{margin-bottom:12px}
+.storefront .summary-tariff .summary-monthly{font-size:13px}
+.storefront .summary-monthly strong{font-size:36px;letter-spacing:-.04em;color:inherit}
+.storefront .plan-summary .summary-tariff .small-print{font-size:12px;text-align:left;margin:0}
 .storefront .faq-section details{border-bottom:1px solid var(--line);padding:18px 0}
 .storefront .faq-section summary{cursor:pointer;font-weight:600}
 .storefront .faq-section details p{margin-top:16px;max-width:850px}

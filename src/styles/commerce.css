@@ -14,6 +14,10 @@
 .commerce-pricing .tariff-details .tariff-tax{font-size:12px}
 .commerce-pricing #coste-transgest p{margin-top:16px}
 .commerce-pricing article>a{border-radius:999px}
+.commerce-pricing article>a[data-plan]{background:#123f34;color:#fff}
+.commerce-pricing article>a[data-plan]:hover{background:#0e2e25}
+.commerce-pricing article.bg-teal-900>a[data-plan]{background:#ffbd19;color:#101828}
+.commerce-pricing article.bg-teal-900>a[data-plan]:hover{background:#ffd064}
 .checkout-page{max-width:1240px;margin:auto;padding:64px 40px 96px}
 .checkout-page h1{font-size:clamp(40px,5vw,64px);margin:24px 0}
 .checkout-page .checkout-intro{max-width:720px;font-size:18px;margin-bottom:36px}
