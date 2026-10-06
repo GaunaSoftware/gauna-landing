@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import {commercePlans,commercePlan,money,paymentReady} from '../../../config/commerce.mjs';
+import {stripeCatalog} from '../../../config/stripe-catalog.mjs';
 import '@/styles/commerce.css';
 export const prerender=false;
 const env={...import.meta.env,...process.env};
@@ -29,7 +30,7 @@ Astro.response.headers.set('Cache-Control','private, no-store');
      <label><input id="checkout-consent" type="checkbox" name="consent" required />He revisado el plan, la periodicidad y los importes. <a href="/aviso-legal/">Información legal</a> · <a href="/politica-privacidad/">Privacidad</a>.</label>
      <button type="submit" id="checkout-start" class="button primary" disabled={!ready}>Continuar al pago</button>
     </form>
-    <p>Tras confirmar el pago, te contactaremos para preparar la implantación y los accesos. Puedes gestionar tu suscripción escribiendo a <a href="mailto:hola@gauna.es">hola@gauna.es</a>.</p>
+    <p>Tras confirmar el pago, te contactaremos para preparar la implantación y los accesos. <a href={stripeCatalog.billingPortal}>Gestionar facturas y suscripción ↗</a>. Si necesitas ayuda, escribe a <a href="mailto:hola@gauna.es">hola@gauna.es</a>.</p>
    </div>
    <div class="checkout-payment" aria-labelledby="payment-title"><h2 id="payment-title">Pago seguro</h2>
     {!ready && <div id="checkout-unavailable"><p>Estamos preparando la contratación online. Para contratar este plan, contacta con nuestro equipo.</p><a class="button primary" href="/contacto/">Hablar con Gauna ↗</a></div>}

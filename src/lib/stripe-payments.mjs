@@ -1,6 +1,7 @@
-import {createHmac, timingSafeEqual} from 'node:crypto';
+import {createHash,createHmac, timingSafeEqual} from 'node:crypto';
 import {commercePlan, stripePrice, integrationPrice, paymentReady, money} from '../config/commerce.mjs';
 import {stripeCatalog} from '../config/stripe-catalog.mjs';
+import {billingEvents,handleBillingEvent} from './stripe-billing.mjs';
 const json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'private, no-store','X-Robots-Tag':'noindex',...headers}});
 const signature=(value,key)=>createHmac('sha256',key).update(value).digest('base64url');
 const cookieName='tg_checkout';
@@ -22,6 +23,26 @@ function rateAllowed(request){
 }
 export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed}){
  const origin='https://gauna.es';
+ const fulfillCheckout=async id=>{
+  const session=await stripe.checkout.sessions.retrieve(id);
+  if(session.metadata?.source!=='gauna-website'||session.payment_status!=='paid'||session.status!=='complete')return false;
+  if(session.metadata.gauna_notified==='yes')return true;
+  const plan=commercePlan(session.metadata.plan),cycle=session.metadata.billing;
+  if(!plan||!['monthly','annual'].includes(cycle)||session.currency!=='eur')throw new Error('Unexpected paid session');
+  const subscription=await stripe.subscriptions.retrieve(session.subscription);
+  if(subscription.status!=='active')throw new Error('Subscription not active');
+  const lines=await stripe.checkout.sessions.listLineItems(session.id,{limit:10});
+  const expected=[stripePrice(env,plan.id,cycle),...(plan.integration?[integrationPrice(env)]:[])].sort();
+  if(lines.has_more||lines.data.some(item=>item.quantity!==1)||JSON.stringify(lines.data.map(item=>item.price?.id).sort())!==JSON.stringify(expected))throw new Error('Unexpected payment lines');
+  const email=session.customer_details?.email;
+  if(!email)throw new Error('Missing customer email');
+  const amount=money(session.amount_total);
+  const text=`Pago recibido de TransGest ${plan.name}.\nPeriodicidad: ${cycle==='annual'?'anual':'mensual'}.\nTotal pagado: ${amount}, impuestos incluidos según Stripe.\nReferencia: ${session.id}.\nContactaremos contigo para preparar la implantación y los accesos.\nConsulta tus facturas y gestiona tu suscripción: ${stripeCatalog.billingPortal}\nSi necesitas ayuda, escribe a hola@gauna.es.`;
+  await sendEmail({to:[email],subject:`Pago recibido · TransGest ${plan.name}`,text,idempotencyKey:`gauna-customer-${session.id}`});
+  await sendEmail({to:[env.CONTACT_TO_EMAIL||'hola@gauna.es'],subject:`Nueva contratación · TransGest ${plan.name}`,text:`${text}\nCliente: ${email}\nCliente Stripe: ${session.customer}\nSuscripción: ${session.subscription}\nRevisar y preparar la implantación.`,idempotencyKey:`gauna-merchant-${session.id}`});
+  await stripe.checkout.sessions.update(session.id,{metadata:{gauna_notified:'yes'}});
+  return true;
+ };
  return {
   async checkout(request){
    const requestOrigin=new URL(request.url).origin;
@@ -45,7 +66,8 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
     const metadata={source:'gauna-website',plan:plan.id,billing:cycle,tariff:'2026-09',consent:'plan-and-renewal-reviewed'};
     const session=await stripe.checkout.sessions.create({
      ui_mode:'embedded_page',mode:'subscription',line_items,locale:'es',
-     allowed_payment_method_types:['card'],automatic_tax:{enabled:true},
+     integration_identifier:'gauna-'+createHash('sha256').update(data.requestId).digest().subarray(0,8).reduce((text,byte)=>text+String.fromCharCode(97+byte%26),''),
+     automatic_tax:{enabled:true},
      billing_address_collection:'required',tax_id_collection:{enabled:true},
      return_url:origin+'/transgest/contratar/resultado/?session_id={CHECKOUT_SESSION_ID}',
      metadata,subscription_data:{metadata,billing_mode:{type:'flexible'}},
@@ -66,25 +88,23 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
    let event;
    try{event=stripe.webhooks.constructEvent(await request.text(),request.headers.get('stripe-signature')||'',env.STRIPE_WEBHOOK_SECRET);}
    catch{return json({error:'Firma no válida.'},400);}
-   if(!['checkout.session.completed','checkout.session.async_payment_succeeded'].includes(event.type))return json({received:true});
+   const mode=env.STRIPE_SECRET_KEY?.match(/^(?:sk|rk)_(live|test)_/)?.[1];
+   if((mode&&event.livemode!==(mode==='live'))||(event.account&&event.account!==(env.STRIPE_ACCOUNT_ID||stripeCatalog.account)))return json({error:'Evento de otra cuenta o entorno.'},400);
+   if(!['checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.async_payment_failed',...billingEvents].includes(event.type))return json({received:true});
    try{
-    const session=await stripe.checkout.sessions.retrieve(event.data.object.id);
-    if(session.metadata?.source!=='gauna-website'||session.payment_status!=='paid'||session.status!=='complete')return json({received:true});
-    if(session.metadata.gauna_notified==='yes')return json({received:true});
-    const plan=commercePlan(session.metadata.plan),cycle=session.metadata.billing;
-    if(!plan||!['monthly','annual'].includes(cycle)||session.currency!=='eur')throw new Error('Unexpected paid session');
-    const subscription=await stripe.subscriptions.retrieve(session.subscription);
-    if(subscription.status!=='active')throw new Error('Subscription not active');
-    const lines=await stripe.checkout.sessions.listLineItems(session.id,{limit:10});
-    const expected=[stripePrice(env,plan.id,cycle),...(plan.integration?[integrationPrice(env)]:[])].sort();
-    if(lines.data.some(item=>item.quantity!==1)||JSON.stringify(lines.data.map(item=>item.price?.id).sort())!==JSON.stringify(expected))throw new Error('Unexpected payment lines');
-    const email=session.customer_details?.email;
-    if(!email)throw new Error('Missing customer email');
-    const amount=money(session.amount_total);
-    const text=`Pago recibido de TransGest ${plan.name}.\nPeriodicidad: ${cycle==='annual'?'anual':'mensual'}.\nTotal pagado: ${amount}, impuestos incluidos según Stripe.\nReferencia: ${session.id}.\nContactaremos contigo para preparar la implantación y los accesos. Para gestionar tu suscripción, escribe a hola@gauna.es.`;
-    await sendEmail({to:[email],subject:`Pago recibido · TransGest ${plan.name}`,text,idempotencyKey:`gauna-customer-${session.id}`});
-    await sendEmail({to:[env.CONTACT_TO_EMAIL||'hola@gauna.es'],subject:`Nueva contratación · TransGest ${plan.name}`,text:`${text}\nCliente: ${email}\nCliente Stripe: ${session.customer}\nSuscripción: ${session.subscription}\nRevisar y preparar la implantación.`,idempotencyKey:`gauna-merchant-${session.id}`});
-    await stripe.checkout.sessions.update(session.id,{metadata:{gauna_notified:'yes'}});
+    if(billingEvents.includes(event.type))await handleBillingEvent({event,env,stripe,sendEmail,portalUrl:stripeCatalog.billingPortal,fulfillInitial:async subscription=>{
+     const sessions=await stripe.checkout.sessions.list({subscription,limit:10});
+     const session=sessions.data.find(s=>s.metadata?.source==='gauna-website'&&s.status==='complete'&&s.payment_status==='paid');
+     return session?fulfillCheckout(session.id):false;
+    }});
+    else if(event.type==='checkout.session.async_payment_failed'){
+     const session=await stripe.checkout.sessions.retrieve(event.data.object.id);
+     if(session.metadata?.source==='gauna-website'&&session.payment_status!=='paid'&&session.metadata.gauna_failure_notified!=='yes'){
+      await sendEmail({to:[env.CONTACT_TO_EMAIL||'hola@gauna.es'],subject:'Pago fallido · TransGest',text:`El pago de la sesión ${session.id} ha fallado. No preparar los accesos sin confirmar el cobro en Stripe.`,idempotencyKey:`gauna-checkout-failed-${session.id}`});
+      if(session.customer_details?.email)await sendEmail({to:[session.customer_details.email],subject:'Pago pendiente · TransGest',text:'Tu pago no se ha confirmado. Contacta con hola@gauna.es para revisar la contratación antes de repetirlo.',idempotencyKey:`gauna-checkout-failed-customer-${session.id}`});
+      await stripe.checkout.sessions.update(session.id,{metadata:{gauna_failure_notified:'yes'}});
+     }
+    }else await fulfillCheckout(event.data.object.id);
     return json({received:true});
    }catch(error){console.error('[Stripe webhook]',error?.type||error?.name||'Delivery error');return json({error:'No se ha confirmado la entrega.'},500);}
   },

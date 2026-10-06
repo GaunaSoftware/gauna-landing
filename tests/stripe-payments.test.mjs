@@ -46,6 +46,8 @@ test('all eight subscriptions use server-side price IDs; initial integration nev
   const {data,key}=f.calls[0];assert.equal(data.mode,'subscription');assert.equal(data.ui_mode,'embedded_page');assert.equal(data.automatic_tax.enabled,true);assert.equal(data.tax_id_collection.enabled,true);assert.equal(data.billing_address_collection,'required');
   assert.deepEqual(data.line_items,[{price:stripePrice(env,plan.id,billing),quantity:1},...(plan.integration?[{price:integrationPrice(env),quantity:1}]:[])]);
   assert.equal(data.subscription_data.billing_mode.type,'flexible');assert.equal(key.idempotencyKey,`gauna-${plan.id}-${billing}-${nonce}`);assert.ok(response.headers.get('set-cookie').includes('HttpOnly'));assert.ok(response.headers.get('set-cookie').includes('Secure'));
+  assert.equal(data.payment_method_types,undefined);assert.equal(data.allowed_payment_method_types,undefined);assert.match(data.integration_identifier,/^gauna-[a-z]{8}$/);
+  await f.post({plan:plan.id,billing});assert.equal(f.calls[1].data.integration_identifier,data.integration_identifier,'Retries preserve Checkout idempotency');
  }
 });
 test('invalid plans, amount injection, consent and cross-origin calls never create checkout',async()=>{

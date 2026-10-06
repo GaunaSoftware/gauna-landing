@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import {stripeCatalog} from '../../../config/stripe-catalog.mjs';
 import '@/styles/commerce.css';
 export const prerender=false;
 Astro.response.headers.set('Cache-Control','private, no-store');
 Astro.response.headers.set('Referrer-Policy','no-referrer');
 ---
 <BaseLayout title="Estado de tu contratación | TransGest" description="Consulta el estado del pago de TransGest." canonical="/transgest/contratar/resultado/" storefront="product" noindex>
- <div class="storefront"><section class="checkout-page"><p class="eyebrow">Tu contratación</p><h1 id="payment-heading">Comprobando el pago.</h1><p id="payment-status" role="status" class="checkout-intro">Espera un momento mientras verificamos la confirmación de Stripe.</p><a class="button primary" href="/transgest/precios/">Volver a los planes</a><p>Si necesitas ayuda, escribe a <a href="mailto:hola@gauna.es">hola@gauna.es</a>.</p></section></div>
+ <div class="storefront"><section class="checkout-page"><p class="eyebrow">Tu contratación</p><h1 id="payment-heading">Comprobando el pago.</h1><p id="payment-status" role="status" class="checkout-intro">Espera un momento mientras verificamos la confirmación de Stripe.</p><a class="button primary" href="/transgest/precios/">Volver a los planes</a><p><a href={stripeCatalog.billingPortal}>Gestionar facturas y suscripción ↗</a>.</p><p>Si necesitas ayuda, escribe a <a href="mailto:hola@gauna.es">hola@gauna.es</a>.</p></section></div>
 </BaseLayout>
 <script>
  const heading=document.getElementById('payment-heading'),message=document.getElementById('payment-status');

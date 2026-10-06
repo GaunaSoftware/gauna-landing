@@ -20,6 +20,22 @@ in Stripe metadata. Resend idempotency keys protect retries between delivery and
 the metadata update. Fulfillment is manual implantation and account preparation;
 this landing repository does not provision TransGest application accounts.
 
+Invoice events resolve the subscription through
+`invoice.parent.subscription_details.subscription`, then verify the website's
+server-written metadata, approved subscription price and customer ownership.
+Renewal receipts and failed-payment/authentication notices are persisted on the
+invoice after successful deliveries. An initial `invoice.paid` event uses the
+same Checkout receipt as `checkout.session.completed`, preventing duplicates
+regardless of event order. Subscription events retrieve current Stripe state,
+record a fingerprint and revision, and notify the merchant to review service
+continuity. Stale payloads never grant or restore application access. Events
+from another mode/account and unsigned events are rejected before processing.
+
+The hosted customer portal is configured for invoice history, billing details,
+payment method updates and cancellation at the end of the paid period. It uses
+Stripe's email authentication; the landing never accepts a customer ID from the
+browser to expose billing data. Its public login URL is in `stripe-catalog.mjs`.
+
 ## Activation
 
 1. Verify the merchant identity, charges capability, fiscal head office, relevant
@@ -27,11 +43,14 @@ this landing repository does not provision TransGest application accounts.
 2. Keep the public catalog IDs in `src/config/stripe-catalog.mjs` matched to the
    verified amounts. Prices are exclusive of VAT; no client amount is accepted.
 3. Create the endpoint `https://gauna.es/api/stripe/webhook` for
-   `checkout.session.completed` and `checkout.session.async_payment_succeeded`,
+   the Checkout completion/success/failure events and the invoice/subscription
+   lifecycle events listed in `src/lib/stripe-billing.mjs`,
    API version `2026-09-30.endive`. Store its signing secret in Vercel Production.
 4. Store the Stripe secret/restricted key and matching publishable key in Vercel
    Production. Restrict the key to current account read, tax settings read,
-   price read, Checkout Session read/write, tax registration read and subscription read.
+   price read, Checkout Session read/write, tax registration read, subscription
+   read/write, invoice read/write and customer read. Writes are limited to receipt
+   and lifecycle metadata; the application does not cancel subscriptions by API.
 5. Keep the existing Resend key. Set `STRIPE_PAYMENTS_ENABLED=true` only after
    configuration has been checked; redeploy and verify the form loads. The key,
    webhook and payment checks fail closed when missing or inconsistent.
@@ -42,8 +61,10 @@ this landing repository does not provision TransGest application accounts.
 ## Verification
 
 `node --test tests/*.test.mjs` includes signed webhook and malicious-price tests
-with no network or email. `tests/storefront-browser.mjs` checks the new demo,
-four plan cards, selection summaries and disabled payment state at three widths.
+with no network or email. It covers monthly/yearly renewal, authentication and
+payment failures, cancellation/pauses, out-of-order events and partial retries.
+`tests/storefront-browser.mjs` checks the new demo, separate product pages,
+selection summaries and disabled payment state at three widths.
 The pre-existing DeCA and email browser tests and production guide checks remain.
 
 Existing articles about comparing proposals are retained. The current offer page

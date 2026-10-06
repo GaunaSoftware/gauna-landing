@@ -1,6 +1,7 @@
 // Public Stripe catalog identifiers, verified against the approved tariff.
 // These are not credentials and cannot authorize a charge.
 export const stripeCatalog = {
+  "billingPortal": "https://billing.stripe.com/p/login/fZu5kD9nleh94zO1dpbZe00",
   "account": "acct_1UNTsrHon812eU3a",
   "integration": "price_1UNVChHon812eU3aJfTaE3jx",
   "prices": {
