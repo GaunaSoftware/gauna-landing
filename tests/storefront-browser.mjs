@@ -30,9 +30,9 @@ try{
    assert.ok(overflow.page<=width+1,`${path} ${width}px: ${JSON.stringify(overflow)}`);
    if(path==='/transgest/precios/'){
     assert.equal(await page.locator('#comparativa table').count(),1);
-    assert.equal(await page.locator('[id^="plan-"]').count(),4);
+    assert.equal(await page.locator('article[id^="plan-"]').count(),3);
     assert.ok((await page.locator('#coste-transgest').textContent()).includes('La contratación anual se factura por el año completo'));
-    for(const plan of commercePlans){
+    for(const plan of commercePlans.filter(plan=>plan.id!=='planner')){
      const card=page.locator(`[id="plan-${plan.name.toLowerCase().replaceAll(' ','-')}"]`);
      assert.ok((await card.textContent()).includes(money(plan.monthly)));
      assert.ok((await card.textContent()).includes(money(plan.annual)));
@@ -45,6 +45,7 @@ try{
     assert.equal(await page.locator('.demo-product-image').count(),1);
    }
    if(path==='/transgest/contratar/'){
+    await page.locator('#checkout-page[data-checkout-ready="true"]').waitFor();
     assert.equal(await page.locator('#initial-total').textContent(),money(16900+150000));
     await page.locator('input[name=billing][value=annual]').check();
     assert.equal(await page.locator('#initial-total').textContent(),money(172380+150000));
@@ -63,17 +64,41 @@ try{
     await page.locator('#step-0').focus();await page.keyboard.press('ArrowRight');
     assert.equal(await page.locator('#step-1').getAttribute('aria-selected'),'true');
     assert.ok((await page.locator('#flow-image-button img').getAttribute('src')).endsWith('/mesa-nueva.webp'));
-    for(const image of productMedia){
+    assert.equal(await page.locator('main [data-screen^="planner-"]').count(),0,'Planner screenshots belong to its own page');
+    for(const image of productMedia.filter(image=>!image.id.startsWith('planner-'))){
      const trigger=page.locator(`[data-screen="${image.id}"]`).first();
      await trigger.click();await page.locator('#viewer[open]').waitFor();
      const loaded=await page.locator('#viewer-body img').evaluate(async img=>{await img.decode();return {width:img.naturalWidth,height:img.naturalHeight,src:img.getAttribute('src')};});
      assert.deepEqual(loaded,{width:image.width,height:image.height,src:image.src});
+     if(image.id==='dashboard')assert.equal(await page.locator('#viewer-body img').evaluate(img=>getComputedStyle(img).clipPath),'inset(0px 0px 6%)');
      if(image.id==='deca-demo')await page.locator('#viewer').screenshot({path:`test-output/storefront/deca-${width}.png`});
      await page.keyboard.press('Escape');assert.equal(await page.locator('#viewer[open]').count(),0);
      assert.ok(await trigger.evaluate(el=>el===document.activeElement),'Focus returns after Escape');
     }
     if(width===1440)await page.locator('#capacidades').screenshot({path:'test-output/storefront/capacidades-desktop.png'});
     await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+   }
+   if(path==='/planner/'){
+    assert.equal(await page.locator('header a[aria-label="Planner, inicio"]').count(),1);
+    assert.equal(await page.locator('header a[href="/transgest/precios/"]').count(),0);
+    assert.equal(await page.locator('#precios a[href="/transgest/contratar/?plan=planner"]').count(),1);
+    assert.ok((await page.locator('#precios').textContent()).includes(money(65900)));
+    assert.ok((await page.locator('#precios').textContent()).includes(money(672180)));
+    for(const image of productMedia.filter(image=>image.id.startsWith('planner-'))){
+     await page.locator(`[data-screen="${image.id}"]`).click();await page.locator('#viewer[open]').waitFor();
+     await page.locator('#viewer-body img').evaluate(img=>img.decode());
+     assert.equal(await page.locator('#viewer-body img').evaluate(img=>getComputedStyle(img).clipPath),'inset(0px 0px 6%)');
+     await page.keyboard.press('Escape');
+    }
+   }
+   if(['/transgest/','/planner/','/transgest/precios/','/solicitar-demo/'].includes(path)){
+    const back=page.locator('header a[aria-label="Volver a Gauna"]');assert.ok(await back.isVisible());
+    await back.click();await page.waitForURL(base+'/');
+    assert.equal(await page.locator('[data-page="corporate"]').count(),1,'The product header returns to the Gauna home');
+    const next=path==='/planner/'?'/planner/':'/transgest/';
+    if(width<720)await page.locator('#mobile-menu-toggle').click();
+    await page.locator(`header nav:visible a[href="${next}"]`).click();await page.waitForURL(base+next);
+    await page.goto(base+path,{waitUntil:'load'});
    }
    if(width<720&&['/transgest/','/transgest/precios/','/planner/','/solicitar-demo/'].includes(path)){
     await page.locator('#product-menu-toggle').click();assert.equal(await page.locator('#product-menu-toggle').getAttribute('aria-expanded'),'true');

@@ -4,14 +4,16 @@ import LogoTransGest from './LogoTransGest.astro';
 import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
 
 const year = new Date().getFullYear();
-const {product = false} = Astro.props;
+const {product = false, planner = false} = Astro.props;
 
 const footerCols = [
   {
-    title: 'Producto',
+    title: 'Productos',
     links: [
       { href: '/transgest/', label: 'TransGest' },
-      { href: '/transgest/precios/', label: 'Planes' },
+      { href: '/transgest/precios/', label: 'Planes de TransGest' },
+      { href: '/planner/', label: 'Planner' },
+      { href: '/planner/#precios', label: 'Tarifa de Planner' },
       { href: '/software-deca/', label: 'Software DeCA' },
       { href: '/solicitar-demo/', label: 'Solicitar demo' },
       { href: CLIENT_PORTAL_URL, label: 'Acceso clientes', external: true },
@@ -28,6 +30,7 @@ const footerCols = [
   {
     title: 'Empresa',
     links: [
+      { href: '/', label: 'Gauna Software' },
       { href: '/sobre-nosotros/', label: 'Sobre nosotros' },
       { href: '/contacto/', label: 'Contacto' },
     ],
@@ -47,7 +50,7 @@ const footerCols = [
   <div class="container-g py-16">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
       <div class="md:col-span-4">
-        {product ? <a href="/transgest/" aria-label="TransGest, inicio"><LogoTransGest theme="dark" class="h-9 w-auto mb-4" /></a> : <Logo variant="compact" theme="dark" class="h-9 w-auto mb-4" />}
+        {planner ? <a href="/planner/" aria-label="Planner, inicio" class="block mb-4 text-3xl font-bold text-white">Planner</a> : product ? <a href="/transgest/" aria-label="TransGest, inicio"><LogoTransGest theme="dark" class="h-9 w-auto mb-4" /></a> : <Logo variant="compact" theme="dark" class="h-9 w-auto mb-4" />}
         <p class="text-sm text-slate-400 leading-relaxed max-w-xs">Gauna Software desarrolla tecnología especializada para empresas de transporte.</p>
 
         <div class="mt-6 space-y-2 text-sm">

@@ -66,7 +66,7 @@ test('comparison reuses the existing plan fields and recommends only Pro Intelli
   const expression = page.match(/const plans = (\[[\s\S]*?\n\]);/)?.[1];
   const plans = vm.runInNewContext(expression);
   assert.equal(JSON.stringify(plans.filter((plan) => plan.highlight).map((plan) => plan.name)), '["Pro Intelligence"]');
-  assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 4);
+  assert.equal(new Set(plans.map((plan) => planAnchor(plan.name))).size, 3);
   assert.match(page, /<PlanComparison plans=\{plans\}/);
   assert.match(page, /id=\{planAnchor\(plan\.name\)\}/);
   assert.match(page, /commercePlans/);

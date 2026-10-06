@@ -1,15 +1,27 @@
 ---
 import LogoTransGest from './LogoTransGest.astro';
 import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
+const {planner = false} = Astro.props;
+const home = planner ? '/planner/' : '/transgest/';
+const links = planner ? [
+  {href:'/planner/#funcionalidades',label:'Funcionalidades'},
+  {href:'/planner/#capturas',label:'Ver Planner'},
+  {href:'/planner/#precios',label:'Tarifa'},
+] : [
+  {href:'/transgest/#como-funciona',label:'Cómo funciona'},
+  {href:'/transgest/#capacidades',label:'Funcionalidades'},
+  {href:'/transgest/precios/',label:'Planes'},
+];
 ---
 <header class="sticky top-0 z-50 bg-white/95 border-b border-slate-100">
-  <div class="container-g flex items-center justify-between h-16 md:h-20 gap-4">
-    <a href="/transgest/" aria-label="TransGest, inicio"><LogoTransGest variant="compact" class="product-header-wordmark" /></a>
-    <nav class="hidden md:flex gap-6 text-sm text-slate-600" aria-label="TransGest">
-      <a href="/transgest/#como-funciona">Cómo funciona</a>
-      <a href="/transgest/#capacidades">Funcionalidades</a>
-      <a href="/transgest/precios/">Planes</a>
-      <a href="/planner/">Planner</a>
+  <div class="container-g flex items-center justify-between h-20 gap-4">
+    <div class="product-brand">
+      <a href={home} aria-label={planner?'Planner, inicio':'TransGest, inicio'}>{planner ? <span class="planner-wordmark">Planner</span> : <LogoTransGest variant="compact" class="product-header-wordmark" />}</a>
+      <a class="product-gauna-link" href="/" aria-label="Volver a Gauna">← Gauna</a>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm text-slate-600" aria-label={planner?'Planner':'TransGest'}>
+      {links.map(link=><a href={link.href}>{link.label}</a>)}
+      <a href="/#productos">Otros productos</a>
     </nav>
     <div class="flex items-center gap-3">
       <a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener" class="hidden lg:inline-flex text-sm text-slate-600">Acceso clientes</a>
@@ -21,10 +33,17 @@ import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
   </div>
   <nav id="product-mobile-menu" hidden class="container-g product-mobile-menu border-t border-slate-100 py-4" aria-label="Navegación móvil">
     <div class="flex flex-col gap-4 text-sm">
-      <a href="/">Gauna Software</a><a href="/transgest/#como-funciona">Cómo funciona</a><a href="/transgest/#capacidades">Funcionalidades</a><a href="/transgest/precios/">Planes</a><a href="/planner/">Planner</a><a href="/deca-2026/">Guía DeCA</a><a href="/blog/">Blog</a><a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener">Acceso clientes</a>
+      <a href="/">Gauna Software</a>{links.map(link=><a href={link.href}>{link.label}</a>)}<a href="/#productos">Otros productos</a><a href="/deca-2026/">Guía DeCA</a><a href="/blog/">Blog</a><a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener">Acceso clientes</a>
     </div>
   </nav>
 </header>
+<style>
+ .product-brand{display:flex;flex-direction:column;align-items:flex-start;gap:5px;flex-shrink:0}
+ .product-gauna-link{font-size:12px;line-height:1.2;color:#53675b}
+ .product-gauna-link:hover{text-decoration:underline;text-underline-offset:3px}
+ .planner-wordmark{font-size:30px;line-height:1;font-weight:700;letter-spacing:-.05em;color:#123f34}
+ @media(max-width:720px){.planner-wordmark{font-size:28px}}
+</style>
 <script>
   const button = document.getElementById('product-menu-toggle');
   const menu = document.getElementById('product-mobile-menu');

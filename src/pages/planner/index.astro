@@ -2,18 +2,32 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import StorefrontContent from '@components/StorefrontContent.astro';
 import {productMedia} from '../../config/product-media.mjs';
+import {commercePlan,money} from '../../config/commerce.mjs';
+const plan=commercePlan('planner');
+const schema=[
+ {'@context':'https://schema.org','@type':'SoftwareApplication','@id':'https://gauna.es/planner/#software',name:'Planner',applicationCategory:'BusinessApplication',operatingSystem:'Web',url:'https://gauna.es/planner/',description:'Gestión de almacén, stock, cargas, expediciones y muelles.',creator:{'@type':'Organization','@id':'https://gauna.es/#organization',name:'Gauna Software',url:'https://gauna.es/'}},
+ {'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Gauna',item:'https://gauna.es/'},{'@type':'ListItem',position:2,name:'Planner',item:'https://gauna.es/planner/'}]},
+];
 export const prerender = true;
 ---
-<BaseLayout title="TransGest Planner | Gestión de almacén, cargas y muelles" description="Organiza stock, preparación de mercancía, cargas y muelles con TransGest Planner, la solución de Gauna para operaciones logísticas." canonical="/planner/" storefront="product">
+<BaseLayout title="TransGest Planner | Gestión de almacén, cargas y muelles" description="Organiza stock, preparación de mercancía, cargas y muelles con TransGest Planner, la solución de Gauna para operaciones logísticas." canonical="/planner/" storefront="planner" schema={schema}>
   <div class="storefront" data-page="planner">
     <section class="section planner-page">
-      <p class="eyebrow">TransGest Planner · by Gauna</p>
+      <p class="eyebrow">Planner · Un producto de Gauna</p>
       <h1>El centro logístico.<br /><span class="muted-heading">Bien coordinado.</span></h1>
       <p class="lead">Organiza stock, preparación de mercancía, cargas y muelles. Recursos y estados sobre una misma operativa.</p>
+      <div class="actions"><a class="button" href="#precios">Ver tarifa ↗</a><a class="button secondary" href="/solicitar-demo/">Solicitar demo ↗</a></div>
+    </section>
+    <section class="section" id="funcionalidades"><div class="section-heading"><p class="eyebrow">Operativa de almacén</p><h2>De la reserva<br /><span class="muted-heading">a la expedición.</span></h2><p>Para fábricas, cargadores, distribuidores y almacenes cuya operativa gira alrededor de la mercancía.</p></div>
+      <div class="plan-summary"><article><h3>Stock y reservas</h3><p>Inventario y artículos, ubicaciones, existencias y mercancía reservada.</p></article><article><h3>Preparación y expedición</h3><p>Preparación de mercancía, cargas, documentación y expediciones.</p></article><article><h3>Cargas y muelles</h3><p>Planificación de muelles y coordinación con transportistas externos.</p></article></div>
+    </section>
+    <section class="section" id="capturas"><div class="section-heading"><p class="eyebrow">Así se ve Planner</p><h2>Tu almacén.<br /><span class="muted-heading">En una misma vista.</span></h2></div>
       <div class="planner-gallery">{productMedia.filter(screen => screen.id.startsWith('planner-')).map(screen => <button type="button" data-screen={screen.id} aria-label={`Ampliar ${screen.title}`}><img src={screen.src} width={screen.width} height={screen.height} alt={`${screen.title}, datos de demostración`} loading="lazy" decoding="async" /><h3>{screen.title} ↗</h3></button>)}</div>
       <p class="small-print">Capturas facilitadas con datos de demostración.</p>
-      <div class="actions"><a class="button" href="/solicitar-demo/">Solicitar demo ↗</a><a class="button secondary" href="/transgest/precios/#plan-planner">Ver Planner en los planes ↗</a></div>
+    </section>
+    <section class="section" id="precios"><div class="resource-callout"><p class="eyebrow">Tarifa de Planner · Usuarios ilimitados</p><h2>Una tarifa para<br />tu operativa de almacén.</h2><div class="planner-tariff"><p><strong>{money(plan.monthly)}</strong> /mes</p><p>{money(plan.annual)} /año · 15 % de ahorro</p><p>Implantación estándar: {money(plan.integration)} · pago único</p><p class="small-print">Precios sin IVA. El impuesto aplicable se muestra antes de pagar. La suscripción se renueva mensual o anualmente según tu elección.</p></div><div class="actions"><a class="button" href="/transgest/contratar/?plan=planner">Contratar Planner ↗</a><a class="button secondary" href="/solicitar-demo/">Solicitar demo ↗</a></div><p class="small-print">La configuración, formación e integraciones se concretan según tu operativa. Los desarrollos específicos se valoran aparte.</p></div>
     </section>
     <StorefrontContent kind="gallery" />
   </div>
 </BaseLayout>
+<style>.planner-tariff{margin:28px 0}.planner-tariff p{margin:16px 0}.planner-tariff strong{font-size:clamp(36px,5vw,54px);letter-spacing:-.04em}</style>

@@ -36,23 +36,18 @@ const transgestScreens = [
   { title: 'Informes de gestión', description: 'Indicadores y análisis visuales para convertir la actividad diaria en información útil.', position: '0% 66.667%' },
 ];
 
-const plannerScreens = [
-  { title: 'Almacén y stock', description: 'Referencias, ubicaciones, reservas y preparación de mercancía en una vista clara.', position: '100% 66.667%' },
-  { title: 'Planificación de cargas', description: 'Muelles, franjas horarias, cargas pendientes y coordinación de transportistas.', position: '0% 100%' },
-];
 
 const plans = [
   { name: 'Go', description: 'Para autónomos y pequeñas empresas que quieren empezar a digitalizar su operativa.', benefit: 'Ordena servicios, recursos y documentación sin añadir complejidad.', featured: false },
   { name: 'Pro', description: 'Para empresas que quieren una visión completa de lo que sucede en el negocio.', benefit: 'Añade profundidad de gestión, KPIs y análisis de rentabilidad.', featured: false },
   { name: 'Pro Intelligence', description: 'Para ganar velocidad y eficiencia con automatización e inteligencia artificial.', benefit: 'Reduce trabajo repetitivo y acelera procesos sobre la base completa de TransGest.', featured: true },
-  { name: 'Planner', description: 'Para almacenes logísticos y centros que necesitan coordinar cargas, entradas, salidas y recursos.', benefit: 'Gestiona cargas, muelles, capacidad, estados y trazabilidad de la operativa de almacén.', featured: false },
 ];
 
 const faqs = [
   { question: '¿Qué es TransGest?', answer: 'TransGest es un TMS para empresas de transporte que conecta la gestión de servicios, tráfico, recursos, documentación, facturación, comunicación y análisis en una misma plataforma.' },
   { question: '¿Para qué tipo de empresa está pensado?', answer: 'Desde autónomos y pequeñas empresas que quieren digitalizar su operativa hasta compañías que necesitan controlar tráfico, administración y rentabilidad con mayor profundidad. Las versiones avanzan según la madurez y el tipo de gestión, no según el número de usuarios o vehículos.' },
   { question: '¿Se cobra por usuario o por tamaño de flota?', answer: 'No. Las versiones no se definen por número de usuarios ni por número de vehículos. Algunas funciones de consumo variable pueden tener límites o consumos asociados según la solución contratada.' },
-  { question: '¿Qué es TransGest Planner?', answer: 'TransGest Planner es la versión orientada a almacenes y operaciones logísticas. Permite organizar cargas, entradas, salidas, recursos, muelles, capacidad y trazabilidad de la actividad del almacén.' },
+  { question: '¿Qué es TransGest Planner?', answer: 'Planner es un producto independiente de Gauna para almacenes y operaciones logísticas. Su presentación, funcionalidades y tarifa se encuentran en gauna.es/planner/.' },
   { question: '¿Incluye app para conductores y portal de clientes?', answer: 'TransGest conecta la operativa de oficina con conductores y clientes mediante accesos específicos, reduciendo llamadas, correos y documentos enviados por canales separados.' },
   { question: '¿Cómo se realiza la implantación?', answer: 'Primero revisamos cómo trabaja la empresa. Después configuramos la plataforma, preparamos los datos necesarios, formamos al equipo y acompañamos la puesta en marcha sobre casos reales.' },
 ];
@@ -104,15 +99,12 @@ const seoSchema = [
   </section>
   <span id="recorrido"></span>
   <StorefrontContent kind="product" />
-  <section class="section" id="planner"><div class="section-heading"><p class="eyebrow">TransGest Planner</p><h2>El centro logístico.<br /><span class="muted-heading">Bien coordinado.</span></h2><p>Stock, preparación de mercancía, cargas y muelles. Las operaciones del almacén, conectadas.</p></div>
-   <div class="planner-gallery">{productMedia.filter(screen => screen.id.startsWith('planner-')).map(screen => <button type="button" data-screen={screen.id} aria-label={'Ampliar ' + screen.title}><img src={screen.src} width={screen.width} height={screen.height} alt={screen.title + ', datos de demostración'} loading="lazy" decoding="async" /><h3>{screen.title} ↗</h3></button>)}</div>
-   <div class="actions"><a class="button secondary" href="/planner/">Conocer Planner ↗</a></div>
-  </section>
-  <section class="section" id="planes"><div class="section-heading"><p class="eyebrow">Versiones TransGest</p><h2>Empieza con lo que necesitas.<br /><span class="muted-heading">Evoluciona cuando tu empresa lo pida.</span></h2><p>Cinco versiones según la profundidad y el tipo de gestión, no por número de usuarios ni por tamaño de flota.</p></div>
+  <p id="planner" class="wrap small-print">Para la operativa de almacén, descubre <a href="/planner/">Planner, otro producto de Gauna ↗</a>.</p>
+  <section class="section" id="planes"><div class="section-heading"><p class="eyebrow">Versiones TransGest</p><h2>Empieza con lo que necesitas.<br /><span class="muted-heading">Evoluciona cuando tu empresa lo pida.</span></h2><p>Tres versiones según la profundidad de gestión, no por número de usuarios ni por tamaño de flota.</p></div>
    <div class="plan-summary">{plans.map(plan => <article class:list={[plan.featured && 'featured']}><p class="eyebrow">{plan.featured ? 'Recomendado' : 'TransGest'}</p><h3>{plan.name}</h3><p>{plan.description}</p><p>{plan.benefit}</p><a class:list={['button',plan.featured && 'light']} href="/transgest/precios/">Comparar versiones ↗</a></article>)}</div>
    <p class="small-print">Los consumos variables de documentos, OCR, IA, integraciones o desarrollos específicos pueden depender de la solución contratada.</p>
   </section>
-  <section class="section"><div class="resource-callout"><p class="eyebrow">Documentación digital</p><h2>El expediente acompaña al servicio.</h2><p>Información estructurada y documentos vinculados al transporte. Consulta el ejemplo DeCA de demostración o amplía la información sobre sus requisitos.</p><div class="actions"><button type="button" class="button" data-screen="deca-demo">Ampliar DeCA de demostración ↗</button><a class="button secondary" href="/software-deca/">Software DeCA ↗</a><a class="button secondary" href="/deca-2026/">Guía DeCA 2026 ↗</a></div></div></section>
+  <section class="section"><div class="resource-callout"><p class="eyebrow">Documentación digital</p><h2>DeCA, al ritmo de la normativa.</h2><p>Adaptamos la documentación digital a los cambios normativos del transporte. El DeCA se conecta con cada servicio para mantener la información organizada y trazable. Consulta el ejemplo de demostración y la guía sobre sus requisitos.</p><div class="actions"><button type="button" class="button" data-screen="deca-demo">Ampliar DeCA de demostración ↗</button><a class="button secondary" href="/software-deca/">Software DeCA ↗</a><a class="button secondary" href="/deca-2026/">Guía DeCA 2026 ↗</a></div></div></section>
   <section id="faq" class="section faq-section"><div class="section-heading"><p class="eyebrow">Preguntas frecuentes</p><h2>Lo esencial antes de ver una demo.</h2></div>{faqs.map(faq => <details><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</section>
   <section class="section quiet-cta"><p class="eyebrow">Tu operativa, con contexto</p><h2>Descubre cómo encajaría<br />TransGest en tu empresa.</h2><div class="actions"><a href="/solicitar-demo/" class="button">Solicitar una demo ↗</a><a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener" class="button secondary">Acceso clientes ↗</a></div></section>
  </div>

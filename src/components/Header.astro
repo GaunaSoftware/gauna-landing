@@ -5,14 +5,15 @@ import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
 
 const navLinks = [
   { href: '/transgest/', label: 'TransGest' },
+  { href: '/planner/', label: 'Planner' },
   { href: '/deca-2026/', label: 'Guía DeCA' },
   { href: '/blog/', label: 'Blog' },
   { href: '/sobre-nosotros/', label: 'Sobre nosotros' },
 ];
-const {product = false} = Astro.props;
+const {product = false, planner = false} = Astro.props;
 ---
 
-{product ? <ProductHeader /> : <>
+{product ? <ProductHeader planner={planner} /> : <>
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
   <div class="container-g flex items-center justify-between h-16 md:h-20 gap-6">
     <a href="/" class="flex items-center flex-shrink-0" aria-label="Inicio">

@@ -15,7 +15,7 @@ export interface Props {
   ogImageAlt?: string;
   canonical?: string;
   noindex?: boolean;
-  storefront?: 'corporate' | 'product';
+  storefront?: 'corporate' | 'product' | 'planner';
   ogType?: 'website' | 'article';
   schema?: Record<string, unknown> | Record<string, unknown>[];
 }
@@ -168,7 +168,7 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
 
   <body class:list={['min-h-screen flex flex-col', storefront && 'storefront-page']}>
     <a class="sr-only focus:not-sr-only focus:p-4" href="#contenido">Saltar al contenido</a>
-    <Header product={storefront === 'product'} />
+    <Header product={storefront === 'product' || storefront === 'planner'} planner={storefront === 'planner'} />
 
     <main id="contenido" class="flex-1">
       <slot />
@@ -190,7 +190,7 @@ const structuredData = [...baseSchema, ...enrichedCustomSchema];
       </svg>
     </a>
 
-    <Footer product={storefront === 'product'} />
+    <Footer product={storefront === 'product' || storefront === 'planner'} planner={storefront === 'planner'} />
   </body>
 </html>
 

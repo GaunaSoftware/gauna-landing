@@ -21,4 +21,5 @@ export function installCheckout(doc){
   }catch(err){error.textContent=err.message||'No se ha podido abrir el pago. Inténtalo de nuevo.';error.hidden=false;}
   finally{busy=false;button.disabled=false;form.querySelectorAll('input').forEach(input=>input.disabled=false);}
  });
+ root.dataset.checkoutReady='true';
 }

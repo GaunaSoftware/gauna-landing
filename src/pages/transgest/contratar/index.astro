@@ -11,9 +11,9 @@ const billing=Astro.url.searchParams.get('billing')==='annual'?'annual':'monthly
 const ready=paymentReady(env,plan);
 Astro.response.headers.set('Cache-Control','private, no-store');
 ---
-<BaseLayout title={`Contratar TransGest ${plan.name} | Gauna`} description="Elige tu periodicidad y revisa el importe antes de contratar TransGest." canonical="/transgest/contratar/" storefront="product" noindex>
+<BaseLayout title={`Contratar TransGest ${plan.name} | Gauna`} description="Elige tu periodicidad y revisa el importe antes de contratar TransGest." canonical="/transgest/contratar/" storefront={plan.id==='planner'?'planner':'product'} noindex>
  <div class="storefront"><section class="checkout-page" id="checkout-page" data-plan={plan.id} data-key={ready?env.PUBLIC_STRIPE_PUBLISHABLE_KEY:''} data-monthly={plan.monthly} data-annual={plan.annual} data-integration={plan.integration}>
-  <a href="/transgest/precios/">← Volver a los planes</a>
+  <a href={plan.id==='planner'?'/planner/#precios':'/transgest/precios/'}>← {plan.id==='planner'?'Volver a Planner':'Volver a los planes'}</a>
   <p class="eyebrow">Planes y contratación</p><h1>Tu TransGest {plan.name}.</h1>
   <p class="checkout-intro">Elige cómo quieres pagar. Revisa la suscripción, la implantación y los impuestos antes de confirmar.</p>
   <div class="checkout-grid">
