@@ -59,11 +59,14 @@ jobs:
           test "$READY" = 1
           node tests/deca-browser.mjs
           node tests/deca-email-browser.mjs
+          node tests/storefront-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: deca-browser-proof
-          path: test-output/deca/
+          path: |
+            test-output/deca/
+            test-output/storefront/
           retention-days: 7
   public-download:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

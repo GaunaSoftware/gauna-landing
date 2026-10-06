@@ -1,25 +1,18 @@
 ---
-/**
- * Logo de TransGest.
- *
- * USA EL PNG actualmente en /public/logo-transgest.png
- *
- * Para sustituir por el SVG cuando lo tengas:
- * 1. Guarda el archivo en /public/logo-transgest.svg
- * 2. Cambia abajo "logo-transgest.png" por "logo-transgest.svg"
- * 3. Listo, escala perfecto.
- */
+// Approved wordmark: clean vector paths, with a separate T icon for favicons.
 
 export interface Props {
   variant?: 'full' | 'compact' | 'hero';
   class?: string;
   alt?: string;
+  theme?: 'light' | 'dark';
 }
 
 const {
   variant = 'full',
   class: className = '',
   alt = 'TransGest',
+  theme = 'light',
 } = Astro.props;
 
 const sizes = {
@@ -30,7 +23,7 @@ const sizes = {
 ---
 
 <img
-  src="/logo-transgest.png"
+  src={`/media/transgest/transgest-wordmark-v3${theme === 'dark' ? '-white' : ''}.svg`}
   alt={alt}
   class:list={[sizes[variant], 'w-auto', className]}
   loading="eager"

@@ -1,0 +1,40 @@
+---
+import LogoTransGest from './LogoTransGest.astro';
+import { CLIENT_PORTAL_URL } from '../config/public-site.mjs';
+---
+<header class="sticky top-0 z-50 bg-white/95 border-b border-slate-100">
+  <div class="container-g flex items-center justify-between h-16 md:h-20 gap-4">
+    <a href="/transgest/" aria-label="TransGest, inicio"><LogoTransGest variant="compact" class="product-header-wordmark" /></a>
+    <nav class="hidden md:flex gap-6 text-sm text-slate-600" aria-label="TransGest">
+      <a href="/transgest/#como-funciona">Cómo funciona</a>
+      <a href="/transgest/#capacidades">Funcionalidades</a>
+      <a href="/transgest/precios/">Planes</a>
+      <a href="/planner/">Planner</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener" class="hidden lg:inline-flex text-sm text-slate-600">Acceso clientes</a>
+      <a href="/solicitar-demo/" class="btn-primary text-xs md:text-sm py-2 px-4 rounded-full">Solicitar demo</a>
+      <button type="button" id="product-menu-toggle" class="md:hidden p-2" aria-label="Abrir menú" aria-expanded="false" aria-controls="product-mobile-menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="product-mobile-menu" hidden class="container-g product-mobile-menu border-t border-slate-100 py-4" aria-label="Navegación móvil">
+    <div class="flex flex-col gap-4 text-sm">
+      <a href="/">Gauna Software</a><a href="/transgest/#como-funciona">Cómo funciona</a><a href="/transgest/#capacidades">Funcionalidades</a><a href="/transgest/precios/">Planes</a><a href="/planner/">Planner</a><a href="/deca-2026/">Guía DeCA</a><a href="/blog/">Blog</a><a href={CLIENT_PORTAL_URL} target="_blank" rel="noopener">Acceso clientes</a>
+    </div>
+  </nav>
+</header>
+<script>
+  const button = document.getElementById('product-menu-toggle');
+  const menu = document.getElementById('product-mobile-menu');
+  const close = () => {if (menu) menu.hidden = true; button?.setAttribute('aria-expanded', 'false'); button?.setAttribute('aria-label', 'Abrir menú');};
+  button?.addEventListener('click', () => {
+    if (!menu) return;
+    menu.hidden = !menu.hidden;
+    button.setAttribute('aria-expanded', String(!menu.hidden));
+    button.setAttribute('aria-label', menu.hidden ? 'Abrir menú' : 'Cerrar menú');
+  });
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', close));
+  document.addEventListener('keydown', event => {if (event.key === 'Escape' && menu && !menu.hidden) {close(); button?.focus();}});
+</script>

@@ -1,0 +1,18 @@
+---
+import corporate from './storefront/corporate.html?raw';
+import product from './storefront/product.html?raw';
+const {kind = 'product'} = Astro.props;
+---
+<Fragment set:html={kind === 'corporate' ? corporate : kind === 'product' ? product : ''} />
+<dialog id="viewer" class="viewer" aria-labelledby="viewer-title">
+  <div class="dialog-head">
+    <div><p class="eyebrow">Vista del producto · datos de demostración</p><h2 id="viewer-title"></h2></div>
+    <button type="button" class="icon-button" data-close aria-label="Cerrar ampliación">×</button>
+  </div>
+  <div id="viewer-body"></div>
+  <p id="viewer-caption" class="muted"></p>
+</dialog>
+<script>
+  import {installProductGallery} from '../lib/product-gallery.mjs';
+  installProductGallery(document, window);
+</script>

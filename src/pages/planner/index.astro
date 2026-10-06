@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import StorefrontContent from '@components/StorefrontContent.astro';
+import {productMedia} from '../../config/product-media.mjs';
+export const prerender = true;
+---
+<BaseLayout title="TransGest Planner | Gestión de almacén, cargas y muelles" description="Organiza stock, preparación de mercancía, cargas y muelles con TransGest Planner, la solución de Gauna para operaciones logísticas." canonical="/planner/" storefront="product">
+  <div class="storefront" data-page="planner">
+    <section class="section planner-page">
+      <p class="eyebrow">TransGest Planner · by Gauna</p>
+      <h1>El centro logístico.<br /><span class="muted-heading">Bien coordinado.</span></h1>
+      <p class="lead">Organiza stock, preparación de mercancía, cargas y muelles. Recursos y estados sobre una misma operativa.</p>
+      <div class="planner-gallery">{productMedia.filter(screen => screen.id.startsWith('planner-')).map(screen => <button type="button" data-screen={screen.id} aria-label={`Ampliar ${screen.title}`}><img src={screen.src} width={screen.width} height={screen.height} alt={`${screen.title}, datos de demostración`} loading="lazy" decoding="async" /><h3>{screen.title} ↗</h3></button>)}</div>
+      <p class="small-print">Capturas facilitadas con datos de demostración.</p>
+      <div class="actions"><a class="button" href="/solicitar-demo/">Solicitar demo ↗</a><a class="button secondary" href="/transgest/precios/#plan-planner">Ver Planner en los planes ↗</a></div>
+    </section>
+    <StorefrontContent kind="gallery" />
+  </div>
+</BaseLayout>
