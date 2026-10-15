@@ -23,7 +23,7 @@ function fixture(options={}){
  return{handler,post,webhook,calls,emails};
 }
 test('approved tariff has four plans, exact annual discount and one-time implantation',()=>{
- assert.deepEqual(commercePlans.map(p=>[p.id,p.monthly,p.annual,p.integration]),[['go',16900,172380,150000],['pro',34900,355980,150000],['intelligence',47900,488580,0],['planner',65900,672180,150000]]);
+ assert.deepEqual(commercePlans.map(p=>[p.id,p.monthly,p.annual,p.integration]),[['go',25900,264180,150000],['pro',53900,549780,150000],['intelligence',95900,978180,0],['planner',65900,672180,150000]]);
  for(const p of commercePlans)assert.equal(p.annual,p.monthly*12*.85);
  assert.equal(paymentReady({...env,PUBLIC_STRIPE_PUBLISHABLE_KEY:'pk_test_wrong_mode'},commercePlans[0]),false);
 });

@@ -46,10 +46,10 @@ try{
    }
    if(path==='/transgest/contratar/'){
     await page.locator('#checkout-page[data-checkout-ready="true"]').waitFor();
-    assert.equal(await page.locator('#initial-total').textContent(),money(16900+150000));
+    assert.equal(await page.locator('#initial-total').textContent(),money(25900+150000));
     await page.locator('input[name=billing][value=annual]').check();
-    assert.equal(await page.locator('#initial-total').textContent(),money(172380+150000));
-    assert.equal(await page.locator('#renewal-total').textContent(),money(172380)+' /año');
+    assert.equal(await page.locator('#initial-total').textContent(),money(264180+150000));
+    assert.equal(await page.locator('#renewal-total').textContent(),money(264180)+' /año');
     assert.equal(await page.locator('#checkout-start').isDisabled(),true);
     assert.equal(await page.locator('#checkout-unavailable').count(),1);
     assert.equal(await page.locator('script[src*="js.stripe.com"]').count(),0,'No external payment script before configuration');

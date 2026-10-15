@@ -1,10 +1,10 @@
-// Approved September 2026 tariff PDF and Planner tariff supplied on 6 October.
+// TransGest tariff PDF supplied on 15 October 2026; Planner tariff supplied on 6 October.
 // Integer EUR cents, excluding VAT. Annual discount applies to the subscription only.
 import {stripeCatalog} from './stripe-catalog.mjs';
 export const commercePlans = [
- {id:'go',name:'Go',monthly:16900,annual:172380,integration:150000},
- {id:'pro',name:'Pro',monthly:34900,annual:355980,integration:150000},
- {id:'intelligence',name:'Pro Intelligence',monthly:47900,annual:488580,integration:0},
+ {id:'go',name:'Go',monthly:25900,annual:264180,integration:150000},
+ {id:'pro',name:'Pro',monthly:53900,annual:549780,integration:150000},
+ {id:'intelligence',name:'Pro Intelligence',monthly:95900,annual:978180,integration:0},
  {id:'planner',name:'Planner',monthly:65900,annual:672180,integration:150000},
 ];
 export const money = cents => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2}).format(cents/100);
