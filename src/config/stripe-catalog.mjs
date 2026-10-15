@@ -1,4 +1,4 @@
-// Public Stripe catalog identifiers, verified against the approved tariff.
+// Public Stripe catalog identifiers, verified against the tariff received 15 October 2026.
 // These are not credentials and cannot authorize a charge.
 export const stripeCatalog = {
   "billingPortal": "https://billing.stripe.com/p/login/fZu5kD9nleh94zO1dpbZe00",
@@ -6,16 +6,16 @@ export const stripeCatalog = {
   "integration": "price_1UNVChHon812eU3aJfTaE3jx",
   "prices": {
     "go": {
-      "monthly": "price_1UNVB3Hon812eU3aySqh2sfx",
-      "annual": "price_1UNVDMHon812eU3aYJvw5UnF"
+      "monthly": "price_1UQt4DHon812eU3aJZzXyPTk",
+      "annual": "price_1UQt5DHon812eU3amUmWB0PN"
     },
     "pro": {
-      "monthly": "price_1UNVCCHon812eU3a9ZasYMI3",
-      "annual": "price_1UNVDWHon812eU3aFRlzhtXv"
+      "monthly": "price_1UQt7cHon812eU3aoSxiHMGt",
+      "annual": "price_1UQtA7Hon812eU3aZqYzRaxY"
     },
     "intelligence": {
-      "monthly": "price_1UNVCNHon812eU3aEYkLnZXd",
-      "annual": "price_1UNVDeHon812eU3aidQOKIHr"
+      "monthly": "price_1UQtBIHon812eU3aMFM8lXGb",
+      "annual": "price_1UQtBrHon812eU3azzWjdwjY"
     },
     "planner": {
       "monthly": "price_1UNVCYHon812eU3avMqtWcpO",
