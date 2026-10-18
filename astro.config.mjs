@@ -10,6 +10,17 @@ const normalizePage = (page) => {
   return page.endsWith('/') ? page : `${page}/`;
 };
 
+// Dates reflect the editorial changes, never the time of the build.
+const seoUpdatedPages = new Set([
+  '/blog/que-es-deca-transporte/',
+  '/blog/deca-para-transportistas-y-flotas/',
+  '/blog/deca-ecmr-diferencias/',
+  '/blog/que-es-un-tms-transporte/',
+  '/blog/digitalizacion-albaranes-transporte/',
+  '/software-deca/',
+  '/deca-2026/',
+]);
+
 const excludedFromSitemap = new Set([
   `${SITE}/beta-tester/`,
   `${SITE}/transgest/demo/`,
@@ -33,10 +44,13 @@ export default defineConfig({
       customPages: [
         `${SITE}/solicitar-demo/`,
         `${SITE}/contacto/`,
+        `${SITE}/software-deca/`,
+        `${SITE}/deca-2026/`,
       ],
 
       serialize: (item) => {
         const url = normalizePage(item.url);
+        if (seoUpdatedPages.has(new URL(url).pathname)) item.lastmod = '2026-10-18';
 
         if (url === `${SITE}/`) {
           item.changefreq = 'weekly';

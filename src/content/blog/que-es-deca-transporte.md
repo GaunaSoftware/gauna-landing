@@ -1,8 +1,8 @@
 ---
-title: "Qué es el DeCA en transporte y cuándo será obligatorio en 2026"
-description: "Explicamos qué es el DeCA en transporte, cuándo será obligatorio, a quién afecta y qué exige la normativa para el documento electrónico de control."
+title: "Qué es el DeCA en transporte y qué exige desde octubre de 2026"
+description: "Qué es el DeCA en transporte, a quién afecta desde el 5 de octubre de 2026 y qué revisar en datos, PDF, QR, acceso del conductor y conservación."
 pubDate: 2026-09-14
-updatedDate: 2026-09-19
+updatedDate: 2026-10-18
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "transporte", "documento de control", "2026"]
@@ -10,7 +10,7 @@ tags: ["DeCA", "transporte", "documento de control", "2026"]
 
 El **DeCA en transporte** es el **documento electrónico de control administrativo** utilizado para documentar determinados transportes por carretera cuando el documento de control resulte exigible.
 
-La fecha que todo el sector debe tener marcada es el **5 de octubre de 2026**. A partir de ese día, el documento de control administrativo exigible para el transporte público de mercancías por carretera deberá ser necesariamente digital.
+Desde el **5 de octubre de 2026**, el documento de control administrativo exigible para el transporte público de mercancías por carretera **debe ser digital**. La prioridad actual es comprobar que cada servicio sujeto a esta obligación dispone del documento y que el conductor puede presentarlo durante el transporte.
 
 En esta guía resumimos qué significa esto en la práctica. Si buscas el detalle completo de la norma, puedes consultar nuestra [guía DeCA 2026](/deca-2026/). Si estás valorando una herramienta para gestionarlo, consulta también el enfoque de [software DeCA para transporte](/software-deca/).
 
@@ -20,9 +20,9 @@ La Resolución de 5 de junio de 2026 utiliza la denominación **documento electr
 
 Durante los últimos años también se ha utilizado de forma habitual la expresión **Documento de Control Digital (DCD)** para hablar de la digitalización del documento. Si una empresa busca hoy información sobre DCD o DeCA, en la práctica está intentando resolver el mismo cambio regulatorio, pero la denominación utilizada en la Resolución de 2026 es DeCA.
 
-## ¿Cuándo será obligatorio el DeCA?
+## ¿Desde cuándo es obligatorio el DeCA digital?
 
-La obligación entra en vigor el **5 de octubre de 2026** para el documento de control administrativo exigible en el transporte público de mercancías por carretera.
+La obligación de utilizar el formato digital es aplicable desde el **5 de octubre de 2026** al documento de control administrativo exigible en el transporte público de mercancías por carretera.
 
 No significa que absolutamente cualquier desplazamiento de mercancía necesite un DeCA. La obligación debe analizarse dentro del ámbito en el que la normativa exige documento de control.
 
@@ -82,18 +82,18 @@ Los ficheros deben conservarse durante **al menos un año**.
 
 Esto es distinto de la disponibilidad de la URL utilizada durante el transporte. La Resolución permite desactivar la descarga asociada a esa URL una vez hayan transcurrido siete días naturales desde la finalización del servicio, siempre que se mantenga la conservación exigida del documento.
 
-## ¿Qué debería preparar una empresa antes de octubre?
+## ¿Qué debe revisar una empresa desde octubre de 2026?
 
-No conviene esperar al último momento. La parte difícil no será generar visualmente un PDF, sino conseguir que los datos de la operativa estén bien estructurados y que el flujo funcione para tráfico, administración y conductores.
+Cumplir en el día a día requiere datos de la operativa bien estructurados y un flujo que funcione para tráfico, administración y conductores. Generar visualmente un PDF es solo una parte del proceso.
 
-Antes de octubre recomendamos revisar:
+En los servicios actuales recomendamos revisar:
 
 - Qué sistema contiene hoy los datos de cada servicio.
 - Quién introduce cargador, transportista, origen, destino y mercancía.
 - Cómo se vinculan vehículos y matrículas.
 - Cómo recibe el conductor la documentación.
-- Cómo se conservarán los documentos y sus versiones.
-- Cómo se actuaría ante una modificación durante el viaje.
+- Cómo se conservan los documentos y sus versiones.
+- Cómo se actúa ante una modificación durante el viaje.
 
 Como prueba de organización, toma un servicio habitual y recorre el proceso completo: localiza sus datos, comprueba cómo llega la documentación al conductor y trata de recuperar el expediente después. Así podrás detectar si dependes de volver a escribir información o de buscarla entre correos y carpetas. Esta prueba complementa, pero no sustituye, la revisión de los requisitos normativos.
 

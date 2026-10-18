@@ -2,7 +2,7 @@
 title: "Qué es un TMS de transporte y para qué sirve"
 description: "Qué es un TMS de transporte, qué funciones debería incluir y cuándo compensa implantar un software de gestión en una empresa de transporte."
 pubDate: 2026-09-14
-updatedDate: 2026-10-02
+updatedDate: 2026-10-18
 author: "Gauna"
 category: "gestion"
 tags: ["TMS", "software transporte", "gestión transporte", "empresas de transporte"]
@@ -50,6 +50,8 @@ Esto también facilita localizar documentación, vencimientos, mantenimientos y 
 Cada transporte genera documentación: órdenes de carga, cartas de porte, CMR, justificantes, albaranes y, según el tipo de operación, documentación específica.
 
 Un buen TMS no debería tratar esos documentos como archivos aislados. Lo útil es que queden vinculados al servicio correspondiente.
+
+Un ejemplo concreto es la [digitalización de albaranes en transporte](/blog/digitalizacion-albaranes-transporte/): relacionar el justificante de entrega con el servicio, validarlo y dejarlo disponible para administración permite reducir búsquedas y documentos pendientes antes de facturar.
 
 La digitalización del transporte hace esta parte cada vez más importante. En España, por ejemplo, el **DeCA** introduce nuevos requisitos para el documento electrónico de control administrativo. Puedes consultar nuestra [guía DeCA 2026](/deca-2026/) para ver el cambio con detalle.
 

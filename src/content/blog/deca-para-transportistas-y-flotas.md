@@ -1,19 +1,20 @@
 ---
-title: "DeCA para transportistas y flotas: qué preparar antes de octubre de 2026"
-description: "Checklist DeCA para transportistas, autónomos y flotas: datos, conductores, QR, archivo, cambios durante el viaje y preparación antes del 5 de octubre de 2026."
+title: "DeCA para transportistas y flotas: checklist de cumplimiento actual"
+description: "Checklist DeCA para transportistas y flotas desde octubre de 2026: revisa datos, PDF, QR, acceso del conductor, archivo y cambios durante el viaje."
 pubDate: 2026-09-14
+updatedDate: 2026-10-18
 author: "Gauna"
 category: "gestion"
 tags: ["DeCA", "transportistas", "flotas", "empresas de transporte"]
 ---
 
-Para una empresa de transporte, prepararse para el DeCA no consiste únicamente en elegir un programa que genere un PDF. El cambio afecta a **cómo se capturan los datos del servicio, cómo recibe el conductor la documentación y cómo se conserva el histórico**.
+Para una empresa de transporte, gestionar el DeCA exige revisar **cómo se capturan los datos del servicio, cómo recibe el conductor la documentación y cómo se conserva el histórico**. Elegir un programa que genere un PDF es solo una parte del trabajo.
 
-La fecha clave es el **5 de octubre de 2026**: desde entonces, el documento de control administrativo exigible para el transporte público de mercancías por carretera deberá ser necesariamente digital.
+Desde el **5 de octubre de 2026**, el documento de control administrativo exigible para el transporte público de mercancías por carretera **debe ser digital**. Este checklist ayuda a revisar la operativa actual de los servicios sujetos a esa obligación.
 
 ## Lo primero: saber de dónde salen hoy tus datos
 
-Antes de implantar nada, conviene identificar dónde vive actualmente la información del transporte.
+La revisión empieza por identificar dónde vive actualmente la información del transporte.
 
 En muchas empresas está repartida entre:
 
@@ -47,7 +48,7 @@ Si estos datos ya existen dentro del servicio, generar el documento debería ser
 
 ## Qué cambia para tráfico
 
-El departamento de tráfico debería poder generar o preparar el DeCA antes del inicio efectivo del transporte sin volver a introducir manualmente toda la información.
+El departamento de tráfico debe disponer de un procedimiento para generar el DeCA antes del inicio efectivo del transporte. Reutilizar los datos del servicio evita volver a introducir manualmente toda la información.
 
 También necesita un procedimiento claro para los casos en los que cambie un dato durante el viaje.
 
@@ -75,7 +76,7 @@ Lo importante es que, ante una inspección, el fichero pueda obtenerse de forma 
 
 ## Qué cambia para administración
 
-Administración necesitará asegurarse de que los documentos quedan correctamente archivados y recuperables.
+Administración debe asegurarse de que los documentos quedan correctamente archivados y recuperables.
 
 La normativa exige una **conservación mínima de un año**.
 
@@ -97,9 +98,9 @@ Con pocos servicios, puede ser suficiente una solución sencilla que mantenga bi
 
 Por eso, en flotas medianas, la integración con la operativa diaria suele ser más importante que la simple generación del documento.
 
-## Checklist para septiembre de 2026
+## Checklist de cumplimiento desde octubre de 2026
 
-Antes del 5 de octubre conviene poder responder "sí" a estas preguntas:
+Revisa un servicio actual y comprueba estas preguntas, también cuando cambien el vehículo, el conductor o el sistema documental:
 
 1. ¿Sabemos qué servicios necesitan documento de control?
 2. ¿Tenemos estructurados los datos obligatorios?
@@ -120,7 +121,9 @@ El mejor escenario es aquel en el que tráfico crea el servicio una sola vez y e
 
 Eso es lo que buscamos con [TransGest](/transgest/): conectar la documentación con la operación real del transporte.
 
-Puedes consultar cómo estamos planteando la parte específica en [Software DeCA para transporte](/software-deca/) y revisar la normativa completa en la [guía DeCA 2026](/deca-2026/).
+Puedes consultar el enfoque y alcance en [Software DeCA para transporte](/software-deca/) y revisar la normativa completa en la [guía DeCA 2026](/deca-2026/).
+
+Para organizar también los justificantes de entrega, consulta cómo abordar la [digitalización de albaranes en transporte](/blog/digitalizacion-albaranes-transporte/). Vincularlos al servicio ayuda a cerrar el expediente, aunque no sustituye los requisitos específicos del DeCA.
 
 ## Fuente oficial
 

@@ -6,7 +6,7 @@ export const prerender = false;
 
 const pageTitle = 'Software DeCA para transporte | TransGest';
 const pageDescription =
-  'Software DeCA para empresas de transporte. Centraliza los datos del servicio y prepara la gestión del Documento electrónico de Control Administrativo con TransGest.';
+  'Software DeCA para empresas de transporte. Revisa con TransGest los datos, el flujo documental y los requisitos vigentes desde octubre de 2026.';
 
 const requiredFlow = [
   {
@@ -19,7 +19,7 @@ const requiredFlow = [
   },
   {
     title: 'Acceso en carretera',
-    text: 'El flujo definitivo debe permitir que el conductor disponga del documento o de su QR antes de iniciar el transporte.',
+    text: 'El flujo debe permitir que el conductor disponga del documento o de su QR antes de iniciar el transporte.',
   },
 ];
 
@@ -69,6 +69,7 @@ const schema = [
     url: 'https://gauna.es/software-deca/',
     name: pageTitle,
     description: pageDescription,
+    dateModified: '2026-10-18',
     inLanguage: 'es-ES',
     isPartOf: { '@id': 'https://gauna.es/#website' },
     about: [
@@ -115,18 +116,19 @@ const schema = [
           <span class="w-2 h-2 rounded-full bg-teal-600"></span>
           TransGest + DeCA
         </div>
+        <p class="mt-4 text-sm text-slate-500">Actualizado el <time datetime="2026-10-18">18 de octubre de 2026</time></p>
 
         <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05] mt-7">
           Software DeCA para integrar el documento de control en la operativa del transporte.
         </h1>
 
         <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
-          Centraliza los datos del servicio y prepara la gestión del Documento electrónico de Control Administrativo
+          Centraliza los datos del servicio y revisa la gestión del Documento electrónico de Control Administrativo
           desde el mismo entorno donde trabajas con clientes, vehículos, conductores y documentación.
         </p>
 
         <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#demo-deca" class="btn-primary">Quiero verlo en mi empresa</a>
+          <a href="#demo-deca" class="btn-primary">Revisar mi operativa DeCA</a>
           <a href="/deca-2026/" class="btn-secondary">Consultar guía DeCA 2026</a>
         </div>
       </div>
@@ -201,7 +203,7 @@ const schema = [
           </h2>
           <p class="text-lg text-slate-600 mt-6 leading-relaxed">
             La Resolución de 5 de junio de 2026 define requisitos concretos que la capa específica de DeCA debe cubrir.
-            Estos son los cuatro bloques que estamos teniendo en cuenta en la integración.
+            Estos son cuatro bloques que debes comprobar en el sistema y en tu operativa actual.
           </p>
         </div>
 
@@ -250,8 +252,8 @@ const schema = [
         <DeCALeadForm
           id="software-deca-form"
           eyebrow="DeCA + TransGest"
-          headline="¿Quieres ver cómo encajaría el DeCA en tu operativa?"
-          subheadline="Cuéntanos qué tipo de empresa tienes y te mostramos cómo estamos planteando la gestión de datos y documentación DeCA dentro de TransGest."
+          headline="¿Necesitas revisar tu cumplimiento DeCA actual?"
+          subheadline="Revisamos tus datos y tu flujo documental, los requisitos vigentes y el alcance disponible de TransGest para tu caso."
           buttonLabel="Solicitar información"
           source="LEAD SOFTWARE DECA"
         />
@@ -286,10 +288,10 @@ const schema = [
     <div class="container-g">
       <div class="max-w-3xl mx-auto text-center">
         <span class="inline-block text-xs font-medium tracking-widest uppercase text-teal-300">5 de octubre de 2026</span>
-        <h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">Prepara los datos y el proceso antes de que el DeCA sea obligatorio.</h2>
-        <p class="text-lg text-slate-300 mt-6 leading-relaxed">Si ya trabajas con TransGest o estás valorando implantarlo, podemos revisar contigo cómo encaja el nuevo flujo documental en tu operativa.</p>
+        <h2 class="text-display-sm md:text-display-md font-medium mt-4 leading-tight">Revisa tus datos y tu proceso para cumplir la obligación vigente del DeCA.</h2>
+        <p class="text-lg text-slate-300 mt-6 leading-relaxed">Desde el 5 de octubre de 2026, el documento de control exigible debe ser digital. Revisamos contigo el flujo documental y el alcance de TransGest que necesita tu operativa.</p>
         <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#demo-deca" class="btn-accent">Hablar sobre DeCA</a>
+          <a href="#demo-deca" class="btn-accent">Revisar los requisitos actuales</a>
           <a href="/deca-2026/" class="btn-secondary bg-slate-800 text-white border-slate-700 hover:bg-slate-700">Leer la guía</a>
         </div>
       </div>

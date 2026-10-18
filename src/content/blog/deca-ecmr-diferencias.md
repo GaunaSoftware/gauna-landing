@@ -2,6 +2,7 @@
 title: "DeCA y eCMR: diferencias y cuándo pueden convivir en el mismo documento"
 description: "DeCA y eCMR no son exactamente lo mismo. Explicamos qué función cumple cada uno y cuándo un formato de carta de porte puede servir también como DeCA."
 pubDate: 2026-09-14
+updatedDate: 2026-10-18
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "eCMR", "carta de porte", "transporte"]
@@ -17,7 +18,7 @@ El DeCA es el **documento electrónico de control administrativo** regulado para
 
 Su función es administrativa: acreditar los datos del transporte y permitir su comprobación por los órganos de inspección.
 
-Desde el **5 de octubre de 2026**, el documento de control administrativo exigible para el transporte público de mercancías por carretera deberá ser necesariamente digital.
+Desde el **5 de octubre de 2026**, el documento de control administrativo exigible para el transporte público de mercancías por carretera debe ser digital.
 
 Si necesitas una explicación completa, consulta nuestra [guía DeCA 2026](/deca-2026/).
 
@@ -79,6 +80,8 @@ Desde un punto de vista operativo, DeCA y eCMR comparten mucha información:
 Lo eficiente es que el TMS o sistema de gestión mantenga esos datos una sola vez y genere después el documento que corresponda a cada servicio.
 
 Ese es el enfoque con el que estamos diseñando [TransGest](/transgest/): que el expediente del transporte concentre los datos y la documentación en lugar de obligar a repetir la información en herramientas separadas.
+
+Para aplicar este criterio a los justificantes de entrega, consulta la [guía de digitalización de albaranes en transporte](/blog/digitalizacion-albaranes-transporte/), con un flujo de validación, archivo y facturación.
 
 ## DeCA, eCMR y eFTI
 

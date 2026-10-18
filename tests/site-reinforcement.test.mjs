@@ -21,10 +21,9 @@ const blobSha = (file) => {
 const unchangedFiles = {
   'src/pages/api/contact.ts': 'c8f8ac6ff6b3bc6637b868405bc28c3bd18e91dd',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
-  // Approved resolution link from commit 22b4ba0 (2026-09-20); retain the exact-content guard.
-  'src/content/blog/que-es-deca-transporte.md': 'be3b530867c968a01b79574cb7d2bdad678cc571',
-  // Approved TMS buyer guidance and update date (2026-10-02); retain the exact-content guard.
-  'src/content/blog/que-es-un-tms-transporte.md': '88612c4b772242b9066506a624024e7375708157',
+  // Approved post-deadline DeCA update and contextual albaranes link (2026-10-18).
+  'src/content/blog/que-es-deca-transporte.md': '2478d6fc883236484e72cac79bf0b2d6ccb17888',
+  'src/content/blog/que-es-un-tms-transporte.md': '74eabeece27434e8d54021b8b5df61d96e8ecbba',
   'public/robots.txt': '24d9060d39b0a79c18a063ebd69240bda8f0ade9',
 };
 for (const [file, sha] of Object.entries(unchangedFiles)) {

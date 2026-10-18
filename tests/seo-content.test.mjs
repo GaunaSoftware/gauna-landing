@@ -10,17 +10,17 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 const read = (path) => readFileSync(resolve(root, path), 'utf8');
 const articles = {
   'que-es-deca-transporte': {
-    title: 'Qué es el DeCA en transporte y cuándo será obligatorio en 2026',
-    description: 'Explicamos qué es el DeCA en transporte, cuándo será obligatorio, a quién afecta y qué exige la normativa para el documento electrónico de control.',
+    title: 'Qué es el DeCA en transporte y qué exige desde octubre de 2026',
+    description: 'Qué es el DeCA en transporte, a quién afecta desde el 5 de octubre de 2026 y qué revisar en datos, PDF, QR, acceso del conductor y conservación.',
     category: 'normativa',
-    updatedDate: '2026-09-19',
+    updatedDate: '2026-10-18',
     requiredLinks: ['/deca-2026/', '/software-deca/', '/blog/deca-ecmr-diferencias/', '/blog/que-es-un-tms-transporte/'],
   },
   'que-es-un-tms-transporte': {
     title: 'Qué es un TMS de transporte y para qué sirve',
     description: 'Qué es un TMS de transporte, qué funciones debería incluir y cuándo compensa implantar un software de gestión en una empresa de transporte.',
     category: 'gestion',
-    updatedDate: '2026-10-02',
+    updatedDate: '2026-10-18',
     requiredLinks: ['/deca-2026/', '/transgest/', '/transgest/precios/', '/solicitar-demo/', '/blog/cuanto-cuesta-software-transporte/'],
   },
 };
@@ -91,7 +91,7 @@ test('only the two requested articles receive the new footer', () => {
 test('DeCA retains its legal source and existing section headings', () => {
   const source = read('src/content/blog/que-es-deca-transporte.md');
   assert.ok(source.includes('https://www.boe.es/buscar/act.php?id=BOE-A-2026-12784'));
-  for (const heading of ['¿Qué significa DeCA?', '¿Cuándo será obligatorio el DeCA?', '¿A quién afecta?', 'Un DeCA no es simplemente un PDF guardado en una carpeta', '¿Cómo se presenta el DeCA en carretera?', '¿Cuánto tiempo debe conservarse?', '¿Qué debería preparar una empresa antes de octubre?', 'Fuentes oficiales']) {
+  for (const heading of ['¿Qué significa DeCA?', '¿Desde cuándo es obligatorio el DeCA digital?', '¿A quién afecta?', 'Un DeCA no es simplemente un PDF guardado en una carpeta', '¿Cómo se presenta el DeCA en carretera?', '¿Cuánto tiempo debe conservarse?', '¿Qué debe revisar una empresa desde octubre de 2026?', 'Fuentes oficiales']) {
     assert.ok(source.includes(`## ${heading}\n`), `Missing original heading: ${heading}`);
   }
   assert.ok(source.includes('no sustituye el análisis jurídico de un caso concreto'));
