@@ -4,7 +4,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import Stripe from 'stripe';
 import {paymentHandlers} from '../src/lib/stripe-payments.mjs';
-import {commercePlans,stripePrice,integrationPrice,paymentReady} from '../src/config/commerce.mjs';
+import {commercePlans,stripePrice,paymentReady,vatBreakdown} from '../src/config/commerce.mjs';
 import {stripeCatalog} from '../src/config/stripe-catalog.mjs';
 import {readFileSync} from 'node:fs';
 const secret='whsec_TEST_ONLY_NOT_A_REAL_KEY';
@@ -15,17 +15,22 @@ function fixture(options={}){
  const calls=[],emails=[];let session;
  const stripe={accounts:{retrieve:async()=>({id:options.wrongAccount?'acct_other':stripeCatalog.account,charges_enabled:!options.disabledAccount})},tax:{settings:{retrieve:async()=>({status:options.pendingTax?'pending':'active',head_office:{address:{country:'ES'}}})},registrations:{list:async()=>({data:options.missingRegistration?[]:[{country:'ES'}]})}},prices:{retrieve:async id=>{
   for(const plan of commercePlans)for(const cycle of ['monthly','annual'])if(stripePrice(env,plan.id,cycle)===id)return{id,active:true,currency:'eur',tax_behavior:'exclusive',unit_amount:plan[cycle]+(options.wrongAmount?1:0),recurring:{interval:cycle==='annual'?'year':'month',interval_count:1}};
-  return{id,active:true,currency:'eur',unit_amount:150000,tax_behavior:'exclusive',recurring:null};
+  throw new Error('Unexpected non-subscription price: '+id);
  }},checkout:{sessions:{create:async(data,key)=>{calls.push({data,key});session={id:'cs_live_fixture',client_secret:'test_checkout_client_secret',metadata:data.metadata,status:'complete',payment_status:'paid',currency:'eur',customer_details:{email:'test@example.com'},customer:'cus_fixture',subscription:'sub_fixture',amount_total:201949,line_items:data.line_items};return session;},retrieve:async()=>({...session,...options.session}),listLineItems:async()=>({data:session.line_items.map(x=>({quantity:1,price:{id:x.price}}))}),update:async(id,data)=>{session.metadata={...session.metadata,...data.metadata};}}},subscriptions:{retrieve:async()=>({status:options.inactive?'incomplete':'active'})},webhooks:signer.webhooks};
  const handler=paymentHandlers({env:options.noConfig?{}:env,stripe,allowRequest:()=>!options.limited,sendEmail:async message=>{if(options.emailFailure)throw new Error('Mock delivery failure');emails.push(message);}});
  const post=(data={})=>handler.checkout(new Request('https://gauna.es/api/stripe/checkout',{method:'POST',headers:{Origin:options.crossOrigin?'https://other.example':'https://gauna.es','Content-Type':'application/json'},body:JSON.stringify({plan:'go',billing:'monthly',consent:true,requestId:nonce,...data})}));
  const webhook=async(type='checkout.session.completed',signed=true)=>{const payload=JSON.stringify({id:'evt_fixture',type,livemode:true,data:{object:{id:session.id}}});const header=signed?signer.webhooks.generateTestHeaderString({payload,secret}):'invalid';return handler.webhook(new Request('https://gauna.es/api/stripe/webhook',{method:'POST',headers:{'stripe-signature':header},body:payload}));};
  return{handler,post,webhook,calls,emails};
 }
-test('approved tariff has four plans, exact annual discount and one-time implantation',()=>{
- assert.deepEqual(commercePlans.map(p=>[p.id,p.monthly,p.annual,p.integration]),[['go',25900,264180,150000],['pro',53900,549780,150000],['intelligence',95900,978180,0],['planner',65900,672180,150000]]);
+test('approved tariff has four plans, exact annual discount and included implantation in all plans',()=>{
+ assert.deepEqual(commercePlans.map(p=>[p.id,p.monthly,p.annual,p.integration]),[['go',25900,264180,0],['pro',53900,549780,0],['intelligence',95900,978180,0],['planner',65900,672180,0]]);
  for(const p of commercePlans)assert.equal(p.annual,p.monthly*12*.85);
  assert.equal(paymentReady({...env,PUBLIC_STRIPE_PUBLISHABLE_KEY:'pk_test_wrong_mode'},commercePlans[0]),false);
+});
+
+test('VAT preview separates net, rounded tax and payable total for every plan and cycle',()=>{
+ const expected=[[25900,5439,31339],[264180,55478,319658],[53900,11319,65219],[549780,115454,665234],[95900,20139,116039],[978180,205418,1183598],[65900,13839,79739],[672180,141158,813338]];
+ for(const [net,vat,total] of expected)assert.deepEqual(vatBreakdown(net),{net,vat,total});
 });
 test('Stripe content policy is confined to checkout and keeps the original protections',()=>{
  const rules=JSON.parse(readFileSync(new URL('../vercel.json',import.meta.url),'utf8')).headers;
@@ -40,11 +45,11 @@ test('Stripe content policy is confined to checkout and keeps the original prote
  for(const domain of ['https://js.stripe.com','https://checkout.stripe.com','https://hooks.stripe.com'])assert.ok(policy.includes(domain));
  assert.ok(checkout.headers.some(h=>h.key==='X-Robots-Tag'&&h.value.includes('noindex')));
 });
-test('all eight subscriptions use server-side price IDs; initial integration never recurs',async()=>{
+test('all eight subscriptions charge only the subscription with no implantation item',async()=>{
  for(const plan of commercePlans)for(const billing of ['monthly','annual']){
   const f=fixture(),response=await f.post({plan:plan.id,billing});assert.equal(response.status,200);
   const {data,key}=f.calls[0];assert.equal(data.mode,'subscription');assert.equal(data.ui_mode,'embedded_page');assert.equal(data.automatic_tax.enabled,true);assert.equal(data.tax_id_collection.enabled,true);assert.equal(data.billing_address_collection,'required');
-  assert.deepEqual(data.line_items,[{price:stripePrice(env,plan.id,billing),quantity:1},...(plan.integration?[{price:integrationPrice(env),quantity:1}]:[])]);
+  assert.deepEqual(data.line_items,[{price:stripePrice(env,plan.id,billing),quantity:1}]);
   assert.equal(data.subscription_data.billing_mode.type,'flexible');assert.equal(key.idempotencyKey,`gauna-${plan.id}-${billing}-${nonce}`);assert.ok(response.headers.get('set-cookie').includes('HttpOnly'));assert.ok(response.headers.get('set-cookie').includes('Secure'));
   assert.equal(data.payment_method_types,undefined);assert.equal(data.allowed_payment_method_types,undefined);assert.match(data.integration_identifier,/^gauna-[a-z]{8}$/);
   await f.post({plan:plan.id,billing});assert.equal(f.calls[1].data.integration_identifier,data.integration_identifier,'Retries preserve Checkout idempotency');

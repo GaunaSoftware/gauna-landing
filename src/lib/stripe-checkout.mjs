@@ -1,11 +1,11 @@
 import {loadStripe} from '@stripe/stripe-js/pure';
+import {money,vatBreakdown} from '../config/commerce.mjs';
 export function installCheckout(doc){
  const root=doc.getElementById('checkout-page');if(!root)return;
  const form=doc.getElementById('checkout-selection'),button=doc.getElementById('checkout-start'),error=doc.getElementById('checkout-error');
- const format=cents=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(cents/100);
  const cycle=()=>form.querySelector('input[name=billing]:checked').value;
  let checkout=null,busy=false,nonce=crypto.randomUUID();
- const refresh=()=>{const c=cycle(),amount=Number(root.dataset[c]);doc.getElementById('subscription-total').textContent=format(amount);doc.getElementById('initial-total').textContent=format(amount+Number(root.dataset.integration));doc.getElementById('renewal-total').textContent=format(amount)+' /'+(c==='annual'?'año':'mes');checkout?.destroy();checkout=null;nonce=crypto.randomUUID();doc.getElementById('checkout-prompt')?.removeAttribute('hidden');};
+ const refresh=()=>{const c=cycle(),amounts=vatBreakdown(Number(root.dataset[c]));doc.getElementById('subscription-total').textContent=money(amounts.net);doc.getElementById('vat-total').textContent=money(amounts.vat);doc.getElementById('payment-total').textContent=money(amounts.total)+' /'+(c==='annual'?'año':'mes');checkout?.destroy();checkout=null;nonce=crypto.randomUUID();doc.getElementById('checkout-prompt')?.removeAttribute('hidden');};
  form.querySelectorAll('input[name=billing]').forEach(input=>input.addEventListener('change',refresh));
  form.addEventListener('submit',async event=>{
   event.preventDefault();if(busy||!form.reportValidity()||!root.dataset.key)return;

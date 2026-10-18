@@ -46,10 +46,26 @@ try{
    }
    if(path==='/transgest/contratar/'){
     await page.locator('#checkout-page[data-checkout-ready="true"]').waitFor();
-    assert.equal(await page.locator('#initial-total').textContent(),money(25900+150000));
-    await page.locator('input[name=billing][value=annual]').check();
-    assert.equal(await page.locator('#initial-total').textContent(),money(264180+150000));
-    assert.equal(await page.locator('#renewal-total').textContent(),money(264180)+' /año');
+    const expected={go:[[25900,5439,31339],[264180,55478,319658]],pro:[[53900,11319,65219],[549780,115454,665234]],intelligence:[[95900,20139,116039],[978180,205418,1183598]],planner:[[65900,13839,79739],[672180,141158,813338]]};
+    for(const [plan,totals] of Object.entries(expected)){
+     // Verify annual server render as well as both client-side switches.
+     await page.goto(base+path+'?plan='+plan+'&billing=annual',{waitUntil:'load'});
+     await page.locator('#checkout-page[data-checkout-ready="true"]').waitFor();
+     assert.equal(await page.locator('#payment-total').textContent(),money(totals[1][2])+' /año');
+     for(const [index,cycle] of ['monthly','annual','monthly'].entries()){
+      const [net,vat,total]=totals[cycle==='annual'?1:0];
+      await page.locator(`input[name=billing][value=${cycle}]`).check();
+      assert.equal(await page.locator('#subscription-total').textContent(),money(net));
+      assert.equal(await page.locator('#vat-total').textContent(),money(vat));
+      assert.equal(await page.locator('#payment-total').textContent(),money(total)+' /'+(cycle==='annual'?'año':'mes'));
+      assert.equal(await page.locator('.checkout-summary dl>div').count(),4);
+      assert.equal(await page.locator('.checkout-summary dl').getByText('Incluida',{exact:true}).count(),1);
+      assert.doesNotMatch(await page.locator('.checkout-summary dl').textContent(),/Renovación|Primer pago|pago único/);
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),`${plan} ${cycle} ${width}px`);
+     }
+    }
+    await page.goto(base+path+'?plan=intelligence',{waitUntil:'load'});
+    await page.locator('#checkout-page[data-checkout-ready="true"]').waitFor();
     assert.equal(await page.locator('#checkout-start').isDisabled(),true);
     assert.equal(await page.locator('#checkout-unavailable').count(),1);
     assert.equal(await page.locator('script[src*="js.stripe.com"]').count(),0,'No external payment script before configuration');

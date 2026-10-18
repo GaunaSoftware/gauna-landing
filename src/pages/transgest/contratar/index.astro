@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import {commercePlans,commercePlan,money,paymentReady} from '../../../config/commerce.mjs';
+import {commercePlans,commercePlan,money,paymentReady,vatBreakdown} from '../../../config/commerce.mjs';
 import {stripeCatalog} from '../../../config/stripe-catalog.mjs';
 import '@/styles/commerce.css';
 export const prerender=false;
@@ -10,10 +10,11 @@ const plan=requested?commercePlan(requested):commercePlans[0];
 if(!plan)return Astro.redirect('/transgest/precios/',303);
 const billing=Astro.url.searchParams.get('billing')==='annual'?'annual':'monthly';
 const ready=paymentReady(env,plan);
+const amounts=vatBreakdown(plan[billing]);
 Astro.response.headers.set('Cache-Control','private, no-store');
 ---
 <BaseLayout title={`Contratar TransGest ${plan.name} | Gauna`} description="Elige tu periodicidad y revisa el importe antes de contratar TransGest." canonical="/transgest/contratar/" storefront={plan.id==='planner'?'planner':'product'} noindex>
- <div class="storefront"><section class="checkout-page" id="checkout-page" data-plan={plan.id} data-key={ready?env.PUBLIC_STRIPE_PUBLISHABLE_KEY:''} data-monthly={plan.monthly} data-annual={plan.annual} data-integration={plan.integration}>
+ <div class="storefront"><section class="checkout-page" id="checkout-page" data-plan={plan.id} data-key={ready?env.PUBLIC_STRIPE_PUBLISHABLE_KEY:''} data-monthly={plan.monthly} data-annual={plan.annual}>
   <a href={plan.id==='planner'?'/planner/#precios':'/transgest/precios/'}>← {plan.id==='planner'?'Volver a Planner':'Volver a los planes'}</a>
   <p class="eyebrow">Planes y contratación</p><h1>Tu TransGest {plan.name}.</h1>
   <p class="checkout-intro">Elige cómo quieres pagar. Revisa la suscripción, la implantación y los impuestos antes de confirmar.</p>
@@ -22,11 +23,11 @@ Astro.response.headers.set('Cache-Control','private, no-store');
     <h2>Tu plan. Tu periodicidad.</h2>
     <form id="checkout-selection">
      <fieldset><legend class="sr-only">Periodicidad de facturación</legend>
-      <label><input type="radio" name="billing" value="monthly" checked={billing==='monthly'} />Mensual · {money(plan.monthly)} /mes + IVA</label>
-      <label><input type="radio" name="billing" value="annual" checked={billing==='annual'} />Anual · {money(plan.annual)} /año + IVA · ahorro del 15 %</label>
+      <label><input type="radio" name="billing" value="monthly" checked={billing==='monthly'} />Mensual · {money(vatBreakdown(plan.monthly).total)} /mes · IVA incluido</label>
+      <label><input type="radio" name="billing" value="annual" checked={billing==='annual'} />Anual · {money(vatBreakdown(plan.annual).total)} /año · IVA incluido · ahorro del 15 %</label>
      </fieldset>
-     <dl><div><dt>Suscripción + IVA</dt><dd id="subscription-total">{money(plan[billing])}</dd></div><div><dt>Implantación estándar + IVA · pago único</dt><dd>{plan.integration?money(plan.integration):'Incluida'}</dd></div><div><dt>Primer pago + IVA</dt><dd id="initial-total">{money(plan[billing]+plan.integration)}</dd></div><div><dt>Renovación + IVA</dt><dd id="renewal-total">{money(plan[billing])} /{billing==='annual'?'año':'mes'}</dd></div></dl>
-     <p class="checkout-note">La suscripción se renueva automáticamente cada mes o año según tu elección. La implantación se cobra una sola vez. El IVA aplicable y el total definitivo se muestran en el formulario de pago. Los servicios a medida y las ampliaciones se contratan aparte.</p>
+     <dl aria-live="polite"><div><dt>Suscripción (sin IVA)</dt><dd id="subscription-total">{money(amounts.net)}</dd></div><div><dt>IVA (21 %)</dt><dd id="vat-total">{money(amounts.vat)}</dd></div><div><dt>Implantación estándar</dt><dd>Incluida</dd></div><div class="checkout-grand-total"><dt>Total a pagar (IVA incluido)</dt><dd id="payment-total">{money(amounts.total)} /{billing==='annual'?'año':'mes'}</dd></div></dl>
+     <p class="checkout-note">La suscripción se factura automáticamente cada mes o año según tu elección. La implantación estándar está incluida en todos los planes. El desglose muestra el IVA general del 21 % de Península y Baleares; Stripe confirma el impuesto aplicable y el total según tus datos fiscales antes de pagar. Los servicios a medida y las ampliaciones se contratan aparte.</p>
      <label><input id="checkout-consent" type="checkbox" name="consent" required />He revisado el plan, la periodicidad y los importes. <a href="/aviso-legal/">Información legal</a> · <a href="/politica-privacidad/">Privacidad</a>.</label>
      <button type="submit" id="checkout-start" class="button primary" disabled={!ready}>Continuar al pago</button>
     </form>

@@ -7,8 +7,11 @@ landing page URLs, demo submission handler, blog and protected DeCA guide remain
 Official Stripe libraries provide Embedded Checkout on `/transgest/contratar/`.
 The server accepts only a plan, billing cycle, reviewed-selection flag and request
 UUID. It retrieves and validates Stripe prices in EUR cents, recurring interval
-and exclusive tax behavior. The implantation line is a one-time price on the
-initial subscription invoice. Stripe collects billing details and calculates tax.
+and exclusive tax behavior. Per the owner’s 18 October 2026 instruction, standard
+implantation is included in all four plans. Checkout creates exactly one recurring
+subscription item with no implantation charge. The selection summary displays net
+subscription, 21% Spanish general VAT and gross total, rounded to cents; Stripe
+collects billing details and calculates the final applicable tax.
 No card fields or secret API keys are rendered by Astro.
 
 The result page uses a signed HttpOnly browser cookie before querying payment

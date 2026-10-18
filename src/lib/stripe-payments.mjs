@@ -1,5 +1,5 @@
 import {createHash,createHmac, timingSafeEqual} from 'node:crypto';
-import {commercePlan, stripePrice, integrationPrice, paymentReady, money} from '../config/commerce.mjs';
+import {commercePlan, stripePrice, paymentReady, money} from '../config/commerce.mjs';
 import {stripeCatalog} from '../config/stripe-catalog.mjs';
 import {billingEvents,handleBillingEvent} from './stripe-billing.mjs';
 const json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'private, no-store','X-Robots-Tag':'noindex',...headers}});
@@ -32,7 +32,7 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
   const subscription=await stripe.subscriptions.retrieve(session.subscription);
   if(subscription.status!=='active')throw new Error('Subscription not active');
   const lines=await stripe.checkout.sessions.listLineItems(session.id,{limit:10});
-  const expected=[stripePrice(env,plan.id,cycle),...(plan.integration?[integrationPrice(env)]:[])].sort();
+  const expected=[stripePrice(env,plan.id,cycle)];
   if(lines.has_more||lines.data.some(item=>item.quantity!==1)||JSON.stringify(lines.data.map(item=>item.price?.id).sort())!==JSON.stringify(expected))throw new Error('Unexpected payment lines');
   const email=session.customer_details?.email;
   if(!email)throw new Error('Missing customer email');
@@ -62,7 +62,6 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
     const price=stripePrice(env,plan.id,cycle);
     validatePrice(await stripe.prices.retrieve(price),plan[cycle],cycle==='annual'?'year':'month');
     const line_items=[{price,quantity:1}];
-    if(plan.integration){validatePrice(await stripe.prices.retrieve(integrationPrice(env)),plan.integration,null);line_items.push({price:integrationPrice(env),quantity:1});}
     const metadata={source:'gauna-website',plan:plan.id,billing:cycle,tariff:'2026-09',consent:'plan-and-renewal-reviewed'};
     const session=await stripe.checkout.sessions.create({
      ui_mode:'embedded_page',mode:'subscription',line_items,locale:'es',

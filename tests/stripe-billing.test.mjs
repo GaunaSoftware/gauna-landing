@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import Stripe from 'stripe';
 import {paymentHandlers} from '../src/lib/stripe-payments.mjs';
-import {commercePlans,stripePrice,integrationPrice} from '../src/config/commerce.mjs';
+import {commercePlans,stripePrice,vatBreakdown} from '../src/config/commerce.mjs';
 const secret='whsec_TEST_ONLY_NOT_REAL';
 const env={STRIPE_SECRET_KEY:'rk_test_TEST_ONLY_NOT_REAL',STRIPE_WEBHOOK_SECRET:secret};
 const signer=new Stripe('sk_test_TEST_ONLY');
@@ -10,14 +10,14 @@ function fixture({plan=commercePlans[0],cycle='monthly'}={}){
  const metadata={source:'gauna-website',plan:plan.id,billing:cycle};
  const subscription={id:'sub_fixture',customer:'cus_fixture',status:'active',metadata:{...metadata},items:{data:[{quantity:1,price:{id:stripePrice(env,plan.id,cycle)},current_period_end:1800000000}]}};
  const invoice={id:'in_fixture',parent:{type:'subscription_details',subscription_details:{subscription:subscription.id}},customer:subscription.customer,currency:'eur',status:'paid',billing_reason:'subscription_cycle',amount_paid:plan[cycle],amount_remaining:0,attempt_count:1,metadata:{}};
- const session={id:'cs_test_fixture',subscription:subscription.id,customer:subscription.customer,customer_details:{email:'test@example.com'},currency:'eur',metadata:{...metadata},status:'complete',payment_status:'paid',amount_total:plan[cycle]+plan.integration};
+ const session={id:'cs_test_fixture',subscription:subscription.id,customer:subscription.customer,customer_details:{email:'test@example.com'},currency:'eur',metadata:{...metadata},status:'complete',payment_status:'paid',amount_total:vatBreakdown(plan[cycle]).total};
  const delivered=new Map(),attempts=[],reads=[];
  const state={failMerchant:false,failInvoiceUpdate:false};
  const stripe={webhooks:signer.webhooks,
   subscriptions:{retrieve:async id=>{reads.push(['subscription',id]);return structuredClone(subscription);},update:async(id,data)=>Object.assign(subscription.metadata,data.metadata)},
   invoices:{retrieve:async id=>{reads.push(['invoice',id]);return structuredClone(invoice);},update:async(id,data)=>{if(state.failInvoiceUpdate)throw new Error('Mock write failure');Object.assign(invoice.metadata,data.metadata);}},
   customers:{retrieve:async id=>{reads.push(['customer',id]);return{id,email:'test@example.com'};}},
-  checkout:{sessions:{retrieve:async()=>structuredClone(session),list:async()=>({data:[structuredClone(session)]}),listLineItems:async()=>({data:[{quantity:1,price:{id:stripePrice(env,plan.id,cycle)}},...(plan.integration?[{quantity:1,price:{id:integrationPrice(env)}}]:[])]}),update:async(id,data)=>Object.assign(session.metadata,data.metadata)}},
+  checkout:{sessions:{retrieve:async()=>structuredClone(session),list:async()=>({data:[structuredClone(session)]}),listLineItems:async()=>({data:[{quantity:1,price:{id:stripePrice(env,plan.id,cycle)}}]}),update:async(id,data)=>Object.assign(session.metadata,data.metadata)}},
  };
  const handler=paymentHandlers({env,stripe,sendEmail:async message=>{
   attempts.push(message);if(state.failMerchant&&message.to[0]==='hola@gauna.es')throw new Error('Mock delivery failure');

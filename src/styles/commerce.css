@@ -29,6 +29,7 @@
 .checkout-page input{margin-right:10px;accent-color:#123f34}
 .checkout-page dl{margin:26px 0}
 .checkout-page dl>div{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #dde4de;padding:16px 0;font-size:14px}
+.checkout-page .checkout-grand-total{font-weight:600;color:#123f34}
 .checkout-page dd{font-weight:600;margin:0;white-space:nowrap}
 .checkout-page p{margin:18px 0;font-size:14px;line-height:1.7}
 .checkout-page .checkout-note{padding:18px;background:white;border-radius:14px}

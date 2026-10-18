@@ -37,7 +37,7 @@ test('cost guidance shows the approved public tariffs and implementation conditi
   }
   assert.doesNotMatch(block, /\bhidden\b|sr-only|aria-hidden="true"|<script\b|nofollow/);
   assert.match(source, /commercePlans/);
-  assert.match(block,/1\.500 € \+ IVA/);
+  assert.match(block,/La implantación estándar está incluida en todos los planes/);
   assert.match(block,/Precios \+ IVA/);
   assert.doesNotMatch(block, /todo incluido|ahorro garantizado|gratis|sin costes adicionales/i);
 });
