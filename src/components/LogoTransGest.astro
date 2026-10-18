@@ -1,5 +1,5 @@
 ---
-// Approved wordmark: clean vector paths, with a separate T icon for favicons.
+// Owner-supplied transparent PNG. CSS frames its transparent margins without changing the artwork.
 
 export interface Props {
   variant?: 'full' | 'compact' | 'hero';
@@ -23,9 +23,16 @@ const sizes = {
 ---
 
 <img
-  src={`/media/transgest/transgest-wordmark-v3${theme === 'dark' ? '-white' : ''}.svg`}
+  src="/media/transgest/transgest-logo-v4.png"
+  width="2172"
+  height="300"
   alt={alt}
-  class:list={[sizes[variant], 'w-auto', className]}
+  class:list={[sizes[variant], 'w-auto', 'transgest-logo', theme === 'dark' && 'transgest-logo--on-dark', className]}
+  style="aspect-ratio: 2172 / 300; object-fit: cover; object-position: center 48.8%;"
   loading="eager"
   decoding="async"
 />
+<style is:global>
+  .transgest-logo {max-width:100%;display:block;}
+  .transgest-logo--on-dark {filter:brightness(0) invert(1);}
+</style>

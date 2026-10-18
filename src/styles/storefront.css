@@ -19,7 +19,7 @@
 .storefront .pricing .section-heading h1{font-size:clamp(34px,4.15vw,56px)}.storefront .hero-screen video{width:100%;height:100%;object-fit:contain}.storefront .order-summary[aria-live]{isolation:isolate}
 @media(max-width:720px){.storefront .pricing .section-heading h1{font-size:33px}}
 
-/* Real outlined SVG artwork. No raster alpha, outlines, shadows or recoloring filters. */
+/* Responsive brand artwork; original vector assets remain available for favicons. */
 .storefront .transgest-wordmark {
   display: block;
   width: 100%;
@@ -99,3 +99,5 @@
 .storefront-page .product-header-wordmark{width:160px;height:auto}
 .storefront-page .product-mobile-menu img{width:135px}
 @media(max-width:720px){.storefront .plan-summary,.storefront .planner-gallery{grid-template-columns:1fr}.storefront .hero-wordmark{margin:24px auto}.storefront .corporate-product{height:520px}.storefront-page .product-header-wordmark{width:130px}.storefront .resource-callout{padding:24px}}
+
+.storefront .ecosystem-card .product-card-wordmark .transgest-wordmark.transgest-logo--on-dark{filter:brightness(0) invert(1)}
