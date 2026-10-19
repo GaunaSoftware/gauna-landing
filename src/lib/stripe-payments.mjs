@@ -2,6 +2,7 @@ import {createHash,createHmac, timingSafeEqual} from 'node:crypto';
 import {commercePlan, stripePrice, paymentReady, money} from '../config/commerce.mjs';
 import {stripeCatalog} from '../config/stripe-catalog.mjs';
 import {billingEvents,handleBillingEvent} from './stripe-billing.mjs';
+import {purchaseEmail} from './purchase-email.mjs';
 const json=(body,status=200,headers={})=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'private, no-store','X-Robots-Tag':'noindex',...headers}});
 const signature=(value,key)=>createHmac('sha256',key).update(value).digest('base64url');
 const cookieName='tg_checkout';
@@ -38,7 +39,7 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
   if(!email)throw new Error('Missing customer email');
   const amount=money(session.amount_total);
   const text=`Pago recibido de TransGest ${plan.name}.\nPeriodicidad: ${cycle==='annual'?'anual':'mensual'}.\nTotal pagado: ${amount}, impuestos incluidos según Stripe.\nReferencia: ${session.id}.\nContactaremos contigo para preparar la implantación y los accesos.\nConsulta tus facturas y gestiona tu suscripción: ${stripeCatalog.billingPortal}\nSi necesitas ayuda, escribe a hola@gauna.es.`;
-  await sendEmail({to:[email],subject:`Pago recibido · TransGest ${plan.name}`,text,idempotencyKey:`gauna-customer-${session.id}`});
+  await sendEmail({to:[email],...purchaseEmail({session,plan,cycle,portalUrl:stripeCatalog.billingPortal,replyTo:env.CONTACT_TO_EMAIL||'hola@gauna.es'}),idempotencyKey:`gauna-customer-${session.id}`});
   await sendEmail({to:[env.CONTACT_TO_EMAIL||'hola@gauna.es'],subject:`Nueva contratación · TransGest ${plan.name}`,text:`${text}\nCliente: ${email}\nCliente Stripe: ${session.customer}\nSuscripción: ${session.subscription}\nRevisar y preparar la implantación.`,idempotencyKey:`gauna-merchant-${session.id}`});
   await stripe.checkout.sessions.update(session.id,{metadata:{gauna_notified:'yes'}});
   return true;

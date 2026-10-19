@@ -37,6 +37,7 @@ test('monthly and annual renewals resolve the real subscription and notify witho
   const f=fixture({plan,cycle});assert.equal((await f.webhook('invoice.paid')).status,200);
   assert.deepEqual(f.reads.slice(0,2),[['invoice','in_fixture'],['subscription','sub_fixture']]);
   assert.equal(f.delivered.size,2);assert.ok([...f.delivered.values()][0].subject.includes('Renovación pagada'));
+  assert.ok([...f.delivered.values()][0].text.includes('Gracias por seguir confiando'));
   assert.equal(f.invoice.metadata.gauna_billing_notice,'paid');
   assert.equal((await f.webhook('invoice.paid',{eventId:'evt_duplicate'})).status,200);assert.equal(f.delivered.size,2);
  }
@@ -59,7 +60,27 @@ test('initial invoice and Checkout events share one receipt in either event orde
   const f=fixture();f.invoice.billing_reason='subscription_create';
   for(const type of order)assert.equal((await f.webhook(type)).status,200);
   assert.equal(f.delivered.size,2);assert.equal(f.session.metadata.gauna_notified,'yes');assert.equal(f.invoice.metadata.gauna_billing_notice,'paid');
+  const receipt=[...f.delivered.values()].find(mail=>mail.to[0]==='test@example.com');
+  assert.match(receipt.subject,/Gracias por tu compra/);assert.match(receipt.html,/Gracias por tu compra/);
  }
+});
+
+test('delayed payments thank the buyer only after success and share the same receipt with the initial invoice',async()=>{
+ const f=fixture();f.invoice.billing_reason='subscription_create';f.session.payment_status='unpaid';
+ assert.equal((await f.webhook('checkout.session.completed')).status,200);assert.equal(f.delivered.size,0);
+ f.session.payment_status='paid';
+ for(const type of ['checkout.session.async_payment_succeeded','invoice.paid','checkout.session.completed'])assert.equal((await f.webhook(type)).status,200);
+ assert.equal(f.delivered.size,2);assert.equal(f.session.metadata.gauna_notified,'yes');
+ assert.match([...f.delivered.values()][0].text,/Gracias por confiar/);
+});
+
+test('purchase thanks survive a partial merchant-notification failure without duplicate delivery',async()=>{
+ const f=fixture();f.state.failMerchant=true;
+ assert.equal((await f.webhook('checkout.session.completed')).status,500);
+ assert.equal(f.delivered.size,1);assert.equal(f.session.metadata.gauna_notified,undefined);
+ f.state.failMerchant=false;
+ assert.equal((await f.webhook('checkout.session.async_payment_succeeded')).status,200);
+ assert.equal(f.delivered.size,2);assert.equal(f.session.metadata.gauna_notified,'yes');
 });
 test('a paid initial invoice waits for a complete Checkout before fulfilling',async()=>{
  const f=fixture();f.invoice.billing_reason='subscription_create';f.session.status='open';f.session.payment_status='unpaid';

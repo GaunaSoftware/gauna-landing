@@ -57,9 +57,9 @@ export async function handleBillingEvent({event,env,stripe,sendEmail,portalUrl,f
   const email=customer.deleted?null:customer.email;
   if(!email)throw new Error('Missing billing customer email');
   const subject=paid?`Renovación pagada · TransGest ${plan.name}`:`Pago pendiente · TransGest ${plan.name}`;
-  const text=paid?`Hemos recibido el pago de tu suscripción TransGest ${plan.name}: ${money(invoice.amount_paid)}, impuestos incluidos según Stripe.\nFactura: ${invoice.number||invoice.id}.`:`El pago de tu suscripción TransGest ${plan.name} está pendiente. Revisa el método de pago y completa la autenticación si se solicita.\nFactura: ${invoice.number||invoice.id}.\nImporte pendiente: ${money(invoice.amount_remaining)}.`;
+  const text=paid?`Gracias por seguir confiando en ${plan.id==='planner'?'Planner':`TransGest ${plan.name}`}.\nHemos recibido el pago de tu suscripción: ${money(invoice.amount_paid)}, impuestos incluidos según Stripe.\nFactura: ${invoice.number||invoice.id}.`:`El pago de tu suscripción TransGest ${plan.name} está pendiente. Revisa el método de pago y completa la autenticación si se solicita.\nFactura: ${invoice.number||invoice.id}.\nImporte pendiente: ${money(invoice.amount_remaining)}.`;
   const customerText=`${text}\nConsulta tus facturas y gestiona tu suscripción: ${portalUrl}\nSi necesitas ayuda, escribe a hola@gauna.es.`;
-  await sendEmail({to:[email],subject,text:customerText,idempotencyKey:`gauna-invoice-customer-${invoice.id}-${notice}`});
+  await sendEmail({to:[email],reply_to:merchant,subject,text:customerText,idempotencyKey:`gauna-invoice-customer-${invoice.id}-${notice}`});
   await sendEmail({to:[merchant],subject,text:`${text}\nSuscripción: ${subscription.id}.\nCliente Stripe: ${resourceId(subscription.customer)}.\nEstado actual: ${subscription.status}.\nRevisar la continuidad del servicio y los accesos.`,idempotencyKey:`gauna-invoice-merchant-${invoice.id}-${notice}`});
  }
  // Persist only after both deliveries; provider idempotency protects partial retries.

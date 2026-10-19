@@ -28,6 +28,32 @@ in Stripe metadata. Resend idempotency keys protect retries between delivery and
 the metadata update. Fulfillment is manual implantation and account preparation;
 this landing repository does not provision TransGest application accounts.
 
+The first paid purchase sends a Spanish thank-you email in HTML and plain text,
+with the approved product, monthly/yearly cycle, actual amount and tax returned
+by Stripe, included standard implantation, next steps and billing-portal link.
+Replies go to the merchant contact address. Paid renewals also thank the customer.
+Unpaid sessions, failed payments and unsigned callbacks never send a purchase
+confirmation. Existing event deduplication and Resend idempotency remain in use.
+No password or claim of an already activated application account is sent.
+
+## Application account provisioning review (19 October 2026)
+
+The application repository `GaunaSoftware/GaunaSoftware-transgest-app` already
+has a Stripe receiver at `/api/v1/stripe/webhook`, but its current implementation
+only finds existing companies by `empresa_id` or `stripe_customer_id`; it does
+not create a company or manager for purchases from the public website. It is
+therefore not enough to add another Stripe endpoint. The application's existing
+Superadmin company-creation flow and single-use password invitations provide
+reusable building blocks for a future paid-signup handler.
+
+That handler must verify Stripe signatures and current paid status, map verified
+website price IDs to application products, transactionally record the unique
+Stripe customer/subscription and company/manager, and send the application's
+password-selection invitation through a retryable outbox. Existing emails alone
+must not grant membership of an existing company. Renewals and cancellations must
+resolve the saved subscription ownership. No application changes, production
+accounts or new provisioning endpoint were created during this review.
+
 Invoice events resolve the subscription through
 `invoice.parent.subscription_details.subscription`, then verify the website's
 server-written metadata, approved subscription price and customer ownership.
