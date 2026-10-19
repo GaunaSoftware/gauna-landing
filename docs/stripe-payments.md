@@ -14,6 +14,11 @@ subscription, 21% Spanish general VAT and gross total, rounded to cents; Stripe
 collects billing details and calculates the final applicable tax.
 No card fields or secret API keys are rendered by Astro.
 
+`security.allowedDomains` in `astro.config.mjs` lists the HTTPS public domains
+and exact Vercel deployment hosts from Vercel's environment. Astro reconstructs
+the public URL behind the proxy before Checkout compares the browser Origin.
+Unrecognized forwarded hosts remain untrusted; the origin check stays enabled.
+
 The result page uses a signed HttpOnly browser cookie before querying payment
 status. It shows success only when Stripe reports a completed and paid session.
 The webhook verifies the original raw body using the official SDK, retrieves the

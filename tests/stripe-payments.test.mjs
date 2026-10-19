@@ -7,6 +7,8 @@ import {paymentHandlers} from '../src/lib/stripe-payments.mjs';
 import {commercePlans,stripePrice,paymentReady,vatBreakdown} from '../src/config/commerce.mjs';
 import {stripeCatalog} from '../src/config/stripe-catalog.mjs';
 import {readFileSync} from 'node:fs';
+import {NodeApp} from 'astro/app/node';
+import astroConfig from '../astro.config.mjs';
 const secret='whsec_TEST_ONLY_NOT_A_REAL_KEY';
 const env={STRIPE_PAYMENTS_ENABLED:'true',STRIPE_SECRET_KEY:'sk_live_TEST_ONLY_NOT_A_REAL_KEY',PUBLIC_STRIPE_PUBLISHABLE_KEY:'pk_live_TEST_ONLY_NOT_A_REAL_KEY',STRIPE_WEBHOOK_SECRET:secret,RESEND_API_KEY:'TEST_ONLY'};
 const signer=new Stripe('sk_test_TEST_ONLY');
@@ -58,6 +60,22 @@ test('all eight subscriptions charge only the subscription with no implantation 
 test('invalid plans, amount injection, consent and cross-origin calls never create checkout',async()=>{
  for(const data of [{plan:'control'},{billing:'weekly'},{amount:1},{price:'price_attacker'},{consent:false},{requestId:'invalid'}]){const f=fixture();assert.equal((await f.post(data)).status,400);assert.equal(f.calls.length,0);}
  const cross=fixture({crossOrigin:true});assert.equal((await cross.post()).status,403);assert.equal(cross.calls.length,0);
+});
+
+test('Vercel proxy requests retain the public origin without trusting arbitrary forwarded hosts',async()=>{
+ const request=(host,origin)=>({method:'POST',url:'/api/stripe/checkout',socket:{},headers:{host:'internal.vercel.app','x-forwarded-host':host,'x-forwarded-proto':'https',origin,'content-type':'application/json'},body:JSON.stringify({plan:'go',billing:'monthly',consent:true,requestId:nonce})});
+ const broken=NodeApp.createRequest(request('gauna.es','https://gauna.es'));
+ assert.equal(new URL(broken.url).hostname,'localhost','Reproduce the default internal-host fallback');
+ for(const host of ['gauna.es','www.gauna.es']){
+  const f=fixture(),incoming=NodeApp.createRequest(request(host,'https://'+host),{allowedDomains:astroConfig.security.allowedDomains});
+  assert.equal(new URL(incoming.url).origin,'https://'+host);
+  const response=await f.handler.checkout(incoming);assert.equal(response.status,200);assert.equal(f.calls.length,1);
+  assert.match(response.headers.get('set-cookie'),/; Secure/);
+ }
+ for(const [host,origin] of [['attacker.example','https://attacker.example'],['arbitrary.vercel.app','https://arbitrary.vercel.app'],['gauna.es','https://attacker.example']]){
+  const f=fixture(),incoming=NodeApp.createRequest(request(host,origin),{allowedDomains:astroConfig.security.allowedDomains});
+  assert.equal((await f.handler.checkout(incoming)).status,403);assert.equal(f.calls.length,0);
+ }
 });
 test('unconfigured merchant, pending tax, wrong prices/account and rate limit fail closed',async()=>{
  for(const [option,status]of [['noConfig',503],['pendingTax',503],['missingRegistration',502],['wrongAmount',502],['wrongAccount',502],['disabledAccount',502],['limited',429]]){const f=fixture({[option]:true});assert.equal((await f.post()).status,status,option);assert.equal(f.calls.length,0);}

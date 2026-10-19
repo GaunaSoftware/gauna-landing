@@ -6,6 +6,21 @@ import vercel from '@astrojs/vercel';
 
 const SITE = 'https://gauna.es';
 
+// Astro must reconstruct the public URL behind Vercel's proxy so same-origin
+// checks compare the browser origin with gauna.es rather than an internal host.
+const allowedDomains = [
+  {hostname:'gauna.es',protocol:'https'},
+  {hostname:'www.gauna.es',protocol:'https'},
+];
+for (const host of new Set([process.env.VERCEL_URL, process.env.VERCEL_BRANCH_URL])) {
+  if (typeof host === 'string' && /^[a-zA-Z0-9-]+\.vercel\.app$/.test(host)) {
+    allowedDomains.push({hostname:host,protocol:'https'});
+  }
+}
+if (process.env.NODE_ENV !== 'production') {
+  allowedDomains.push({hostname:'localhost',protocol:'http'}, {hostname:'127.0.0.1',protocol:'http'});
+}
+
 const normalizePage = (page) => {
   return page.endsWith('/') ? page : `${page}/`;
 };
@@ -29,6 +44,7 @@ const excludedFromSitemap = new Set([
 
 export default defineConfig({
   site: SITE,
+  security: {allowedDomains},
 
   integrations: [
     tailwind({
