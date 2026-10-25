@@ -1,8 +1,9 @@
 ---
 title: "DeCA y eCMR: diferencias y cuándo pueden convivir en el mismo documento"
-description: "DeCA y eCMR no son exactamente lo mismo. Explicamos qué función cumple cada uno y cuándo un formato de carta de porte puede servir también como DeCA."
+seoTitle: "eCMR y DeCA: diferencias con la carta de porte CMR"
+description: "Qué es el eCMR o CMR electrónico, en qué se diferencia del DeCA y qué comprobar para reutilizar una carta de porte como documento de control en España."
 pubDate: 2026-09-14
-updatedDate: 2026-10-18
+updatedDate: 2026-10-25
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "eCMR", "carta de porte", "transporte"]
@@ -24,9 +25,21 @@ Si necesitas una explicación completa, consulta nuestra [guía DeCA 2026](/deca
 
 ## Qué es el eCMR
 
-El eCMR es la versión electrónica de la carta de porte CMR utilizada en el transporte internacional sujeto al Convenio CMR y su protocolo adicional electrónico.
+El **eCMR, también llamado e-CMR o CMR electrónico**, es la versión electrónica de la carta de porte CMR utilizada en el transporte internacional sujeto al Convenio CMR y su protocolo adicional electrónico.
+
+Una carta de porte emitida conforme al protocolo electrónico tiene la misma fuerza probatoria y los mismos efectos que la carta de porte CMR. Una foto o un escaneo, por sí solos, no acreditan que se cumplan sus requisitos de autenticación e integridad.
 
 Su función y marco jurídico no son idénticos a los del DeCA. Por eso no debe asumirse que disponer de cualquier eCMR significa automáticamente haber resuelto todas las obligaciones del documento de control administrativo español.
+
+## CMR, eCMR y DeCA: comparación rápida
+
+| Documento | Para qué sirve | Qué conviene comprobar |
+|---|---|---|
+| Carta de porte CMR | Documenta el contrato de transporte internacional sujeto al Convenio CMR. | Que la operación esté dentro del ámbito del Convenio y la carta recoja los datos correspondientes. |
+| eCMR o CMR electrónico | Cumple la función de la carta de porte CMR mediante procedimientos electrónicos. | Autenticación, integridad, acceso a la información y registro de los cambios conforme al protocolo adicional. |
+| DeCA | Permite el control administrativo del transporte al que resulte exigible en España. | Datos obligatorios y requisitos técnicos del documento electrónico, incluidos PDF nativo, QR y acceso al fichero. |
+
+El primer paso es identificar el recorrido y las obligaciones de cada servicio. En un transporte internacional sujeto al CMR se revisa su carta de porte; en un transporte interior, incluido el cabotaje, se comprueba el documento de control exigible. El nombre comercial del programa o del archivo no determina qué normativa se cumple.
 
 ## Entonces, ¿pueden utilizarse juntos?
 
@@ -91,8 +104,10 @@ La propia Resolución de 5 de junio de 2026 indica que, cuando los datos exigido
 
 Esto refuerza una idea: el futuro no consiste en acumular PDFs diferentes, sino en trabajar con **datos estructurados e interoperables**.
 
-## Fuente oficial
+## Fuentes oficiales
 
 La posibilidad de utilizar formatos de otros documentos de transporte como DeCA se recoge en el apartado octavo de la [Resolución de 5 de junio de 2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-12784).
+
+La equivalencia de la carta de porte electrónica, su autenticación e integridad se regulan en los artículos 2 a 4 del [Protocolo adicional al Convenio CMR relativo a la carta de porte electrónica](https://www.boe.es/buscar/doc.php?id=BOE-A-2011-10283).
 
 Este artículo es informativo y no sustituye el análisis jurídico de una operación concreta.

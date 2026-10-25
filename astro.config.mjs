@@ -26,14 +26,16 @@ const normalizePage = (page) => {
 };
 
 // Dates reflect the editorial changes, never the time of the build.
-const seoUpdatedPages = new Set([
-  '/blog/que-es-deca-transporte/',
-  '/blog/deca-para-transportistas-y-flotas/',
-  '/blog/deca-ecmr-diferencias/',
-  '/blog/que-es-un-tms-transporte/',
-  '/blog/digitalizacion-albaranes-transporte/',
-  '/software-deca/',
-  '/deca-2026/',
+const seoUpdatedPages = new Map([
+  ['/blog/que-es-deca-transporte/', '2026-10-18'],
+  ['/blog/deca-para-transportistas-y-flotas/', '2026-10-18'],
+  ['/blog/deca-ecmr-diferencias/', '2026-10-25'],
+  ['/blog/requisitos-tecnicos-deca-pdf-qr-url/', '2026-10-25'],
+  ['/blog/que-es-un-tms-transporte/', '2026-10-18'],
+  ['/blog/digitalizacion-albaranes-transporte/', '2026-10-18'],
+  ['/blog/', '2026-10-25'],
+  ['/software-deca/', '2026-10-18'],
+  ['/deca-2026/', '2026-10-18'],
 ]);
 
 const excludedFromSitemap = new Set([
@@ -53,8 +55,9 @@ export default defineConfig({
 
     sitemap({
       filter: (page) => {
-        // Social PNG assets are not HTML landing pages.
-        return !new URL(page).pathname.startsWith('/guias/') && !new URL(page).pathname.startsWith('/og/') && !excludedFromSitemap.has(normalizePage(page));
+        // Checkout and its result are noindex; assets are not HTML landing pages.
+        const pathname = new URL(page).pathname;
+        return !pathname.startsWith('/guias/') && !pathname.startsWith('/og/') && !pathname.startsWith('/transgest/contratar/') && !excludedFromSitemap.has(normalizePage(page));
       },
 
       customPages: [
@@ -66,7 +69,8 @@ export default defineConfig({
 
       serialize: (item) => {
         const url = normalizePage(item.url);
-        if (seoUpdatedPages.has(new URL(url).pathname)) item.lastmod = '2026-10-18';
+        const lastmod = seoUpdatedPages.get(new URL(url).pathname);
+        if (lastmod) item.lastmod = lastmod;
 
         if (url === `${SITE}/`) {
           item.changefreq = 'weekly';

@@ -2,6 +2,7 @@
 title: "Requisitos técnicos del DeCA: PDF, QR, URL HTTPS y conservación"
 description: "Resumen práctico de los requisitos técnicos del DeCA 2026: PDF nativo, QR, URL única, HTTPS, descarga directa, trazabilidad y conservación."
 pubDate: 2026-09-14
+updatedDate: 2026-10-25
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "PDF", "QR", "HTTPS", "transporte"]
@@ -24,6 +25,8 @@ Eso significa que no es válido:
 - Convertir una imagen del documento en PDF.
 
 El fichero debe nacer digitalmente desde el sistema que contiene los datos del transporte.
+
+Esto debe distinguirse de la captura de justificantes de entrega. Una imagen puede incorporarse al expediente de un servicio para su revisión y archivo, pero no sustituye la generación nativa digital exigida al DeCA. La guía de [digitalización de albaranes en transporte](/blog/digitalizacion-albaranes-transporte/) explica cómo organizar esos justificantes y conectarlos con la facturación.
 
 ## 2. El PDF no puede superar 5 MB
 
