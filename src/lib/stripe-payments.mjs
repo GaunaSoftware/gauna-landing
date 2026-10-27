@@ -68,6 +68,7 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
      ui_mode:'embedded_page',mode:'subscription',line_items,locale:'es',
      integration_identifier:'gauna-'+createHash('sha256').update(data.requestId).digest().subarray(0,8).reduce((text,byte)=>text+String.fromCharCode(97+byte%26),''),
      automatic_tax:{enabled:true},
+     allow_promotion_codes:cycle==='monthly',
      billing_address_collection:'required',tax_id_collection:{enabled:true},
      return_url:origin+'/transgest/contratar/resultado/?session_id={CHECKOUT_SESSION_ID}',
      metadata,subscription_data:{metadata,billing_mode:{type:'flexible'}},
