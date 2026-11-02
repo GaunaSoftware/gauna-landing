@@ -29,13 +29,14 @@ const normalizePage = (page) => {
 const seoUpdatedPages = new Map([
   ['/blog/que-es-deca-transporte/', '2026-10-18'],
   ['/blog/deca-para-transportistas-y-flotas/', '2026-10-18'],
-  ['/blog/deca-ecmr-diferencias/', '2026-10-25'],
+  ['/blog/deca-ecmr-diferencias/', '2026-11-02'],
   ['/blog/requisitos-tecnicos-deca-pdf-qr-url/', '2026-10-25'],
   ['/blog/que-es-un-tms-transporte/', '2026-10-18'],
-  ['/blog/digitalizacion-albaranes-transporte/', '2026-10-18'],
+  ['/blog/digitalizacion-albaranes-transporte/', '2026-11-02'],
   ['/blog/', '2026-10-25'],
   ['/software-deca/', '2026-10-18'],
   ['/deca-2026/', '2026-10-18'],
+  ['/transgest/', '2026-11-02'],
 ]);
 
 const excludedFromSitemap = new Set([

@@ -3,7 +3,7 @@ title: "DeCA y eCMR: diferencias y cuándo pueden convivir en el mismo documento
 seoTitle: "eCMR y DeCA: diferencias con la carta de porte CMR"
 description: "Qué es el eCMR o CMR electrónico, en qué se diferencia del DeCA y qué comprobar para reutilizar una carta de porte como documento de control en España."
 pubDate: 2026-09-14
-updatedDate: 2026-10-25
+updatedDate: 2026-11-02
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "eCMR", "carta de porte", "transporte"]
@@ -30,6 +30,18 @@ El **eCMR, también llamado e-CMR o CMR electrónico**, es la versión electrón
 Una carta de porte emitida conforme al protocolo electrónico tiene la misma fuerza probatoria y los mismos efectos que la carta de porte CMR. Una foto o un escaneo, por sí solos, no acreditan que se cumplan sus requisitos de autenticación e integridad.
 
 Su función y marco jurídico no son idénticos a los del DeCA. Por eso no debe asumirse que disponer de cualquier eCMR significa automáticamente haber resuelto todas las obligaciones del documento de control administrativo español.
+
+## ¿Es obligatorio el eCMR desde octubre de 2026?
+
+La fecha española del **5 de octubre de 2026** se refiere a la digitalización del documento de control administrativo exigible. De ese plazo no se deduce que todas las cartas de porte CMR deban convertirse en eCMR.
+
+El artículo 2 del protocolo adicional al CMR permite utilizar la carta de porte electrónica conforme a sus condiciones. Para cada operación internacional hay que comprobar el marco aplicable, los procedimientos acordados entre las partes y cómo se facilita el acceso a la documentación. Conviene separar esa revisión del cumplimiento del DeCA en los transportes a los que este resulte exigible.
+
+## ¿Basta con firmar un PDF para tener un eCMR?
+
+Una firma sobre un archivo no acredita por sí sola todo el procedimiento. Los artículos 3 a 5 del protocolo regulan la autenticación, la integridad, la detección de cambios y los procedimientos que deben acordar las partes, incluido el acceso y la confirmación de la entrega.
+
+Al evaluar un sistema, pide que te muestren quién puede acceder al documento, cómo se certifica, qué ocurre si se corrige un dato y cómo se conservan las indicaciones originales. La comprobación debe abarcar el ciclo del documento.
 
 ## CMR, eCMR y DeCA: comparación rápida
 
@@ -92,7 +104,9 @@ Desde un punto de vista operativo, DeCA y eCMR comparten mucha información:
 
 Lo eficiente es que el TMS o sistema de gestión mantenga esos datos una sola vez y genere después el documento que corresponda a cada servicio.
 
-Ese es el enfoque con el que estamos diseñando [TransGest](/transgest/): que el expediente del transporte concentre los datos y la documentación en lugar de obligar a repetir la información en herramientas separadas.
+Ese es el enfoque de [TransGest](/transgest/): que el expediente del transporte concentre los datos y la documentación en lugar de obligar a repetir la información en herramientas separadas.
+
+Puedes [solicitar una demo de TransGest](/solicitar-demo/) con un ejemplo anonimizado de tu operativa para revisar el flujo documental y confirmar qué funciones e integraciones están disponibles para tu caso.
 
 Para aplicar este criterio a los justificantes de entrega, consulta la [guía de digitalización de albaranes en transporte](/blog/digitalizacion-albaranes-transporte/), con un flujo de validación, archivo y facturación.
 
@@ -108,6 +122,6 @@ Esto refuerza una idea: el futuro no consiste en acumular PDFs diferentes, sino 
 
 La posibilidad de utilizar formatos de otros documentos de transporte como DeCA se recoge en el apartado octavo de la [Resolución de 5 de junio de 2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-12784).
 
-La equivalencia de la carta de porte electrónica, su autenticación e integridad se regulan en los artículos 2 a 4 del [Protocolo adicional al Convenio CMR relativo a la carta de porte electrónica](https://www.boe.es/buscar/doc.php?id=BOE-A-2011-10283).
+La equivalencia de la carta de porte electrónica, su autenticación, integridad y procedimientos se regulan en los artículos 2 a 5 del [Protocolo adicional al Convenio CMR relativo a la carta de porte electrónica](https://www.boe.es/buscar/doc.php?id=BOE-A-2011-10283).
 
 Este artículo es informativo y no sustituye el análisis jurídico de una operación concreta.

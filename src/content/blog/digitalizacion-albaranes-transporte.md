@@ -3,6 +3,7 @@ title: "Digitalización de albaranes en transporte: cómo pasar del papel a un f
 seoTitle: "Digitalización de albaranes en transporte | Guía práctica"
 description: "Descubre cómo digitalizar albaranes, vincularlos a cada transporte, evitar documentos perdidos y acelerar la facturación sin depender del papel o WhatsApp."
 pubDate: 2026-10-18
+updatedDate: 2026-11-02
 author: "Gauna"
 category: "gestion"
 tags: ["digitalización albaranes", "transporte", "gestión documental", "TMS"]
@@ -22,6 +23,20 @@ Conviene distinguir dos tareas:
 - **Gestionar el documento:** relacionarlo con el servicio correcto, controlar su revisión y recuperarlo cuando haga falta.
 
 La captura evita trasladar físicamente el papel para consultarlo. La gestión evita reconstruir el expediente cada vez que alguien necesita comprobar una entrega. La política de conservación de originales debe decidirse según el documento, el contrato y los requisitos aplicables; digitalizar no autoriza por sí solo a destruirlos.
+
+## Albarán digital de transporte: qué datos vincular al expediente
+
+Un **albarán digital o electrónico** debe poder localizarse desde la entrega que acredita. Para organizar su gestión, conviene registrar estos datos junto al archivo; son criterios operativos de archivo, no una lista universal de requisitos legales:
+
+| Dato del expediente | Para qué sirve |
+|---|---|
+| Referencia del servicio y de la entrega | Asociar el justificante a la operación correcta, incluso si el viaje incluye varias paradas. |
+| Número o referencia del albarán | Buscar el documento con la referencia que utiliza el cliente. |
+| Cliente, destinatario y fecha de entrega | Contrastar la documentación con el pedido y la recepción. |
+| Archivo completo y observaciones | Conservar todas las páginas y las incidencias o reservas que consten. |
+| Estado de revisión y responsable | Saber qué está recibido, qué falta y quién debe resolverlo. |
+
+Si llega un archivo corregido, conserva la relación entre versiones. Evita sustituir el justificante anterior sin dejar constancia de qué ha cambiado.
 
 ## Por qué una foto por WhatsApp no equivale a digitalizar el proceso
 
@@ -68,6 +83,14 @@ El control empieza antes de recibir el archivo. Utiliza la referencia del servic
 - Mantén el acceso dentro del sistema de la empresa y prueba la recuperación de las copias de seguridad.
 
 Un nombre de archivo coherente ayuda, pero no sustituye el vínculo con el expediente ni un procedimiento de revisión.
+
+## OCR y validación automática de albaranes: qué comprobar
+
+El OCR extrae texto de una imagen. Puede ayudar a leer una referencia o una fecha, pero no demuestra por sí solo que el documento pertenezca al servicio ni que la entrega esté completa.
+
+Una validación automática necesita reglas de contraste con los datos del expediente y un tratamiento de excepciones. Al evaluar una herramienta, prueba un albarán borroso, otro duplicado y otro con una página pendiente. Comprueba qué identifica el sistema, qué envía a revisión y quién puede corregirlo.
+
+La lectura automática y las reglas de validación dependen de la solución y la configuración contratadas. Antes de automatizar, define el criterio de aceptación y conserva la revisión de los casos dudosos.
 
 ## Cómo puede acelerar la facturación
 
