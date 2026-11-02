@@ -21,7 +21,8 @@ test('TransGest has one professional headline and retains its commercial model',
   const page = read('src/pages/transgest/index.astro');
   const headings = [...page.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
   assert.equal(headings.length, 1);
-  assert.equal(headings[0][1].trim(), headline);
+  assert.equal(headings[0][1].trim(), 'TransGest: software de gestión de transporte para empresas y autónomos');
+  assert.ok(page.includes(`<p class="hero-tagline">${headline}</p>`));
   assert.ok(page.includes('canonical="/transgest/"'));
   assert.ok(page.includes('Sin precio por usuario ni por número de vehículos.'));
   assert.ok(page.includes('href="/solicitar-demo/"'));

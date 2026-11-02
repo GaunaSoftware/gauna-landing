@@ -101,3 +101,16 @@
 @media(max-width:720px){.storefront .plan-summary,.storefront .planner-gallery{grid-template-columns:1fr}.storefront .hero-wordmark{margin:24px auto}.storefront .corporate-product{height:520px}.storefront-page .product-header-wordmark{width:130px}.storefront .resource-callout{padding:24px}}
 
 .storefront .ecosystem-card .product-card-wordmark .transgest-wordmark.transgest-logo--on-dark{filter:brightness(0) invert(1)}
+
+/* Descriptive headings retain the storefront scale without forced line breaks. */
+.storefront .corporate-hero>div{min-width:0}
+.storefront .corporate-hero h1.descriptive-heading{font-size:clamp(36px,4.4vw,64px);line-height:1.1;letter-spacing:-.045em}
+.storefront .planner-page h1.descriptive-heading{font-size:clamp(36px,5vw,64px);line-height:1.1;max-width:1000px}
+.storefront .hero-tagline{font-size:20px;line-height:1.45;font-weight:500;color:var(--forest);margin-top:22px}
+.storefront .product-hero>p.hero-tagline{font-size:20px;line-height:1.45;max-width:840px;margin-left:auto;margin-right:auto}
+.storefront .product-hero>p:not(.hero-tagline):not(.product-byline):not(.small-print){max-width:800px;margin-left:auto;margin-right:auto}
+.storefront .planner-page .lead{max-width:760px;margin-top:22px}
+@media(max-width:720px){
+ .storefront .corporate-hero h1.descriptive-heading,.storefront .planner-page h1.descriptive-heading{font-size:clamp(32px,8.5vw,48px)}
+ .storefront .hero-tagline,.storefront .product-hero>p.hero-tagline{font-size:17px}
+}
