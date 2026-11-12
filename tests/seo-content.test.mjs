@@ -79,11 +79,17 @@ for (const [slug, expected] of Object.entries(articles)) {
   });
 }
 
-test('only the two requested articles receive the new footer', () => {
+test('the product and demo footer is limited to the selected articles', () => {
+  const selected = new Set([...Object.keys(articles), 'digitalizacion-albaranes-transporte', 'deca-ecmr-diferencias']);
   for (const filename of readdirSync(resolve(root, 'src/content/blog'))) {
     if (!filename.endsWith('.md')) continue;
     const slug = filename.slice(0, -3);
-    if (!Object.hasOwn(articles, slug)) assert.equal(nextStepFor(slug), null);
+    const cta = nextStepFor(slug);
+    if (selected.has(slug)) {
+      assert.ok(cta && routeExists(cta.productHref) && routeExists(cta.resourceHref), slug);
+    } else {
+      assert.equal(cta, null, slug);
+    }
   }
   assert.equal(nextStepFor('future-unrelated-article'), null);
 });
