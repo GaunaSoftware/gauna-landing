@@ -139,5 +139,3 @@ En [TransGest](/transgest/), el punto de partida es el servicio con sus datos op
 4. Administración consulta el expediente completo y comprueba las condiciones necesarias para continuar la facturación.
 
 La prueba permite concretar qué tareas cubre la configuración de TransGest y cuáles necesitan un procedimiento del equipo o una integración. La captura móvil, los estados de validación y las automatizaciones deben confirmarse en la demo; este ejemplo no presupone que estén incluidos en todos los planes.
-
-Si quieres aplicar este flujo a tu empresa, puedes [solicitar una demo de TransGest](/solicitar-demo/) y llevar un ejemplo anonimizado de tus servicios y documentos. El objetivo es acordar cómo conectar entrega, documentación y administración en tu operativa real.
