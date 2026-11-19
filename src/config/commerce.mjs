@@ -7,7 +7,8 @@ export const commercePlans = [
  {id:'intelligence',name:'Pro Intelligence',monthly:95900,annual:978180,integration:0},
  {id:'planner',name:'Planner',monthly:65900,annual:672180,integration:0},
 ];
-export const money = cents => new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR',minimumFractionDigits:2}).format(cents/100);
+// Formato español con punto de miles también en cuatro cifras (2.641,80 €): Intl no lo pone por debajo de 10.000.
+export const money = cents => {const [int,dec]=(Math.abs(cents)/100).toFixed(2).split('.');return `${cents<0?'-':''}${int.replace(/\B(?=(\d{3})+(?!\d))/g,'.')},${dec}\u00a0€`;};
 export const commercePlan = id => commercePlans.find(plan=>plan.id===id);
 export const priceVariable = (id,cycle) => `STRIPE_PRICE_${id.toUpperCase()}_${cycle.toUpperCase()}`;
 export const stripePrice = (env,id,cycle) => env[priceVariable(id,cycle)] || stripeCatalog.prices[id]?.[cycle];

@@ -4,9 +4,9 @@ import DeCALeadForm from '@components/DeCALeadForm.astro';
 
 export const prerender = false;
 
-const pageTitle = 'Software DeCA para transporte | Demo de TransGest';
+const pageTitle = 'Software DeCA: documento de control digital | TransGest';
 const pageDescription =
-  'Solicita una demo de TransGest para revisar los datos del servicio, el PDF, el QR y el archivo del DeCA en la operativa de tu empresa de transporte.';
+  'Programa para preparar el DeCA exigible desde el 5 de octubre de 2026 con los datos de cada servicio: PDF, QR y acceso del conductor desde el móvil. Solicita una demo.';
 
 const requiredFlow = [
   {
@@ -52,6 +52,18 @@ const faqs = [
     a: 'La arquitectura de TransGest permite reutilizar datos ya presentes en la operativa —servicio, cliente, vehículo, conductor, origen, destino y documentación— para evitar volver a introducir la misma información. La capa técnica específica de generación y presentación DeCA debe validarse conforme a la normativa vigente antes de considerarla plenamente operativa.',
   },
   {
+    q: '¿Es obligatorio el DeCA en 2026?',
+    a: 'Sí. Desde el 5 de octubre de 2026, el documento de control administrativo exigible en el transporte público de mercancías por carretera debe ser digital. La guía DeCA 2026 explica a qué transportes afecta y qué requisitos técnicos debe cumplir.',
+  },
+  {
+    q: '¿Qué datos lleva el DeCA?',
+    a: 'Entre otros, el cargador contractual y el transportista efectivo con su NIF, el origen y el destino, la naturaleza y el peso de la mercancía, la fecha del transporte y la matrícula del vehículo y, cuando corresponda, del remolque o semirremolque.',
+  },
+  {
+    q: '¿El conductor puede llevar el DeCA en el móvil?',
+    a: 'Sí. El conductor puede llevar una copia electrónica o una copia impresa con el QR, y el QR puede facilitarse como fichero independiente. En una inspección, el agente usa la URL del QR para descargar el PDF mediante HTTPS.',
+  },
+  {
     q: '¿Necesito cambiar todo mi TMS para gestionar el DeCA?',
     a: 'No necesariamente. Lo importante es que el sistema pueda trabajar con datos estructurados y conecte el documento con el servicio. TransGest plantea el DeCA como parte de la operativa y no como un PDF independiente.',
   },
@@ -69,7 +81,7 @@ const schema = [
     url: 'https://gauna.es/software-deca/',
     name: pageTitle,
     description: pageDescription,
-    dateModified: '2026-10-18',
+    dateModified: '2026-11-19',
     inLanguage: 'es-ES',
     isPartOf: { '@id': 'https://gauna.es/#website' },
     about: [

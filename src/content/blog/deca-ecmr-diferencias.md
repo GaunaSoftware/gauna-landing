@@ -3,7 +3,7 @@ title: "DeCA y eCMR: diferencias y cuándo pueden convivir en el mismo documento
 seoTitle: "eCMR y DeCA: diferencias con la carta de porte CMR"
 description: "Qué es el eCMR o CMR electrónico, en qué se diferencia del DeCA y qué comprobar para reutilizar una carta de porte como documento de control en España."
 pubDate: 2026-09-14
-updatedDate: 2026-11-02
+updatedDate: 2026-11-19
 author: "Gauna"
 category: "normativa"
 tags: ["DeCA", "eCMR", "carta de porte", "transporte"]
@@ -28,6 +28,8 @@ Si necesitas una explicación completa, consulta nuestra [guía DeCA 2026](/deca
 El **eCMR, también llamado e-CMR o CMR electrónico**, es la versión electrónica de la carta de porte CMR utilizada en el transporte internacional sujeto al Convenio CMR y su protocolo adicional electrónico.
 
 Una carta de porte emitida conforme al protocolo electrónico tiene la misma fuerza probatoria y los mismos efectos que la carta de porte CMR. Una foto o un escaneo, por sí solos, no acreditan que se cumplan sus requisitos de autenticación e integridad.
+
+Si buscas una explicación completa del e-CMR, su validez y cómo empezar a usarlo, consulta la [guía del e-CMR o carta de porte electrónica](/blog/e-cmr-carta-de-porte-electronica/).
 
 Su función y marco jurídico no son idénticos a los del DeCA. Por eso no debe asumirse que disponer de cualquier eCMR significa automáticamente haber resuelto todas las obligaciones del documento de control administrativo español.
 

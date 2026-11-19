@@ -1,9 +1,9 @@
 ---
 title: "Digitalización de albaranes en transporte: cómo pasar del papel a un flujo digital"
-seoTitle: "Digitalización de albaranes en transporte | Guía práctica"
-description: "Descubre cómo digitalizar albaranes, vincularlos a cada transporte, evitar documentos perdidos y acelerar la facturación sin depender del papel o WhatsApp."
+seoTitle: "Digitalización de albaranes en transporte: guía práctica 2026"
+description: "Cómo digitalizar los albaranes de una empresa de transporte: captura en el móvil, vínculo con el servicio, revisión, archivo y facturación. Pasos, checklist y ejemplo."
 pubDate: 2026-10-18
-updatedDate: 2026-11-02
+updatedDate: 2026-11-19
 author: "Gauna"
 category: "gestion"
 tags: ["digitalización albaranes", "transporte", "gestión documental", "TMS"]
@@ -46,6 +46,20 @@ Cuando la oficina tiene que descargar cada imagen, renombrarla, identificar al c
 
 El cambio útil es establecer **un lugar de archivo y un responsable de revisión**. Si se recibe documentación por mensajería o correo, debe incorporarse al servicio siguiendo el mismo criterio que el resto de documentos.
 
+## Albarán digital frente a albarán en papel
+
+La diferencia no está solo en el soporte, sino en lo que ocurre después de la entrega:
+
+| | Albarán en papel | Albarán digital vinculado al servicio |
+|---|---|---|
+| Llegada a la oficina | Cuando vuelve el conductor o se envía por mensajería. | En cuanto se incorpora al expediente desde el móvil o la oficina. |
+| Búsqueda | Por carpetas, fechas o la memoria de quien lo archivó. | Desde el servicio, el cliente, la matrícula o la referencia. |
+| Documentos que faltan | Se descubren al preparar la factura. | El servicio muestra qué justificantes faltan o están pendientes de revisar. |
+| Incidencias y reservas | Dependen de que alguien lea el papel a tiempo. | Quedan registradas junto a la entrega y llegan a quien debe resolverlas. |
+| Envío al cliente | Escaneo y correo uno a uno. | El documento ya está en el expediente y se adjunta o comparte desde ahí. |
+
+Un **albarán digital** no tiene que eliminar el papel desde el primer día: muchas empresas empiezan capturando el papel firmado y, después, pasan a recoger la conformidad directamente en el móvil. Lo importante es que, en los dos casos, el documento termine en el mismo expediente y con el mismo criterio de revisión.
+
 ## El flujo: servicio, conductor, entrega, validación, archivo y facturación
 
 Este recorrido permite diseñar el proceso sin depender de una herramienta concreta:
@@ -68,7 +82,7 @@ Aunque pueden compartir datos, cada documento cumple una función:
 - **eCMR:** carta de porte electrónica sometida al marco del CMR y su protocolo adicional. Una fotografía de un CMR en papel no se convierte por sí sola en un eCMR conforme a ese marco.
 - **DeCA:** documento electrónico de control administrativo para los transportes en los que resulta exigible. Desde el 5 de octubre de 2026, el documento de control exigible en el transporte público de mercancías por carretera debe ser digital.
 
-Un albarán escaneado no cumple automáticamente los requisitos del DeCA. La normativa admite otros formatos documentales si reúnen los datos y requisitos aplicables. Consulta las [diferencias entre DeCA y eCMR](/blog/deca-ecmr-diferencias/) y el enfoque de [software DeCA](/software-deca/) para revisar ese ámbito específico.
+Un albarán escaneado no cumple automáticamente los requisitos del DeCA. La normativa admite otros formatos documentales si reúnen los datos y requisitos aplicables. Consulta las [diferencias entre DeCA y eCMR](/blog/deca-ecmr-diferencias/), la [guía del e-CMR](/blog/e-cmr-carta-de-porte-electronica/) y el enfoque de [software DeCA](/software-deca/) para revisar ese ámbito específico.
 
 La fecha de obligatoriedad deriva de la disposición transitoria octava de la [Ley 9/2025 de Movilidad Sostenible](https://www.boe.es/eli/es/l/2025/12/03/9/con). Los requisitos técnicos del DeCA se recogen en la [Resolución de 5 de junio de 2026](https://www.boe.es/buscar/act.php?id=BOE-A-2026-12784). Para el eCMR, la referencia es el [Protocolo adicional al Convenio CMR relativo a la carta de porte electrónica](https://www.boe.es/buscar/doc.php?id=BOE-A-2011-10283).
 
