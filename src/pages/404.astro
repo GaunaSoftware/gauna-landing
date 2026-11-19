@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+export const prerender = true;
+---
+
+<BaseLayout
+  title="Página no encontrada | Gauna"
+  description="La página que buscas no existe o ha cambiado de dirección."
+  noindex
+>
+  <section class="py-20 md:py-28">
+    <div class="container-g">
+      <div class="max-w-prose mx-auto text-center">
+        <p class="eyebrow">Error 404</p>
+        <h1 class="text-3xl md:text-4xl font-semibold mt-3">No encontramos esta página.</h1>
+        <p class="mt-4 text-slate-600">Puede que la dirección esté mal escrita o que la página haya cambiado de sitio.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a class="btn-primary" href="/">Ir al inicio</a>
+          <a class="btn-secondary" href="/transgest/">Ver TransGest</a>
+          <a class="btn-secondary" href="/solicitar-demo/">Solicitar demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
