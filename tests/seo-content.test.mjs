@@ -80,7 +80,7 @@ for (const [slug, expected] of Object.entries(articles)) {
 }
 
 test('the product and demo footer is limited to the selected articles', () => {
-  const selected = new Set([...Object.keys(articles), 'digitalizacion-albaranes-transporte', 'deca-ecmr-diferencias']);
+  const selected = new Set([...Object.keys(articles), 'digitalizacion-albaranes-transporte', 'deca-ecmr-diferencias', 'e-cmr-carta-de-porte-electronica']);
   for (const filename of readdirSync(resolve(root, 'src/content/blog'))) {
     if (!filename.endsWith('.md')) continue;
     const slug = filename.slice(0, -3);
@@ -145,4 +145,29 @@ test('canonical, H1 and Article schema remain linked to the existing article met
   assert.ok(layout.includes('(post.data.updatedDate ?? post.data.pubDate).toISOString()'));
   assert.equal((layout.match(/<h1\b/g) || []).length, 1);
   assert.match(layout, /<h1[^>]*>\s*\{post\.data\.title\}\s*<\/h1>/);
+});
+
+test('albaranes FAQ is defined once in frontmatter and rendered with FAQPage markup', () => {
+  const source = read('src/content/blog/digitalizacion-albaranes-transporte.md');
+  const frontmatter = source.match(/^---\n([\s\S]*?)\n---\n/)?.[1];
+  for (const q of ['¿Qué es un albarán digital?', '¿Es válido un albarán digital en transporte?', '¿Qué programa sirve para gestionar albaranes digitales?']) {
+    assert.ok(frontmatter.includes(`q: "${q}"`), q);
+  }
+  for (const href of ['/blog/e-cmr-carta-de-porte-electronica/', '/deca-2026/', '/transgest/']) {
+    assert.ok(frontmatter.includes(`](${href})`), href);
+    assert.ok(routeExists(href), href);
+  }
+  assert.ok(layout.includes("'@type': 'FAQPage'"));
+  assert.ok(layout.includes('acceptedAnswer: { \'@type\': \'Answer\', text: faqText(faq.a) }'));
+  assert.ok(layout.includes('escapeHtml(answer).replace(faqLink'), 'Answers are escaped before links are added');
+});
+
+test('e-CMR and DeCA/eCMR articles target different searches', () => {
+  const ecmr = read('src/content/blog/e-cmr-carta-de-porte-electronica.md');
+  const deca = read('src/content/blog/deca-ecmr-diferencias.md');
+  assert.match(ecmr, /^seoTitle: "e-CMR o CMR electrónico: la carta de porte electrónica en España \(2026\)"$/m);
+  assert.match(deca, /^seoTitle: "DeCA y eCMR: diferencias y cuándo se pueden usar juntos"$/m);
+  const firstParagraph = deca.split(/\n---\n/)[1].trim().split('\n\n')[0];
+  assert.ok(firstParagraph.includes('[qué es el e-CMR](/blog/e-cmr-carta-de-porte-electronica/)'));
+  assert.equal(deca.split('](/blog/e-cmr-carta-de-porte-electronica/)').length - 1, 1);
 });

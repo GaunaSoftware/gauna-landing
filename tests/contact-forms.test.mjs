@@ -16,7 +16,8 @@ const apiSource = stripTypeScriptTypes(read('src/pages/api/contact.ts'))
   + '\nglobalThis.routes = { POST, GET };';
 const fixture = () => ({
   name: 'PRUEBA AUTOMATIZADA', company: 'Empresa de prueba', email: 'test@example.com',
-  phone: '600000000', profile: 'Empresa de transporte', topic: 'Otra consulta',
+  phone: '600000000', profile: 'Empresa de transporte', vehicles: '6-20', sourcePage: '/blog/digitalizacion-albaranes-transporte/',
+  topic: 'Otra consulta',
   message: 'Consulta de prueba', why: '', website: '', turnstileToken: 'test-token',
   startedAt: String(Date.now() - 10000),
 });
@@ -142,10 +143,56 @@ test('API: previous demo why field remains compatible', async () => {
 });
 
 test('API: real missing fields return specific errors before redeeming CAPTCHA', async () => {
-  const server = api(); const response = await server.post(validDemo({ phone: '' }));
+  const server = api(); const response = await server.post({ ...fixture(), type: 'contact', phone: '' });
   assert.equal(response.status, 400);
   assert.deepEqual((await response.json()).missing, ['phone']);
   assert.equal(server.tokens.length, 0); assert.equal(server.emails.length, 0);
+});
+
+test('demo: sends vehicles and source page, not the old company type', async () => {
+  const server = api(); const browser = client('demo', server);
+  await browser.submit();
+  assert.equal(browser.payloads[0].vehicles, '6-20');
+  assert.equal(browser.payloads[0].sourcePage, '/blog/digitalizacion-albaranes-transporte/');
+  assert.equal(Object.hasOwn(browser.payloads[0], 'profile'), false);
+  assert.match(server.emails[0].html, /Número de vehículos<\/strong><\/td><td>6-20/);
+  assert.match(server.emails[0].html, /Página de origen<\/strong><\/td><td>\/blog\/digitalizacion-albaranes-transporte\//);
+});
+
+test('API: demo accepts phone only, without reply_to', async () => {
+  const server = api(); const response = await server.post(validDemo({ email: '', profile: '' }));
+  assert.equal(response.status, 200);
+  assert.equal(Object.hasOwn(server.emails[0], 'reply_to'), false);
+  assert.match(server.emails[0].html, /llama al teléfono indicado/);
+});
+
+test('API: demo accepts email only', async () => {
+  const server = api(); const response = await server.post(validDemo({ phone: '', profile: '' }));
+  assert.equal(response.status, 200); assert.equal(server.emails[0].reply_to, 'test@example.com');
+});
+
+test('API: demo without email and phone, or without vehicles, is rejected before CAPTCHA', async () => {
+  const server = api();
+  const noContact = await server.post(validDemo({ email: '', phone: '', profile: '' }));
+  assert.equal(noContact.status, 400);
+  assert.deepEqual((await noContact.json()).missing, ['contactMethod']);
+  const noVehicles = await server.post(validDemo({ vehicles: '', profile: '' }));
+  assert.deepEqual((await noVehicles.json()).missing, ['vehicles']);
+  assert.equal(server.tokens.length, 0); assert.equal(server.emails.length, 0);
+});
+
+test('API: an old open tab that still sends the company type keeps working', async () => {
+  const server = api(); const response = await server.post(validDemo({ vehicles: undefined, sourcePage: undefined }));
+  assert.equal(response.status, 200);
+  assert.match(server.emails[0].html, /Tipo de empresa/);
+  assert.match(server.emails[0].html, /Página de origen<\/strong><\/td><td>Desconocida/);
+});
+
+test('API: source page only accepts internal paths', async () => {
+  const server = api();
+  await server.post(validDemo({ sourcePage: 'https://otro.example/?email=a@b.c' }));
+  await server.post(validDemo({ sourcePage: '/blog/x/?q=<script>' }));
+  for (const email of server.emails) assert.match(email.html, /Página de origen<\/strong><\/td><td>Desconocida/);
 });
 
 test('API: contact message is still required', async () => {

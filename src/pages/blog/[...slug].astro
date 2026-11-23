@@ -45,6 +45,14 @@ const nextStep = new Map([
     resourceHref: '/transgest/precios/',
     resourceLabel: 'Comparar las versiones de TransGest',
   }],
+  ['e-cmr-carta-de-porte-electronica', {
+    title: 'Revisa el e-CMR con una de tus rutas internacionales',
+    description: 'En la demo de TransGest revisamos un servicio internacional representativo, los datos que ya tienes del viaje y qué necesitarías para trabajar con la carta de porte electrónica.',
+    productHref: '/transgest/',
+    productLabel: 'Ver cómo funciona TransGest',
+    resourceHref: '/blog/deca-ecmr-diferencias/',
+    resourceLabel: 'Diferencias entre DeCA y eCMR',
+  }],
   ['deca-ecmr-diferencias', {
     title: 'Revisa el flujo documental de tus transportes',
     description: 'En la demo de TransGest podemos revisar un servicio representativo, cómo reúnes sus documentos y qué funciones e integraciones necesitas.',
@@ -54,6 +62,16 @@ const nextStep = new Map([
     resourceLabel: 'Consultar la guía DeCA 2026',
   }],
 ]).get(post.slug) ?? null;
+
+// FAQ: one source for the visible answers and the FAQPage markup.
+const faqLink = /\[([^\]]+)\]\((\/[^)\s]*)\)/g;
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char] ?? char);
+const faqText = (answer: string) => answer.replace(faqLink, '$1');
+const faqHtml = (answer: string) =>
+  escapeHtml(answer).replace(faqLink, (_, label, href) =>
+    `<a href="${href}" class="font-medium text-teal-700 underline hover:text-teal-800">${label}</a>`);
+const faqs = post.data.faq;
 
 const articleSchema = [
   {
@@ -83,6 +101,16 @@ const articleSchema = [
       { '@type': 'ListItem', position: 3, name: post.data.title, item: canonicalUrl },
     ],
   },
+  ...(faqs.length > 0 ? [{
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${canonicalUrl}#faq`,
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faqText(faq.a) },
+    })),
+  }] : []),
 ];
 ---
 
@@ -129,6 +157,23 @@ const articleSchema = [
         <div class="prose-g prose-lg">
           <Content />
         </div>
+
+        {faqs.length > 0 && (
+          <section id="preguntas-frecuentes" aria-labelledby="article-faq-title" class="mt-14">
+            <h2 id="article-faq-title" class="text-2xl font-medium leading-tight text-slate-900">Preguntas frecuentes</h2>
+            <div class="mt-6 space-y-3">
+              {faqs.map((faq) => (
+                <details class="group rounded-xl border border-slate-200 bg-white">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-medium text-slate-900">
+                    <span>{faq.q}</span>
+                    <span class="text-teal-700 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="px-5 pb-5 leading-relaxed text-slate-600" set:html={faqHtml(faq.a)} />
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
 
         <div class="mt-16 pt-10 border-t border-slate-200">
           {nextStep ? (
