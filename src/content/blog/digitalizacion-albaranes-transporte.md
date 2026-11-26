@@ -3,10 +3,17 @@ title: "Digitalización de albaranes en transporte: cómo pasar del papel a un f
 seoTitle: "Digitalización de albaranes en transporte: guía práctica 2026"
 description: "Cómo digitalizar los albaranes de una empresa de transporte: captura en el móvil, vínculo con el servicio, revisión, archivo y facturación. Pasos, checklist y ejemplo."
 pubDate: 2026-10-18
-updatedDate: 2026-11-19
+updatedDate: 2026-11-23
 author: "Gauna"
 category: "gestion"
 tags: ["digitalización albaranes", "transporte", "gestión documental", "TMS"]
+faq:
+  - q: "¿Qué es un albarán digital?"
+    a: "Es el justificante de entrega en formato electrónico. Recoge qué se ha entregado, a quién, dónde y cuándo, con la firma o confirmación del receptor, y queda unido al servicio en el programa de gestión, sin papeles que escanear ni perder."
+  - q: "¿Es válido un albarán digital en transporte?"
+    a: "No existe un modelo oficial único de albarán. Lo importante es poder demostrar la entrega: datos completos, firma o confirmación del receptor, fecha y hora, y que el documento no se pueda cambiar después. La carta de porte ([CMR o e-CMR](/blog/e-cmr-carta-de-porte-electronica/)) y el [DeCA](/deca-2026/) tienen sus propias reglas."
+  - q: "¿Qué programa sirve para gestionar albaranes digitales?"
+    a: "Un TMS con app para el conductor: el conductor firma o fotografía la entrega en el móvil, el albarán se une al viaje y la oficina puede facturar sin esperar al papel. Es lo que planteamos con [TransGest](/transgest/)."
 ---
 
 La **digitalización de albaranes en transporte** consiste en incorporar el documento de entrega a un proceso en el que queda identificado, vinculado al servicio, revisado y disponible para administración. Una imagen legible puede formar parte de ese proceso, pero guardarla en un teléfono no resuelve por sí sola la gestión documental.
@@ -113,6 +120,8 @@ El retraso suele aparecer entre la entrega y el momento en que administración r
 Por ejemplo, administración puede distinguir un servicio completo de otro que tiene una incidencia o una página pendiente, sin pedir de nuevo todos los documentos al conductor. Esto facilita preparar la factura conforme a las condiciones del cliente.
 
 Para medir el resultado, compara los días entre entrega y validación documental, los servicios pendientes de justificante y las facturas devueltas por documentación incompleta. **Reducir la espera documental no garantiza el cobro anticipado:** también influyen los acuerdos y plazos de pago.
+
+¿Quieres verlo con un viaje de tu empresa? [Pide una demo](/solicitar-demo/) y lo revisamos con un servicio real.
 
 ## Qué debe ofrecer un TMS para gestionar albaranes
 

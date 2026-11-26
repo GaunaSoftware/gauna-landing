@@ -1,8 +1,9 @@
 ---
 title: "e-CMR: la carta de porte electrónica en España"
-seoTitle: "e-CMR: la carta de porte electrónica en España (guía 2026)"
-description: "Qué es el e-CMR o CMR electrónico, cuándo es válido en España, qué exige el protocolo adicional al Convenio CMR y cómo prepararlo con los datos de cada servicio."
+seoTitle: "e-CMR o CMR electrónico: la carta de porte electrónica en España (2026)"
+description: "Qué es el e-CMR, si es válido en España, qué exige el protocolo adicional al CMR y cómo empezar a usar la carta de porte electrónica en tu empresa de transporte."
 pubDate: 2026-11-19
+updatedDate: 2026-11-23
 author: "Gauna"
 category: "normativa"
 tags: ["e-CMR", "eCMR", "CMR electrónico", "carta de porte", "transporte internacional"]
@@ -44,6 +45,8 @@ Los artículos 3 a 5 del protocolo fijan lo que debe asegurar el procedimiento e
 5. **Procedimientos acordados.** Las partes definen cómo se emite el documento, cómo se corrige un dato y cómo se resuelven las incidencias.
 
 Al evaluar un programa, pide que te muestren el ciclo completo con un servicio real: emisión, firma en la carga, reservas, entrega, firma del destinatario y consulta posterior.
+
+¿Quieres verlo con un viaje de tu empresa? [Pide una demo](/solicitar-demo/) y lo revisamos con una de tus rutas.
 
 ## e-CMR, CMR en papel y DeCA
 

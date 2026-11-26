@@ -4,9 +4,9 @@ import DeCALeadForm from '@components/DeCALeadForm.astro';
 
 export const prerender = false;
 
-const pageTitle = 'Software DeCA: documento de control digital | TransGest';
+const pageTitle = 'Software DeCA para empresas de transporte | TransGest';
 const pageDescription =
-  'Programa para preparar el DeCA exigible desde el 5 de octubre de 2026 con los datos de cada servicio: PDF, QR y acceso del conductor desde el móvil. Solicita una demo.';
+  'Prepara el DeCA con los datos que ya tienes de cada servicio: cliente, origen, destino, mercancía y vehículo, sin rellenarlo desde cero. Pide una demo de TransGest.';
 
 const requiredFlow = [
   {
@@ -81,7 +81,7 @@ const schema = [
     url: 'https://gauna.es/software-deca/',
     name: pageTitle,
     description: pageDescription,
-    dateModified: '2026-11-19',
+    dateModified: '2026-11-23',
     inLanguage: 'es-ES',
     isPartOf: { '@id': 'https://gauna.es/#website' },
     about: [
@@ -131,7 +131,7 @@ const schema = [
         <p class="mt-4 text-sm text-slate-500">Actualizado el <time datetime="2026-10-18">18 de octubre de 2026</time></p>
 
         <h1 class="text-display-sm md:text-display-md lg:text-display-lg font-medium text-slate-900 leading-[1.05] mt-7">
-          Software DeCA para integrar el documento de control en la operativa del transporte.
+          Software DeCA para empresas de transporte
         </h1>
 
         <p class="text-lg md:text-xl text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
@@ -157,6 +157,11 @@ const schema = [
         <p class="text-lg text-slate-600 mt-6 max-w-3xl mx-auto leading-relaxed">
           Buena parte de la información que necesita el documento ya existe en la operativa diaria. La idea es aprovecharla,
           mantenerla conectada al servicio y evitar que tráfico o administración tengan que duplicar trabajo.
+        </p>
+        <p class="text-slate-600 mt-4 max-w-3xl mx-auto leading-relaxed">
+          Lo mismo ocurre con los justificantes de entrega: consulta cómo plantear la
+          <a href="/blog/digitalizacion-albaranes-transporte/" class="font-medium text-teal-700 underline underline-offset-4 hover:text-teal-800">digitalización de albaranes</a>
+          para que queden unidos al servicio y listos para facturar.
         </p>
       </div>
 

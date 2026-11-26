@@ -78,6 +78,10 @@ export const POST: APIRoute = async ({ request }) => {
     const phone = clean(data.phone, 80);
     const profile = clean(data.profile, 200);
     const topic = clean(data.topic, 300);
+    const vehicles = clean(data.vehicles, 40);
+    // Solo rutas internas de gauna.es: sirve para medir qué páginas traen solicitudes.
+    const rawSource = clean(data.sourcePage, 200);
+    const sourcePage = /^\/[a-z0-9\-/]*$/i.test(rawSource) ? rawSource : '';
     // Accept the previous demo field during rolling deployments and open browser tabs.
     // The demo comment is optional in both the browser and the API.
     const message = clean(data.message, 5000) || clean(data.why, 5000)
@@ -86,8 +90,16 @@ export const POST: APIRoute = async ({ request }) => {
     if (type !== 'demo' && type !== 'contact') {
       return json({ error: 'Tipo de solicitud no válido. Recarga la página e inténtalo de nuevo.' }, 400);
     }
-    const required: Record<string, string> = { name, company, email, phone };
-    if (type === 'demo') required.profile = profile;
+    const required: Record<string, string> = { name, company };
+    if (type === 'demo') {
+      // La demo pide un email o un teléfono. Las pestañas abiertas antes del cambio
+      // envían todavía el tipo de empresa en lugar del número de vehículos.
+      if (!email && !phone) required.contactMethod = '';
+      if (!profile) required.vehicles = vehicles;
+    } else {
+      required.email = email;
+      required.phone = phone;
+    }
     if (type === 'contact') {
       required.topic = topic;
       required.message = message;
@@ -95,13 +107,14 @@ export const POST: APIRoute = async ({ request }) => {
     const labels: Record<string, string> = {
       name: 'nombre', company: 'empresa', email: 'email', phone: 'teléfono',
       profile: 'tipo de empresa', topic: 'motivo de contacto', message: 'mensaje',
+      vehicles: 'número de vehículos', contactMethod: 'email o teléfono',
     };
     const missing = Object.keys(required).filter((field) => !required[field]);
     if (missing.length > 0) {
       return json({ error: `Completa los campos obligatorios: ${missing.map((field) => labels[field]).join(', ')}.`, missing }, 400);
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Email no válido.' }, 400);
-    if (isBlockedEmailDomain(email)) return json({ error: 'Usa un email profesional o permanente, por favor.' }, 400);
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json({ error: 'Email no válido.' }, 400);
+    if (email && isBlockedEmailDomain(email)) return json({ error: 'Usa un email profesional o permanente, por favor.' }, 400);
     if (!RESEND_API_KEY) {
       console.error('[API contact] RESEND_API_KEY no configurada');
       return json({ error: 'El servicio de correo no está disponible. Escribe a hola@gauna.es.' }, 503);
@@ -118,8 +131,14 @@ export const POST: APIRoute = async ({ request }) => {
       : `Nuevo contacto web — ${company.replace(/[\r\n]/g, ' ')}`;
     const details = [
       ['Origen', isDemo ? 'Solicitud de demo TransGest' : 'Formulario de contacto'],
-      ['Nombre', name], ['Empresa', company], ['Email', email], ['Teléfono', phone],
-      ...(isDemo ? [['Tipo de empresa', profile]] : [['Motivo', topic]]),
+      ['Nombre', name], ['Empresa', company], ['Email', email || '—'], ['Teléfono', phone || '—'],
+      ...(isDemo
+        ? [
+          ...(vehicles ? [['Número de vehículos', vehicles]] : []),
+          ...(profile ? [['Tipo de empresa', profile]] : []),
+          ['Página de origen', sourcePage || 'Desconocida'],
+        ]
+        : [['Motivo', topic]]),
     ];
     const html = `
       <h2>${escapeHtml(subject)}</h2>
@@ -129,7 +148,7 @@ export const POST: APIRoute = async ({ request }) => {
       <h3>Mensaje</h3>
       <p style="white-space:pre-wrap">${escapeHtml(message)}</p>
       <hr>
-      <p style="font-size:12px;color:#64748b">Enviado desde gauna.es. Responde a este correo para contestar directamente a ${escapeHtml(name)}.</p>
+      <p style="font-size:12px;color:#64748b">Enviado desde gauna.es. ${email ? `Responde a este correo para contestar directamente a ${escapeHtml(name)}.` : `${escapeHtml(name)} no ha dejado email: llama al teléfono indicado.`}</p>
     `;
 
     const resendResponse = await fetch('https://api.resend.com/emails', {
@@ -137,7 +156,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
       signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
-        from: CONTACT_FROM_EMAIL, to: [CONTACT_TO_EMAIL], reply_to: email, subject, html,
+        from: CONTACT_FROM_EMAIL, to: [CONTACT_TO_EMAIL], ...(email ? { reply_to: email } : {}), subject, html,
       }),
     });
     if (!resendResponse.ok) {

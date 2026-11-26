@@ -13,6 +13,9 @@ const blog = defineCollection({
     category: z.enum(['normativa', 'gestion', 'nominas', 'tecnologia']).default('normativa'),
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),
+    // Preguntas frecuentes visibles al final del artículo y en el marcado FAQPage.
+    // Las respuestas admiten enlaces internos en formato [texto](/ruta/).
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
   }),
 });
 

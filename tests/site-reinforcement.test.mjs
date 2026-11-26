@@ -19,7 +19,8 @@ const blobSha = (file) => {
 // The guide release intentionally replaces DeCALeadForm and LeadMagnetForm.
 // Their behavior is covered by deca-delivery.test.mjs; all other boundaries remain.
 const unchangedFiles = {
-  'src/pages/api/contact.ts': 'c8f8ac6ff6b3bc6637b868405bc28c3bd18e91dd',
+  // Demo: email o teléfono, número de vehículos y página de origen (cambios SEO del 23/11/2026, PR pendiente de revisión).
+  'src/pages/api/contact.ts': 'f51993ce8d7d93678a96751bbe44ec8050ae6aa5',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
   // Approved post-deadline DeCA update and contextual albaranes link (2026-10-18).
   'src/content/blog/que-es-deca-transporte.md': '2478d6fc883236484e72cac79bf0b2d6ccb17888',
@@ -161,11 +162,12 @@ test('the measurement foundation does not install trackers or read forms/storage
   assert.doesNotMatch(read('src/layouts/BaseLayout.astro'), /googletagmanager\.com|google-analytics\.com/);
 });
 
+// Formulario y script de la demo actualizados el 23/11/2026 (menos campos y página de origen).
 test('demo visual redesign preserves all SEO, form fields and submission logic',()=>{
  const demo=read('src/pages/solicitar-demo.astro');
  const sha=value=>createHash('sha256').update(value.replaceAll('\r\n','\n')).digest('hex');
  assert.equal(sha(demo.match(/const pageTitle[\s\S]*?\n---/)[0]),'63331939402bf10729b72572e27c91b1ada64b60f0478d7badbd6492fa9a4209','seo');
- assert.equal(sha(demo.match(/<form id="demo-form"[\s\S]*?<\/form>/)[0]),'8ed305c713e1a69c8965ef95f48fbab548a03216041181354bb5682cab829558','form');
- assert.equal(sha(demo.match(/<script>[\s\S]*?<\/script>/)[0]),'d1dfa67195981aa9b0a013420aa7deaa1f4c1fdb08dcb8c48ec5f0a9336a464b','script');
+ assert.equal(sha(demo.match(/<form id="demo-form"[\s\S]*?<\/form>/)[0]),'a8b3a2ce9536311c7c2401646ae3451ba11029512bb78d0df99e445d47ba5ace','form');
+ assert.equal(sha(demo.match(/<script>[\s\S]*?<\/script>/)[0]),'5d15842279a29279fcfdde1e1c9bc26a9532b74bf888e460d20249d2bc2be703','script');
  assert.match(demo,/storefront="product"/);
 });
