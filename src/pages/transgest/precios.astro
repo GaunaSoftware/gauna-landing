@@ -40,10 +40,10 @@ const plans = [
 const faqs = [
   ...(publicPrices ? [] : [{
     question: '¿Cuánto cuesta TransGest?',
-    answer: `Desde ${moneyFrom(transgestPriceFrom)} al mes + IVA. El precio depende de la versión y de tu operativa, y te lo concretamos en una propuesta después de la demo. No se cobra por usuario ni por vehículo, la implantación estándar está incluida y puedes elegir pago mensual o anual.`,
+    answer: `Desde ${moneyFrom(transgestPriceFrom)} al mes + IVA. El precio depende de la versión y de tu operativa, y te lo concretamos en una propuesta después de la demo, junto con la puesta en marcha. No se cobra por usuario ni por vehículo y puedes elegir pago mensual o anual.`,
   }]),
   {
-    question: '¿Los planes limitan el número de usuarios o vehículos?',
+    question: publicPrices ? '¿Los planes limitan el número de usuarios o vehículos?' : '¿Las versiones limitan el número de usuarios o vehículos?',
     answer: 'No. La elección del plan depende del nivel de gestión que necesita la empresa, no de cuántas personas o vehículos tenga.',
   },
   {
