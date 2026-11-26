@@ -1,15 +1,17 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import PlanComparison from '@components/PlanComparison.astro';
-import {commercePlans, money, publicPrices, onlinePayments} from '../../config/commerce.mjs';
+import {commercePlans, money, publicPrices, onlinePayments, transgestPriceFrom, moneyFrom} from '../../config/commerce.mjs';
 import '@/styles/commerce.css';
 import { planAnchor } from '../../config/public-site.mjs';
 
 export const prerender = true;
 
-const pageTitle = 'Planes de TransGest | TMS para empresas de transporte';
+const pageTitle = publicPrices ? 'Planes de TransGest | TMS para empresas de transporte' : 'Versiones de TransGest y precio | TMS para empresas de transporte';
 const pageDescription =
-  'Compara TransGest Go, Pro y Pro Intelligence según el nivel de gestión que necesita tu empresa de transporte.';
+  publicPrices
+    ? 'Compara TransGest Go, Pro y Pro Intelligence según el nivel de gestión que necesita tu empresa de transporte.'
+    : `Compara TransGest Go, Pro y Pro Intelligence según el nivel de gestión que necesita tu empresa de transporte. Desde ${moneyFrom(transgestPriceFrom)}/mes + IVA, sin coste por usuario ni por vehículo.`;
 
 const plans = [
   {
@@ -36,6 +38,10 @@ const plans = [
 ];
 
 const faqs = [
+  ...(publicPrices ? [] : [{
+    question: '¿Cuánto cuesta TransGest?',
+    answer: `Desde ${moneyFrom(transgestPriceFrom)} al mes + IVA. El precio depende de la versión y de tu operativa, y te lo concretamos en una propuesta después de la demo. No se cobra por usuario ni por vehículo, la implantación estándar está incluida y puedes elegir pago mensual o anual.`,
+  }]),
   {
     question: '¿Los planes limitan el número de usuarios o vehículos?',
     answer: 'No. La elección del plan depende del nivel de gestión que necesita la empresa, no de cuántas personas o vehículos tenga.',
@@ -50,7 +56,7 @@ const faqs = [
   },
   {
     question: '¿Qué es TransGest Planner?',
-    answer: 'Planner es un producto independiente de Gauna para almacenes y operaciones logísticas. Consulta su página propia en gauna.es/planner/ para ver sus funcionalidades y tarifa.',
+    answer: 'Planner es un producto independiente de Gauna para almacenes y operaciones logísticas. Consulta su página propia en gauna.es/planner/ para ver sus funcionalidades y precio.',
   },
   {
     question: '¿Qué diferencia Go, Pro y Pro Intelligence?',
@@ -81,7 +87,7 @@ const schema = [
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://gauna.es/' },
       { '@type': 'ListItem', position: 2, name: 'TransGest', item: 'https://gauna.es/transgest/' },
-      { '@type': 'ListItem', position: 3, name: 'Planes', item: 'https://gauna.es/transgest/precios/' },
+      { '@type': 'ListItem', position: 3, name: publicPrices ? 'Planes' : 'Versiones', item: 'https://gauna.es/transgest/precios/' },
     ],
   },
   {
@@ -101,7 +107,7 @@ const schema = [
   title={pageTitle}
   description={pageDescription}
   canonical="/transgest/precios/"
-  ogImageAlt="Planes de TransGest"
+  ogImageAlt={publicPrices ? "Planes de TransGest" : "Versiones de TransGest"}
   schema={schema}
   storefront="product"
 >
@@ -130,23 +136,25 @@ const schema = [
                 </li>
               ))}
             </ul>
-            {publicPrices ? (() => { const tariff = commercePlans.find(item => item.name === plan.name); return <div class="tariff-details"><p class="tariff-monthly">{money(tariff.monthly)} <span>/mes + IVA</span></p><p>{money(tariff.annual)} /año + IVA · ahorro del 15 %</p><p>Implantación estándar incluida</p><p>Integraciones y trabajos especiales, bajo presupuesto.</p><p class="tariff-tax">Precios + IVA</p></div>; })() : <div class="tariff-details"><p>Precio según tu operativa, en una propuesta a medida</p><p>Implantación estándar incluida</p></div>}
-            {onlinePayments ? <a href={'/transgest/contratar/?plan=' + commercePlans.find(item => item.name === plan.name).id} data-plan={plan.name} class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Contratar {plan.name}</a> : <a href={'/solicitar-demo/?plan=' + commercePlans.find(item => item.name === plan.name).id} data-plan={plan.name} class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Pedir propuesta</a>}
+            {publicPrices ? (() => { const tariff = commercePlans.find(item => item.name === plan.name); return <div class="tariff-details"><p class="tariff-monthly">{money(tariff.monthly)} <span>/mes + IVA</span></p><p>{money(tariff.annual)} /año + IVA · ahorro del 15 %</p><p>Implantación estándar incluida</p><p>Integraciones y trabajos especiales, bajo presupuesto.</p><p class="tariff-tax">Precios + IVA</p></div>; })() : null}
+            {onlinePayments ? <a href={'/transgest/contratar/?plan=' + commercePlans.find(item => item.name === plan.name).id} data-plan={plan.name} class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Contratar {plan.name}</a> : <a href={'/solicitar-demo/?plan=' + commercePlans.find(item => item.name === plan.name).id} data-plan={plan.name} class:list={['mt-8 inline-flex w-full items-center justify-center rounded-lg px-5 py-3 text-sm font-semibold transition-colors', plan.highlight ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800']}>Verlo en una demo</a>}
           </article>
         ))}
       </div>
 
+      {publicPrices && (
       <div id="coste-transgest" class="mt-8 scroll-mt-24 rounded-xl border border-slate-200 bg-slate-50 p-5 text-sm leading-relaxed text-slate-600">
         <h2 class="text-lg font-semibold text-slate-900">¿Cómo se calcula el precio de TransGest?</h2>
         {publicPrices ? <p class="mt-3">Las tarifas de suscripción están indicadas en cada versión, con facturación mensual o anual. No se calculan por número de usuarios ni de vehículos.</p> : <p class="mt-3">El precio se concreta en una propuesta a medida tras la demo, con facturación mensual o anual. No se calcula por número de usuarios ni de vehículos.</p>}
         <p class="mt-3">{publicPrices ? 'La contratación anual se factura por el año completo y aplica un 15 % de descuento exclusivamente a la suscripción. ' : ''}La implantación estándar está incluida en todos los planes. Las integraciones y los trabajos especiales se realizan bajo presupuesto. Durante la demo revisamos tu operativa y concretamos la formación, el soporte y las integraciones. {publicPrices ? 'Pro Intelligence incluye 1.000 consultas de IA al mes; cada bloque adicional de 500 consultas cuesta 49 €/mes + IVA. Las ampliaciones de almacenamiento cuestan 39 € + IVA por 100 GB/mes. Los consumos variables y los desarrollos específicos se valoran según el proyecto. Precios + IVA; el impuesto aplicable se muestra antes de pagar.' : 'Pro Intelligence incluye 1.000 consultas de IA al mes. Las consultas adicionales, las ampliaciones de almacenamiento, los consumos variables y los desarrollos específicos se valoran en la propuesta.'}</p>
         <p class="mt-3">Para comparar presupuestos más allá de la cuota, consulta nuestra guía sobre <a href="/blog/cuanto-cuesta-software-transporte/" class="font-medium text-teal-700 underline underline-offset-4 hover:text-teal-800">cuánto cuesta un software de transporte</a>.</p>
       </div>
+      )}
     </div>
   </section>
 
   <PlanComparison plans={plans} />
-  <section id="plan-planner" class="container-g py-12"><p>¿Necesitas gestionar un almacén? Planner es un producto independiente de Gauna.</p><a class="button secondary" href="/planner/#precios">Ver Planner y su tarifa ↗</a></section>
+  <section id="plan-planner" class="container-g py-12"><p>¿Necesitas gestionar un almacén? Planner es un producto independiente de Gauna.</p><a class="button secondary" href="/planner/">{publicPrices ? 'Ver Planner y su tarifa ↗' : 'Ver Planner ↗'}</a></section>
 
   <section id="faq" class="py-16 md:py-24 bg-slate-50">
     <div class="container-g grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">

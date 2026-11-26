@@ -5,6 +5,10 @@ import {stripeCatalog} from './stripe-catalog.mjs';
 // Para volver a mostrarlos o a cobrar por la web, basta con poner estos interruptores a true.
 export const publicPrices = false;
 export const onlinePayments = false;
+// Precio «desde» que se muestra en las preguntas frecuentes (céntimos, sin IVA).
+export const transgestPriceFrom = 16900;
+// «Desde 169 €»: sin céntimos cuando el importe es redondo.
+export const moneyFrom = cents => money(cents).replace(/,00(?=\u00a0€)/,'');
 export const commercePlans = [
  {id:'go',name:'Go',monthly:25900,annual:264180,integration:0},
  {id:'pro',name:'Pro',monthly:53900,annual:549780,integration:0},

@@ -101,4 +101,4 @@ La versión **Pro Intelligence** incorpora **Trania**, la IA de TransGest: un as
 
 Las decisiones siguen siendo de las personas: Trania no factura, no paga, no firma ni compromete precios por su cuenta, y todo lo que hace queda registrado.
 
-Puedes ver qué incluye cada versión en la [página de precios](/transgest/precios/).
+Puedes ver qué incluye cada versión en la [página de versiones](/transgest/precios/).
