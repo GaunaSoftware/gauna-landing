@@ -80,7 +80,7 @@ for (const [slug, expected] of Object.entries(articles)) {
 }
 
 test('the product and demo footer is limited to the selected articles', () => {
-  const selected = new Set([...Object.keys(articles), 'digitalizacion-albaranes-transporte', 'deca-ecmr-diferencias', 'e-cmr-carta-de-porte-electronica']);
+  const selected = new Set([...Object.keys(articles), 'digitalizacion-albaranes-transporte', 'deca-ecmr-diferencias', 'e-cmr-carta-de-porte-electronica', 'ia-transporte-como-prepararse']);
   for (const filename of readdirSync(resolve(root, 'src/content/blog'))) {
     if (!filename.endsWith('.md')) continue;
     const slug = filename.slice(0, -3);
@@ -170,4 +170,13 @@ test('e-CMR and DeCA/eCMR articles target different searches', () => {
   const firstParagraph = deca.split(/\n---\n/)[1].trim().split('\n\n')[0];
   assert.ok(firstParagraph.includes('[qué es el e-CMR](/blog/e-cmr-carta-de-porte-electronica/)'));
   assert.equal(deca.split('](/blog/e-cmr-carta-de-porte-electronica/)').length - 1, 1);
+});
+
+test('AI article links into the product, the demo and the related guides', () => {
+  const source = read('src/content/blog/ia-transporte-como-prepararse.md');
+  for (const href of ['/transgest/', '/transgest/precios/', '/solicitar-demo/', '/blog/que-es-un-tms-transporte/', '/blog/digitalizacion-albaranes-transporte/', '/software-deca/', '/deca-2026/', '/blog/e-cmr-carta-de-porte-electronica/']) {
+    assert.ok(source.includes(`](${href})`), href);
+    assert.ok(routeExists(href), href);
+  }
+  assert.match(source, /^category: "tecnologia"$/m);
 });
