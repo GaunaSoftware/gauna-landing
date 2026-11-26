@@ -22,7 +22,7 @@ function rateAllowed(request){
  const now=Date.now();if(requestLimits.size>1000)for(const [key,item]of requestLimits)if(item.until<now)requestLimits.delete(key);
  const item=requestLimits.get(ip);if(!item||item.until<now){requestLimits.set(ip,{count:1,until:now+600000});return true;}return ++item.count<=8;
 }
-export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed}){
+export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed,online}){
  const origin='https://gauna.es';
  const fulfillCheckout=async id=>{
   const session=await stripe.checkout.sessions.retrieve(id);
@@ -52,7 +52,7 @@ export function paymentHandlers({env,stripe,sendEmail,allowRequest=rateAllowed})
    let data;try{data=await request.json();}catch{return json({error:'Solicitud no válida.'},400);}
    const plan=commercePlan(data?.plan),cycle=data?.billing;
    if(!plan||!['monthly','annual'].includes(cycle)||data.consent!==true||!/^([a-f0-9]{8}-)([a-f0-9]{4}-){3}[a-f0-9]{12}$/i.test(data.requestId||'')||Object.keys(data).some(k=>!['plan','billing','consent','requestId'].includes(k)))return json({error:'Selecciona una versión y periodicidad válidas y revisa las condiciones.'},400);
-   if(!paymentReady(env,plan)||!stripe)return json({error:'La contratación online todavía no está disponible. Contacta con hola@gauna.es.'},503);
+   if(!paymentReady(env,plan,online===undefined?{}:{online})||!stripe)return json({error:'La contratación online todavía no está disponible. Contacta con hola@gauna.es.'},503);
    try{
     const account=await stripe.accounts.retrieve();
     if(account.id!==(env.STRIPE_ACCOUNT_ID||stripeCatalog.account)||!account.charges_enabled)throw new Error('Merchant account unavailable');

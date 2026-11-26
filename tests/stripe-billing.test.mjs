@@ -19,7 +19,7 @@ function fixture({plan=commercePlans[0],cycle='monthly'}={}){
   customers:{retrieve:async id=>{reads.push(['customer',id]);return{id,email:'test@example.com'};}},
   checkout:{sessions:{retrieve:async()=>structuredClone(session),list:async()=>({data:[structuredClone(session)]}),listLineItems:async()=>({data:[{quantity:1,price:{id:stripePrice(env,plan.id,cycle)}}]}),update:async(id,data)=>Object.assign(session.metadata,data.metadata)}},
  };
- const handler=paymentHandlers({env,stripe,sendEmail:async message=>{
+ const handler=paymentHandlers({online:true,env,stripe,sendEmail:async message=>{
   attempts.push(message);if(state.failMerchant&&message.to[0]==='hola@gauna.es')throw new Error('Mock delivery failure');
   if(delivered.has(message.idempotencyKey))assert.deepEqual(message,delivered.get(message.idempotencyKey),'Provider retries keep the same message');
   else delivered.set(message.idempotencyKey,message);

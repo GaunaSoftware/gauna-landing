@@ -1,6 +1,10 @@
 // TransGest tariff PDF supplied on 15 October 2026; Planner tariff supplied on 6 October.
 // Integer EUR cents, excluding VAT. Annual discount applies to the subscription only.
 import {stripeCatalog} from './stripe-catalog.mjs';
+// 26/11/2026, decisión del dueño: la web no muestra precios ni permite pagar (Stripe desactivado).
+// Para volver a mostrarlos o a cobrar por la web, basta con poner estos interruptores a true.
+export const publicPrices = false;
+export const onlinePayments = false;
 export const commercePlans = [
  {id:'go',name:'Go',monthly:25900,annual:264180,integration:0},
  {id:'pro',name:'Pro',monthly:53900,annual:549780,integration:0},
@@ -14,7 +18,8 @@ export const priceVariable = (id,cycle) => `STRIPE_PRICE_${id.toUpperCase()}_${c
 export const stripePrice = (env,id,cycle) => env[priceVariable(id,cycle)] || stripeCatalog.prices[id]?.[cycle];
 // Preview for Spain's general VAT regime; Stripe calculates the final tax from billing details.
 export const vatBreakdown = net => {const vat=Math.round(net*21/100);return {net,vat,total:net+vat};};
-export function paymentReady(env,plan){
+// `online` solo existe para probar el cobro (guardado y apagado); en la web vale siempre onlinePayments.
+export function paymentReady(env,plan,{online=onlinePayments}={}){
  const mode=env.STRIPE_SECRET_KEY?.match(/^(?:sk|rk)_(live|test)_/)?.[1];
- return env.STRIPE_PAYMENTS_ENABLED==='true' && Boolean(mode) && env.PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith(`pk_${mode}_`) && /^whsec_/.test(env.STRIPE_WEBHOOK_SECRET||'') && Boolean(env.RESEND_API_KEY) && ['monthly','annual'].every(cycle=>/^price_/.test(stripePrice(env,plan.id,cycle)||''));
+ return online && env.STRIPE_PAYMENTS_ENABLED==='true' && Boolean(mode) && env.PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith(`pk_${mode}_`) && /^whsec_/.test(env.STRIPE_WEBHOOK_SECRET||'') && Boolean(env.RESEND_API_KEY) && ['monthly','annual'].every(cycle=>/^price_/.test(stripePrice(env,plan.id,cycle)||''));
 }
