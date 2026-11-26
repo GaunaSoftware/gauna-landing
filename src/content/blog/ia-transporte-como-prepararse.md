@@ -32,7 +32,7 @@ La presión sobre las empresas de transporte no viene de la tecnología, sino de
 Estos son usos que ya funcionan en empresas pequeñas y medianas, siempre que los datos estén en un sistema y no en papeles sueltos:
 
 - **Leer pedidos que llegan por correo.** La IA extrae cliente, origen, destino, fechas y mercancía de un correo o de un PDF, y prepara el servicio para que tráfico lo revise y lo confirme. Se evita copiar a mano lo que ya viene escrito.
-- **Leer documentos.** Albaranes, CMR o facturas de proveedores se pueden reconocer y unir al servicio que corresponde, sin escanear y archivar a mano.
+- **Leer documentos.** Albaranes, CMR, prefacturas o facturas de proveedores se pueden reconocer y unir al servicio que corresponde, sin escanear y archivar a mano.
 - **Avisar de lo que se escapa.** Servicios terminados sin facturar, albaranes que faltan, viajes con un margen más bajo de lo normal o clientes que tardan en pagar.
 - **Analizar la rentabilidad.** Con costes e ingresos por servicio, se puede ver qué clientes, rutas o tipos de carga dejan dinero y cuáles no.
 - **Responder antes a los clientes.** Si los estados del viaje y las entregas están en el sistema, preguntas como «¿dónde está mi carga?» se contestan sin llamar al conductor.
@@ -91,4 +91,10 @@ Las tareas que más tiempo se llevan y que más se repiten son las primeras cand
 
 [TransGest](/transgest/) es un software de gestión de transporte que reúne tráfico, documentación, vehículos, conductores, facturación y rentabilidad, con una app para el conductor. Cubre los pasos 1, 2 y 3 de esta guía.
 
-La versión **Pro Intelligence** añade automatización y funciones asistidas por IA, como la lectura de pedidos que llegan por correo para que tráfico solo tenga que revisarlos. Puedes ver qué incluye cada versión en la [página de precios](/transgest/precios/).
+La versión **Pro Intelligence** incorpora una IA interna que asiste al usuario dentro del propio programa y va haciendo por él buena parte del trabajo repetitivo:
+
+- **Automatización de pedidos:** los pedidos que llegan se convierten en servicios para que tráfico solo tenga que revisarlos y confirmarlos.
+- **Lectura de prefacturas:** la IA lee las prefacturas y recoge sus datos, sin tener que copiarlos a mano.
+- **Asistencia en el día a día:** ayuda al usuario a encontrar información y a completar tareas sin salir de TransGest.
+
+Puedes ver qué incluye cada versión en la [página de precios](/transgest/precios/).
