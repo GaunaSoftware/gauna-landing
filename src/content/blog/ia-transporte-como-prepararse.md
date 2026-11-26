@@ -91,14 +91,14 @@ Las tareas que más tiempo se llevan y que más se repiten son las primeras cand
 
 [TransGest](/transgest/) es un software de gestión de transporte que reúne tráfico, documentación, vehículos, conductores, facturación y rentabilidad, con una app para el conductor. Cubre los pasos 1, 2 y 3 de esta guía.
 
-La versión **Pro Intelligence** incorpora **Trania**, la IA de TransGest. Es un asistente al que se le habla o se le escribe, en el ordenador o en el móvil, y que trabaja con los datos de la propia empresa:
+La versión **Pro Intelligence** incorpora **Trania**, la IA de TransGest: un asistente al que se le habla o se le escribe, desde el ordenador o el móvil, y que trabaja con los datos de la propia empresa. En la práctica:
 
-- **Pedidos que entran solos.** Lee los pedidos que llegan por correo (en el texto o en un PDF), por WhatsApp o por EDI, y también los que se le dictan por voz. Solo crea el pedido si todo cuadra: cliente conocido, ruta con tarifa, fechas correctas y sin duplicados. Si algo falla, lo deja para revisar y explica por qué.
-- **Tráfico.** Resume los viajes del día y el plan de mañana, empezando por lo que necesita una decisión. Para una carga, propone los tres chóferes mejor situados y explica el motivo. La asignación siempre la confirma una persona.
-- **Documentos.** Lee albaranes, CMR, tickets de gasto, documentos de vehículos y conductores, y facturas de proveedores, que compara con el viaje. Con las autofacturas de los clientes, comprueba sumas e IVA y señala lo que no cuadra con los viajes reales.
-- **Clientes.** En el portal del cliente contesta preguntas como «¿dónde está mi camión?», cuándo carga o descarga su pedido o si sus albaranes están disponibles. Si le piden precios o datos internos, pasa con una persona.
-- **Control.** Avisa de documentos que caducan, facturas sin cobrar y servicios pendientes de facturar, y responde preguntas sobre rentabilidad, margen o kilómetros en vacío, según los permisos de cada persona.
+- **Menos pedidos tecleados a mano.** Los pedidos que llegan por los canales habituales del cliente entran en el programa listos para revisar.
+- **El día de tráfico, de un vistazo.** Qué está pendiente, qué necesita una decisión y qué opciones hay, para que la persona de tráfico decida antes.
+- **Menos papeles que copiar.** La documentación del viaje y de los proveedores se lee y se une al servicio que corresponde.
+- **Clientes que preguntan menos por teléfono.** Pueden consultar cómo va su pedido sin tener que llamar a la oficina.
+- **Control del negocio.** Avisos de lo que caduca o está pendiente de cobrar o facturar, y respuestas sobre rentabilidad según los permisos de cada persona.
 
-Y hay cosas que Trania no hace por diseño: no emite facturas ni paga, no firma contratos, no decide sobre trabajadores y no compromete precios ni contesta reclamaciones sin que una persona lo apruebe. Todo lo que hace queda registrado en el historial y, sin IA, el programa sigue funcionando igual.
+Las decisiones siguen siendo de las personas: Trania no factura, no paga, no firma ni compromete precios por su cuenta, y todo lo que hace queda registrado.
 
 Puedes ver qué incluye cada versión en la [página de precios](/transgest/precios/).
