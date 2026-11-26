@@ -43,7 +43,10 @@ test('cost guidance shows the approved public tariffs and implementation conditi
 });
 
 test('page identity and existing conversion destinations remain stable', () => {
-  assert.ok(source.includes("const pageTitle = 'Planes de TransGest | TMS para empresas de transporte';"));
+  assert.ok(source.includes("'Planes de TransGest | TMS para empresas de transporte'"));
+  // 26/11/2026: sin precios, la página se presenta como «Versiones» y la pregunta «¿Cuánto cuesta?» da el «desde».
+  assert.ok(source.includes("'Versiones de TransGest y precio | TMS para empresas de transporte'"));
+  assert.ok(source.includes("question: '¿Cuánto cuesta TransGest?'") && source.includes('moneyFrom(transgestPriceFrom)'));
   assert.ok(source.includes('Compara TransGest Go, Pro y Pro Intelligence según el nivel de gestión que necesita tu empresa de transporte.'));
   assert.ok(source.includes('canonical="/transgest/precios/"'));
   assert.equal((source.match(/<h1\b/g) || []).length, 1);

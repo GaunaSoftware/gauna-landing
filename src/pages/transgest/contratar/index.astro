@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import {commercePlans,commercePlan,money,paymentReady,vatBreakdown} from '../../../config/commerce.mjs';
+import {commercePlans,commercePlan,money,paymentReady,vatBreakdown,onlinePayments} from '../../../config/commerce.mjs';
 import {stripeCatalog} from '../../../config/stripe-catalog.mjs';
 import '@/styles/commerce.css';
 export const prerender=false;
 const env={...import.meta.env,...process.env};
 const requested=Astro.url.searchParams.get('plan');
+// Sin pago en la web (26/11/2026): la contratación se hace tras la demo, con propuesta.
+if(!onlinePayments)return Astro.redirect('/solicitar-demo/'+(requested&&commercePlan(requested)?'?plan='+encodeURIComponent(requested):''),302);
 const plan=requested?commercePlan(requested):commercePlans[0];
 if(!plan)return Astro.redirect('/transgest/precios/',303);
 const billing=Astro.url.searchParams.get('billing')==='annual'?'annual':'monthly';

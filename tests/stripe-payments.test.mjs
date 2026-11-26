@@ -19,7 +19,7 @@ function fixture(options={}){
   for(const plan of commercePlans)for(const cycle of ['monthly','annual'])if(stripePrice(env,plan.id,cycle)===id)return{id,active:true,currency:'eur',tax_behavior:'exclusive',unit_amount:plan[cycle]+(options.wrongAmount?1:0),recurring:{interval:cycle==='annual'?'year':'month',interval_count:1}};
   throw new Error('Unexpected non-subscription price: '+id);
  }},checkout:{sessions:{create:async(data,key)=>{calls.push({data,key});session={id:'cs_live_fixture',client_secret:'test_checkout_client_secret',metadata:data.metadata,status:'complete',payment_status:'paid',currency:'eur',customer_details:{email:'test@example.com'},customer:'cus_fixture',subscription:'sub_fixture',amount_total:201949,line_items:data.line_items};return session;},retrieve:async()=>({...session,...options.session}),listLineItems:async()=>({data:session.line_items.map(x=>({quantity:1,price:{id:x.price}}))}),update:async(id,data)=>{session.metadata={...session.metadata,...data.metadata};}}},subscriptions:{retrieve:async()=>({status:options.inactive?'incomplete':'active'})},webhooks:signer.webhooks};
- const handler=paymentHandlers({env:options.noConfig?{}:env,stripe,allowRequest:()=>!options.limited,sendEmail:async message=>{if(options.emailFailure)throw new Error('Mock delivery failure');emails.push(message);}});
+ const handler=paymentHandlers({online:!options.offline,env:options.noConfig?{}:env,stripe,allowRequest:()=>!options.limited,sendEmail:async message=>{if(options.emailFailure)throw new Error('Mock delivery failure');emails.push(message);}});
  const post=(data={})=>handler.checkout(new Request('https://gauna.es/api/stripe/checkout',{method:'POST',headers:{Origin:options.crossOrigin?'https://other.example':'https://gauna.es','Content-Type':'application/json'},body:JSON.stringify({plan:'go',billing:'monthly',consent:true,requestId:nonce,...data})}));
  const webhook=async(type='checkout.session.completed',signed=true)=>{const payload=JSON.stringify({id:'evt_fixture',type,livemode:true,data:{object:{id:session.id}}});const header=signed?signer.webhooks.generateTestHeaderString({payload,secret}):'invalid';return handler.webhook(new Request('https://gauna.es/api/stripe/webhook',{method:'POST',headers:{'stripe-signature':header},body:payload}));};
  return{handler,post,webhook,calls,emails};
@@ -27,7 +27,7 @@ function fixture(options={}){
 test('approved tariff has four plans, exact annual discount and included implantation in all plans',()=>{
  assert.deepEqual(commercePlans.map(p=>[p.id,p.monthly,p.annual,p.integration]),[['go',25900,264180,0],['pro',53900,549780,0],['intelligence',95900,978180,0],['planner',65900,672180,0]]);
  for(const p of commercePlans)assert.equal(p.annual,p.monthly*12*.85);
- assert.equal(paymentReady({...env,PUBLIC_STRIPE_PUBLISHABLE_KEY:'pk_test_wrong_mode'},commercePlans[0]),false);
+ assert.equal(paymentReady({...env,PUBLIC_STRIPE_PUBLISHABLE_KEY:'pk_test_wrong_mode'},commercePlans[0],{online:true}),false);
 });
 
 test('VAT preview separates net, rounded tax and payable total for every plan and cycle',()=>{
@@ -96,4 +96,14 @@ test('real SDK rejects unsigned webhooks; paid confirmation delivers twice and d
 test('unpaid or unrelated sessions never fulfill; delivery errors return retryable failure',async()=>{
  for(const session of [{payment_status:'unpaid'},{metadata:{source:'other'}}]){const f=fixture({session});await f.post();assert.equal((await f.webhook()).status,200);assert.equal(f.emails.length,0);}
  for(const option of ['emailFailure','inactive']){const f=fixture({[option]:true});await f.post();assert.equal((await f.webhook()).status,500);assert.equal(f.emails.length,0);}
+});
+
+test('26/11/2026: the website sells nothing online and hides prices by default', async () => {
+ const {publicPrices, onlinePayments} = await import('../src/config/commerce.mjs');
+ assert.equal(publicPrices, false); assert.equal(onlinePayments, false);
+ for (const plan of commercePlans) assert.equal(paymentReady(env, plan), false, 'A fully configured Stripe account still cannot charge from the website');
+ const f = fixture({offline: true}), response = await f.post({plan: 'pro', billing: 'monthly'});
+ assert.equal(response.status, 503); assert.equal(f.calls.length, 0, 'No Stripe Checkout session is created');
+ const pages = ['src/pages/transgest/precios.astro', 'src/pages/transgest/index.astro', 'src/pages/planner/index.astro'].map(file => readFileSync(new URL('../' + file, import.meta.url), 'utf8'));
+ for (const page of pages) assert.ok(/publicPrices \?/.test(page), 'Every price block is behind the publicPrices switch');
 });
