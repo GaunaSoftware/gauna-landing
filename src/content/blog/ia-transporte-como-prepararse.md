@@ -32,7 +32,7 @@ La presión sobre las empresas de transporte no viene de la tecnología, sino de
 Estos son usos que ya funcionan en empresas pequeñas y medianas, siempre que los datos estén en un sistema y no en papeles sueltos:
 
 - **Leer pedidos que llegan por correo.** La IA extrae cliente, origen, destino, fechas y mercancía de un correo o de un PDF, y prepara el servicio para que tráfico lo revise y lo confirme. Se evita copiar a mano lo que ya viene escrito.
-- **Leer documentos.** Albaranes, CMR, prefacturas o facturas de proveedores se pueden reconocer y unir al servicio que corresponde, sin escanear y archivar a mano.
+- **Leer documentos.** Albaranes, CMR, tickets de gasto o facturas de proveedores se pueden reconocer y unir al servicio que corresponde, sin escanear y archivar a mano.
 - **Avisar de lo que se escapa.** Servicios terminados sin facturar, albaranes que faltan, viajes con un margen más bajo de lo normal o clientes que tardan en pagar.
 - **Analizar la rentabilidad.** Con costes e ingresos por servicio, se puede ver qué clientes, rutas o tipos de carga dejan dinero y cuáles no.
 - **Responder antes a los clientes.** Si los estados del viaje y las entregas están en el sistema, preguntas como «¿dónde está mi carga?» se contestan sin llamar al conductor.
@@ -91,10 +91,14 @@ Las tareas que más tiempo se llevan y que más se repiten son las primeras cand
 
 [TransGest](/transgest/) es un software de gestión de transporte que reúne tráfico, documentación, vehículos, conductores, facturación y rentabilidad, con una app para el conductor. Cubre los pasos 1, 2 y 3 de esta guía.
 
-La versión **Pro Intelligence** incorpora una IA interna que asiste al usuario dentro del propio programa y va haciendo por él buena parte del trabajo repetitivo:
+La versión **Pro Intelligence** incorpora **Trania**, la IA de TransGest. Es un asistente al que se le habla o se le escribe, en el ordenador o en el móvil, y que trabaja con los datos de la propia empresa:
 
-- **Automatización de pedidos:** los pedidos que llegan se convierten en servicios para que tráfico solo tenga que revisarlos y confirmarlos.
-- **Lectura de prefacturas:** la IA lee las prefacturas y recoge sus datos, sin tener que copiarlos a mano.
-- **Asistencia en el día a día:** ayuda al usuario a encontrar información y a completar tareas sin salir de TransGest.
+- **Pedidos que entran solos.** Lee los pedidos que llegan por correo (en el texto o en un PDF), por WhatsApp o por EDI, y también los que se le dictan por voz. Solo crea el pedido si todo cuadra: cliente conocido, ruta con tarifa, fechas correctas y sin duplicados. Si algo falla, lo deja para revisar y explica por qué.
+- **Tráfico.** Resume los viajes del día y el plan de mañana, empezando por lo que necesita una decisión. Para una carga, propone los tres chóferes mejor situados y explica el motivo. La asignación siempre la confirma una persona.
+- **Documentos.** Lee albaranes, CMR, tickets de gasto, documentos de vehículos y conductores, y facturas de proveedores, que compara con el viaje. Con las autofacturas de los clientes, comprueba sumas e IVA y señala lo que no cuadra con los viajes reales.
+- **Clientes.** En el portal del cliente contesta preguntas como «¿dónde está mi camión?», cuándo carga o descarga su pedido o si sus albaranes están disponibles. Si le piden precios o datos internos, pasa con una persona.
+- **Control.** Avisa de documentos que caducan, facturas sin cobrar y servicios pendientes de facturar, y responde preguntas sobre rentabilidad, margen o kilómetros en vacío, según los permisos de cada persona.
+
+Y hay cosas que Trania no hace por diseño: no emite facturas ni paga, no firma contratos, no decide sobre trabajadores y no compromete precios ni contesta reclamaciones sin que una persona lo apruebe. Todo lo que hace queda registrado en el historial y, sin IA, el programa sigue funcionando igual.
 
 Puedes ver qué incluye cada versión en la [página de precios](/transgest/precios/).
