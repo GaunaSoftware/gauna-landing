@@ -2,17 +2,23 @@ import assert from 'node:assert/strict';
 import {mkdir} from 'node:fs/promises';
 import {chromium} from 'playwright';
 import {productMedia} from '../src/config/product-media.mjs';
-import {commercePlans,money} from '../src/config/commerce.mjs';
+import {commercePlans,money,publicPrices,onlinePayments} from '../src/config/commerce.mjs';
 const base=process.env.STOREFRONT_TEST_URL||'http://127.0.0.1:4321';
 if(!/^http:\/\/127\.0\.0\.1:\d+$/.test(base))throw new Error('Browser fixtures run only on localhost.');
 await mkdir('test-output/storefront',{recursive:true});
 const browser=await chromium.launch({executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE||undefined});
-const routes=['/','/transgest/','/transgest/precios/','/planner/','/solicitar-demo/','/deca-2026/','/software-deca/','/blog/que-es-deca-transporte/','/transgest/contratar/'];
+// Sin pago online, /transgest/contratar/ redirige a la demo: se comprueba aparte.
+const routes=['/','/transgest/','/transgest/precios/','/planner/','/solicitar-demo/','/deca-2026/','/software-deca/','/blog/que-es-deca-transporte/',...(onlinePayments?['/transgest/contratar/']:[])];
 try{
  for(const width of [1440,390,360]){
   const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
   await context.route('**/*',route=>new URL(route.request().url()).origin===base?route.continue():route.abort());
   const page=await context.newPage(),errors=[];
+  if(!onlinePayments){
+   const redirect=await context.request.get(base+'/transgest/contratar/?plan=go',{maxRedirects:0});
+   assert.equal(redirect.status(),302);
+   assert.equal(redirect.headers().location,'/solicitar-demo/?plan=go');
+  }
   page.on('pageerror',error=>errors.push(error.message));
   for(const path of routes){
    // Astro's development connection can stay active after the page is ready.
@@ -31,12 +37,15 @@ try{
    if(path==='/transgest/precios/'){
     assert.equal(await page.locator('#comparativa table').count(),1);
     assert.equal(await page.locator('article[id^="plan-"]').count(),3);
-    assert.ok((await page.locator('#coste-transgest').textContent()).includes('La contratación anual se factura por el año completo'));
+    // Los interruptores de src/config/commerce.mjs deciden si hay precios y pago en la web.
+    if(publicPrices)assert.ok((await page.locator('#coste-transgest').textContent()).includes('La contratación anual se factura por el año completo'));
+    else assert.equal(await page.locator('#coste-transgest').count(),0);
     for(const plan of commercePlans.filter(plan=>plan.id!=='planner')){
      const card=page.locator(`[id="plan-${plan.name.toLowerCase().replaceAll(' ','-')}"]`);
-     assert.ok((await card.textContent()).includes(money(plan.monthly)));
-     assert.ok((await card.textContent()).includes(money(plan.annual)));
-     assert.equal(await card.locator('a[data-plan]').getAttribute('href'),'/transgest/contratar/?plan='+plan.id);
+     const text=await card.textContent();
+     assert.equal(text.includes(money(plan.monthly)),publicPrices,plan.id);
+     assert.equal(text.includes(money(plan.annual)),publicPrices,plan.id);
+     assert.equal(await card.locator('a[data-plan]').getAttribute('href'),(onlinePayments?'/transgest/contratar/?plan=':'/solicitar-demo/?plan=')+plan.id);
     }
    }
    if(path==='/solicitar-demo/'){
@@ -97,9 +106,10 @@ try{
    if(path==='/planner/'){
     assert.equal(await page.locator('header a[aria-label="Planner, inicio"]').count(),1);
     assert.equal(await page.locator('header a[href="/transgest/precios/"]').count(),0);
-    assert.equal(await page.locator('#precios a[href="/transgest/contratar/?plan=planner"]').count(),1);
-    assert.ok((await page.locator('#precios').textContent()).includes(money(65900)));
-    assert.ok((await page.locator('#precios').textContent()).includes(money(672180)));
+    assert.equal(await page.locator('#precios a[href="/transgest/contratar/?plan=planner"]').count(),onlinePayments?1:0);
+    assert.equal(await page.locator('#precios a[href="/solicitar-demo/"]').count(),1);
+    assert.equal((await page.locator('#precios').textContent()).includes(money(65900)),publicPrices);
+    assert.equal((await page.locator('#precios').textContent()).includes(money(672180)),publicPrices);
     for(const image of productMedia.filter(image=>image.id.startsWith('planner-'))){
      await page.locator(`[data-screen="${image.id}"]`).click();await page.locator('#viewer[open]').waitFor();
      await page.locator('#viewer-body img').evaluate(img=>img.decode());
