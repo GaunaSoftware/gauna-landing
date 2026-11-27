@@ -23,7 +23,8 @@ const unchangedFiles = {
   'src/pages/api/contact.ts': 'f51993ce8d7d93678a96751bbe44ec8050ae6aa5',
   'src/pages/contacto.astro': '93ec304f4677d4aeaeff76f346c108b1dd574e77',
   // Approved post-deadline DeCA update and contextual albaranes link (2026-10-18).
-  'src/content/blog/que-es-deca-transporte.md': '2478d6fc883236484e72cac79bf0b2d6ccb17888',
+  // Enlace «nuevo DeCA 2026» hacia /deca-2026/ (autorizado el 27/11/2026, PR pendiente de revisión).
+  'src/content/blog/que-es-deca-transporte.md': '1f5401630729d2997d38e5054b596848103f2ad5',
   'src/content/blog/que-es-un-tms-transporte.md': '74eabeece27434e8d54021b8b5df61d96e8ecbba',
   'public/robots.txt': '24d9060d39b0a79c18a063ebd69240bda8f0ade9',
 };
