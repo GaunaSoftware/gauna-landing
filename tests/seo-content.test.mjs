@@ -180,3 +180,12 @@ test('AI article links into the product, the demo and the related guides', () =>
   }
   assert.match(source, /^category: "tecnologia"$/m);
 });
+
+test('DeCA 2026 page targets «nuevo deca 2026» and links to the DeCA software page', () => {
+  const page = read('src/pages/deca-2026/index.astro');
+  assert.match(page, /const pageTitle = 'Nuevo DeCA 2026: qué cambia el 5 de octubre y cómo prepararte \| TransGest';/);
+  assert.match(page, /Nuevo DeCA 2026:\s*<span class="text-teal-700">lo que cambia para el transporte<\/span>/);
+  const summary = page.slice(page.indexOf('id="resumen"'), page.indexOf('¿A quién afecta?'));
+  assert.match(summary, /<a href="\/software-deca\/"[^>]*>software DeCA<\/a>/);
+  assert.ok(read('src/content/blog/que-es-deca-transporte.md').includes('[nuevo DeCA 2026](/deca-2026/)'));
+});

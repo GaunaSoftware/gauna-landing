@@ -12,7 +12,7 @@ El **DeCA en transporte** es el **documento electrónico de control administrati
 
 Desde el **5 de octubre de 2026**, el documento de control administrativo exigible para el transporte público de mercancías por carretera **debe ser digital**. La prioridad actual es comprobar que cada servicio sujeto a esta obligación dispone del documento y que el conductor puede presentarlo durante el transporte.
 
-En esta guía resumimos qué significa esto en la práctica. Si buscas el detalle completo de la norma, puedes consultar nuestra [guía DeCA 2026](/deca-2026/). Si estás valorando una herramienta para gestionarlo, consulta también el enfoque de [software DeCA para transporte](/software-deca/).
+En esta guía resumimos qué significa esto en la práctica. Si buscas el detalle completo de la norma, puedes consultar nuestra guía del [nuevo DeCA 2026](/deca-2026/). Si estás valorando una herramienta para gestionarlo, consulta también el enfoque de [software DeCA para transporte](/software-deca/).
 
 ## ¿Qué significa DeCA?
 
